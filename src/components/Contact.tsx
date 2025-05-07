@@ -68,8 +68,8 @@ const Contact = () => {
                     <Mail className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
                     <div>
                       <h4 className="font-medium text-gray-800">Email</h4>
-                      <a href="mailto:contact@lilmod.fr" className="text-lilmod-blue hover:underline">
-                        contact@lilmod.fr
+                      <a href="mailto:aaronbotbol@gmail.com" className="text-lilmod-blue hover:underline">
+                        aaronbotbol@gmail.com
                       </a>
                     </div>
                   </div>
@@ -78,7 +78,9 @@ const Contact = () => {
                     <Phone className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
                     <div>
                       <h4 className="font-medium text-gray-800">Téléphone</h4>
-                      <p className="text-gray-600">+33 XX XX XX XX</p>
+                      <a href="tel:+972585766985" className="text-gray-600 hover:text-lilmod-blue">
+                        +972 585766985
+                      </a>
                     </div>
                   </div>
                   
@@ -86,7 +88,7 @@ const Contact = () => {
                     <MapPin className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
                     <div>
                       <h4 className="font-medium text-gray-800">Adresse</h4>
-                      <p className="text-gray-600">Paris, France</p>
+                      <p className="text-gray-600">54 King Georges Street, Jerusalem, Israel</p>
                     </div>
                   </div>
                 </div>
