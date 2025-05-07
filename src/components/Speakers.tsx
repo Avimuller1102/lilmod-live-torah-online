@@ -6,7 +6,7 @@ const speakersData = [
   {
     id: 1,
     name: "Rav Akerman",
-    image: "https://picsum.photos/id/1005/200/200",
+    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
     specialty: "Kol Ator et Morale de Guerre"
   },
   {
