@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +99,26 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-opensans;
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heebo font-semibold;
+  }
+}
+
+.content-section {
+  @apply py-16 px-4 md:px-8;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold text-lilmod-navy mb-8 text-center;
+}
+
+.video-card {
+  @apply transition-transform duration-300 hover:scale-105;
+}
+
+.teacher-card {
+  @apply transition-all duration-300 hover:shadow-lg;
 }
