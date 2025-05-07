@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const Footer = () => {
@@ -9,7 +8,14 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto py-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">LILMOD</h3>
+            <div className="flex items-center mb-4">
+              <img 
+                src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
+                alt="LILMOD Logo" 
+                className="h-12 w-auto"
+              />
+              <h3 className="ml-2 text-xl font-bold">LILMOD</h3>
+            </div>
             <p className="text-gray-300 mb-4">
               LILMOD by Torah Mitzion diffuse en LIVE depuis 2015, un message juif adapté à l'époque.
             </p>

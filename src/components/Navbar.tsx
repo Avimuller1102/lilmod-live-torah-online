@@ -16,8 +16,13 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-lilmod-blue">LILMOD</span>
-              <span className="ml-1 text-xs text-lilmod-gold pt-1">.fr</span>
+              <img 
+                src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
+                alt="LILMOD Logo" 
+                className="h-12 w-auto"
+              />
+              <span className="ml-2 text-2xl font-bold text-lilmod-blue hidden md:block">LILMOD</span>
+              <span className="hidden md:block ml-1 text-xs text-lilmod-gold pt-1">.fr</span>
             </a>
           </div>
           

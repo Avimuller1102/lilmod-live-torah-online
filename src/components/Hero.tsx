@@ -7,12 +7,21 @@ const Hero = () => {
     <div id="home" className="relative bg-lilmod-lightBlue">
       <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-8">
         <div className="lg:w-1/2 animate-fade-in">
-          <h1 className="text-4xl font-bold text-lilmod-navy sm:text-5xl md:text-6xl">
-            LILMOD<span className="text-lilmod-gold">.fr</span>
-          </h1>
-          <p className="mt-3 text-lg text-gray-600 sm:mt-5 sm:text-xl">
-            Cours Torah en direct depuis 2015
-          </p>
+          <div className="flex items-center mb-6">
+            <img 
+              src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
+              alt="LILMOD Logo" 
+              className="h-24 w-auto"
+            />
+            <div className="ml-4">
+              <h1 className="text-4xl font-bold text-lilmod-navy sm:text-5xl md:text-6xl">
+                LILMOD<span className="text-lilmod-gold">.fr</span>
+              </h1>
+              <p className="mt-1 text-lg text-gray-600">
+                Cours Torah en direct depuis 2015
+              </p>
+            </div>
+          </div>
           <p className="mt-3 max-w-md text-base text-gray-600 sm:text-lg md:mt-5 md:max-w-3xl">
             LILMOD diffuse en LIVE un message juif adapté à l'époque que nous vivons, celle du retour d'Israël sur sa terre.
           </p>
