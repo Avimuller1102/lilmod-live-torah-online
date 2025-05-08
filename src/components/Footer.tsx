@@ -45,7 +45,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-xl font-bold mb-4">Nos Partenaires</h3>
+            <h3 className="text-xl font-bold mb-4">Notre Partenaire</h3>
             <ul className="space-y-2">
               <li>
                 <a href="#" className="text-gray-300 hover:text-white transition-colors">Torah Mitzion</a>

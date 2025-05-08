@@ -80,14 +80,14 @@ const scheduleData = [
 
 const LiveSchedule = () => {
   return (
-    <section id="schedule" className="bg-lilmod-lightBlue py-16 px-4">
+    <section id="schedule" className="bg-gradient-to-br from-amber-50 to-amber-100 py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title">LES DIRECTS DE LA SEMAINE</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {scheduleData.map((daySchedule) => (
-            <Card key={daySchedule.day} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-lilmod-blue">
-              <div className="bg-lilmod-blue text-white py-3 px-4">
+            <Card key={daySchedule.day} className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-lilmod-gold">
+              <div className="bg-lilmod-gold text-white py-3 px-4">
                 <h3 className="font-bold text-xl">{daySchedule.day}</h3>
               </div>
               <CardContent className="pt-5">

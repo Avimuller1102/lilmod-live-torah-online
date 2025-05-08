@@ -2,15 +2,20 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Heart } from 'lucide-react';
+import { toast } from '@/hooks/use-toast';
 
 const Support = () => {
   const handleDonationClick = (amount: string) => {
     // Rediriger vers la page de don avec le montant pré-sélectionné
     window.open("https://www.jgive.com/new/en/usd/donation-targets/146180", "_blank");
+    toast({
+      title: "Merci pour votre soutien",
+      description: "Vous êtes redirigé vers notre page de dons sécurisée.",
+    });
   };
 
   return (
-    <section id="support" className="bg-lilmod-lightBlue py-16 px-4">
+    <section id="support" className="bg-gradient-to-br from-amber-50 to-amber-100 py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title">AIDER LILMOD</h2>
         
@@ -18,8 +23,8 @@ const Support = () => {
           <Card className="border-none shadow-lg overflow-hidden">
             <CardContent className="p-8">
               <div className="flex flex-col items-center text-center">
-                <div className="bg-lilmod-blue/10 p-4 rounded-full mb-6">
-                  <Heart className="w-12 h-12 text-lilmod-blue" />
+                <div className="bg-lilmod-gold/10 p-4 rounded-full mb-6">
+                  <Heart className="w-12 h-12 text-lilmod-gold" />
                 </div>
                 <h3 className="text-2xl font-bold text-lilmod-navy mb-4">Soutenez notre mission</h3>
                 <p className="text-gray-700 mb-8">

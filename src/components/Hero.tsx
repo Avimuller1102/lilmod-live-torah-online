@@ -11,11 +11,12 @@ const Hero = () => {
             <img 
               src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
               alt="LILMOD Logo" 
-              className="h-24 w-auto"
+              className="h-24 w-24 rounded-full object-cover border-2 border-lilmod-gold"
             />
             <div className="ml-4">
-              <h1 className="text-4xl font-bold text-lilmod-navy sm:text-5xl md:text-6xl">
-                LILMOD<span className="text-lilmod-gold pl-3">.fr</span>
+              <h1 className="text-4xl font-bold text-lilmod-navy sm:text-5xl md:text-6xl flex flex-col md:flex-row md:items-baseline">
+                <span>LILMOD</span>
+                <span className="text-lilmod-gold md:pl-3">.fr</span>
               </h1>
               <p className="mt-1 text-lg text-gray-700">
                 Cours Torah en direct depuis 2015
@@ -55,7 +56,7 @@ const Hero = () => {
                   <img 
                     src="/lovable-uploads/84063e78-f8c4-434a-a73b-dfecda974b75.png" 
                     alt="LILMOD Logo" 
-                    className="h-24 w-auto"
+                    className="h-24 w-24 rounded-full object-cover border-2 border-lilmod-gold"
                   />
                 </div>
               </div>
