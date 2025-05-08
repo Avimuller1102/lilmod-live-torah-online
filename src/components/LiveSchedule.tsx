@@ -5,6 +5,17 @@ import { Card, CardContent } from '@/components/ui/card';
 
 const scheduleData = [
   {
+    day: "Dimanche",
+    courses: [
+      {
+        time: "19:30",
+        title: "Cours de philosophie juive",
+        teacher: "Rav Botshko",
+        link: "#"
+      }
+    ]
+  },
+  {
     day: "Lundi",
     courses: [
       {

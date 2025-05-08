@@ -1,12 +1,62 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      // Simulation d'envoi d'email (à remplacer par un service réel d'envoi d'email)
+      // Par exemple, vous pourriez utiliser EmailJS, Formspree, ou un backend personnalisé
+      console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
+      
+      // Simulons un délai pour l'envoi
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      toast({
+        title: "Message envoyé!",
+        description: "Nous vous répondrons dans les plus brefs délais.",
+      });
+      
+      // Réinitialiser le formulaire
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+      toast({
+        title: "Erreur",
+        description: "Impossible d'envoyer votre message. Veuillez réessayer plus tard.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
@@ -17,19 +67,34 @@ const Contact = () => {
             <CardContent className="p-8">
               <h3 className="text-xl font-bold text-lilmod-navy mb-6">Envoyez-nous un message</h3>
               
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                       Nom complet
                     </label>
-                    <Input id="name" placeholder="Votre nom" className="w-full" />
+                    <Input 
+                      id="name" 
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Votre nom" 
+                      className="w-full"
+                      required
+                    />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                       Email
                     </label>
-                    <Input id="email" type="email" placeholder="votre@email.com" className="w-full" />
+                    <Input 
+                      id="email" 
+                      type="email" 
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="votre@email.com" 
+                      className="w-full"
+                      required
+                    />
                   </div>
                 </div>
                 
@@ -37,7 +102,14 @@ const Contact = () => {
                   <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
                     Sujet
                   </label>
-                  <Input id="subject" placeholder="Sujet de votre message" className="w-full" />
+                  <Input 
+                    id="subject" 
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Sujet de votre message" 
+                    className="w-full"
+                    required
+                  />
                 </div>
                 
                 <div className="mb-6">
@@ -46,13 +118,20 @@ const Contact = () => {
                   </label>
                   <Textarea 
                     id="message" 
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Votre message..." 
-                    className="w-full min-h-[150px]" 
+                    className="w-full min-h-[150px]"
+                    required
                   />
                 </div>
                 
-                <Button className="bg-lilmod-blue hover:bg-lilmod-navy text-white w-full">
-                  Envoyer le message
+                <Button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className="bg-lilmod-blue hover:bg-lilmod-navy text-white w-full"
+                >
+                  {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                 </Button>
               </form>
             </CardContent>

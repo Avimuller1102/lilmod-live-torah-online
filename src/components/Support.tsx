@@ -4,6 +4,11 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Heart } from 'lucide-react';
 
 const Support = () => {
+  const handleDonationClick = (amount: string) => {
+    // Rediriger vers la page de don avec le montant pré-sélectionné
+    window.open("https://www.jgive.com/new/en/usd/donation-targets/146180", "_blank");
+  };
+
   return (
     <section id="support" className="bg-lilmod-lightBlue py-16 px-4">
       <div className="max-w-7xl mx-auto">
@@ -22,20 +27,34 @@ const Support = () => {
                 </p>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full mb-8">
-                  <button className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors">
+                  <button 
+                    onClick={() => handleDonationClick("18")} 
+                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
+                  >
                     18€
                   </button>
-                  <button className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors">
+                  <button 
+                    onClick={() => handleDonationClick("50")} 
+                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
+                  >
                     50€
                   </button>
-                  <button className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors">
+                  <button 
+                    onClick={() => handleDonationClick("100")} 
+                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
+                  >
                     100€
                   </button>
                 </div>
                 
-                <button className="bg-lilmod-blue hover:bg-lilmod-navy text-white py-3 px-8 rounded-md font-medium transition-colors w-full sm:w-auto">
+                <a
+                  href="https://www.jgive.com/new/en/usd/donation-targets/146180"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-lilmod-blue hover:bg-lilmod-navy text-white py-3 px-8 rounded-md font-medium transition-colors w-full sm:w-auto inline-block text-center"
+                >
                   Faire un don
-                </button>
+                </a>
                 
                 <p className="mt-4 text-sm text-gray-500">
                   Les dons à LILMOD sont déductibles des impôts en France.
