@@ -27,16 +27,22 @@ const Contact = () => {
 
     try {
       // Simulation d'envoi d'email (à remplacer par un service réel d'envoi d'email)
-      // Par exemple, vous pourriez utiliser EmailJS, Formspree, ou un backend personnalisé
       console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
+      
+      // Ici, vous pourriez intégrer un service comme EmailJS, Formspree, ou un backend personnalisé
+      // Exemple avec EmailJS:
+      // await emailjs.send("service_id", "template_id", { ...formData, to_email: "aaronbotbol@gmail.com" });
       
       // Simulons un délai pour l'envoi
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       toast({
         title: "Message envoyé!",
-        description: "Nous vous répondrons dans les plus brefs délais.",
+        description: "Merci de nous avoir contacté. Nous vous répondrons dans les plus brefs délais.",
       });
+      
+      // Accusé de réception envoyé à l'utilisateur (dans une vraie implémentation)
+      console.log(`Accusé de réception envoyé à ${formData.email}`);
       
       // Réinitialiser le formulaire
       setFormData({

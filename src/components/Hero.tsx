@@ -63,7 +63,7 @@ const Hero = () => {
                   <img 
                     src="/lovable-uploads/84063e78-f8c4-434a-a73b-dfecda974b75.png" 
                     alt="LILMOD Logo" 
-                    className="h-24 w-24 rounded-full object-cover border-2 border-lilmod-gold"
+                    className="h-16 w-auto object-contain"
                   />
                 </div>
               </div>

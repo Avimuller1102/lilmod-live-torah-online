@@ -120,15 +120,20 @@
   a {
     @apply transition-colors duration-200;
   }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-lilmod-navy mb-8 text-center relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-[-0.5rem] left-1/2 transform -translate-x-1/2 w-16 h-1 bg-lilmod-gold rounded-full;
+  }
 }
 
 @layer utilities {
   .content-section {
     @apply py-16 px-4 md:px-8;
-  }
-  
-  .section-title {
-    @apply text-3xl md:text-4xl font-bold text-lilmod-navy mb-8 text-center;
   }
 
   /* Animations */
@@ -170,7 +175,7 @@
 }
 
 .video-card {
-  @apply transition-transform duration-300 hover:scale-105;
+  @apply transition-transform duration-300 hover:scale-105 shadow-md hover:shadow-xl;
 }
 
 .teacher-card {
@@ -204,6 +209,10 @@
   .content-section {
     @apply py-10 px-4;
   }
+  
+  .section-title::after {
+    @apply w-12;
+  }
 }
 
 /* Glassmorphism effects */
@@ -218,4 +227,41 @@
 /* Focus styles for better accessibility */
 *:focus-visible {
   @apply outline-none ring-2 ring-lilmod-blue ring-opacity-70;
+}
+
+/* Button styles */
+button, .button {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+button::after, .button::after {
+  content: '';
+  @apply absolute inset-0 scale-x-0 origin-right transition-transform duration-300 bg-white bg-opacity-10;
+}
+
+button:hover::after, .button:hover::after {
+  @apply scale-x-100 origin-left;
+}
+
+/* Card hover effects */
+.hover-card {
+  @apply transition-all duration-300;
+}
+
+.hover-card:hover {
+  @apply transform -translate-y-1 shadow-xl;
+}
+
+/* Typography improvements */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* Link styles */
+.link-underline {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-current after:transform after:scale-x-0 after:origin-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-left;
 }

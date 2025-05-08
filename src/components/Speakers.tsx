@@ -23,7 +23,7 @@ const speakersData = [
   {
     id: 3,
     name: "Rav Ben Ichay",
-    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
+    image: "/lovable-uploads/f5f960c5-eaca-4956-990a-e4037d7f1148.png",
     specialty: "Paracha de la semaine",
     bio: "Le Rav Ben Ichay est connu pour ses analyses profondes et pertinentes de la paracha de la semaine.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"

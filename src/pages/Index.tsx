@@ -12,6 +12,8 @@ import NewsletterSignup from '@/components/NewsletterSignup';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import LinkTreeButton from '@/components/LinkTreeButton';
+import NewsletterButton from '@/components/NewsletterButton';
 
 const Index = () => {
   return (
@@ -28,6 +30,8 @@ const Index = () => {
       <Contact />
       <Footer />
       <WhatsAppButton />
+      <LinkTreeButton />
+      <NewsletterButton />
     </div>
   );
 };
