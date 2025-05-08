@@ -8,6 +8,7 @@ import VideoGallery from '@/components/VideoGallery';
 import AudioLibrary from '@/components/AudioLibrary';
 import Speakers from '@/components/Speakers';
 import Support from '@/components/Support';
+import NewsletterSignup from '@/components/NewsletterSignup';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -22,6 +23,7 @@ const Index = () => {
       <VideoGallery />
       <AudioLibrary />
       <Speakers />
+      <NewsletterSignup />
       <Support />
       <Contact />
       <Footer />

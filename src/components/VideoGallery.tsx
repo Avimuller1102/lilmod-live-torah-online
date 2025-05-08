@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, Link } from 'lucide-react';
+import { Youtube, Link, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fetchLatestYouTubeVideos, YouTubeVideo } from '../services/youtubeService';
 
@@ -24,6 +24,15 @@ const VideoGallery = () => {
 
     getVideos();
   }, []);
+
+  // Fonction pour ouvrir la vidéo YouTube
+  const openYouTubeVideo = (video: YouTubeVideo) => {
+    if (video.url) {
+      window.open(video.url, '_blank');
+    } else {
+      window.open(`https://www.youtube.com/@Lilmodfr`, '_blank');
+    }
+  };
 
   return (
     <section id="videos" className="bg-white py-16 px-4">
@@ -57,9 +66,7 @@ const VideoGallery = () => {
                   className="text-red-600 hover:underline font-medium flex items-center"
                 >
                   Visiter la chaîne YouTube
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
+                  <ExternalLink className="h-4 w-4 ml-1" />
                 </a>
               </div>
             </div>
@@ -73,7 +80,11 @@ const VideoGallery = () => {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {videos.map((video) => (
-              <Card key={video.id} className="overflow-hidden video-card border-none shadow-md">
+              <Card 
+                key={video.id} 
+                className="overflow-hidden video-card border-none shadow-md cursor-pointer transform hover:scale-105 transition-all duration-300"
+                onClick={() => openYouTubeVideo(video)}
+              >
                 <div className="relative pb-[56.25%]">
                   <img 
                     src={video.thumbnail} 
@@ -81,7 +92,7 @@ const VideoGallery = () => {
                     className="absolute top-0 left-0 w-full h-full object-cover rounded-t-lg"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-lilmod-blue bg-opacity-80 flex items-center justify-center cursor-pointer hover:bg-opacity-100 transition-all">
+                    <div className="w-16 h-16 rounded-full bg-red-600 bg-opacity-80 flex items-center justify-center hover:bg-opacity-100 transition-all">
                       <div className="w-0 h-0 border-t-8 border-t-transparent border-l-16 border-l-white border-b-8 border-b-transparent ml-1"></div>
                     </div>
                   </div>

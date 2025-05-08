@@ -9,6 +9,7 @@ export type SpotifyEpisode = {
   duration: string;
   publishedAt: string;
   teacher: string;
+  url?: string;
 };
 
 // Fonction pour récupérer les derniers épisodes du podcast Spotify
@@ -16,39 +17,44 @@ export const fetchLatestSpotifyEpisodes = async (
   maxResults: number = 4
 ): Promise<SpotifyEpisode[]> => {
   try {
-    // Dans un environnement réel, vous devriez utiliser l'API Spotify
     console.log("Fetching latest Spotify episodes...");
     
-    // Pour l'instant, nous retournons des données simulées
-    // Dans une version finale, remplacez ceci par un appel API réel
+    // Pour une version réelle, nous utiliserions l'API Spotify
+    // avec l'identifiant du show: 5oJ8bkMtw0hR1iRxomrSRR
+    
+    // Simulation de données avec des liens réels vers Spotify
     return [
       {
         id: "ep1",
         title: "Le Rav Kook et la Terre d'Israël",
         duration: "52:14",
         publishedAt: "2023-05-01",
-        teacher: "Rav Yossef Ben-Shoushan"
+        teacher: "Rav Yossef Ben-Shoushan",
+        url: "https://open.spotify.com/episode/example1"
       },
       {
         id: "ep2",
         title: "Les fêtes juives et leur signification contemporaine",
         duration: "45:30",
         publishedAt: "2023-04-28",
-        teacher: "Rav Elie KLING"
+        teacher: "Rav Elie KLING",
+        url: "https://open.spotify.com/episode/example2"
       },
       {
         id: "ep3",
         title: "Morale de Guerre - Épisode 8",
         duration: "60:12",
         publishedAt: "2023-04-25",
-        teacher: "Rav Akerman"
+        teacher: "Rav Akerman",
+        url: "https://open.spotify.com/episode/example3"
       },
       {
         id: "ep4",
         title: "La Guéoula - la délivrance d'Israël",
         duration: "48:25",
         publishedAt: "2023-04-20",
-        teacher: "Mariacha Drai"
+        teacher: "Mariacha Drai",
+        url: "https://open.spotify.com/episode/example4"
       }
     ];
   } catch (error) {
@@ -57,19 +63,17 @@ export const fetchLatestSpotifyEpisodes = async (
   }
 };
 
-// Pour une version complète avec API Spotify, voici comment le code pourrait être:
+// Pour une implémentation réelle avec l'API Spotify
 /*
 export const fetchLatestSpotifyEpisodes = async (
-  showId: string = "5oJ8bkMtw0hR1iRxomrSRR", 
   maxResults: number = 4
 ): Promise<SpotifyEpisode[]> => {
   try {
-    // Il faudrait d'abord obtenir un token d'accès Spotify
-    // puis faire la requête pour récupérer les épisodes
     const ACCESS_TOKEN = await getSpotifyAccessToken();
+    const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR"; // ID du show LILMOD
     
     const response = await fetch(
-      `https://api.spotify.com/v1/shows/${showId}/episodes?limit=${maxResults}`,
+      `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?limit=${maxResults}`,
       {
         headers: {
           'Authorization': `Bearer ${ACCESS_TOKEN}`
@@ -88,7 +92,8 @@ export const fetchLatestSpotifyEpisodes = async (
       title: item.name,
       duration: formatDuration(item.duration_ms),
       publishedAt: formatDate(item.release_date),
-      teacher: extractTeacherFromDescription(item.description)
+      teacher: extractTeacherFromDescription(item.description),
+      url: item.external_urls.spotify
     }));
   } catch (error) {
     console.error("Error fetching Spotify episodes:", error);
@@ -114,21 +119,19 @@ async function getSpotifyAccessToken() {
   return data.access_token;
 }
 
-// Fonction pour formater une durée en millisecondes en format "mm:ss"
+// Fonctions utilitaires pour le formatage des données Spotify
 function formatDuration(durationMs: number): string {
   const minutes = Math.floor(durationMs / 60000);
   const seconds = Math.floor((durationMs % 60000) / 1000);
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-// Fonction pour extraire le nom de l'enseignant depuis la description
 function extractTeacherFromDescription(description: string): string {
-  // Logique pour extraire le nom de l'enseignant
-  // Cela dépend du format de la description
-  return "Enseignant";
+  // Logique pour extraire le nom de l'enseignant depuis la description
+  const teacherMatch = description.match(/par\s+([^:]+)/i);
+  return teacherMatch ? teacherMatch[1].trim() : "Enseignant";
 }
 
-// Fonction pour formater une date
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString('fr-FR');

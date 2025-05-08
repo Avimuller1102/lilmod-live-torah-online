@@ -33,22 +33,22 @@ const Support = () => {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full mb-8">
                   <button 
-                    onClick={() => handleDonationClick("18")} 
-                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
-                  >
-                    18€
-                  </button>
-                  <button 
-                    onClick={() => handleDonationClick("50")} 
-                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
-                  >
-                    50€
-                  </button>
-                  <button 
                     onClick={() => handleDonationClick("100")} 
                     className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
                   >
-                    100€
+                    100 ₪
+                  </button>
+                  <button 
+                    onClick={() => handleDonationClick("200")} 
+                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
+                  >
+                    200 ₪
+                  </button>
+                  <button 
+                    onClick={() => handleDonationClick("500")} 
+                    className="bg-lilmod-gold hover:bg-yellow-500 text-white py-3 px-6 rounded-md font-medium transition-colors"
+                  >
+                    500 ₪
                   </button>
                 </div>
                 
@@ -62,7 +62,7 @@ const Support = () => {
                 </a>
                 
                 <p className="mt-4 text-sm text-gray-500">
-                  Les dons à LILMOD sont déductibles des impôts en France.
+                  Les dons à LILMOD sont déductibles des impôts en Israël et en France.
                 </p>
               </div>
             </CardContent>

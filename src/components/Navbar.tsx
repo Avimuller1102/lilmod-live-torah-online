@@ -1,25 +1,44 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Link, Youtube, Instagram, Mail } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  // Effet pour détecter le défilement de la page
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
+    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
+      scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur-sm py-4'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
+        <div className="flex justify-between items-center">
           <div className="flex items-center">
             <a href="/" className="flex-shrink-0 flex items-center">
               <img 
                 src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
                 alt="LILMOD Logo" 
-                className="h-12 w-12 rounded-full border-2 border-lilmod-gold"
+                className="h-12 w-12 rounded-full border-2 border-lilmod-gold object-cover"
               />
               <div className="flex flex-col ml-2">
                 <div className="flex items-baseline">
@@ -30,19 +49,19 @@ const Navbar = () => {
             </a>
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Accueil</a>
-            <a href="#schedule" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Les directs de la semaine</a>
-            <a href="#videos" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Les cours en vidéos</a>
-            <a href="#audio" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Les cours audio</a>
-            <a href="#speakers" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Les intervenants</a>
-            <a href="#support" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Aider</a>
-            <a href="#contact" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors">Nous Contacter</a>
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+            <a href="#home" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Accueil</a>
+            <a href="#schedule" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Directs</a>
+            <a href="#videos" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Vidéos</a>
+            <a href="#audio" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Audio</a>
+            <a href="#speakers" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Intervenants</a>
+            <a href="#support" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Aider</a>
+            <a href="#contact" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Contact</a>
             <a 
               href="https://linktr.ee/lilmod.torahmitzion" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center text-lilmod-gold hover:text-lilmod-blue font-medium transition-colors bg-amber-50 px-3 py-1 rounded-md"
+              className="flex items-center text-lilmod-gold hover:text-lilmod-blue font-medium transition-colors bg-amber-50 px-3 py-1 rounded-md text-sm"
             >
               <Link className="w-4 h-4 mr-1" />
               <span>Tous nos liens</span>
@@ -51,7 +70,7 @@ const Navbar = () => {
               href="https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors"
+              className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors text-sm"
             >
               <Mail className="w-4 h-4 mr-1" />
               <span>Newsletter</span>
@@ -62,6 +81,7 @@ const Navbar = () => {
             <button 
               onClick={toggleMenu}
               className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              aria-label="Menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -177,7 +197,7 @@ const Navbar = () => {
         href="https://linktr.ee/lilmod.torahmitzion" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 bg-lilmod-gold hover:bg-amber-600 text-white p-3 rounded-full shadow-lg z-50 flex items-center justify-center"
+        className="fixed bottom-24 left-6 bg-lilmod-gold hover:bg-amber-600 text-white p-3 rounded-full shadow-lg z-50 flex items-center justify-center"
         aria-label="Tous nos liens"
       >
         <span className="mr-2 hidden sm:inline">📲 Tous nos liens</span>

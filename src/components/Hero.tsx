@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Calendar, Youtube } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -27,11 +28,17 @@ const Hero = () => {
             LILMOD diffuse en LIVE un message juif adapté à l'époque que nous vivons, celle du retour d'Israël sur sa terre.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button className="bg-lilmod-gold hover:bg-amber-700 text-white px-8 py-3 rounded-md text-base font-medium shadow-md">
-              <a href="#schedule">Voir les directs</a>
+            <Button asChild className="bg-lilmod-gold hover:bg-amber-700 text-white px-8 py-6 h-auto rounded-md text-base font-medium shadow-md">
+              <a href="#schedule" className="flex items-center">
+                <Calendar className="w-5 h-5 mr-2" />
+                Voir les directs
+              </a>
             </Button>
-            <Button variant="outline" className="border-lilmod-gold text-lilmod-navy hover:bg-amber-100 px-8 py-3 rounded-md text-base font-medium shadow-sm">
-              <a href="#videos">Découvrir les cours</a>
+            <Button asChild variant="outline" className="border-lilmod-gold text-lilmod-navy hover:bg-amber-100 px-8 py-6 h-auto rounded-md text-base font-medium shadow-sm">
+              <a href="#videos" className="flex items-center">
+                <Youtube className="w-5 h-5 mr-2" />
+                Découvrir les cours
+              </a>
             </Button>
           </div>
         </div>
@@ -41,7 +48,7 @@ const Hero = () => {
             <div className="absolute top-0 -right-4 w-72 h-72 bg-amber-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
             <div className="absolute -bottom-8 left-20 w-72 h-72 bg-lilmod-navy rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
             <div className="relative">
-              <div className="bg-white/80 backdrop-blur-sm rounded-lg shadow-lg p-6 md:p-10 border border-amber-200">
+              <div className="glass-effect rounded-lg p-6 md:p-10">
                 <h2 className="text-2xl font-bold text-lilmod-navy mb-4">Rejoindre notre communauté</h2>
                 <p className="text-gray-700 mb-6">Recevez le programme de la semaine directement sur WhatsApp</p>
                 <a 
@@ -52,7 +59,7 @@ const Hero = () => {
                 >
                   Rejoindre le groupe WhatsApp
                 </a>
-                <div className="mt-4 flex justify-center">
+                <div className="mt-6 flex justify-center">
                   <img 
                     src="/lovable-uploads/84063e78-f8c4-434a-a73b-dfecda974b75.png" 
                     alt="LILMOD Logo" 
@@ -64,6 +71,8 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      
+      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white to-transparent"></div>
     </div>
   );
 };
