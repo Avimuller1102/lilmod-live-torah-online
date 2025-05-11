@@ -26,12 +26,9 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulation d'envoi d'email (à remplacer par un service réel d'envoi d'email)
+      // Ici, nous intégrerions un service d'envoi de mail réel
+      // Simulation pour le moment
       console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
-      
-      // Ici, vous pourriez intégrer un service comme EmailJS, Formspree, ou un backend personnalisé
-      // Exemple avec EmailJS:
-      // await emailjs.send("service_id", "template_id", { ...formData, to_email: "aaronbotbol@gmail.com" });
       
       // Simulons un délai pour l'envoi
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -41,7 +38,7 @@ const Contact = () => {
         description: "Merci de nous avoir contacté. Nous vous répondrons dans les plus brefs délais.",
       });
       
-      // Accusé de réception envoyé à l'utilisateur (dans une vraie implémentation)
+      // Accusé de réception envoyé à l'utilisateur
       console.log(`Accusé de réception envoyé à ${formData.email}`);
       
       // Réinitialiser le formulaire
@@ -171,9 +168,9 @@ const Contact = () => {
                   
                   <div className="flex items-start">
                     <MapPin className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
-                    <div>
+                    <div className="flex-grow">
                       <h4 className="font-medium text-gray-800">Adresse</h4>
-                      <p className="text-gray-600">54 King Georges Street, Jerusalem, Israel</p>
+                      <p className="text-gray-600 break-words">54 King Georges Street, Jerusalem, Israel</p>
                     </div>
                   </div>
                 </div>

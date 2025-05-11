@@ -15,7 +15,7 @@ const speakersData = [
   {
     id: 2,
     name: "Ariel Assaf",
-    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
+    image: "/lovable-uploads/bd00c9d7-a9ab-4762-99be-29fe1439438c.png",
     specialty: "Histoire juive",
     bio: "Ariel Assaf est spécialisé dans l'histoire juive contemporaine et les relations entre Israël et la diaspora.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
@@ -31,7 +31,7 @@ const speakersData = [
   {
     id: 4,
     name: "Rav Ben Shoushan",
-    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
+    image: "/lovable-uploads/668de8bb-9dbe-4a6e-8bbd-f98d3c261605.png",
     specialty: "Études du Rav Kook",
     bio: "Le Rav Yossef Ben-Shoushan est un spécialiste des écrits du Rav Kook et de sa philosophie.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
@@ -39,7 +39,7 @@ const speakersData = [
   {
     id: 5,
     name: "Rav Botshko",
-    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
+    image: "/lovable-uploads/fa44d441-126a-4331-b3f7-5a90c18ed46f.png",
     specialty: "Philosophie juive",
     bio: "Le Rav Botshko est l'un des piliers de l'enseignement de la Torah en français en Israël.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
@@ -47,9 +47,41 @@ const speakersData = [
   {
     id: 6,
     name: "Rav Chouraqui",
-    image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
+    image: "/lovable-uploads/b73193cd-b448-4576-8e1f-dab9f685f980.png",
     specialty: "Talmud",
     bio: "Le Rav Chouraqui est un expert du Talmud et de son application dans la vie contemporaine.",
+    youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
+  },
+  {
+    id: 7,
+    name: "Rav Fizson",
+    image: "/lovable-uploads/f1e410b4-aba2-4928-8f2f-28a039869592.png",
+    specialty: "Étude des textes",
+    bio: "Le Rav Fizson se distingue par sa maîtrise des textes et son approche pédagogique.",
+    youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
+  },
+  {
+    id: 8,
+    name: "Georges Spira",
+    image: "/lovable-uploads/6dd77fab-b7e3-43f2-a533-73dd214c2c41.png",
+    specialty: "Philosophie et pensée juive",
+    bio: "Georges Spira partage sa profonde connaissance de la philosophie juive et son application dans la vie moderne.",
+    youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
+  },
+  {
+    id: 9,
+    name: "Rav Kling",
+    image: "/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png",
+    specialty: "Paracha et enseignement",
+    bio: "Le Rav Elie Kling offre des analyses profondes et accessibles sur la paracha et d'autres textes fondamentaux.",
+    youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
+  },
+  {
+    id: 10,
+    name: "Rav Shlomo Ouziel",
+    image: "/lovable-uploads/2a58f0c8-025e-4695-baa4-13b87253fd9e.png",
+    specialty: "Études talmudiques",
+    bio: "Le Rav Shlomo Ouziel est reconnu pour son expertise en études talmudiques et sa pédagogie claire.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
   }
 ];
@@ -130,11 +162,11 @@ const Speakers = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title">LES INTERVENANTS</h2>
         
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
           {speakersData.map((speaker) => (
             <Card 
               key={speaker.id} 
-              className="border-none shadow-md teacher-card overflow-hidden cursor-pointer"
+              className="border-none shadow-md teacher-card overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
               onClick={() => setSelectedSpeaker(speaker)}
             >
               <CardContent className="p-0">
