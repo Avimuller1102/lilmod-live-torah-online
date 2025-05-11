@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, Link, ExternalLink, Play, Calendar } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Youtube, ExternalLink, Play, Calendar } from 'lucide-react';
 import { fetchLatestYouTubeVideos, YouTubeVideo } from '../services/youtubeService';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -141,7 +140,7 @@ const VideoGallery = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center border border-lilmod-gold text-lilmod-gold hover:bg-lilmod-gold hover:text-white px-6 py-3 rounded-md font-medium transition-colors shadow-md hover:shadow-lg"
           >
-            <Link className="w-5 h-5 mr-2" />
+            <Play className="w-5 h-5 mr-2" />
             Tous nos liens
           </a>
         </div>

@@ -45,12 +45,21 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="text-xl font-bold mb-4">Notre Partenaire</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Torah Mitzion</a>
-              </li>
-            </ul>
+            <h3 className="text-xl font-bold mb-4">Nos Partenaires</h3>
+            <div className="flex flex-col space-y-3">
+              <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                <img src="/lovable-uploads/e1be4e3d-09cd-495d-82e1-76efbe37b316.png" alt="Manitou" className="h-6 mr-2" />
+                Manitou
+              </a>
+              <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                <img src="/lovable-uploads/9a5072e7-94de-4215-a3cd-fbd166896144.png" alt="Amounat Shlomo" className="h-6 mr-2" />
+                Amounat Shlomo
+              </a>
+              <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
+                <img src="/lovable-uploads/dd8e5170-d14c-486b-a439-362798fd70df.png" alt="HEUG" className="h-6 mr-2" />
+                HEUG
+              </a>
+            </div>
           </div>
           
           <div>
@@ -58,9 +67,6 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <a href="#home" className="text-gray-300 hover:text-white transition-colors">Accueil</a>
-              </li>
-              <li>
-                <a href="#schedule" className="text-gray-300 hover:text-white transition-colors">Les directs</a>
               </li>
               <li>
                 <a href="#videos" className="text-gray-300 hover:text-white transition-colors">Vidéos</a>
@@ -87,7 +93,15 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-10 flex justify-center">
+          <img 
+            src="/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png" 
+            alt="Décoration" 
+            className="h-10 opacity-50"
+          />
+        </div>
+        
+        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-400 text-sm">© {currentYear} LILMOD.fr - Tous droits réservés</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="text-gray-400 hover:text-white transition-colors text-sm">Mentions légales</a>

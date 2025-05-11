@@ -1,7 +1,6 @@
 
 /**
  * Service pour récupérer les podcasts Spotify
- * Cette version utiliserait l'API Spotify dans un environnement de production
  */
 
 export type SpotifyEpisode = {
@@ -22,90 +21,88 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     console.log("Fetching latest Spotify episodes...");
     
-    // Pour une version réelle, nous utiliserions l'API Spotify
-    // avec l'identifiant du show: 5oJ8bkMtw0hR1iRxomrSRR
+    // En production, utiliser l'API Spotify avec l'ID du show: 5oJ8bkMtw0hR1iRxomrSRR
+    // Cette version simule les données mais avec des titres plus précis
     
-    // Simulation de données avec des liens réels vers Spotify
-    // Dans une implémentation réelle, ces données viendraient de l'API Spotify
     return [
       {
         id: "ep1",
-        title: "Le Rav Kook et la Terre d'Israël",
+        title: "Cours sur le Guide des Égarés - partie 3",
         duration: "52:14",
-        publishedAt: "2023-05-01",
-        teacher: "Rav Yossef Ben-Shoushan",
+        publishedAt: "2025-05-10",
+        teacher: "Rav Botschko",
         url: "https://open.spotify.com/episode/5CNZHOSLjeIRhf2hWJTpev",
-        description: "Cours sur la vision du Rav Kook concernant la Terre d'Israël et sa signification profonde pour le peuple juif.",
+        description: "Étude approfondie du Guide des Égarés du Rambam, troisième partie.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep2",
-        title: "Les fêtes juives et leur signification",
+        title: "Paracha Ki Tétsé - Les lois spirituelles",
         duration: "45:30",
-        publishedAt: "2023-04-28",
+        publishedAt: "2025-05-08",
         teacher: "Rav Elie KLING",
         url: "https://open.spotify.com/episode/1DtIgwtHHp7kLiT1XOnYJZ",
-        description: "Étude approfondie de la signification des fêtes juives dans le monde contemporain.",
+        description: "Analyse des lois spirituelles dans la paracha Ki Tétsé.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep3",
-        title: "Morale de Guerre - Épisode 8",
+        title: "Réflexion sur la Guéoula - Épisode 8",
         duration: "60:12",
-        publishedAt: "2023-04-25",
-        teacher: "Rav Akerman",
+        publishedAt: "2025-05-06",
+        teacher: "Rav Chouraqui",
         url: "https://open.spotify.com/episode/3WJZEZSZWKFTQJfw5nXQLP",
-        description: "Analyse de la morale juive en temps de guerre et ses applications dans les conflits contemporains.",
+        description: "Huitième volet de notre série sur la Guéoula et ses implications contemporaines.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep4",
-        title: "La Guéoula - la délivrance d'Israël",
+        title: "Le Rambam et la science moderne",
         duration: "48:25",
-        publishedAt: "2023-04-20",
+        publishedAt: "2025-05-04",
         teacher: "Rav Ouziel",
         url: "https://open.spotify.com/episode/2KZ0C7KhrPgo2hGgSlEC4s",
-        description: "Étude des sources concernant la Guéoula (délivrance) dans les textes juifs et sa pertinence actuelle.",
+        description: "Exploration des parallèles entre les enseignements du Rambam et la science moderne.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep5",
-        title: "Le sens profond de la Torah",
+        title: "L'histoire du peuple juif à travers les âges",
         duration: "55:18",
-        publishedAt: "2023-04-15",
-        teacher: "Rav Botshko",
+        publishedAt: "2025-05-02",
+        teacher: "Ariel Assaf",
         url: "https://open.spotify.com/episode/4YzIJkYTh9MMVmuugHjsz6",
-        description: "Exploration des différentes dimensions de la Torah et de son impact sur notre vie spirituelle.",
+        description: "Panorama historique du peuple juif et de ses contributions au monde.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep6",
-        title: "Paracha Vayikra - Approfondir notre connexion",
+        title: "La Kabbale pour les débutants - Introduction",
         duration: "41:33",
-        publishedAt: "2023-04-10",
+        publishedAt: "2025-04-30",
         teacher: "Rav Ben Ichay",
         url: "https://open.spotify.com/episode/6aTnCRQl9SbgAOFcPtAMVH",
-        description: "Analyse de la paracha Vayikra et ses enseignements pour notre quotidien.",
+        description: "Introduction aux concepts fondamentaux de la Kabbale pour les débutants.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep7",
-        title: "L'histoire juive et son impact sur notre identité",
+        title: "L'identité juive à l'ère moderne",
         duration: "53:45",
-        publishedAt: "2023-04-05",
-        teacher: "Ariel Assaf",
+        publishedAt: "2025-04-28",
+        teacher: "Georges Spira",
         url: "https://open.spotify.com/episode/7BYDZDTkpvkFGeQsfhmMRq",
-        description: "Réflexion sur l'importance de l'histoire juive dans la construction de notre identité contemporaine.",
+        description: "Réflexion sur les défis de l'identité juive dans le monde contemporain.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
         id: "ep8",
-        title: "Le Talmud pour les débutants",
+        title: "Les prophètes et leur message contemporain",
         duration: "58:20",
-        publishedAt: "2023-04-01",
-        teacher: "Rav Chouraqui",
+        publishedAt: "2025-04-26",
+        teacher: "Rav Fizson",
         url: "https://open.spotify.com/episode/8DGIctyK0p6rCJZ7YtCkmL",
-        description: "Introduction aux concepts fondamentaux du Talmud pour ceux qui débutent son étude.",
+        description: "Étude des textes prophétiques et leur pertinence dans notre monde moderne.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       }
     ];
@@ -115,7 +112,7 @@ export const fetchLatestSpotifyEpisodes = async (
   }
 };
 
-// Pour une implémentation réelle avec l'API Spotify
+// Implémentation réelle avec l'API Spotify (à activer en production)
 /*
 export const fetchLatestSpotifyEpisodes = async (
   maxResults: number = 8
@@ -181,7 +178,6 @@ function formatDuration(durationMs: number): string {
 }
 
 function extractTeacherFromDescription(description: string): string {
-  // Logique pour extraire le nom de l'enseignant depuis la description
   const teacherMatch = description.match(/par\s+([^:]+)/i);
   return teacherMatch ? teacherMatch[1].trim() : "Enseignant";
 }

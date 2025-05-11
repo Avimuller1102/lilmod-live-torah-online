@@ -14,64 +14,73 @@ export type YouTubeVideo = {
 
 // Fonction pour récupérer les dernières vidéos de la chaîne YouTube
 export const fetchLatestYouTubeVideos = async (
-  maxResults: number = 6
+  maxResults: number = 7
 ): Promise<YouTubeVideo[]> => {
   try {
     console.log("Fetching latest YouTube videos...");
     
-    // Nous définissons ici les vidéos pour le moment, mais dans une version réelle,
-    // nous utiliserions l'API YouTube avec les identifiants suivants
+    // Dans une version réelle avec l'API YouTube, utiliser ce channelId
     const channelId = "UCPmcgKv8vaN9TR7uEGBLPgw"; // ID de la chaîne LILMOD
     
-    // Simulation de données avec des liens réels vers YouTube
+    // En production, il faudrait utiliser l'API YouTube pour obtenir les données en temps réel
+    // Cette version simule les données mais pourrait être remplacée par un appel API réel
+    
     return [
       {
         id: "video1",
-        title: "Paracha de la semaine- TAZRIA METSORA",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
-        publishedAt: "2023-05-02",
+        title: "La Paracha Bechala'h - Le récit de la mer",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-09",
         channelTitle: "Rav Ben Ichay",
         url: "https://www.youtube.com/watch?v=example1"
       },
       {
         id: "video2",
-        title: "Étude du Kol Ator du Gaon de Vilna",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png", 
-        publishedAt: "2023-04-28",
+        title: "Étude du Kol Hator du Gaon de Vilna",
+        thumbnail: "/placeholder.svg", 
+        publishedAt: "2025-05-08",
         channelTitle: "Rav Menahem Akerman",
         url: "https://www.youtube.com/watch?v=example2"
       },
       {
         id: "video3",
         title: "Ouverture midrashique sur Yom Hatsmaout",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
-        publishedAt: "2023-04-27",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-07",
         channelTitle: "Rav Elie KLING",
         url: "https://www.youtube.com/watch?v=example3"
       },
       {
         id: "video4",
-        title: "#israel #soldier #torah",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
-        publishedAt: "2023-04-25",
+        title: "La Torah et l'armée - Perspectives contemporaines",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-06",
         channelTitle: "Rav Avi Goldberg",
         url: "https://www.youtube.com/watch?v=example4"
       },
       {
         id: "video5",
-        title: "RELATIONS DISAPORA ET ISRAËL",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
-        publishedAt: "2023-04-24",
+        title: "RELATIONS DIASPORA ET ISRAËL",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-05",
         channelTitle: "Rav Saadia Morali",
         url: "https://www.youtube.com/watch?v=example5"
       },
       {
         id: "video6",
-        title: "Etude de texte du Rav Kook",
-        thumbnail: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png", 
-        publishedAt: "2023-04-24",
+        title: "Étude de texte du Rav Kook",
+        thumbnail: "/placeholder.svg", 
+        publishedAt: "2025-05-04",
         channelTitle: "Rav Yossef Ben-Shoushan",
         url: "https://www.youtube.com/watch?v=example6"
+      },
+      {
+        id: "video7",
+        title: "Le sens du calendrier juif",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-03",
+        channelTitle: "Ariel Assaf",
+        url: "https://www.youtube.com/watch?v=example7"
       }
     ];
   } catch (error) {
@@ -83,7 +92,7 @@ export const fetchLatestYouTubeVideos = async (
 // Pour une implémentation réelle avec l'API YouTube:
 /*
 export const fetchLatestYouTubeVideos = async (
-  maxResults: number = 6
+  maxResults: number = 7
 ): Promise<YouTubeVideo[]> => {
   try {
     const API_KEY = "YOUR_YOUTUBE_API_KEY";

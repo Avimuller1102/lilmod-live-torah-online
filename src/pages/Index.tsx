@@ -6,6 +6,7 @@ import About from '@/components/About';
 import VideoGallery from '@/components/VideoGallery';
 import AudioLibrary from '@/components/AudioLibrary';
 import Speakers from '@/components/Speakers';
+import Partners from '@/components/Partners';
 import Support from '@/components/Support';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import Contact from '@/components/Contact';
@@ -23,6 +24,7 @@ const Index = () => {
       <VideoGallery />
       <AudioLibrary />
       <Speakers />
+      <Partners />
       <NewsletterSignup />
       <Support />
       <Contact />

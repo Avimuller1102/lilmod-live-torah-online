@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -99,22 +98,27 @@
 
   h1, h2, h3, h4, h5, h6 {
     @apply font-heebo font-bold tracking-tight;
+    letter-spacing: -0.01em;
   }
   
   h1 {
     @apply text-4xl md:text-5xl lg:text-6xl;
+    line-height: 1.1;
   }
   
   h2 {
     @apply text-3xl md:text-4xl;
+    line-height: 1.2;
   }
   
   h3 {
     @apply text-2xl md:text-3xl;
+    line-height: 1.3;
   }
   
   h4 {
     @apply text-xl md:text-2xl;
+    line-height: 1.4;
   }
   
   a {
@@ -133,10 +137,13 @@
   /* Amélioration de la lisibilité des textes */
   p {
     @apply leading-relaxed text-balance;
+    line-height: 1.7;
+    margin-bottom: 1rem;
   }
 
   blockquote {
     @apply pl-4 border-l-4 border-lilmod-gold italic my-6 text-gray-700;
+    font-family: 'Georgia', serif;
   }
 }
 
@@ -155,12 +162,8 @@
   }
 
   @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   
   @keyframes slideIn {
@@ -202,6 +205,22 @@
 
   .glass-effect {
     @apply bg-white/80 backdrop-blur-sm border border-white/30 shadow-lg;
+  }
+  
+  .rich-text h2 {
+    @apply text-2xl font-bold mt-8 mb-4;
+  }
+  
+  .rich-text h3 {
+    @apply text-xl font-bold mt-6 mb-3;
+  }
+  
+  .rich-text ul {
+    @apply list-disc pl-5 my-4;
+  }
+  
+  .rich-text ol {
+    @apply list-decimal pl-5 my-4;
   }
 }
 
@@ -323,4 +342,47 @@ button:hover::after, .button:hover::after {
   .mobile-menu-closed {
     @apply translate-x-full;
   }
+}
+
+/* Button styles - améliorations */
+button, .button {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+button::after, .button::after {
+  content: '';
+  @apply absolute inset-0 scale-x-0 origin-right transition-transform duration-300 bg-white bg-opacity-10;
+}
+
+button:hover::after, .button:hover::after {
+  @apply scale-x-100 origin-left;
+}
+
+/* Card hover effects - améliorations */
+.hover-card {
+  @apply transition-all duration-300;
+}
+
+.hover-card:hover {
+  @apply transform -translate-y-1 shadow-xl;
+}
+
+/* Link styles - améliorations */
+.link-underline {
+  @apply relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-current after:transform after:scale-x-0 after:origin-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-left;
+}
+
+/* Améliorations pour les cards partenaires */
+.partner-card {
+  @apply bg-white p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-card img {
+  max-height: 80px;
+  max-width: 100%;
+  object-fit: contain;
 }
