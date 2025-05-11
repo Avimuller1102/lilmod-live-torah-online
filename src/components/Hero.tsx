@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Calendar, Youtube } from 'lucide-react';
+import { Youtube } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -28,12 +28,6 @@ const Hero = () => {
             LILMOD diffuse en LIVE un message juif adapté à l'époque que nous vivons, celle du retour d'Israël sur sa terre.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button asChild className="bg-lilmod-gold hover:bg-amber-700 text-white px-8 py-6 h-auto rounded-md text-base font-medium shadow-md">
-              <a href="#schedule" className="flex items-center">
-                <Calendar className="w-5 h-5 mr-2" />
-                Voir les directs
-              </a>
-            </Button>
             <Button asChild variant="outline" className="border-lilmod-gold text-lilmod-navy hover:bg-amber-100 px-8 py-6 h-auto rounded-md text-base font-medium shadow-sm">
               <a href="#videos" className="flex items-center">
                 <Youtube className="w-5 h-5 mr-2" />
