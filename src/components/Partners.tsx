@@ -11,7 +11,7 @@ const Partners = () => {
       url: "#"
     },
     {
-      id: 3,
+      id: 2,
       name: "HOUG",
       logo: "/lovable-uploads/dd8e5170-d14c-486b-a439-362798fd70df.png",
       url: "#"

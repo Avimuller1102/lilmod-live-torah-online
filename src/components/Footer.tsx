@@ -49,15 +49,11 @@ const Footer = () => {
             <div className="flex flex-col space-y-3">
               <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
                 <img src="/lovable-uploads/e1be4e3d-09cd-495d-82e1-76efbe37b316.png" alt="Manitou" className="h-6 mr-2" />
-                Manitou
+                Midreshet Yeouda-Manitou
               </a>
               <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
-                <img src="/lovable-uploads/9a5072e7-94de-4215-a3cd-fbd166896144.png" alt="Amounat Shlomo" className="h-6 mr-2" />
-                Amounat Shlomo
-              </a>
-              <a href="#" className="text-gray-300 hover:text-white transition-colors flex items-center">
-                <img src="/lovable-uploads/dd8e5170-d14c-486b-a439-362798fd70df.png" alt="HEUG" className="h-6 mr-2" />
-                HEUG
+                <img src="/lovable-uploads/dd8e5170-d14c-486b-a439-362798fd70df.png" alt="HOUG" className="h-6 mr-2" />
+                HOUG
               </a>
             </div>
           </div>
