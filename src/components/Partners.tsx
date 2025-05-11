@@ -6,19 +6,13 @@ const Partners = () => {
   const partners = [
     {
       id: 1,
-      name: "Manitou",
+      name: "Midreshet Yeouda-Manitou",
       logo: "/lovable-uploads/e1be4e3d-09cd-495d-82e1-76efbe37b316.png",
       url: "#"
     },
     {
-      id: 2,
-      name: "Amounat Shlomo Yerushalayim",
-      logo: "/lovable-uploads/9a5072e7-94de-4215-a3cd-fbd166896144.png",
-      url: "#"
-    },
-    {
       id: 3,
-      name: "HEUG",
+      name: "HOUG",
       logo: "/lovable-uploads/dd8e5170-d14c-486b-a439-362798fd70df.png",
       url: "#"
     }
@@ -29,7 +23,7 @@ const Partners = () => {
       <div className="max-w-7xl mx-auto">
         <h2 className="section-title mb-12">NOS PARTENAIRES</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center justify-items-center">
           {partners.map((partner) => (
             <a 
               key={partner.id}

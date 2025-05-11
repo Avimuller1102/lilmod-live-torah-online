@@ -21,6 +21,7 @@ export const fetchLatestYouTubeVideos = async (
     
     // Dans une version réelle avec l'API YouTube, utiliser ce channelId
     const channelId = "UCPmcgKv8vaN9TR7uEGBLPgw"; // ID de la chaîne LILMOD
+    const channelUrl = "https://www.youtube.com/@Lilmodfr/videos";
     
     // En production, il faudrait utiliser l'API YouTube pour obtenir les données en temps réel
     // Cette version simule les données mais pourrait être remplacée par un appel API réel
@@ -32,7 +33,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-09",
         channelTitle: "Rav Ben Ichay",
-        url: "https://www.youtube.com/watch?v=example1"
+        url: channelUrl
       },
       {
         id: "video2",
@@ -40,7 +41,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg", 
         publishedAt: "2025-05-08",
         channelTitle: "Rav Menahem Akerman",
-        url: "https://www.youtube.com/watch?v=example2"
+        url: channelUrl
       },
       {
         id: "video3",
@@ -48,7 +49,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-07",
         channelTitle: "Rav Elie KLING",
-        url: "https://www.youtube.com/watch?v=example3"
+        url: channelUrl
       },
       {
         id: "video4",
@@ -56,7 +57,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-06",
         channelTitle: "Rav Avi Goldberg",
-        url: "https://www.youtube.com/watch?v=example4"
+        url: channelUrl
       },
       {
         id: "video5",
@@ -64,7 +65,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-05",
         channelTitle: "Rav Saadia Morali",
-        url: "https://www.youtube.com/watch?v=example5"
+        url: channelUrl
       },
       {
         id: "video6",
@@ -72,7 +73,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg", 
         publishedAt: "2025-05-04",
         channelTitle: "Rav Yossef Ben-Shoushan",
-        url: "https://www.youtube.com/watch?v=example6"
+        url: channelUrl
       },
       {
         id: "video7",
@@ -80,7 +81,7 @@ export const fetchLatestYouTubeVideos = async (
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-03",
         channelTitle: "Ariel Assaf",
-        url: "https://www.youtube.com/watch?v=example7"
+        url: channelUrl
       }
     ];
   } catch (error) {
@@ -97,6 +98,7 @@ export const fetchLatestYouTubeVideos = async (
   try {
     const API_KEY = "YOUR_YOUTUBE_API_KEY";
     const CHANNEL_ID = "UCPmcgKv8vaN9TR7uEGBLPgw"; // ID chaîne LILMOD
+    const channelUrl = "https://www.youtube.com/@Lilmodfr/videos";
     
     const response = await fetch(
       `https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${CHANNEL_ID}&maxResults=${maxResults}&order=date&type=video&key=${API_KEY}`
@@ -114,7 +116,7 @@ export const fetchLatestYouTubeVideos = async (
       thumbnail: item.snippet.thumbnails.high.url,
       publishedAt: item.snippet.publishedAt,
       channelTitle: item.snippet.channelTitle,
-      url: `https://www.youtube.com/watch?v=${item.id.videoId}`
+      url: channelUrl // Rediriger vers la page principale de la chaîne
     }));
   } catch (error) {
     console.error("Error fetching YouTube videos:", error);

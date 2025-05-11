@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -26,8 +26,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Ici, nous intégrerions un service d'envoi de mail réel
-      // Simulation pour le moment
+      // Ici, nous enverrions le message à aaronbotbol@gmail.com
       console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
       
       // Simulons un délai pour l'envoi
@@ -150,7 +149,7 @@ const Contact = () => {
                     <Mail className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
                     <div>
                       <h4 className="font-medium text-gray-800">Email</h4>
-                      <a href="mailto:aaronbotbol@gmail.com" className="text-lilmod-blue hover:underline">
+                      <a href="mailto:aaronbotbol@gmail.com" className="text-lilmod-blue hover:underline break-all">
                         aaronbotbol@gmail.com
                       </a>
                     </div>
@@ -168,7 +167,7 @@ const Contact = () => {
                   
                   <div className="flex items-start">
                     <MapPin className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
-                    <div className="flex-grow">
+                    <div>
                       <h4 className="font-medium text-gray-800">Adresse</h4>
                       <p className="text-gray-600 break-words">54 King Georges Street, Jerusalem, Israel</p>
                     </div>

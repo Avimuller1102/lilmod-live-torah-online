@@ -21,6 +21,8 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     console.log("Fetching latest Spotify episodes...");
     
+    const showUrl = "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR";
+    
     // En production, utiliser l'API Spotify avec l'ID du show: 5oJ8bkMtw0hR1iRxomrSRR
     // Cette version simule les données mais avec des titres plus précis
     
@@ -31,7 +33,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "52:14",
         publishedAt: "2025-05-10",
         teacher: "Rav Botschko",
-        url: "https://open.spotify.com/episode/5CNZHOSLjeIRhf2hWJTpev",
+        url: showUrl,
         description: "Étude approfondie du Guide des Égarés du Rambam, troisième partie.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -41,7 +43,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "45:30",
         publishedAt: "2025-05-08",
         teacher: "Rav Elie KLING",
-        url: "https://open.spotify.com/episode/1DtIgwtHHp7kLiT1XOnYJZ",
+        url: showUrl,
         description: "Analyse des lois spirituelles dans la paracha Ki Tétsé.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -51,7 +53,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "60:12",
         publishedAt: "2025-05-06",
         teacher: "Rav Chouraqui",
-        url: "https://open.spotify.com/episode/3WJZEZSZWKFTQJfw5nXQLP",
+        url: showUrl,
         description: "Huitième volet de notre série sur la Guéoula et ses implications contemporaines.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -61,7 +63,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "48:25",
         publishedAt: "2025-05-04",
         teacher: "Rav Ouziel",
-        url: "https://open.spotify.com/episode/2KZ0C7KhrPgo2hGgSlEC4s",
+        url: showUrl,
         description: "Exploration des parallèles entre les enseignements du Rambam et la science moderne.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -71,7 +73,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "55:18",
         publishedAt: "2025-05-02",
         teacher: "Ariel Assaf",
-        url: "https://open.spotify.com/episode/4YzIJkYTh9MMVmuugHjsz6",
+        url: showUrl,
         description: "Panorama historique du peuple juif et de ses contributions au monde.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -81,7 +83,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "41:33",
         publishedAt: "2025-04-30",
         teacher: "Rav Ben Ichay",
-        url: "https://open.spotify.com/episode/6aTnCRQl9SbgAOFcPtAMVH",
+        url: showUrl,
         description: "Introduction aux concepts fondamentaux de la Kabbale pour les débutants.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -91,7 +93,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "53:45",
         publishedAt: "2025-04-28",
         teacher: "Georges Spira",
-        url: "https://open.spotify.com/episode/7BYDZDTkpvkFGeQsfhmMRq",
+        url: showUrl,
         description: "Réflexion sur les défis de l'identité juive dans le monde contemporain.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
@@ -101,7 +103,7 @@ export const fetchLatestSpotifyEpisodes = async (
         duration: "58:20",
         publishedAt: "2025-04-26",
         teacher: "Rav Fizson",
-        url: "https://open.spotify.com/episode/8DGIctyK0p6rCJZ7YtCkmL",
+        url: showUrl,
         description: "Étude des textes prophétiques et leur pertinence dans notre monde moderne.",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       }
@@ -120,6 +122,7 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     const ACCESS_TOKEN = await getSpotifyAccessToken();
     const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR"; // ID du show LILMOD
+    const showUrl = "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR";
     
     const response = await fetch(
       `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?limit=${maxResults}`,
@@ -142,7 +145,7 @@ export const fetchLatestSpotifyEpisodes = async (
       duration: formatDuration(item.duration_ms),
       publishedAt: formatDate(item.release_date),
       teacher: extractTeacherFromDescription(item.description),
-      url: item.external_urls.spotify,
+      url: showUrl, // Rediriger vers la page principale du podcast
       description: item.description,
       imageUrl: item.images[0]?.url
     }));

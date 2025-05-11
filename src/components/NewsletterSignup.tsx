@@ -7,14 +7,46 @@ import { toast } from '@/hooks/use-toast';
 const NewsletterSignup = () => {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    // Dans une implémentation réelle, on enverrait les données à un service d'e-mailing
-    // Pour l'instant, on redirige simplement vers la page d'inscription
-    window.open('https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod', '_blank');
+    const form = e.target as HTMLFormElement;
+    const emailInput = form.querySelector('#email') as HTMLInputElement;
+    const email = emailInput.value;
+    
+    // Extraction du prénom et du nom à partir de l'adresse e-mail
+    let firstName = "Abonné";
+    let lastName = "";
+    
+    if (email.includes('@')) {
+      const localPart = email.split('@')[0];
+      
+      // Essayer de déduire prénom et nom si le format est prénom.nom@domaine.com ou prénom_nom@domaine.com
+      if (localPart.includes('.')) {
+        const parts = localPart.split('.');
+        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+        if (parts.length > 1) {
+          lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+        }
+      } else if (localPart.includes('_')) {
+        const parts = localPart.split('_');
+        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+        if (parts.length > 1) {
+          lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+        }
+      }
+    }
+    
+    // Construction de l'URL avec les paramètres
+    const mailchimpUrl = `https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod?EMAIL=${encodeURIComponent(email)}&FNAME=${encodeURIComponent(firstName)}&LNAME=${encodeURIComponent(lastName)}&PHONE=0000000000`;
+    
+    // Redirection vers Mailchimp
+    window.open(mailchimpUrl, '_blank');
     
     toast({
       title: "Merci pour votre inscription",
       description: "Vous allez être redirigé vers notre page d'inscription à la newsletter.",
     });
+    
+    // Réinitialiser le formulaire
+    form.reset();
   };
 
   return (
