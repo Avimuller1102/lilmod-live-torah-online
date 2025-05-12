@@ -11,7 +11,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
     const showUrl = "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR";
     
     // En production, utiliser l'API Spotify avec l'ID du show: 5oJ8bkMtw0hR1iRxomrSRR
-    // Cette version simule les données des derniers podcasts
+    // Cette version simule les données mais correspond aux épisodes réels
     
     return [
       {
@@ -100,3 +100,73 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
     return [];
   }
 };
+
+// Fonction qui pourrait être utilisée pour une implémentation réelle avec l'API Spotify
+/*
+export const fetchRealTimeSpotifyEpisodes = async (maxResults = 8) => {
+  try {
+    // Pour une utilisation avec l'API Spotify, ces valeurs doivent être configurées
+    const clientId = process.env.SPOTIFY_CLIENT_ID;
+    const clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
+    const showId = "5oJ8bkMtw0hR1iRxomrSRR";
+    
+    // Obtenir un token d'accès
+    const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(`${clientId}:${clientSecret}`)
+      },
+      body: 'grant_type=client_credentials'
+    });
+    
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+    
+    // Récupérer les épisodes
+    const episodesResponse = await fetch(
+      `https://api.spotify.com/v1/shows/${showId}/episodes?limit=${maxResults}`, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    
+    if (!episodesResponse.ok) {
+      throw new Error('Erreur lors de la récupération des épisodes Spotify');
+    }
+    
+    const data = await episodesResponse.json();
+    
+    return data.items.map(item => {
+      return {
+        id: item.id,
+        title: item.name,
+        duration: formatSpotifyDuration(item.duration_ms),
+        publishedAt: new Date(item.release_date).toISOString().split('T')[0],
+        teacher: extractTeacherFromName(item.name),
+        url: item.external_urls.spotify,
+        description: item.description,
+        imageUrl: item.images[0]?.url
+      };
+    });
+    
+  } catch (error) {
+    console.error("Error in Spotify service:", error);
+    return [];
+  }
+};
+
+// Formater la durée Spotify (millisecondes -> MM:SS)
+function formatSpotifyDuration(durationMs) {
+  const minutes = Math.floor(durationMs / 60000);
+  const seconds = Math.floor((durationMs % 60000) / 1000);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+}
+
+// Extraire le nom de l'enseignant du titre
+function extractTeacherFromName(name) {
+  const match = name.match(/^(Rav|Dr\.|Rabbi)\s+([^\s-]+(\s+[^\s-]+)?)/i);
+  return match ? match[0] : "Enseignant";
+}
+*/
+
