@@ -141,9 +141,7 @@ const Contact = () => {
           
           <div className="flex flex-col gap-6">
             <Card className="border-none shadow-lg overflow-hidden flex-1">
-              <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-lilmod-navy mb-6">Coordonnées</h3>
-                
+              <CardContent>
                 <div className="space-y-6">
                   <div className="flex items-start">
                     <Mail className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />
