@@ -4,9 +4,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { ContactAddress } from './ContactAddress'; // Import the new component
+import { ContactAddress } from './ContactAddress'; // Import du nouveau composant
 
 const Contact = () => {
   const { toast } = useToast();
@@ -63,12 +63,12 @@ const Contact = () => {
   return (
     <section id="contact" className="bg-white py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="section-title">NOUS CONTACTER</h2>
+        <h2 className="section-title font-playfair text-2xl font-bold text-lilmod-navy mb-10">NOUS CONTACTER</h2>
         
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="border-none shadow-lg overflow-hidden">
             <CardContent className="p-8">
-              <h3 className="text-xl font-bold text-lilmod-navy mb-6">Envoyez-nous un message</h3>
+              <h3 className="text-xl font-bold text-lilmod-navy mb-6 font-serif">Envoyez-nous un message</h3>
               
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
@@ -132,7 +132,7 @@ const Contact = () => {
                 <Button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="bg-lilmod-blue hover:bg-lilmod-navy text-white w-full"
+                  className="bg-lilmod-blue hover:bg-lilmod-navy text-white w-full font-sans"
                 >
                   {isSubmitting ? "Envoi en cours..." : "Envoyer le message"}
                 </Button>
@@ -143,7 +143,7 @@ const Contact = () => {
           <div className="flex flex-col gap-6">
             <Card className="border-none shadow-lg overflow-hidden flex-1">
               <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-lilmod-navy mb-6">Coordonnées</h3>
+                <h3 className="text-xl font-bold text-lilmod-navy mb-6 font-serif">Coordonnées</h3>
                 
                 <div className="space-y-6">
                   <div className="flex items-start">
@@ -173,9 +173,9 @@ const Contact = () => {
             
             <Card className="border-none shadow-lg overflow-hidden flex-1">
               <CardContent className="p-8">
-                <h3 className="text-xl font-bold text-lilmod-navy mb-6">Rejoignez notre communauté</h3>
+                <h3 className="text-xl font-bold text-lilmod-navy mb-6 font-serif">Rejoignez notre communauté</h3>
                 
-                <p className="text-gray-700 mb-6">
+                <p className="text-gray-700 mb-6 font-sans">
                   Recevez nos actualités et le programme des prochains cours directement sur WhatsApp.
                 </p>
                 
@@ -183,7 +183,7 @@ const Contact = () => {
                   href="https://chat.whatsapp.com/KR5PN77WbfvDb4zFgBu3Cl" 
                   target="_blank"
                   rel="noopener noreferrer" 
-                  className="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full"
+                  className="inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors w-full font-sans"
                 >
                   Rejoindre le groupe WhatsApp
                 </a>

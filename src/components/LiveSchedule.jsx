@@ -108,13 +108,13 @@ const LiveSchedule = () => {
   return (
     <section id="schedule" className="bg-gradient-to-br from-amber-50 to-amber-100 py-16 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="section-title">LES DIRECTS DE LA SEMAINE</h2>
+        <h2 className="section-title font-playfair text-2xl font-bold text-lilmod-navy mb-8">LES DIRECTS DE LA SEMAINE</h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {scheduleData.map((daySchedule) => (
             <Card key={daySchedule.day} className={`overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 ${daySchedule.day === "Shabbat" || daySchedule.courses.length === 0 ? 'border-gray-300' : 'border-lilmod-gold'}`}>
               <div className={`py-3 px-4 ${daySchedule.day === "Shabbat" || daySchedule.courses.length === 0 ? 'bg-gray-200' : 'bg-lilmod-gold'} text-white`}>
-                <h3 className="font-bold text-xl">{daySchedule.day}</h3>
+                <h3 className="font-bold text-xl font-sans">{daySchedule.day}</h3>
               </div>
               <CardContent className="pt-5">
                 {daySchedule.courses.length > 0 ? (
@@ -124,8 +124,8 @@ const LiveSchedule = () => {
                         <Calendar size={16} className="mr-2" />
                         <span className="font-semibold">{course.time}</span>
                       </div>
-                      <h4 className="font-bold text-lg text-lilmod-navy">{course.title}</h4>
-                      <p className="text-gray-600 mb-2">{course.teacher}</p>
+                      <h4 className="font-bold text-lg text-lilmod-navy font-sans">{course.title}</h4>
+                      <p className="text-gray-600 mb-2 font-sans">{course.teacher}</p>
                       <div className="flex flex-wrap gap-2 mt-3">
                         <a 
                           href={course.link} 
@@ -153,7 +153,7 @@ const LiveSchedule = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="py-6 text-center text-gray-500">
+                  <div className="py-6 text-center text-gray-500 font-sans">
                     <p>Pas de cours programmés</p>
                   </div>
                 )}
@@ -167,7 +167,7 @@ const LiveSchedule = () => {
             href="https://chat.whatsapp.com/KR5PN77WbfvDb4zFgBu3Cl"
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition-colors"
+            className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-md font-medium transition-colors font-sans"
           >
             Recevoir le programme complet via WhatsApp
           </a>
