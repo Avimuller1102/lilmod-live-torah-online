@@ -29,10 +29,10 @@ const VideoGallery = () => {
 
     getVideos();
     
-    // Actualiser les vidéos toutes les 6 heures
+    // Actualiser les vidéos toutes les heures
     const refreshInterval = setInterval(() => {
       getVideos();
-    }, 6 * 60 * 60 * 1000);
+    }, 60 * 60 * 1000);
     
     return () => clearInterval(refreshInterval);
   }, [toast]);
@@ -47,7 +47,7 @@ const VideoGallery = () => {
   };
 
   return (
-    <section id="videos" className="bg-white py-16 px-4">
+    <section id="videos" className="bg-gradient-to-br from-white to-amber-50 py-16 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="mb-12 flex flex-col md:flex-row items-center justify-between">
           <h2 className="text-3xl md:text-4xl font-semibold text-lilmod-navy mb-4 md:mb-0 font-serif">NOS DERNIÈRES VIDÉOS</h2>
@@ -66,7 +66,7 @@ const VideoGallery = () => {
           </div>
         </div>
         
-        <div className="bg-red-50 border-l-4 border-red-500 p-4 mb-8 rounded-r shadow-sm">
+        <div className="bg-white/80 border-l-4 border-red-500 p-4 mb-8 rounded-r shadow-sm">
           <div className="flex items-start">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-red-600 mt-1 mr-3">
               <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
@@ -97,16 +97,16 @@ const VideoGallery = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-lilmod-blue"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {videos.map((video) => (
               <Card 
                 key={video.id} 
-                className="border border-gray-200 shadow-md hover:shadow-lg cursor-pointer transform hover:scale-102 transition-all duration-300"
+                className="border border-gray-200 bg-white/90 shadow-md hover:shadow-lg cursor-pointer transform transition-all duration-300 hover:translate-y-[-2px]"
                 onClick={() => openYouTubeVideo(video)}
               >
                 <CardContent className="p-6">
                   <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mr-4 flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mr-4 flex-shrink-0 shadow-md">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
                         <path d="M8 5v14l11-7z" />
                       </svg>
@@ -118,8 +118,8 @@ const VideoGallery = () => {
                   
                   <div className="flex items-center justify-between mt-4 text-sm">
                     <span className="text-gray-600 font-sans">{video.channelTitle}</span>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-lilmod-gold bg-yellow-50 px-2 py-1 rounded-md">{video.duration || "---"}</span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-lilmod-gold bg-amber-50 px-2 py-1 rounded-md font-medium">{video.duration}</span>
                       <span className="text-gray-500">{new Date(video.publishedAt).toLocaleDateString('fr-FR')}</span>
                     </div>
                   </div>
@@ -153,7 +153,7 @@ const VideoGallery = () => {
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center border border-lilmod-gold text-lilmod-gold hover:bg-lilmod-gold hover:text-white px-6 py-3 rounded-md font-medium transition-colors shadow-md hover:shadow-lg font-sans w-full sm:w-auto"
+            className="inline-flex items-center justify-center border border-lilmod-gold bg-amber-50 hover:bg-lilmod-gold hover:text-white text-lilmod-gold px-6 py-3 rounded-md font-medium transition-colors shadow-md hover:shadow-lg font-sans w-full sm:w-auto"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 mr-2">
               <path d="M8 5v14l11-7z" />
