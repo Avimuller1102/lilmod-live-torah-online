@@ -35,23 +35,23 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(to right, #c8a849, #f5d379);
+  background: linear-gradient(to right, #d9bc6b, #f7e08c);
 }
 
 .bg-lilmod-gold {
-  background-color: #e9bc4f;
+  background-color: #d9bc6b;
 }
 
 .text-lilmod-gold {
-  color: #e9bc4f;
+  color: #d9bc6b;
 }
 
 .border-lilmod-gold {
-  border-color: #e9bc4f;
+  border-color: #d9bc6b;
 }
 
 .hover\:bg-lilmod-gold:hover {
-  background-color: #e9bc4f;
+  background-color: #d9bc6b;
 }
 
 .bg-lilmod-navy {
@@ -135,5 +135,62 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-gradient-gold {
-  background: linear-gradient(90deg, #e9bc4f 0%, #f5d379 100%);
+  background: linear-gradient(90deg, #d9bc6b 0%, #f7e08c 100%);
+}
+
+/* Animations supplémentaires */
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Dégradés stylisés pour les cartes et sections */
+.card-gradient {
+  background: linear-gradient(to right, #ffffff, #f8f9fa);
+}
+
+.section-gradient-blue {
+  background: linear-gradient(135deg, #e9f2ff 0%, #ffffff 100%);
+}
+
+.section-gradient-gold {
+  background: linear-gradient(135deg, #fff7e0 0%, #ffffff 100%);
+}
+
+/* Styles supplémentaires inspirés de israeltorah.com */
+.banner-gradient {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.text-shadow {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.divider-line {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #d9bc6b, transparent);
+  margin: 2rem auto;
+  width: 80%;
+  max-width: 200px;
+}
+
+/* Améliorations supplémentaires */
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.section-padding {
+  padding: 4rem 0;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 2.5rem 0;
+  }
 }

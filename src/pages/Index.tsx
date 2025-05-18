@@ -14,13 +14,17 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import LinkTreeButton from '@/components/LinkTreeButton';
 import NewsletterButton from '@/components/NewsletterButton';
+import Stats from '@/components/Stats';
+import ShabbatTimes from '@/components/ShabbatTimes';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
       <Hero />
+      <ShabbatTimes />
       <About />
+      <Stats />
       <VideoGallery />
       <AudioLibrary />
       <Speakers />

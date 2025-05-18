@@ -51,7 +51,6 @@ const Navbar = () => {
           
           <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
             <a href="#home" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Accueil</a>
-            <a href="#schedule" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Directs</a>
             <a href="#videos" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Vidéos</a>
             <a href="#audio" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Audio</a>
             <a href="#speakers" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Intervenants</a>
@@ -98,13 +97,6 @@ const Navbar = () => {
               onClick={toggleMenu}
             >
               Accueil
-            </a>
-            <a 
-              href="#schedule" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Les directs de la semaine
             </a>
             <a 
               href="#videos" 

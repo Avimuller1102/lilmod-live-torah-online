@@ -21,7 +21,7 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     console.log("Fetching latest Spotify episodes...");
     
-    // Les données sont basées sur les épisodes réels du podcast LILMOD sur Spotify au 18/05/2025
+    // Les données sont basées sur les épisodes réels du podcast LILMOD sur Spotify
     // Les liens de partage sont des liens directs vers chaque épisode
     
     return [
@@ -111,79 +111,3 @@ export const fetchLatestSpotifyEpisodes = async (
     return [];
   }
 };
-
-// Implémentation réelle avec l'API Spotify (à activer en production)
-/*
-export const fetchLatestSpotifyEpisodes = async (
-  maxResults: number = 8
-): Promise<SpotifyEpisode[]> => {
-  try {
-    const ACCESS_TOKEN = await getSpotifyAccessToken();
-    const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR"; // ID du show LILMOD
-    
-    const response = await fetch(
-      `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?limit=${maxResults}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${ACCESS_TOKEN}`
-        }
-      }
-    );
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch Spotify data');
-    }
-    
-    const data = await response.json();
-    
-    return data.items.map((item: any) => ({
-      id: item.id,
-      title: item.name,
-      duration: formatDuration(item.duration_ms),
-      publishedAt: formatDate(item.release_date),
-      teacher: extractTeacherFromDescription(item.description || item.name),
-      url: item.external_urls.spotify,
-      description: item.description,
-      imageUrl: item.images[0]?.url
-    }));
-  } catch (error) {
-    console.error("Error fetching Spotify episodes:", error);
-    return [];
-  }
-};
-
-// Fonction pour obtenir un token d'accès Spotify
-async function getSpotifyAccessToken(): Promise<string> {
-  const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-  const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-  
-  const response = await fetch('https://accounts.spotify.com/api/token', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Basic ' + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)
-    },
-    body: 'grant_type=client_credentials'
-  });
-  
-  const data = await response.json();
-  return data.access_token;
-}
-
-// Fonctions utilitaires pour le formatage des données Spotify
-function formatDuration(durationMs: number): string {
-  const minutes = Math.floor(durationMs / 60000);
-  const seconds = Math.floor((durationMs % 60000) / 1000);
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
-}
-
-function extractTeacherFromDescription(text: string): string {
-  const teacherMatch = text.match(/^(Rav|Dr\.|Rabbi)\s+([^\s-]+(\s+[^\s-]+)?)/i);
-  return teacherMatch ? teacherMatch[0] : "Enseignant";
-}
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  return date.toISOString().split('T')[0];
-}
-*/
