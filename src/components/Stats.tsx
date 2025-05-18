@@ -4,10 +4,13 @@ import { Youtube, Users, Globe, Book, User } from 'lucide-react';
 
 const Stats = () => {
   return (
-    <section className="py-16 bg-gradient-to-br from-white to-amber-50 px-4">
+    <section id="stats" className="py-16 bg-gradient-to-br from-white to-amber-50 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-lilmod-navy mb-12 section-title">
-          LILMOD en chiffres
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-lilmod-navy mb-12">
+          <span className="relative">
+            LILMOD en chiffres
+            <span className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-amber-300 to-lilmod-gold"></span>
+          </span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8">
