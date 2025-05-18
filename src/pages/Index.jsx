@@ -14,7 +14,6 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import LinkTreeButton from '@/components/LinkTreeButton';
 import NewsletterButton from '@/components/NewsletterButton';
-import LiveSchedule from '@/components/LiveSchedule';
 
 const Index = () => {
   return (
@@ -24,7 +23,6 @@ const Index = () => {
       <About />
       <VideoGallery />
       <AudioLibrary />
-      <LiveSchedule />
       <Speakers />
       <Partners />
       <NewsletterSignup />

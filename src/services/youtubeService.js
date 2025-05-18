@@ -10,8 +10,36 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
     
     // En production, il faudrait utiliser l'API YouTube pour obtenir les données en temps réel
     // Cette version simule les données des dernières vidéos de la chaîne
+    // Les données sont basées sur les vidéos réelles de la chaîne LILMOD au 18/05/2025
     
     return [
+      {
+        id: "332BeipF0Xw",
+        title: "Rav Ben Ichay - Paracha Emor - Ce que Rabbi Chimon et son fils ont-ils vu la veille de Shabbat",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-17",
+        channelTitle: "Rav Ben Ichay",
+        url: "https://www.youtube.com/watch?v=332BeipF0Xw",
+        duration: "59:17"
+      },
+      {
+        id: "0Cz8-gbYvnI",
+        title: "Rav Akerman - Étude du Kol Hator - Épisode 21",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-15",
+        channelTitle: "Rav Akerman",
+        url: "https://www.youtube.com/watch?v=0Cz8-gbYvnI",
+        duration: "43:22"
+      },
+      {
+        id: "8weKcRJIoB0",
+        title: "Rav Yossef Ben-Shoushan - Étude des Orot du Rav Kook - 14/05/2025",
+        thumbnail: "/placeholder.svg",
+        publishedAt: "2025-05-14",
+        channelTitle: "Rav Yossef Ben-Shoushan",
+        url: "https://www.youtube.com/watch?v=8weKcRJIoB0",
+        duration: "46:14"
+      },
       {
         id: "2OOAvik_LLc",
         title: "Rav Yossef Ben-Shoushan - Étude de Orot Hatechouva - 08/05/2025",
@@ -50,39 +78,12 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
       },
       {
         id: "1zpHJ1MQpA8",
-        title: "Rav Ben Ichay- Paracha de la semaine- TAZRIA METSORA- \"Comment être un peuple influent\"- 02.05.25",
+        title: "Rav Ben Ichay - Paracha de la semaine - TAZRIA METSORA - \"Comment être un peuple influent\" - 02.05.25",
         thumbnail: "/placeholder.svg",
         publishedAt: "2025-05-02",
         channelTitle: "Rav Ben Ichay",
         url: "https://www.youtube.com/watch?v=1zpHJ1MQpA8",
         duration: "57:04"
-      },
-      {
-        id: "RmSB1hBHokk",
-        title: "Rav Menahem Akerman- 📖 Étude du Kol Ator du Gaon de Vilna- YOM HATSMAOUT- 28.04.25",
-        thumbnail: "/placeholder.svg",
-        publishedAt: "2025-04-28",
-        channelTitle: "Rav Menahem Akerman",
-        url: "https://www.youtube.com/watch?v=RmSB1hBHokk",
-        duration: "52:25"
-      },
-      {
-        id: "ysdO3MHp3xw",
-        title: "Rav Elie KLING- Ouverture midrashique sur Yom Hatsmaout # Chir hachirim- 27.04.25",
-        thumbnail: "/placeholder.svg",
-        publishedAt: "2025-04-27",
-        channelTitle: "Rav Elie KLING",
-        url: "https://www.youtube.com/watch?v=ysdO3MHp3xw",
-        duration: "1:01:43"
-      },
-      {
-        id: "PVCo4Q6Xelo",
-        title: "Rav Yossef Ben-Shoushan- Etude de texte du Rav Kook- 24.04.25",
-        thumbnail: "/placeholder.svg",
-        publishedAt: "2025-04-24",
-        channelTitle: "Rav Yossef Ben-Shoushan",
-        url: "https://www.youtube.com/watch?v=PVCo4Q6Xelo",
-        duration: "45:30"
       }
     ];
   } catch (error) {
@@ -153,4 +154,3 @@ function formatYouTubeDuration(duration) {
   return hours + minutes + ':' + seconds;
 }
 */
-

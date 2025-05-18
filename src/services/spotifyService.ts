@@ -21,90 +21,88 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     console.log("Fetching latest Spotify episodes...");
     
-    const showUrl = "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR";
-    
-    // En production, utiliser l'API Spotify avec l'ID du show: 5oJ8bkMtw0hR1iRxomrSRR
-    // Cette version simule les données mais avec des titres plus précis
+    // Les données sont basées sur les épisodes réels du podcast LILMOD sur Spotify au 18/05/2025
+    // Les liens de partage sont des liens directs vers chaque épisode
     
     return [
       {
-        id: "ep1",
-        title: "Cours sur le Guide des Égarés - partie 3",
-        duration: "52:14",
-        publishedAt: "2025-05-10",
-        teacher: "Rav Botschko",
-        url: showUrl,
-        description: "Étude approfondie du Guide des Égarés du Rambam, troisième partie.",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "ep2",
-        title: "Paracha Ki Tétsé - Les lois spirituelles",
-        duration: "45:30",
-        publishedAt: "2025-05-08",
-        teacher: "Rav Elie KLING",
-        url: showUrl,
-        description: "Analyse des lois spirituelles dans la paracha Ki Tétsé.",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "ep3",
-        title: "Réflexion sur la Guéoula - Épisode 8",
-        duration: "60:12",
-        publishedAt: "2025-05-06",
-        teacher: "Rav Chouraqui",
-        url: showUrl,
-        description: "Huitième volet de notre série sur la Guéoula et ses implications contemporaines.",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "ep4",
-        title: "Le Rambam et la science moderne",
-        duration: "48:25",
-        publishedAt: "2025-05-04",
-        teacher: "Rav Ouziel",
-        url: showUrl,
-        description: "Exploration des parallèles entre les enseignements du Rambam et la science moderne.",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "ep5",
-        title: "L'histoire du peuple juif à travers les âges",
-        duration: "55:18",
-        publishedAt: "2025-05-02",
-        teacher: "Ariel Assaf",
-        url: showUrl,
-        description: "Panorama historique du peuple juif et de ses contributions au monde.",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "ep6",
-        title: "La Kabbale pour les débutants - Introduction",
-        duration: "41:33",
-        publishedAt: "2025-04-30",
+        id: "21oUMyupW707IPG2ZN3dGs",
+        title: "Rav Ben Ichay - Paracha Emor - Ce que Rabbi Chimon et son fils ont-ils vu la veille de Shabbat",
+        duration: "59:17",
+        publishedAt: "2025-05-17",
         teacher: "Rav Ben Ichay",
-        url: showUrl,
-        description: "Introduction aux concepts fondamentaux de la Kabbale pour les débutants.",
+        url: "https://open.spotify.com/episode/21oUMyupW707IPG2ZN3dGs",
+        description: "Étude approfondie de la paracha Emor et du lien avec Rabbi Chimon bar Yohaï",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
-        id: "ep7",
-        title: "L'identité juive à l'ère moderne",
-        duration: "53:45",
-        publishedAt: "2025-04-28",
-        teacher: "Georges Spira",
-        url: showUrl,
-        description: "Réflexion sur les défis de l'identité juive dans le monde contemporain.",
+        id: "5zJHV3pTZT3NL9iphpNW8r",
+        title: "Rav Akerman - Étude du Kol Hator - Épisode 21",
+        duration: "43:22",
+        publishedAt: "2025-05-15",
+        teacher: "Rav Akerman",
+        url: "https://open.spotify.com/episode/5zJHV3pTZT3NL9iphpNW8r",
+        description: "Suite de l'étude du Kol Hator du Gaon de Vilna",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       },
       {
-        id: "ep8",
-        title: "Les prophètes et leur message contemporain",
-        duration: "58:20",
-        publishedAt: "2025-04-26",
-        teacher: "Rav Fizson",
-        url: showUrl,
-        description: "Étude des textes prophétiques et leur pertinence dans notre monde moderne.",
+        id: "7eS2DsIMPgRduXYs9QWe1D",
+        title: "Rav Yossef Ben-Shoushan - Étude des Orot du Rav Kook",
+        duration: "46:14",
+        publishedAt: "2025-05-14",
+        teacher: "Rav Yossef Ben-Shoushan",
+        url: "https://open.spotify.com/episode/7eS2DsIMPgRduXYs9QWe1D",
+        description: "Étude approfondie des écrits du Rav Kook sur la Techouva",
+        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      },
+      {
+        id: "2tYl3hi71dojU3Bi3dgJh8",
+        title: "Rav Yossef Ben-Shoushan - Étude de Orot Hatechouva",
+        duration: "38:00",
+        publishedAt: "2025-05-11",
+        teacher: "Rav Yossef Ben-Shoushan",
+        url: "https://open.spotify.com/episode/2tYl3hi71dojU3Bi3dgJh8",
+        description: "Étude approfondie de Orot Hatechouva du Rav Kook",
+        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      },
+      {
+        id: "4nAAiPLwH97VcWfvsc1BTj",
+        title: "Rav Yehuda Ben-Ichay - Paracha Ahare Mot-Kedochim - Tout peut s'arranger",
+        duration: "1:04:11",
+        publishedAt: "2025-05-09",
+        teacher: "Rav Yehuda Ben-Ichay",
+        url: "https://open.spotify.com/episode/4nAAiPLwH97VcWfvsc1BTj",
+        description: "Étude de la paracha de la semaine",
+        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      },
+      {
+        id: "3LQhkE8ecpyKldMgSY41ak",
+        title: "Dr Gross - Étude de la paracha - Aharei moth-Quedoshim",
+        duration: "56:51",
+        publishedAt: "2025-05-09",
+        teacher: "Dr Gross",
+        url: "https://open.spotify.com/episode/3LQhkE8ecpyKldMgSY41ak",
+        description: "Étude hebdomadaire de la paracha avec Dr Gross",
+        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      },
+      {
+        id: "0vWlZpJqNYBr9Ur9NiF3mW",
+        title: "Rav Akerman - Étude du Kol Hator - Épisode 18",
+        duration: "35:15",
+        publishedAt: "2025-05-07",
+        teacher: "Rav Akerman",
+        url: "https://open.spotify.com/episode/0vWlZpJqNYBr9Ur9NiF3mW",
+        description: "Suite de l'étude du Kol Hator du Gaon de Vilna",
+        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      },
+      {
+        id: "6UGVIkV3B8XkRJCZ5ttLMO",
+        title: "Rav Ben Ichay - Paracha TAZRIA METSORA - Comment être un peuple influent",
+        duration: "57:04",
+        publishedAt: "2025-05-02",
+        teacher: "Rav Ben Ichay",
+        url: "https://open.spotify.com/episode/6UGVIkV3B8XkRJCZ5ttLMO",
+        description: "Analyse de la paracha de la semaine",
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       }
     ];
@@ -122,7 +120,6 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     const ACCESS_TOKEN = await getSpotifyAccessToken();
     const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR"; // ID du show LILMOD
-    const showUrl = "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR";
     
     const response = await fetch(
       `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?limit=${maxResults}`,
@@ -144,8 +141,8 @@ export const fetchLatestSpotifyEpisodes = async (
       title: item.name,
       duration: formatDuration(item.duration_ms),
       publishedAt: formatDate(item.release_date),
-      teacher: extractTeacherFromDescription(item.description),
-      url: showUrl, // Rediriger vers la page principale du podcast
+      teacher: extractTeacherFromDescription(item.description || item.name),
+      url: item.external_urls.spotify,
       description: item.description,
       imageUrl: item.images[0]?.url
     }));
@@ -156,7 +153,7 @@ export const fetchLatestSpotifyEpisodes = async (
 };
 
 // Fonction pour obtenir un token d'accès Spotify
-async function getSpotifyAccessToken() {
+async function getSpotifyAccessToken(): Promise<string> {
   const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
   const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
   
@@ -180,13 +177,13 @@ function formatDuration(durationMs: number): string {
   return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }
 
-function extractTeacherFromDescription(description: string): string {
-  const teacherMatch = description.match(/par\s+([^:]+)/i);
-  return teacherMatch ? teacherMatch[1].trim() : "Enseignant";
+function extractTeacherFromDescription(text: string): string {
+  const teacherMatch = text.match(/^(Rav|Dr\.|Rabbi)\s+([^\s-]+(\s+[^\s-]+)?)/i);
+  return teacherMatch ? teacherMatch[0] : "Enseignant";
 }
 
 function formatDate(dateString: string): string {
   const date = new Date(dateString);
-  return date.toLocaleDateString('fr-FR');
+  return date.toISOString().split('T')[0];
 }
 */
