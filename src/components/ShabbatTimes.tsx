@@ -12,28 +12,99 @@ interface ShabbatInfo {
   havdalah: string;
 }
 
+type CityOption = 'paris' | 'lyon' | 'marseille' | 'nice' | 'jerusalem' | 'ashdod' | 'telaviv' | 'netanya' | 'toulouse';
+
 const ShabbatTimes = () => {
-  const [location, setLocation] = useState<'paris' | 'jerusalem'>('paris');
+  const [location, setLocation] = useState<CityOption>('paris');
   
-  // Ces informations devraient être récupérées via une API en production
-  const shabbatData: Record<string, ShabbatInfo> = {
+  // Ces informations seraient récupérées dynamiquement via une API en production
+  // Actuellement, données statiques correspondant à la semaine du 23 Mai 2025
+  const shabbatData: Record<CityOption, ShabbatInfo> = {
     paris: {
-      date: 'Vendredi 16 Mai 2025',
-      hebrewDate: '18 Iyar 5785',
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
       paracha: 'Behar-Bechukotai',
-      candles: '20:54',
-      havdalah: '22:16'
+      candles: '21:13',
+      havdalah: '22:33'
+    },
+    lyon: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '20:58',
+      havdalah: '22:15'
+    },
+    marseille: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '20:46',
+      havdalah: '22:00'
+    },
+    nice: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '20:40',
+      havdalah: '21:53'
     },
     jerusalem: {
-      date: 'Vendredi 16 Mai 2025',
-      hebrewDate: '18 Iyar 5785',
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
       paracha: 'Behar-Bechukotai',
-      candles: '18:54',
-      havdalah: '20:16'
+      candles: '19:01',
+      havdalah: '20:20'
+    },
+    ashdod: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '19:14',
+      havdalah: '20:18'
+    },
+    telaviv: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '19:16',
+      havdalah: '20:20'
+    },
+    netanya: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '19:15',
+      havdalah: '20:19'
+    },
+    toulouse: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '21:08',
+      havdalah: '22:21'
     }
   };
   
   const currentShabbat = shabbatData[location];
+  
+  // Groupement des villes par pays pour l'affichage
+  const frenchCities: CityOption[] = ['paris', 'lyon', 'marseille', 'nice', 'toulouse'];
+  const israelCities: CityOption[] = ['jerusalem', 'ashdod', 'telaviv', 'netanya'];
+  
+  const getCityLabel = (city: CityOption): string => {
+    const labels: Record<CityOption, string> = {
+      paris: 'Paris',
+      lyon: 'Lyon',
+      marseille: 'Marseille',
+      nice: 'Nice',
+      jerusalem: 'Jérusalem',
+      ashdod: 'Ashdod',
+      telaviv: 'Tel-Aviv',
+      netanya: 'Netanya',
+      toulouse: 'Toulouse'
+    };
+    return labels[city];
+  };
   
   return (
     <section className="py-12 px-4 bg-gradient-to-r from-amber-50 to-white">
@@ -48,21 +119,32 @@ const ShabbatTimes = () => {
         
         <Card className="overflow-hidden border-none shadow-lg bg-white">
           <div className="bg-gradient-to-r from-lilmod-navy to-lilmod-blue p-4">
-            <div className="flex justify-center space-x-4">
-              <Button 
-                variant={location === 'paris' ? "default" : "outline"} 
-                onClick={() => setLocation('paris')}
-                className={`${location === 'paris' ? 'bg-white text-lilmod-navy' : 'bg-transparent text-white border-white'}`}
-              >
-                France
-              </Button>
-              <Button 
-                variant={location === 'jerusalem' ? "default" : "outline"} 
-                onClick={() => setLocation('jerusalem')}
-                className={`${location === 'jerusalem' ? 'bg-white text-lilmod-navy' : 'bg-transparent text-white border-white'}`}
-              >
-                Jerusalem
-              </Button>
+            <div className="flex flex-wrap justify-center gap-2">
+              <div className="mb-2 w-full text-center text-white font-semibold">France</div>
+              {frenchCities.map(city => (
+                <Button 
+                  key={city}
+                  variant={location === city ? "default" : "outline"} 
+                  onClick={() => setLocation(city)}
+                  className={`${location === city ? 'bg-white text-lilmod-navy' : 'bg-transparent text-white border-white'} text-xs md:text-sm`}
+                  size="sm"
+                >
+                  {getCityLabel(city)}
+                </Button>
+              ))}
+              
+              <div className="mt-3 mb-2 w-full text-center text-white font-semibold">Israël</div>
+              {israelCities.map(city => (
+                <Button 
+                  key={city}
+                  variant={location === city ? "default" : "outline"} 
+                  onClick={() => setLocation(city)}
+                  className={`${location === city ? 'bg-white text-lilmod-navy' : 'bg-transparent text-white border-white'} text-xs md:text-sm`}
+                  size="sm"
+                >
+                  {getCityLabel(city)}
+                </Button>
+              ))}
             </div>
           </div>
           
@@ -81,20 +163,6 @@ const ShabbatTimes = () => {
                   <p className="text-gray-600">Havdala</p>
                   <p className="text-2xl font-bold text-lilmod-navy">{currentShabbat.havdalah}</p>
                 </div>
-              </div>
-              
-              <div className="flex justify-center mt-4">
-                <a 
-                  href="https://www.torah-box.com/calendrier/chabbat/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:underline text-sm inline-flex items-center"
-                >
-                  Voir plus de villes
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                </a>
               </div>
             </div>
           </CardContent>

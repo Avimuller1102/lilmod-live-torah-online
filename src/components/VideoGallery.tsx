@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, ExternalLink, Play, Calendar } from 'lucide-react';
+import { Youtube, ExternalLink, Play, Calendar, Clock } from 'lucide-react';
 import { fetchLatestYouTubeVideos, YouTubeVideo } from '../services/youtubeService';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -29,6 +29,13 @@ const VideoGallery = () => {
     };
 
     getVideos();
+    
+    // Actualiser les vidéos toutes les heures
+    const refreshInterval = setInterval(() => {
+      getVideos();
+    }, 60 * 60 * 1000);
+    
+    return () => clearInterval(refreshInterval);
   }, [toast]);
 
   // Fonction pour ouvrir la vidéo YouTube
@@ -36,7 +43,7 @@ const VideoGallery = () => {
     if (video.url) {
       window.open(video.url, '_blank');
     } else {
-      window.open(`https://www.youtube.com/@Lilmodfr`, '_blank');
+      window.open(`https://www.youtube.com/watch?v=${video.id}`, '_blank');
     }
   };
 
@@ -45,14 +52,19 @@ const VideoGallery = () => {
       <div className="max-w-7xl mx-auto">
         <div className="mb-10 flex flex-col md:flex-row items-center justify-between">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-lilmod-navy mb-2 section-title">NOS DERNIÈRES VIDÉOS</h2>
-            <p className="text-gray-600 max-w-xl">Retrouvez nos cours en vidéo et restez à jour avec les nouveaux enseignements</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-lilmod-navy mb-2">
+              <span className="relative">
+                NOS DERNIÈRES VIDÉOS
+                <span className="absolute -bottom-2 left-0 w-24 h-1 bg-gradient-to-r from-red-500 to-red-400"></span>
+              </span>
+            </h2>
+            <p className="text-gray-600 max-w-xl mt-2">Retrouvez nos cours en vidéo et restez à jour avec les nouveaux enseignements</p>
           </div>
           <a 
             href="https://www.youtube.com/@Lilmodfr" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="mt-4 md:mt-0 inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg text-base font-medium transition-colors shadow-md hover:shadow-lg"
+            className="mt-6 md:mt-0 inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-lg transition-colors shadow-md hover:shadow-lg"
           >
             <Youtube className="w-5 h-5 mr-2" />
             Notre chaîne YouTube
@@ -116,8 +128,11 @@ const VideoGallery = () => {
                     </div>
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-3">
-                    <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-medium">
-                      {video.duration}
+                    <div className="flex items-center space-x-2">
+                      <div className="bg-red-600 text-white px-2 py-1 rounded text-xs font-medium flex items-center">
+                        <Clock className="w-3 h-3 mr-1" />
+                        {video.duration}
+                      </div>
                     </div>
                   </div>
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 bg-black/40 transition-opacity duration-300">

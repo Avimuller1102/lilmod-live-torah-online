@@ -23,10 +23,10 @@ const Index = () => {
       <Navbar />
       <Hero />
       <About />
-      <Stats />
       <ShabbatTimes />
       <VideoGallery />
       <AudioLibrary />
+      <Stats />
       <Speakers />
       <Partners />
       <NewsletterSignup />

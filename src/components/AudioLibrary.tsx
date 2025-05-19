@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { PlayCircle, ExternalLink, Info, Clock, Headphones } from 'lucide-react';
+import { ExternalLink, Clock, Headphones } from 'lucide-react';
 import { fetchLatestSpotifyEpisodes, SpotifyEpisode } from '../services/spotifyService';
 import { useToast } from '@/components/ui/use-toast';
 
@@ -29,6 +29,13 @@ const AudioLibrary = () => {
     };
 
     getEpisodes();
+    
+    // Actualiser les épisodes toutes les heures
+    const refreshInterval = setInterval(() => {
+      getEpisodes();
+    }, 60 * 60 * 1000);
+    
+    return () => clearInterval(refreshInterval);
   }, [toast]);
 
   // Fonction pour ouvrir l'épisode Spotify
@@ -45,14 +52,19 @@ const AudioLibrary = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-center justify-between mb-10">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">LES COURS AUDIO</h2>
-            <p className="text-gray-300 max-w-xl">Écoutez nos cours où que vous soyez sur Spotify</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              <span className="relative">
+                LES COURS AUDIO
+                <span className="absolute -bottom-2 left-0 w-24 h-1 bg-gradient-to-r from-green-400 to-green-500"></span>
+              </span>
+            </h2>
+            <p className="text-gray-300 max-w-xl mt-2">Écoutez nos cours où que vous soyez sur Spotify</p>
           </div>
           <a 
             href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="mt-4 md:mt-0 flex items-center text-white bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:translate-y-[-2px]"
+            className="mt-6 md:mt-0 flex items-center text-white bg-green-600 hover:bg-green-700 px-5 py-2.5 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:translate-y-[-2px]"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -104,13 +116,18 @@ const AudioLibrary = () => {
                 className="bg-white/10 backdrop-blur-lg border-none text-white hover:bg-white/15 transition-all duration-300 overflow-hidden cursor-pointer transform hover:translate-y-[-3px] hover:shadow-lg"
                 onClick={() => openSpotifyEpisode(episode)}
               >
-                <div className="h-3 bg-gradient-to-r from-green-600 to-green-400"></div>
+                <div className="h-2 bg-gradient-to-r from-green-600 to-green-400"></div>
                 <CardContent className="p-5">
                   <div className="mb-3 flex justify-between items-start">
                     <div className="bg-green-600/90 text-white rounded-full h-10 w-10 flex items-center justify-center shadow-sm">
-                      <PlayCircle className="w-5 h-5" />
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
                     </div>
-                    <span className="text-sm text-amber-400 font-medium">{episode.duration}</span>
+                    <span className="text-sm flex items-center text-amber-400 font-medium">
+                      <Clock className="w-3 h-3 mr-1" />
+                      {episode.duration}
+                    </span>
                   </div>
                   
                   <h3 className="font-bold text-lg text-white mb-2 line-clamp-2">{episode.title}</h3>

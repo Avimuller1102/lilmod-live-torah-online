@@ -19,7 +19,7 @@ const Stats = () => {
             <div className="w-14 h-14 bg-gradient-to-br from-lilmod-blue to-blue-400 rounded-full flex items-center justify-center mb-4">
               <Youtube className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-lilmod-navy">2 500+</div>
+            <div className="text-3xl font-bold text-lilmod-navy">+2 500</div>
             <p className="text-gray-600 text-center mt-2">Cours et rediffusions disponibles</p>
           </div>
 
@@ -28,7 +28,7 @@ const Stats = () => {
             <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-lilmod-gold rounded-full flex items-center justify-center mb-4">
               <User className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-lilmod-navy">40+</div>
+            <div className="text-3xl font-bold text-lilmod-navy">+20</div>
             <p className="text-gray-600 text-center mt-2">Intervenants réguliers</p>
           </div>
 
@@ -37,7 +37,7 @@ const Stats = () => {
             <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-400 rounded-full flex items-center justify-center mb-4">
               <Users className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-lilmod-navy">2 470+</div>
+            <div className="text-3xl font-bold text-lilmod-navy">+2 470</div>
             <p className="text-gray-600 text-center mt-2">Abonnés sur YouTube</p>
           </div>
 
@@ -55,7 +55,7 @@ const Stats = () => {
             <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-emerald-400 rounded-full flex items-center justify-center mb-4">
               <Book className="w-7 h-7 text-white" />
             </div>
-            <div className="text-3xl font-bold text-lilmod-navy">10 000+</div>
+            <div className="text-3xl font-bold text-lilmod-navy">+10 000</div>
             <p className="text-gray-600 text-center mt-2">Heures d'études de Torah</p>
           </div>
         </div>

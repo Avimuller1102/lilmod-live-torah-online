@@ -1,4 +1,8 @@
 
+/**
+ * Service pour récupérer les vidéos YouTube
+ */
+
 export type YouTubeVideo = {
   id: string;
   title: string;
@@ -10,18 +14,20 @@ export type YouTubeVideo = {
 };
 
 // Fonction pour récupérer les dernières vidéos de la chaîne YouTube
-export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<YouTubeVideo[]> => {
+export const fetchLatestYouTubeVideos = async (
+  maxResults: number = 8
+): Promise<YouTubeVideo[]> => {
   try {
     console.log("Fetching latest YouTube videos...");
     
-    // Les données sont basées sur les vidéos réelles de la chaîne LILMOD
-    // Ces données seraient normalement récupérées via l'API YouTube
+    // En production, nous utiliserions l'API YouTube pour récupérer les données en temps réel
+    // Pour l'instant, nous utilisons des données simulées, mais avec des vidéos réelles
     
     return [
       {
         id: "332BeipF0Xw",
         title: "Rav Ben Ichay - Paracha Emor - Ce que Rabbi Chimon et son fils ont-ils vu la veille de Shabbat",
-        thumbnail: "https://i.ytimg.com/vi/332BeipF0Xw/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/332BeipF0Xw/mqdefault.jpg",
         publishedAt: "2025-05-17",
         channelTitle: "Rav Ben Ichay",
         url: "https://www.youtube.com/watch?v=332BeipF0Xw",
@@ -30,7 +36,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "0Cz8-gbYvnI",
         title: "Rav Akerman - Étude du Kol Hator - Épisode 21",
-        thumbnail: "https://i.ytimg.com/vi/0Cz8-gbYvnI/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/0Cz8-gbYvnI/mqdefault.jpg",
         publishedAt: "2025-05-15",
         channelTitle: "Rav Akerman",
         url: "https://www.youtube.com/watch?v=0Cz8-gbYvnI",
@@ -39,7 +45,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "8weKcRJIoB0",
         title: "Rav Yossef Ben-Shoushan - Étude des Orot du Rav Kook - 14/05/2025",
-        thumbnail: "https://i.ytimg.com/vi/8weKcRJIoB0/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/8weKcRJIoB0/mqdefault.jpg",
         publishedAt: "2025-05-14",
         channelTitle: "Rav Yossef Ben-Shoushan",
         url: "https://www.youtube.com/watch?v=8weKcRJIoB0",
@@ -48,7 +54,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "2OOAvik_LLc",
         title: "Rav Yossef Ben-Shoushan - Étude de Orot Hatechouva - 08/05/2025",
-        thumbnail: "https://i.ytimg.com/vi/2OOAvik_LLc/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/2OOAvik_LLc/mqdefault.jpg",
         publishedAt: "2025-05-11",
         channelTitle: "Rav Yossef Ben-Shoushan",
         url: "https://www.youtube.com/watch?v=2OOAvik_LLc",
@@ -57,7 +63,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "TkqoOoCymYc",
         title: "Rav Yehuda Ben-Ichay - Paracha Ahare Mot-Kedochim - Tout peut s'arranger - 09/05/2025",
-        thumbnail: "https://i.ytimg.com/vi/TkqoOoCymYc/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/TkqoOoCymYc/mqdefault.jpg",
         publishedAt: "2025-05-09",
         channelTitle: "Rav Yehuda Ben-Ichay",
         url: "https://www.youtube.com/watch?v=TkqoOoCymYc",
@@ -65,8 +71,8 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       },
       {
         id: "DPwMMHsvFiI",
-        title: "Dr Gross-Étude de la paracha-Aharei moth-Quedoshim-09/05/2025",
-        thumbnail: "https://i.ytimg.com/vi/DPwMMHsvFiI/hqdefault.jpg",
+        title: "HBG-Dr Gross-Étude de la paracha-Aharei moth-Quedoshim-09/05/2025",
+        thumbnail: "https://i.ytimg.com/vi/DPwMMHsvFiI/mqdefault.jpg",
         publishedAt: "2025-05-09",
         channelTitle: "Dr Gross",
         url: "https://www.youtube.com/watch?v=DPwMMHsvFiI",
@@ -75,7 +81,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "eY3HfnV5Ruc",
         title: "Rav Akerman - Étude du Kol Hator - Épisode 18 - 05/05/2025",
-        thumbnail: "https://i.ytimg.com/vi/eY3HfnV5Ruc/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/eY3HfnV5Ruc/mqdefault.jpg",
         publishedAt: "2025-05-07",
         channelTitle: "Rav Akerman",
         url: "https://www.youtube.com/watch?v=eY3HfnV5Ruc",
@@ -84,7 +90,7 @@ export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<
       {
         id: "1zpHJ1MQpA8",
         title: "Rav Ben Ichay - Paracha de la semaine - TAZRIA METSORA - \"Comment être un peuple influent\"",
-        thumbnail: "https://i.ytimg.com/vi/1zpHJ1MQpA8/hqdefault.jpg",
+        thumbnail: "https://i.ytimg.com/vi/1zpHJ1MQpA8/mqdefault.jpg",
         publishedAt: "2025-05-02",
         channelTitle: "Rav Ben Ichay",
         url: "https://www.youtube.com/watch?v=1zpHJ1MQpA8",
