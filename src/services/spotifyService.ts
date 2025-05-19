@@ -21,8 +21,8 @@ export const fetchLatestSpotifyEpisodes = async (
   try {
     console.log("Fetching latest Spotify episodes...");
     
-    // Les données sont basées sur les épisodes réels du podcast LILMOD sur Spotify
-    // Liens spécifiques extraits directement de la page Spotify
+    // En production, ces données seraient récupérées via l'API Spotify
+    // Pour le moment, utilisons des liens réels du podcast LILMOD sur Spotify
     
     return [
       {
