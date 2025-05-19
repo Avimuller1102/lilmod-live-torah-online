@@ -12,7 +12,7 @@ interface ShabbatInfo {
   havdalah: string;
 }
 
-type CityOption = 'paris' | 'lyon' | 'marseille' | 'nice' | 'jerusalem' | 'ashdod' | 'telaviv' | 'netanya' | 'toulouse';
+type CityOption = 'paris' | 'toulouse' | 'lyon' | 'marseille' | 'nice' | 'jerusalem' | 'telaviv' | 'netanya' | 'ashdod';
 
 const ShabbatTimes = () => {
   const [location, setLocation] = useState<CityOption>('paris');
@@ -26,6 +26,13 @@ const ShabbatTimes = () => {
       paracha: 'Behar-Bechukotai',
       candles: '21:13',
       havdalah: '22:33'
+    },
+    toulouse: {
+      date: 'Vendredi 23 Mai 2025',
+      hebrewDate: '25 Iyar 5785',
+      paracha: 'Behar-Bechukotai',
+      candles: '21:08',
+      havdalah: '22:21'
     },
     lyon: {
       date: 'Vendredi 23 Mai 2025',
@@ -55,13 +62,6 @@ const ShabbatTimes = () => {
       candles: '19:01',
       havdalah: '20:20'
     },
-    ashdod: {
-      date: 'Vendredi 23 Mai 2025',
-      hebrewDate: '25 Iyar 5785',
-      paracha: 'Behar-Bechukotai',
-      candles: '19:14',
-      havdalah: '20:18'
-    },
     telaviv: {
       date: 'Vendredi 23 Mai 2025',
       hebrewDate: '25 Iyar 5785',
@@ -76,32 +76,32 @@ const ShabbatTimes = () => {
       candles: '19:15',
       havdalah: '20:19'
     },
-    toulouse: {
+    ashdod: {
       date: 'Vendredi 23 Mai 2025',
       hebrewDate: '25 Iyar 5785',
       paracha: 'Behar-Bechukotai',
-      candles: '21:08',
-      havdalah: '22:21'
+      candles: '19:14',
+      havdalah: '20:18'
     }
   };
   
   const currentShabbat = shabbatData[location];
   
   // Groupement des villes par pays pour l'affichage
-  const frenchCities: CityOption[] = ['paris', 'lyon', 'marseille', 'nice', 'toulouse'];
-  const israelCities: CityOption[] = ['jerusalem', 'ashdod', 'telaviv', 'netanya'];
+  const frenchCities: CityOption[] = ['paris', 'toulouse', 'lyon', 'marseille', 'nice'];
+  const israelCities: CityOption[] = ['jerusalem', 'telaviv', 'netanya', 'ashdod'];
   
   const getCityLabel = (city: CityOption): string => {
     const labels: Record<CityOption, string> = {
       paris: 'Paris',
+      toulouse: 'Toulouse',
       lyon: 'Lyon',
       marseille: 'Marseille',
       nice: 'Nice',
       jerusalem: 'Jérusalem',
-      ashdod: 'Ashdod',
       telaviv: 'Tel-Aviv',
       netanya: 'Netanya',
-      toulouse: 'Toulouse'
+      ashdod: 'Ashdod'
     };
     return labels[city];
   };
@@ -120,7 +120,7 @@ const ShabbatTimes = () => {
         <Card className="overflow-hidden border-none shadow-lg bg-white">
           <div className="bg-gradient-to-r from-lilmod-navy to-lilmod-blue p-4">
             <div className="flex flex-wrap justify-center gap-2">
-              <div className="mb-2 w-full text-center text-white font-semibold">France</div>
+              <div className="mb-2 w-full text-center text-white font-semibold">Paris</div>
               {frenchCities.map(city => (
                 <Button 
                   key={city}

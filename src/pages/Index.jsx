@@ -5,6 +5,7 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import VideoGallery from '@/components/VideoGallery';
 import AudioLibrary from '@/components/AudioLibrary';
+import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
 import Support from '@/components/Support';
@@ -14,7 +15,6 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import LinkTreeButton from '@/components/LinkTreeButton';
 import NewsletterButton from '@/components/NewsletterButton';
-import Stats from '@/components/Stats';
 import ShabbatTimes from '@/components/ShabbatTimes';
 
 const Index = () => {

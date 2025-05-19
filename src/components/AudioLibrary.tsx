@@ -81,7 +81,7 @@ const AudioLibrary = () => {
             
             <div className="flex-1">
               <h3 className="font-bold text-xl md:text-2xl text-white mb-2">LILMOD sur Spotify</h3>
-              <p className="text-gray-300 mb-4">Écoutez tous nos cours audio sur Spotify, n'importe où et n'importe quand. Abonnez-vous pour être notifié des nouvelles publications. Notre catalogue s'enrichit chaque semaine avec de nouveaux enseignements de Torah.</p>
+              <p className="text-white mb-4">Écoutez tous nos cours audio sur Spotify, n'importe où et n'importe quand. Abonnez-vous pour être notifié des nouvelles publications.</p>
               <div className="flex flex-wrap gap-3">
                 <a 
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
@@ -91,14 +91,6 @@ const AudioLibrary = () => {
                 >
                   S'abonner au podcast
                   <ExternalLink className="h-4 w-4 ml-2" />
-                </a>
-                <a 
-                  href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-md transition-colors"
-                >
-                  Explorer tous les épisodes
                 </a>
               </div>
             </div>
@@ -110,7 +102,7 @@ const AudioLibrary = () => {
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-400"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {episodes.map((episode) => (
               <Card key={episode.id} 
                 className="bg-white/10 backdrop-blur-lg border-none text-white hover:bg-white/15 transition-all duration-300 overflow-hidden cursor-pointer transform hover:translate-y-[-3px] hover:shadow-lg"

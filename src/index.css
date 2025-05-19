@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -94,6 +95,10 @@
     @apply bg-background text-foreground font-opensans text-base;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    @apply scroll-smooth;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -221,6 +226,15 @@
   
   .rich-text ol {
     @apply list-decimal pl-5 my-4;
+  }
+
+  /* Glassmorphism pour des effets modernes */
+  .glass-modern {
+    @apply bg-white/70 backdrop-blur-lg border border-white/30 shadow-xl rounded-xl;
+  }
+
+  .glass-dark {
+    @apply bg-black/70 backdrop-blur-lg border border-white/20 shadow-xl text-white rounded-xl;
   }
 }
 
@@ -358,20 +372,6 @@ button:hover::after, .button:hover::after {
   @apply scale-x-100 origin-left;
 }
 
-/* Card hover effects - améliorations */
-.hover-card {
-  @apply transition-all duration-300;
-}
-
-.hover-card:hover {
-  @apply transform -translate-y-1 shadow-xl;
-}
-
-/* Link styles - améliorations */
-.link-underline {
-  @apply relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-current after:transform after:scale-x-0 after:origin-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-left;
-}
-
 /* Améliorations pour les cards partenaires */
 .partner-card {
   @apply bg-white p-4 rounded-lg shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-1;
@@ -385,4 +385,56 @@ button:hover::after, .button:hover::after {
   max-height: 80px;
   max-width: 100%;
   object-fit: contain;
+}
+
+/* Ajout de styles modernes inspirés de israeltorah.com */
+.modern-card {
+  @apply rounded-xl bg-gradient-to-br from-white to-gray-50 border border-gray-100 shadow-md overflow-hidden;
+}
+
+.modern-header {
+  @apply bg-gradient-to-r from-lilmod-navy to-lilmod-blue text-white p-4 rounded-t-xl;
+}
+
+.modern-content {
+  @apply p-6;
+}
+
+/* Améliorations pour les textes et titres */
+.gradient-text {
+  @apply bg-gradient-to-r from-lilmod-blue to-lilmod-navy bg-clip-text text-transparent;
+}
+
+.accent-border-left {
+  @apply border-l-4 border-lilmod-gold pl-4;
+}
+
+/* Effets de survol améliorés */
+.highlight-hover {
+  @apply transition-colors duration-300;
+}
+
+.highlight-hover:hover {
+  @apply bg-lilmod-gold/10;
+}
+
+/* Composants UI améliorés */
+.fancy-divider {
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #C4A963, transparent);
+  margin: 2rem 0;
+  width: 100%;
+}
+
+.container-padding {
+  @apply px-4 sm:px-6 md:px-8 lg:px-12;
+}
+
+/* Styles pour les sections importantes */
+.hero-section {
+  @apply relative overflow-hidden;
+}
+
+.hero-overlay {
+  @apply absolute inset-0 bg-gradient-to-r from-lilmod-navy/90 to-lilmod-blue/70;
 }
