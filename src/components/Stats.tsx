@@ -5,7 +5,7 @@ import {
   Users, 
   Video, 
   Headphones, 
-  GlobeClock 
+  Globe 
 } from 'lucide-react';
 
 const Stats = () => {
@@ -26,7 +26,7 @@ const Stats = () => {
       label: 'Abonnés sur YouTube'
     },
     {
-      icon: <GlobeClock className="w-6 h-6 text-lilmod-blue" />,
+      icon: <Globe className="w-6 h-6 text-lilmod-blue" />,
       count: '+10 000',
       label: 'Heures d\'études disponibles'
     },
