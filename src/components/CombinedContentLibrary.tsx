@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Youtube, ExternalLink, Play, Calendar, Clock, Headphones } from 'lucide-react';
+import { Youtube, ExternalLink, Play, Calendar, Clock, Headphones, Search } from 'lucide-react';
 import { fetchLatestYouTubeVideos, YouTubeVideo } from '../services/youtubeService';
 import { fetchLatestSpotifyEpisodes, SpotifyEpisode } from '../services/spotifyService';
 import SearchAndFilter, { FilterOptions } from './SearchAndFilter';
