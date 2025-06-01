@@ -1,6 +1,6 @@
 
 /**
- * Service pour récupérer les vidéos YouTube
+ * Service pour récupérer les vidéos YouTube avec l'API officielle
  */
 
 export type YouTubeVideo = {
@@ -11,18 +11,58 @@ export type YouTubeVideo = {
   channelTitle: string;
   url: string;
   duration: string;
+  description?: string;
 };
 
-// Fonction pour récupérer les dernières vidéos de la chaîne YouTube
-export const fetchLatestYouTubeVideos = async (
-  maxResults: number = 8
-): Promise<YouTubeVideo[]> => {
+const API_KEY = "REDACTED";
+const CHANNEL_ID = "UCL_BSX_zC9p8QjPjqMrpt9Q";
+
+export const fetchLatestYouTubeVideos = async (maxResults: number = 8): Promise<YouTubeVideo[]> => {
   try {
-    console.log("Fetching latest YouTube videos...");
+    console.log("Fetching latest YouTube videos from API...");
     
-    // En production, ces données seraient récupérées via l'API YouTube
-    // Pour le moment, utilisons des liens réels de la chaîne LILMOD
+    // Appel à l'API YouTube Data v3
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`;
     
+    const response = await fetch(searchUrl);
+    if (!response.ok) {
+      throw new Error(`YouTube API error: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    const videos: YouTubeVideo[] = [];
+    
+    for (const item of data.items) {
+      if (item.id?.videoId) {
+        // Récupérer les détails de la vidéo pour obtenir la durée
+        const videoDetailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${API_KEY}&id=${item.id.videoId}&part=contentDetails`;
+        const detailsResponse = await fetch(videoDetailsUrl);
+        const detailsData = await detailsResponse.json();
+        
+        let duration = "N/A";
+        if (detailsData.items?.[0]?.contentDetails?.duration) {
+          duration = formatDuration(detailsData.items[0].contentDetails.duration);
+        }
+        
+        videos.push({
+          id: item.id.videoId,
+          title: item.snippet.title,
+          thumbnail: item.snippet.thumbnails?.high?.url || item.snippet.thumbnails?.default?.url || "/placeholder.svg",
+          publishedAt: item.snippet.publishedAt,
+          channelTitle: item.snippet.channelTitle,
+          url: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+          duration,
+          description: item.snippet.description
+        });
+      }
+    }
+    
+    return videos;
+  } catch (error) {
+    console.error("Error fetching YouTube videos:", error);
+    
+    // Fallback vers les données statiques en cas d'erreur
     return [
       {
         id: "332BeipF0Xw",
@@ -97,8 +137,21 @@ export const fetchLatestYouTubeVideos = async (
         duration: "57:04"
       }
     ];
-  } catch (error) {
-    console.error("Error fetching YouTube videos:", error);
-    return [];
   }
 };
+
+// Fonction pour formater la durée ISO 8601 en format lisible
+function formatDuration(duration: string): string {
+  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  if (!match) return "N/A";
+  
+  const hours = (match[1] || "").replace('H', '');
+  const minutes = (match[2] || "").replace('M', '');
+  const seconds = (match[3] || "").replace('S', '');
+  
+  let formatted = "";
+  if (hours) formatted += `${hours}:`;
+  formatted += `${minutes.padStart(2, '0')}:${seconds.padStart(2, '0')}`;
+  
+  return formatted;
+}
