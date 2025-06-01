@@ -1,16 +1,52 @@
 
 /**
- * Service pour récupérer les vidéos YouTube
+ * Service pour récupérer les vidéos YouTube avec la vraie API
  */
+
+// Configuration de l'API YouTube
+const API_KEY = "REDACTED";
+const CHANNEL_ID = "UCL_BSX_zC9p8QjPjqMrpt9Q";
 
 // Fonction pour récupérer les dernières vidéos de la chaîne YouTube
 export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   try {
     console.log("Fetching latest YouTube videos...");
     
-    // En production, ces données seraient récupérées via l'API YouTube
-    // Pour le moment, utilisons des liens réels de la chaîne LILMOD
+    const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`;
     
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data.items) {
+      console.warn("No items found in YouTube API response");
+      return [];
+    }
+
+    // Transformer les données pour correspondre au format attendu
+    const videos = data.items
+      .filter(item => item.id && item.id.videoId)
+      .map(item => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.high ? item.snippet.thumbnails.high.url : item.snippet.thumbnails.default.url,
+        publishedAt: item.snippet.publishedAt,
+        channelTitle: item.snippet.channelTitle,
+        url: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+        duration: "N/A", // L'API search ne fournit pas la durée
+        description: item.snippet.description
+      }));
+
+    console.log(`Fetched ${videos.length} YouTube videos`);
+    return videos;
+
+  } catch (error) {
+    console.error("Error in YouTube service:", error);
+    
+    // Fallback vers des données statiques en cas d'erreur
     return [
       {
         id: "332BeipF0Xw",
@@ -85,8 +121,5 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         duration: "57:04"
       }
     ];
-  } catch (error) {
-    console.error("Error in YouTube service:", error);
-    return [];
   }
 };

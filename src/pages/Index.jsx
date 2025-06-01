@@ -1,31 +1,29 @@
 
 import React from 'react';
 import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
+import HeroSection from '@/components/HeroSection';
 import About from '@/components/About';
-import VideoGallery from '@/components/VideoGallery';
-import AudioLibrary from '@/components/AudioLibrary';
+import ShabbatTimes from '@/components/ShabbatTimes';
+import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
-import Support from '@/components/Support';
 import NewsletterSignup from '@/components/NewsletterSignup';
+import Support from '@/components/Support';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import LinkTreeButton from '@/components/LinkTreeButton';
 import NewsletterButton from '@/components/NewsletterButton';
-import ShabbatTimes from '@/components/ShabbatTimes';
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
-      <Hero />
+      <HeroSection />
       <About />
       <ShabbatTimes />
-      <VideoGallery />
-      <AudioLibrary />
+      <CombinedContentLibrary />
       <Stats />
       <Speakers />
       <Partners />

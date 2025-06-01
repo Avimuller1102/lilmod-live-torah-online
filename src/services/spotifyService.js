@@ -1,16 +1,82 @@
 
 /**
- * Service pour récupérer les podcasts Spotify
+ * Service pour récupérer les podcasts Spotify avec l'API
  */
+
+// Configuration Spotify
+const CLIENT_ID = 'de656bbec2fe41d98db2b4e746be06b6';
+const CLIENT_SECRET = 'REDACTED';
+const SHOW_ID = '5oJ8bkMtw0hR1iRxomrSRR';
+
+// Fonction pour obtenir le token d'accès Spotify
+const getSpotifyToken = async () => {
+  try {
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Basic ${btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)}`,
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'grant_type=client_credentials'
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.access_token;
+  } catch (error) {
+    console.error('Error getting Spotify token:', error);
+    throw error;
+  }
+};
 
 // Fonction pour récupérer les derniers épisodes du podcast Spotify
 export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
   try {
     console.log("Fetching latest Spotify episodes...");
     
-    // En production, ces données seraient récupérées via l'API Spotify
-    // Pour le moment, utilisons des liens réels du podcast LILMOD sur Spotify
+    const accessToken = await getSpotifyToken();
     
+    const apiUrl = `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?market=FR&limit=${maxResults}`;
+    
+    const response = await fetch(apiUrl, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.items) {
+      console.warn("No items found in Spotify API response");
+      return [];
+    }
+
+    // Transformer les données pour correspondre au format attendu
+    const episodes = data.items.map(episode => ({
+      id: episode.id,
+      title: episode.name,
+      duration: episode.duration_ms ? formatDuration(episode.duration_ms) : 'N/A',
+      publishedAt: episode.release_date,
+      teacher: extractTeacherFromTitle(episode.name),
+      url: episode.external_urls.spotify,
+      description: episode.description ? episode.description.substring(0, 150) + '...' : '',
+      imageUrl: episode.images && episode.images.length > 0 ? episode.images[0].url : null
+    }));
+
+    console.log(`Fetched ${episodes.length} Spotify episodes`);
+    return episodes;
+
+  } catch (error) {
+    console.error("Error in Spotify service:", error);
+    
+    // Fallback vers des données statiques en cas d'erreur
     return [
       {
         id: "21oUMyupW707IPG2ZN3dGs",
@@ -93,8 +159,25 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
       }
     ];
-  } catch (error) {
-    console.error("Error in Spotify service:", error);
-    return [];
   }
+};
+
+// Fonction utilitaire pour formater la durée depuis millisecondes
+const formatDuration = (durationMs) => {
+  const totalSeconds = Math.floor(durationMs / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  if (hours > 0) {
+    return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  } else {
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+};
+
+// Fonction utilitaire pour extraire le nom de l'enseignant
+const extractTeacherFromTitle = (title) => {
+  const match = title.match(/^(Rav\s+[^-]+|Dr\s+[^-]+|Rabbi\s+[^-]+)/i);
+  return match ? match[1].trim() : 'LILMOD';
 };
