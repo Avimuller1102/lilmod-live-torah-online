@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from '@/components/ui/card';
-import { Calendar, Clock, Sun, Moon, Star } from 'lucide-react';
+import { Calendar, Clock, Sun, Star } from 'lucide-react';
 import { fetchShabbatTimes } from '../services/shabbatService';
 import { useToast } from '@/hooks/use-toast';
 
@@ -21,7 +21,7 @@ const ShabbatTimes = () => {
         const data = await fetchShabbatTimes();
         setFranceTimes(data.france);
         setIsraelTimes(data.israel);
-        // Correction pour la paracha Nasso
+        // Correction : Paracha Nasso
         setParacha({
           name: "Nasso",
           hebrewName: "נשא",
@@ -56,7 +56,7 @@ const ShabbatTimes = () => {
 
   if (loading) {
     return (
-      <section className="py-24 px-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
+      <section className="py-24 px-8 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
         <div className="max-w-6xl mx-auto text-center">
           <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-orange-400 mx-auto"></div>
           <p className="mt-8 text-gray-700 text-xl">Chargement des horaires de Chabbat...</p>
@@ -66,13 +66,13 @@ const ShabbatTimes = () => {
   }
 
   return (
-    <section className="py-32 px-6 bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50">
-      <div className="max-w-8xl mx-auto">
+    <section className="py-24 px-8 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+      <div className="max-w-7xl mx-auto">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-8">
             <span className="relative">
               HORAIRES DE CHABBAT
-              <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-40 h-2 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></span>
+              <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></span>
             </span>
           </h2>
           {paracha && (
@@ -87,28 +87,18 @@ const ShabbatTimes = () => {
           )}
         </div>
         
-        <Card className="bg-white/90 backdrop-blur-xl overflow-hidden shadow-2xl border-0 rounded-3xl max-w-7xl mx-auto">
-          <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 py-10 px-10 border-b border-white/20">
-            <div className="flex items-center justify-between">
+        <Card className="bg-white/90 backdrop-blur-xl overflow-hidden shadow-2xl border-0 rounded-3xl">
+          <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 py-8 px-8">
+            <div className="flex items-center justify-center">
               <div className="flex items-center text-white">
-                <Calendar className="text-yellow-200 mr-6 w-12 h-12" />
-                <div>
-                  <div className="font-bold text-3xl">Cette semaine</div>
+                <Calendar className="text-yellow-200 mr-6 w-10 h-10" />
+                <div className="text-center">
+                  <div className="font-bold text-2xl">Cette semaine</div>
                   {paracha && (
-                    <div className="text-orange-100 text-xl mt-2">
+                    <div className="text-orange-100 text-lg mt-2">
                       {paracha.hebrewName} • {paracha.dateRange}
                     </div>
                   )}
-                </div>
-              </div>
-              <div className="flex items-center space-x-12">
-                <div className="flex items-center text-yellow-200">
-                  <Sun className="w-8 h-8 mr-3" />
-                  <span className="font-semibold text-lg">Entrée</span>
-                </div>
-                <div className="flex items-center text-purple-200">
-                  <Star className="w-8 h-8 mr-3" />
-                  <span className="font-semibold text-lg">Sortie</span>
                 </div>
               </div>
             </div>
@@ -119,41 +109,41 @@ const ShabbatTimes = () => {
               <TabsList className="grid w-full grid-cols-2 bg-gray-50/80 backdrop-blur-sm rounded-none border-b border-gray-200">
                 <TabsTrigger 
                   value="france" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-lg font-bold py-8 text-xl"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-lg font-bold py-6 text-xl"
                 >
-                  France
+                  🇫🇷 France
                 </TabsTrigger>
                 <TabsTrigger 
                   value="israel" 
-                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-lg font-bold py-8 text-xl"
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-amber-500 data-[state=active]:text-white data-[state=active]:shadow-lg font-bold py-6 text-xl"
                 >
-                  Israël
+                  🇮🇱 Israël
                 </TabsTrigger>
               </TabsList>
               
               <TabsContent value="france" className="p-12 mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {franceTimes.map((time, index) => (
-                    <Card key={index} className="group hover:shadow-2xl transition-all duration-300 hover:scale-105 border-0 shadow-lg bg-gradient-to-br from-white to-orange-50/50 rounded-3xl overflow-hidden">
+                    <Card key={index} className="group hover:shadow-2xl transition-all duration-300 hover:scale-105 border-0 shadow-lg bg-gradient-to-br from-white to-orange-50/30 rounded-2xl overflow-hidden">
                       <CardContent className="p-8">
                         <div className="text-center space-y-6">
                           <h3 className="font-bold text-2xl text-gray-800 mb-6">{time.city}</h3>
                           
-                          <div className="space-y-5">
-                            <div className="flex items-center justify-between bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 shadow-sm">
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 shadow-sm">
                               <div className="flex items-center">
-                                <Sun className="w-8 h-8 text-orange-600 mr-4" />
-                                <span className="font-bold text-gray-700 text-lg">Entrée</span>
+                                <Sun className="w-6 h-6 text-orange-600 mr-3" />
+                                <span className="font-bold text-gray-700">Entrée</span>
                               </div>
-                              <span className="font-bold text-2xl text-gray-900">{time.entree}</span>
+                              <span className="font-bold text-xl text-gray-900">{time.entree}</span>
                             </div>
                             
-                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl p-6 shadow-sm">
+                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-4 shadow-sm">
                               <div className="flex items-center">
-                                <Star className="w-8 h-8 text-purple-600 mr-4" />
-                                <span className="font-bold text-gray-700 text-lg">Sortie</span>
+                                <Star className="w-6 h-6 text-purple-600 mr-3" />
+                                <span className="font-bold text-gray-700">Sortie</span>
                               </div>
-                              <span className="font-bold text-2xl text-gray-900">{time.sortie}</span>
+                              <span className="font-bold text-xl text-gray-900">{time.sortie}</span>
                             </div>
                           </div>
                         </div>
@@ -164,28 +154,28 @@ const ShabbatTimes = () => {
               </TabsContent>
               
               <TabsContent value="israel" className="p-12 mt-0">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {israelTimes.map((time, index) => (
-                    <Card key={index} className="group hover:shadow-2xl transition-all duration-300 hover:scale-105 border-0 shadow-lg bg-gradient-to-br from-white to-blue-50/50 rounded-3xl overflow-hidden">
+                    <Card key={index} className="group hover:shadow-2xl transition-all duration-300 hover:scale-105 border-0 shadow-lg bg-gradient-to-br from-white to-blue-50/30 rounded-2xl overflow-hidden">
                       <CardContent className="p-8">
                         <div className="text-center space-y-6">
                           <h3 className="font-bold text-2xl text-gray-800 mb-6">{time.city}</h3>
                           
-                          <div className="space-y-5">
-                            <div className="flex items-center justify-between bg-gradient-to-r from-yellow-100 to-orange-100 rounded-2xl p-6 shadow-sm">
+                          <div className="space-y-4">
+                            <div className="flex items-center justify-between bg-gradient-to-r from-yellow-100 to-orange-100 rounded-xl p-4 shadow-sm">
                               <div className="flex items-center">
-                                <Sun className="w-8 h-8 text-orange-600 mr-4" />
-                                <span className="font-bold text-gray-700 text-lg">Entrée</span>
+                                <Sun className="w-6 h-6 text-orange-600 mr-3" />
+                                <span className="font-bold text-gray-700">Entrée</span>
                               </div>
-                              <span className="font-bold text-2xl text-gray-900">{time.entree}</span>
+                              <span className="font-bold text-xl text-gray-900">{time.entree}</span>
                             </div>
                             
-                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-100 to-indigo-100 rounded-2xl p-6 shadow-sm">
+                            <div className="flex items-center justify-between bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl p-4 shadow-sm">
                               <div className="flex items-center">
-                                <Star className="w-8 h-8 text-purple-600 mr-4" />
-                                <span className="font-bold text-gray-700 text-lg">Sortie</span>
+                                <Star className="w-6 h-6 text-purple-600 mr-3" />
+                                <span className="font-bold text-gray-700">Sortie</span>
                               </div>
-                              <span className="font-bold text-2xl text-gray-900">{time.sortie}</span>
+                              <span className="font-bold text-xl text-gray-900">{time.sortie}</span>
                             </div>
                           </div>
                         </div>
@@ -197,6 +187,16 @@ const ShabbatTimes = () => {
             </Tabs>
           </CardContent>
         </Card>
+
+        <div className="mt-12 text-center">
+          <p className="text-sm text-gray-600">
+            Les horaires sont donnés à titre indicatif. 
+            <br />
+            <span className="text-orange-600 font-medium">
+              Données synchronisées avec Torah-Box
+            </span>
+          </p>
+        </div>
       </div>
     </section>
   );

@@ -5,7 +5,6 @@ import HeroSection from '@/components/HeroSection';
 import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import About from '@/components/About';
 import ShabbatTimes from '@/components/ShabbatTimes';
-import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
 import NewsletterSignup from '@/components/NewsletterSignup';
@@ -18,13 +17,12 @@ import NewsletterButton from '@/components/NewsletterButton';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       <Navbar />
       <HeroSection />
       <CombinedContentLibrary />
       <About />
       <ShabbatTimes />
-      <Stats />
       <Speakers />
       <Partners />
       <NewsletterSignup />
