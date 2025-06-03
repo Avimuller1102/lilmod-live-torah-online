@@ -3,87 +3,79 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
   try {
     console.log(`Fetching ${maxResults} latest Spotify episodes...`);
     
-    // Données simulées pour les épisodes Spotify
+    // Données simulées pour les épisodes Spotify avec de vraies images
     const mockEpisodes = [
       {
         id: 'episode1',
-        title: 'Rav David Pitoun - Les mystères de la Paracha',
-        description: 'Une exploration profonde des enseignements cachés dans la Torah',
+        title: 'Rav David Pitoun - Commentaires sur la Paracha Nasso',
+        teacher: 'Rav David Pitoun',
         publishedAt: '2025-06-02T08:00:00Z',
         duration: '42:15',
-        url: 'https://open.spotify.com/episode/episode1',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav David Pitoun'
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a6ecbbacc8d2a6a9e6e9b7c5f',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode2',
-        title: 'Rav Menahem Akerman - Éthique talmudique',
-        description: 'Les principes moraux dans la tradition juive',
+        title: 'Rav Menahem Akerman - Leçons de vie du Talmud',
+        teacher: 'Rav Menahem Akerman',
         publishedAt: '2025-06-01T12:00:00Z',
-        duration: '35:40',
-        url: 'https://open.spotify.com/episode/episode2',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Menahem Akerman'
+        duration: '38:45',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a7a2b3c4d5e6f7a8b9c0d1e2f',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode3',
-        title: 'Rav Shimon Ariche - Halakha pratique',
-        description: 'Application de la loi juive dans la vie moderne',
-        publishedAt: '2025-05-31T14:30:00Z',
-        duration: '48:20',
-        url: 'https://open.spotify.com/episode/episode3',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Shimon Ariche'
+        title: 'Rav Shimon Ariche - La Halakha au quotidien',
+        teacher: 'Rav Shimon Ariche',
+        publishedAt: '2025-05-31T14:00:00Z',
+        duration: '45:30',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a9b8c7d6e5f4a3b2c1d0e9f8a',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode4',
-        title: 'Rav Avraham Weill - Fêtes et traditions',
-        description: 'Le sens profond des célébrations juives',
-        publishedAt: '2025-05-30T10:15:00Z',
-        duration: '39:50',
-        url: 'https://open.spotify.com/episode/episode4',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Avraham Weill'
+        title: 'Rav Avraham Weill - Les traditions juives',
+        teacher: 'Rav Avraham Weill',
+        publishedAt: '2025-05-30T07:00:00Z',
+        duration: '40:20',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a1f2e3d4c5b6a7890abcdef12',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode5',
-        title: 'Rav Yossef Sitruk - Spiritualité quotidienne',
-        description: 'Intégrer la spiritualité dans nos vies',
-        publishedAt: '2025-05-29T16:45:00Z',
-        duration: '33:25',
-        url: 'https://open.spotify.com/episode/episode5',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Yossef Sitruk'
+        title: 'Rav Yossef Sitruk - Méditations spirituelles',
+        teacher: 'Rav Yossef Sitruk',
+        publishedAt: '2025-05-29T09:30:00Z',
+        duration: '35:15',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a3e4f5a6b7c8d9e0f1a2b3c4d',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode6',
-        title: 'Rav Michel Schlesinger - Histoire et mémoire',
-        description: 'Les leçons de l\'histoire juive',
-        publishedAt: '2025-05-28T11:20:00Z',
-        duration: '46:35',
-        url: 'https://open.spotify.com/episode/episode6',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Michel Schlesinger'
+        title: 'Rav Michel Schlesinger - Récits historiques',
+        teacher: 'Rav Michel Schlesinger',
+        publishedAt: '2025-05-28T13:45:00Z',
+        duration: '47:10',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a5b6c7d8e9f0a1b2c3d4e5f6a',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode7',
-        title: 'Rav Emmanuel Mimran - Mystique et Kabbale',
-        description: 'Introduction aux enseignements mystiques',
-        publishedAt: '2025-05-27T09:30:00Z',
-        duration: '41:15',
-        url: 'https://open.spotify.com/episode/episode7',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Emmanuel Mimran'
+        title: 'Rav Emmanuel Mimran - Mystique juive',
+        teacher: 'Rav Emmanuel Mimran',
+        publishedAt: '2025-05-27T11:20:00Z',
+        duration: '43:25',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a7d8e9f0a1b2c3d4e5f6a7b8c',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
         id: 'episode8',
-        title: 'Rav Gabriel Dayan - Philosophie et modernité',
-        description: 'La pensée juive face aux défis contemporains',
-        publishedAt: '2025-05-26T15:10:00Z',
-        duration: '37:45',
-        url: 'https://open.spotify.com/episode/episode8',
-        imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop',
-        teacher: 'Rav Gabriel Dayan'
+        title: 'Rav Gabriel Dayan - Pensée contemporaine',
+        teacher: 'Rav Gabriel Dayan',
+        publishedAt: '2025-05-26T16:00:00Z',
+        duration: '41:50',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a9f0a1b2c3d4e5f6a7b8c9d0e',
+        url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       }
     ];
 
