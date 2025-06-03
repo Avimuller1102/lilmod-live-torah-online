@@ -19,10 +19,11 @@ const CombinedContentLibrary = () => {
       try {
         setLoading(true);
         const [videos, episodes] = await Promise.all([
-          fetchLatestYouTubeVideos(12),
-          fetchLatestSpotifyEpisodes(12)
+          fetchLatestYouTubeVideos(8),
+          fetchLatestSpotifyEpisodes(8)
         ]);
 
+        // D'abord les vidéos YouTube, puis les épisodes Spotify
         const combinedContent = [
           ...videos.map(video => ({
             ...video,
@@ -35,10 +36,6 @@ const CombinedContentLibrary = () => {
             teacher: episode.teacher || extractTeacherFromTitle(episode.title)
           }))
         ];
-
-        combinedContent.sort((a, b) => 
-          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-        );
 
         setAllContent(combinedContent);
         setFilteredContent(combinedContent);
@@ -130,21 +127,21 @@ const CombinedContentLibrary = () => {
   };
 
   return (
-    <section id="content-library" className="py-20 px-4 bg-gradient-to-br from-gray-50 via-white to-amber-50/30">
+    <section id="content-library" className="py-32 px-6 bg-gradient-to-br from-white via-orange-50/30 to-amber-50/30">
       <div className="max-w-8xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-lilmod-navy mb-6">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8">
             <span className="relative">
-              BIBLIOTHÈQUE DE CONTENUS
-              <span className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-lilmod-gold to-amber-400 rounded-full"></span>
+              RECHERCHE (Rabbanim, Cours..)
+              <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-40 h-2 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></span>
             </span>
           </h2>
-          <p className="text-gray-600 text-xl max-w-3xl mx-auto leading-relaxed">
+          <p className="text-gray-600 text-xl max-w-4xl mx-auto leading-relaxed">
             Découvrez tous nos enseignements en un seul endroit. Recherchez par enseignant, sujet ou période.
           </p>
         </div>
 
-        <div className="mb-12">
+        <div className="mb-16">
           <SearchAndFilter 
             onSearch={handleSearch}
             onFilter={handleFilter}
@@ -153,32 +150,32 @@ const CombinedContentLibrary = () => {
         </div>
         
         {loading ? (
-          <div className="flex justify-center items-center py-20">
+          <div className="flex justify-center items-center py-24">
             <div className="relative">
-              <div className="animate-spin rounded-full h-20 w-20 border-t-4 border-b-4 border-lilmod-gold"></div>
-              <div className="absolute inset-0 rounded-full border-4 border-lilmod-gold/20"></div>
+              <div className="animate-spin rounded-full h-24 w-24 border-t-4 border-b-4 border-orange-400"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-orange-200/30"></div>
             </div>
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-10">
               {filteredContent.map((item) => (
                 <Card 
                   key={`${item.source}-${item.id}`}
-                  className="group border-0 shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:translate-y-[-8px] bg-white rounded-2xl"
+                  className="group border-0 shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:translate-y-[-10px] bg-white rounded-3xl"
                   onClick={() => openContent(item)}
                 >
                   <div className="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden relative">
                     {/* Source Badge */}
-                    <div className="absolute top-3 left-3 z-10">
+                    <div className="absolute top-4 left-4 z-10">
                       {item.source === 'youtube' ? (
-                        <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center shadow-lg">
-                          <Youtube className="w-3 h-3 mr-1" />
+                        <div className="bg-gradient-to-r from-red-600 to-red-500 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center shadow-lg">
+                          <Youtube className="w-4 h-4 mr-2" />
                           YouTube
                         </div>
                       ) : (
-                        <div className="bg-gradient-to-r from-green-600 to-green-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center shadow-lg">
-                          <Headphones className="w-3 h-3 mr-1" />
+                        <div className="bg-gradient-to-r from-green-600 to-green-500 text-white px-4 py-2 rounded-full text-sm font-bold flex items-center shadow-lg">
+                          <Headphones className="w-4 h-4 mr-2" />
                           Spotify
                         </div>
                       )}
@@ -198,55 +195,55 @@ const CombinedContentLibrary = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-lilmod-navy to-lilmod-blue">
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-orange-500 to-amber-500">
                         {item.source === 'youtube' ? (
-                          <Youtube className="w-16 h-16 text-white" />
+                          <Youtube className="w-20 h-20 text-white" />
                         ) : (
-                          <Headphones className="w-16 h-16 text-white" />
+                          <Headphones className="w-20 h-20 text-white" />
                         )}
                       </div>
                     )}
 
                     {/* Duration Badge */}
-                    <div className="absolute bottom-3 right-3">
-                      <div className="bg-black/80 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center">
-                        <Clock className="w-3 h-3 mr-1" />
+                    <div className="absolute bottom-4 right-4">
+                      <div className="bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm font-bold flex items-center">
+                        <Clock className="w-4 h-4 mr-2" />
                         {item.duration}
                       </div>
                     </div>
 
                     {/* Play Overlay */}
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/50 transition-opacity duration-300">
-                      <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
-                        <Play className="w-10 h-10 text-lilmod-navy fill-current ml-1" />
+                      <div className="w-24 h-24 rounded-full bg-white/90 flex items-center justify-center transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-2xl">
+                        <Play className="w-12 h-12 text-orange-600 fill-current ml-1" />
                       </div>
                     </div>
                   </div>
                   
-                  <CardContent className="p-6">
-                    <h3 className="font-bold text-gray-800 line-clamp-2 min-h-[3rem] mb-3 text-lg group-hover:text-lilmod-navy transition-colors">
+                  <CardContent className="p-8">
+                    <h3 className="font-bold text-gray-800 line-clamp-2 min-h-[3.5rem] mb-4 text-xl group-hover:text-orange-600 transition-colors">
                       {item.title}
                     </h3>
                     
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-sm font-semibold text-lilmod-blue bg-lilmod-blue/10 px-3 py-1 rounded-full">{item.teacher}</span>
-                      <div className="flex items-center text-gray-500 text-xs">
-                        <Calendar className="w-3 h-3 mr-1" />
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-sm font-bold text-orange-600 bg-orange-100 px-4 py-2 rounded-full">{item.teacher}</span>
+                      <div className="flex items-center text-gray-500 text-sm">
+                        <Calendar className="w-4 h-4 mr-2" />
                         {new Date(item.publishedAt).toLocaleDateString('fr-FR')}
                       </div>
                     </div>
 
                     {item.description && (
-                      <p className="text-sm text-gray-600 line-clamp-2 mb-4 leading-relaxed">
+                      <p className="text-sm text-gray-600 line-clamp-2 mb-5 leading-relaxed">
                         {item.description}
                       </p>
                     )}
                     
-                    <div className="flex items-center justify-between text-xs pt-3 border-t border-gray-100">
-                      <span className="text-gray-500 font-medium">
+                    <div className="flex items-center justify-between text-sm pt-4 border-t border-gray-100">
+                      <span className="text-gray-500 font-semibold">
                         {item.source === 'youtube' ? 'Regarder sur YouTube' : 'Écouter sur Spotify'}
                       </span>
-                      <ExternalLink className="w-4 h-4 text-gray-400 group-hover:text-lilmod-gold transition-colors" />
+                      <ExternalLink className="w-5 h-5 text-gray-400 group-hover:text-orange-500 transition-colors" />
                     </div>
                   </CardContent>
                 </Card>
@@ -254,34 +251,34 @@ const CombinedContentLibrary = () => {
             </div>
 
             {filteredContent.length === 0 && (
-              <div className="text-center py-20">
-                <div className="text-gray-400 mb-6">
-                  <Search className="w-24 h-24 mx-auto" />
+              <div className="text-center py-24">
+                <div className="text-gray-400 mb-8">
+                  <Search className="w-32 h-32 mx-auto" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-600 mb-4">Aucun contenu trouvé</h3>
-                <p className="text-gray-500 text-lg">Essayez de modifier vos critères de recherche ou vos filtres.</p>
+                <h3 className="text-3xl font-bold text-gray-600 mb-6">Aucun contenu trouvé</h3>
+                <p className="text-gray-500 text-xl">Essayez de modifier vos critères de recherche ou vos filtres.</p>
               </div>
             )}
           </>
         )}
 
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-center gap-6">
+        <div className="mt-20 flex flex-col sm:flex-row items-center justify-center gap-8">
           <a 
             href="https://www.youtube.com/@Lilmodfr" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 w-full sm:w-auto"
+            className="group inline-flex items-center justify-center bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 w-full sm:w-auto text-lg"
           >
-            <Youtube className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+            <Youtube className="w-8 h-8 mr-4 group-hover:scale-110 transition-transform" />
             Voir toutes les vidéos
           </a>
           <a 
             href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-2xl font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 w-full sm:w-auto"
+            className="group inline-flex items-center justify-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 w-full sm:w-auto text-lg"
           >
-            <Headphones className="w-6 h-6 mr-3 group-hover:scale-110 transition-transform" />
+            <Headphones className="w-8 h-8 mr-4 group-hover:scale-110 transition-transform" />
             Tous les podcasts
           </a>
         </div>

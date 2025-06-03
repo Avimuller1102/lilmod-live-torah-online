@@ -59,7 +59,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
     }
 
     // Transformer les données pour correspondre au format attendu
-    const episodes = data.items.map(episode => ({
+    const episodes = data.items.slice(0, 8).map(episode => ({
       id: episode.id,
       title: episode.name,
       duration: episode.duration_ms ? formatDuration(episode.duration_ms) : 'N/A',
@@ -76,7 +76,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
   } catch (error) {
     console.error("Error in Spotify service:", error);
     
-    // Fallback vers des données statiques en cas d'erreur
+    // Fallback vers des données statiques en cas d'erreur (limité à 8)
     return [
       {
         id: "21oUMyupW707IPG2ZN3dGs",

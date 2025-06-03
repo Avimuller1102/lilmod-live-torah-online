@@ -29,6 +29,7 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
     // Transformer les données pour correspondre au format attendu
     const videos = data.items
       .filter(item => item.id && item.id.videoId)
+      .slice(0, 8) // Limiter à 8 vidéos
       .map(item => ({
         id: item.id.videoId,
         title: item.snippet.title,
@@ -46,7 +47,7 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   } catch (error) {
     console.error("Error in YouTube service:", error);
     
-    // Fallback vers des données statiques en cas d'erreur
+    // Fallback vers des données statiques en cas d'erreur (limité à 8)
     return [
       {
         id: "332BeipF0Xw",

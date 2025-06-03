@@ -2,9 +2,9 @@
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
+import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import About from '@/components/About';
 import ShabbatTimes from '@/components/ShabbatTimes';
-import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
@@ -21,9 +21,9 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <HeroSection />
+      <CombinedContentLibrary />
       <About />
       <ShabbatTimes />
-      <CombinedContentLibrary />
       <Stats />
       <Speakers />
       <Partners />
