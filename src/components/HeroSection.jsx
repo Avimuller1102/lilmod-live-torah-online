@@ -6,29 +6,31 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       {/* Motifs de fond subtils */}
-      <div className="absolute inset-0 opacity-30">
+      <div className="absolute inset-0 opacity-20">
         <div className="absolute top-20 left-20 w-72 h-72 bg-gradient-to-br from-orange-200/30 to-transparent rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-tl from-amber-200/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-gradient-to-r from-yellow-200/20 to-transparent rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }}></div>
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-8 text-center py-32">
-        {/* Logo LILMOD */}
+      <div className="relative z-10 max-w-7xl mx-auto px-8 text-center py-24">
+        {/* Logo LILMOD - Nouveau design avec le logo uploadé */}
         <div className="mb-16 animate-fadeIn">
-          <img 
-            src="/lovable-uploads/c7b714f8-fb65-49f2-9e21-88b13d4ea591.png" 
-            alt="LILMOD Logo" 
-            className="mx-auto h-32 md:h-40 lg:h-48 drop-shadow-2xl transform hover:scale-105 transition-all duration-500"
-          />
+          <div className="flex flex-col items-center">
+            <img 
+              src="/lovable-uploads/1384ffec-f722-4f86-9f49-24cf9dcd659e.png" 
+              alt="LILMOD Logo" 
+              className="h-24 md:h-32 lg:h-40 mb-6 drop-shadow-2xl transform hover:scale-105 transition-all duration-500"
+            />
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 bg-clip-text text-transparent drop-shadow-lg">
+                LILMOD
+              </span>
+            </h1>
+          </div>
         </div>
 
         {/* Titre principal */}
         <div className="mb-20 animate-slideIn">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
-            <span className="bg-gradient-to-r from-orange-600 via-amber-600 to-orange-700 bg-clip-text text-transparent drop-shadow-lg">
-              LILMOD
-            </span>
-          </h1>
           <h2 className="text-2xl md:text-4xl lg:text-5xl font-light text-gray-700 mb-8 max-w-4xl mx-auto leading-relaxed">
             Torah en ligne depuis Israël
           </h2>
@@ -41,7 +43,7 @@ const HeroSection = () => {
         {/* Boutons d'action */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-24 animate-fadeIn" style={{ animationDelay: '0.5s' }}>
           <a 
-            href="#content-library"
+            href="#recherche"
             className="group inline-flex items-center bg-gradient-to-r from-orange-500 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-white px-12 py-6 rounded-2xl font-bold text-xl transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-orange-300/40"
           >
             <Play className="w-7 h-7 mr-4 group-hover:scale-110 transition-transform" />

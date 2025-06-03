@@ -20,6 +20,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       <Navbar />
       <HeroSection />
+      {/* Section de recherche repositionnée en haut après le Hero */}
       <CombinedContentLibrary />
       <About />
       <ShabbatTimes />
