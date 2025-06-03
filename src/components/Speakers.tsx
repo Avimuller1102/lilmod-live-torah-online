@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, Video, Music, Link } from 'lucide-react';
@@ -9,7 +8,7 @@ const speakersData = [
     name: "Rav Akerman",
     image: "/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png",
     specialty: "Kol Ator et Morale de Guerre",
-    bio: "Le Rav Menahem Akerman enseigne à l'institut « Machon Meir » à Jérusalem et dirige les cours en français.",
+    bio: "Le Rav Menahem Akerman enseigne à l'institut « Machon Lev» et sur LILMOD.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"
   },
   {
@@ -158,15 +157,25 @@ const Speakers = () => {
   const [selectedSpeaker, setSelectedSpeaker] = React.useState<typeof speakersData[0] | null>(null);
 
   return (
-    <section id="speakers" className="bg-white py-16 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h2 className="section-title">LES INTERVENANTS</h2>
+    <section id="speakers" className="bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50 py-24 px-8">
+      <div className="max-w-8xl mx-auto">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-800 mb-8">
+            <span className="relative">
+              LES INTERVENANTS
+              <span className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-40 h-2 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full"></span>
+            </span>
+          </h2>
+          <p className="text-gray-600 text-xl max-w-4xl mx-auto leading-relaxed">
+            Découvrez nos enseignants experts qui partagent leur savoir avec passion
+          </p>
+        </div>
         
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12">
           {speakersData.map((speaker) => (
             <Card 
               key={speaker.id} 
-              className="border-none shadow-md teacher-card overflow-hidden cursor-pointer hover:shadow-lg transition-all duration-300"
+              className="group border-0 shadow-lg hover:shadow-2xl overflow-hidden cursor-pointer transform transition-all duration-300 hover:translate-y-[-8px] bg-white rounded-3xl"
               onClick={() => setSelectedSpeaker(speaker)}
             >
               <CardContent className="p-0">
@@ -174,13 +183,13 @@ const Speakers = () => {
                   <img 
                     src={speaker.image} 
                     alt={speaker.name} 
-                    className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                 </div>
-                <div className="p-4 text-center">
-                  <h3 className="font-bold text-lilmod-navy">{speaker.name}</h3>
+                <div className="p-6 text-center">
+                  <h3 className="font-bold text-gray-800 text-lg mb-2 group-hover:text-orange-600 transition-colors">{speaker.name}</h3>
                   {speaker.specialty && (
-                    <p className="text-sm text-gray-500 mt-1">{speaker.specialty}</p>
+                    <p className="text-sm text-gray-500 leading-relaxed">{speaker.specialty}</p>
                   )}
                 </div>
               </CardContent>
@@ -188,12 +197,12 @@ const Speakers = () => {
           ))}
         </div>
         
-        <div className="mt-12 text-center">
+        <div className="mt-20 text-center">
           <a 
             href="https://www.youtube.com/@Lilmodfr/playlists" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block bg-lilmod-blue hover:bg-lilmod-navy text-white px-6 py-3 rounded-md font-medium transition-colors"
+            className="inline-block bg-gradient-to-r from-orange-500 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-white px-10 py-5 rounded-2xl font-bold transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-105 text-lg"
           >
             Découvrir tous les cours
           </a>
