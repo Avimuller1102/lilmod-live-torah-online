@@ -19,17 +19,16 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   letter-spacing: -0.025em;
   font-weight: 700;
-  margin-bottom: 3rem;
 }
 
-/* Espacement dramatiquement amélioré entre sections */
+/* Espacement énormément amélioré entre sections */
 section {
-  margin-bottom: 16rem;
-  padding: 10rem 0;
+  margin-bottom: 8rem;
+  padding: 4rem 0;
 }
 
 section:first-child {
-  margin-bottom: 0;
+  margin-bottom: 6rem;
   padding-top: 0;
 }
 
@@ -39,23 +38,31 @@ section:last-child {
 
 @media (min-width: 768px) {
   section {
-    margin-bottom: 20rem;
-    padding: 12rem 0;
+    margin-bottom: 12rem;
+    padding: 6rem 0;
+  }
+  
+  section:first-child {
+    margin-bottom: 8rem;
   }
 }
 
 @media (min-width: 1024px) {
   section {
-    margin-bottom: 24rem;
-    padding: 16rem 0;
+    margin-bottom: 16rem;
+    padding: 8rem 0;
+  }
+  
+  section:first-child {
+    margin-bottom: 10rem;
   }
 }
 
-/* Animations améliorées */
+/* Animations fluides et modernes */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(60px);
+    transform: translateY(40px);
   }
   to {
     opacity: 1;
@@ -65,7 +72,7 @@ section:last-child {
 
 @keyframes slideIn {
   from {
-    transform: translateX(-80px);
+    transform: translateX(-60px);
     opacity: 0;
   }
   to {
@@ -76,7 +83,7 @@ section:last-child {
 
 @keyframes scaleIn {
   from {
-    transform: scale(0.85);
+    transform: scale(0.9);
     opacity: 0;
   }
   to {
@@ -86,18 +93,18 @@ section:last-child {
 }
 
 .animate-fadeIn {
-  animation: fadeIn 1.2s ease-out forwards;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .animate-slideIn {
-  animation: slideIn 1s ease-out forwards;
+  animation: slideIn 0.8s ease-out forwards;
 }
 
 .animate-scaleIn {
-  animation: scaleIn 0.8s ease-out forwards;
+  animation: scaleIn 0.6s ease-out forwards;
 }
 
-/* Palette de couleurs LILMOD améliorée avec plus d'espace */
+/* Palette de couleurs LILMOD optimisée */
 .bg-lilmod-gold {
   background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
 }
@@ -146,30 +153,27 @@ section:last-child {
   background-color: #2563eb;
 }
 
-/* Cartes avec effets améliorés et plus d'espace */
+/* Cartes modernes avec effets premium */
 .card {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  border-radius: 2rem;
-  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 3rem 0;
 }
 
 .card:hover {
-  transform: translateY(-16px) scale(1.03);
-  box-shadow: 0 30px 60px -12px rgba(251, 146, 60, 0.3);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(251, 146, 60, 0.25);
 }
 
-/* Effets de verre améliorés avec plus d'espace */
+/* Effets de verre modernes */
 .glass-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
-  border-radius: 2rem;
-  box-shadow: 0 30px 60px rgba(251, 146, 60, 0.2);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px rgba(251, 146, 60, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 4rem;
-  margin: 4rem 0;
 }
 
 /* Gradients personnalisés */
@@ -185,218 +189,189 @@ section:last-child {
   background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fb923c 100%);
 }
 
-/* Boutons améliorés avec plus d'espace */
+/* Boutons modernes */
 .btn-primary {
   background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
   border: none;
-  border-radius: 2rem;
-  padding: 2rem 4rem;
-  font-weight: 700;
-  transition: all 0.5s ease;
-  box-shadow: 0 12px 35px rgba(245, 158, 11, 0.4);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
   color: white;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 1.5rem 1rem;
 }
 
 .btn-primary:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 20px 45px rgba(245, 158, 11, 0.5);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.4);
   background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
 }
 
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border: 2px solid rgba(245, 158, 11, 0.3);
-  border-radius: 2rem;
-  padding: 2rem 4rem;
-  font-weight: 700;
-  transition: all 0.5s ease;
+  border: 2px solid rgba(245, 158, 11, 0.2);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
   color: #1f2937;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 1.5rem 1rem;
 }
 
 .btn-secondary:hover {
-  transform: translateY(-4px) scale(1.05);
+  transform: translateY(-2px) scale(1.02);
   background: rgba(255, 255, 255, 1);
   border-color: #f59e0b;
-  box-shadow: 0 20px 45px rgba(245, 158, 11, 0.3);
+  box-shadow: 0 12px 30px rgba(245, 158, 11, 0.2);
 }
 
-/* Espacement des conteneurs dramatiquement amélioré */
-.container-spacing {
-  padding: 6rem;
-}
-
-@media (min-width: 768px) {
-  .container-spacing {
-    padding: 8rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container-spacing {
-    padding: 12rem;
-  }
-}
-
-/* Améliorations typographiques avec plus d'espace */
+/* Améliorations typographiques */
 .text-balance {
   text-wrap: balance;
 }
 
 .leading-relaxed {
-  line-height: 2.2;
+  line-height: 1.8;
 }
 
 .leading-loose {
-  line-height: 2.8;
+  line-height: 2.2;
 }
 
-/* Effets de survol améliorés */
+/* Effets de survol premium */
 .hover-lift {
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hover-lift:hover {
-  transform: translateY(-20px);
-  box-shadow: 0 40px 80px rgba(251, 146, 60, 0.25);
+  transform: translateY(-12px);
+  box-shadow: 0 30px 60px rgba(251, 146, 60, 0.2);
 }
 
-/* Améliorations des formulaires avec plus d'espace */
+/* Formulaires modernes */
 .form-input {
-  border-radius: 2rem;
+  border-radius: 1rem;
   border: 2px solid #e5e7eb;
-  padding: 2rem 3rem;
-  transition: all 0.4s ease;
-  background: rgba(255, 255, 255, 0.9);
+  padding: 1rem 1.5rem;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  margin: 1.5rem 0;
 }
 
 .form-input:focus {
   border-color: #f59e0b;
-  box-shadow: 0 0 0 8px rgba(245, 158, 11, 0.15);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.1);
   background: rgba(255, 255, 255, 1);
 }
 
-/* Grilles responsives améliorées avec plus d'espace */
+/* Grilles responsives optimisées */
 .grid-responsive {
   display: grid;
-  gap: 6rem;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  padding: 3rem 0;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 @media (min-width: 768px) {
   .grid-responsive {
-    gap: 8rem;
-    padding: 4rem 0;
+    gap: 3rem;
   }
 }
 
 @media (min-width: 1024px) {
   .grid-responsive {
-    gap: 10rem;
-    padding: 5rem 0;
+    gap: 4rem;
   }
 }
 
-/* Améliorations de scroll */
+/* Scroll fluide */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 10rem;
+  scroll-padding-top: 6rem;
 }
 
-/* Amélioration des ombres */
+/* Ombres modernes */
 .shadow-soft {
-  box-shadow: 0 20px 50px rgba(251, 146, 60, 0.15);
+  box-shadow: 0 12px 30px rgba(251, 146, 60, 0.1);
 }
 
 .shadow-warm {
-  box-shadow: 0 25px 60px rgba(251, 146, 60, 0.2);
+  box-shadow: 0 15px 35px rgba(251, 146, 60, 0.15);
 }
 
 .shadow-gold {
-  box-shadow: 0 30px 70px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 20px 40px rgba(245, 158, 11, 0.2);
 }
 
-/* Améliorations du responsive avec plus d'espace */
+/* Responsive amélioré */
 @media (max-width: 640px) {
-  .container-spacing {
-    padding: 3rem;
-  }
-  
   section {
-    margin-bottom: 8rem;
-    padding: 6rem 0;
+    margin-bottom: 4rem;
+    padding: 3rem 0;
   }
   
   h1 {
-    font-size: 2.5rem;
-    margin-bottom: 2.5rem;
+    font-size: 2rem;
   }
   
   h2 {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+    font-size: 1.75rem;
   }
 }
 
-/* Transitions globales améliorées */
+/* Transitions globales fluides */
 * {
-  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.4s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
-/* Nouvelles classes pour l'espacement massif */
+/* Classes utilitaires pour l'espacement */
 .section-spacing {
-  padding: 12rem 0;
-  margin: 8rem 0;
+  padding: 6rem 0;
+  margin: 4rem 0;
 }
 
 .content-spacing {
-  padding: 4rem 0;
-  margin: 3rem 0;
+  padding: 2rem 0;
+  margin: 1.5rem 0;
 }
 
 .element-spacing {
-  margin: 3rem 0;
+  margin: 1.5rem 0;
 }
 
 /* Amélioration de la lisibilité */
 p {
-  margin-bottom: 2rem;
-  line-height: 2;
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
 }
 
 .container {
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 @media (min-width: 768px) {
+  .container {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (min-width: 1024px) {
   .container {
     padding-left: 4rem;
     padding-right: 4rem;
   }
 }
 
-@media (min-width: 1024px) {
-  .container {
-    padding-left: 6rem;
-    padding-right: 6rem;
-  }
-}
-
-/* Corrections pour les lignes sous les titres */
+/* Lignes décoratives sous les titres */
 .title-underline {
   position: relative;
   display: inline-block;
@@ -405,13 +380,13 @@ p {
 .title-underline::after {
   content: '';
   position: absolute;
-  bottom: -1rem;
+  bottom: -0.5rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 4rem;
-  height: 0.25rem;
+  width: 3rem;
+  height: 0.2rem;
   background: linear-gradient(90deg, #f59e0b, #fbbf24);
-  border-radius: 0.125rem;
+  border-radius: 0.1rem;
 }
 
 /* Améliorations pour les cartes de contenu */
@@ -422,7 +397,7 @@ p {
   overflow: hidden;
 }
 
-/* Corrections pour l'affichage des textes */
+/* Alignements parfaits */
 .text-center {
   text-align: center;
 }
@@ -433,4 +408,52 @@ p {
 
 .text-right {
   text-align: right;
+}
+
+/* Nouveau système d'espacement premium */
+.section-hero {
+  padding: 0;
+  margin-bottom: 6rem;
+}
+
+.section-content {
+  padding: 4rem 0;
+  margin-bottom: 4rem;
+}
+
+.section-feature {
+  padding: 6rem 0;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 768px) {
+  .section-hero {
+    margin-bottom: 8rem;
+  }
+  
+  .section-content {
+    padding: 6rem 0;
+    margin-bottom: 6rem;
+  }
+  
+  .section-feature {
+    padding: 8rem 0;
+    margin-bottom: 8rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section-hero {
+    margin-bottom: 10rem;
+  }
+  
+  .section-content {
+    padding: 8rem 0;
+    margin-bottom: 8rem;
+  }
+  
+  .section-feature {
+    padding: 10rem 0;
+    margin-bottom: 10rem;
+  }
 }
