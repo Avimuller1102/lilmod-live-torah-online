@@ -13,18 +13,18 @@ const HeroSection = () => {
       
       <div className="relative z-10 max-w-6xl mx-auto px-8 text-center py-20">
         {/* Logo LILMOD plus petit et centré */}
-        <div className="mb-16 animate-fadeIn">
+        <div className="mb-12 animate-fadeIn">
           <div className="flex flex-col items-center">
             <img 
               src="/lovable-uploads/180a6222-23fc-4499-9a5f-62a4e32b8970.png" 
               alt="LILMOD Logo" 
-              className="h-20 md:h-24 lg:h-28 mb-6 drop-shadow-lg transform hover:scale-105 transition-all duration-500"
+              className="h-16 md:h-20 lg:h-24 mb-6 drop-shadow-lg transform hover:scale-105 transition-all duration-500"
             />
           </div>
         </div>
 
         {/* Titre principal modernisé */}
-        <div className="mb-20 animate-slideIn">
+        <div className="mb-16 animate-slideIn">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-gray-800 mb-8 max-w-4xl mx-auto leading-tight">
             LILMOD - Une <span className="text-orange-600 font-medium">Torah vivante</span> sur tous les fronts
           </h1>

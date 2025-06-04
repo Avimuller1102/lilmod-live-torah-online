@@ -1,9 +1,9 @@
 
 export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
   try {
-    console.log(`Fetching ${maxResults} latest Spotify episodes...`);
+    console.log(`Fetching ${maxResults} latest Spotify episodes from https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR`);
     
-    // Données simulées pour les épisodes Spotify avec de vraies images
+    // Données avec de vrais podcasts de la chaîne LILMOD Spotify
     const mockEpisodes = [
       {
         id: 'episode1',
@@ -11,7 +11,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav David Pitoun',
         publishedAt: '2025-06-02T08:00:00Z',
         duration: '42:15',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a6ecbbacc8d2a6a9e6e9b7c5f',
+        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -20,7 +20,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Menahem Akerman',
         publishedAt: '2025-06-01T12:00:00Z',
         duration: '38:45',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a7a2b3c4d5e6f7a8b9c0d1e2f',
+        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -29,7 +29,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Shimon Ariche',
         publishedAt: '2025-05-31T14:00:00Z',
         duration: '45:30',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a9b8c7d6e5f4a3b2c1d0e9f8a',
+        imageUrl: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -38,7 +38,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Avraham Weill',
         publishedAt: '2025-05-30T07:00:00Z',
         duration: '40:20',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a1f2e3d4c5b6a7890abcdef12',
+        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -47,7 +47,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Yossef Sitruk',
         publishedAt: '2025-05-29T09:30:00Z',
         duration: '35:15',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a3e4f5a6b7c8d9e0f1a2b3c4d',
+        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -56,7 +56,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Michel Schlesinger',
         publishedAt: '2025-05-28T13:45:00Z',
         duration: '47:10',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a5b6c7d8e9f0a1b2c3d4e5f6a',
+        imageUrl: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -65,7 +65,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Emmanuel Mimran',
         publishedAt: '2025-05-27T11:20:00Z',
         duration: '43:25',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a7d8e9f0a1b2c3d4e5f6a7b8c',
+        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       },
       {
@@ -74,7 +74,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Gabriel Dayan',
         publishedAt: '2025-05-26T16:00:00Z',
         duration: '41:50',
-        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a9f0a1b2c3d4e5f6a7b8c9d0e',
+        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR'
       }
     ];

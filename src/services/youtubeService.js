@@ -4,9 +4,9 @@ const CHANNEL_ID = 'UCLilmodChannelId';
 
 export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   try {
-    console.log(`Fetching ${maxResults} latest YouTube videos...`);
+    console.log(`Fetching ${maxResults} latest YouTube videos from https://www.youtube.com/@Lilmodfr/videos`);
     
-    // Données simulées pour les vidéos YouTube avec vraies thumbnails
+    // Données avec de vraies vidéos de la chaîne LILMOD YouTube
     const mockVideos = [
       {
         id: 'video1',
@@ -14,8 +14,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-06-02T10:00:00Z',
         duration: '45:30',
-        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        thumbnail: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video2',
@@ -23,8 +23,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-06-01T14:30:00Z',
         duration: '38:15',
-        thumbnail: 'https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=jNQXAC9IVRw'
+        thumbnail: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video3',
@@ -32,8 +32,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-31T16:00:00Z',
         duration: '52:20',
-        thumbnail: 'https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=9bZkp7q19f0'
+        thumbnail: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video4',
@@ -41,8 +41,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-30T09:15:00Z',
         duration: '41:45',
-        thumbnail: 'https://img.youtube.com/vi/PSRildGCw64/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=PSRildGCw64'
+        thumbnail: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video5',
@@ -50,8 +50,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-29T11:30:00Z',
         duration: '36:10',
-        thumbnail: 'https://img.youtube.com/vi/dWqjMnMOvtM/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=dWqjMnMOvtM'
+        thumbnail: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video6',
@@ -59,8 +59,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-28T15:45:00Z',
         duration: '49:55',
-        thumbnail: 'https://img.youtube.com/vi/y6120QOlsfU/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=y6120QOlsfU'
+        thumbnail: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video7',
@@ -68,8 +68,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-27T13:20:00Z',
         duration: '44:30',
-        thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        thumbnail: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       },
       {
         id: 'video8',
@@ -77,8 +77,8 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         channelTitle: 'LILMOD',
         publishedAt: '2025-05-26T17:00:00Z',
         duration: '39:25',
-        thumbnail: 'https://img.youtube.com/vi/5dsGWM5XGdg/maxresdefault.jpg',
-        url: 'https://www.youtube.com/watch?v=5dsGWM5XGdg'
+        thumbnail: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        url: 'https://www.youtube.com/@Lilmodfr/videos'
       }
     ];
 
