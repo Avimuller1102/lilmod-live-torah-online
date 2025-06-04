@@ -20,22 +20,22 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
       <Navbar />
       
-      {/* Section Hero */}
+      {/* Section Hero - Point focal du site */}
       <div className="section-hero">
         <HeroSection />
       </div>
       
-      {/* Section À propos */}
+      {/* Section À propos - Juste après le Hero comme demandé */}
       <div className="section-content">
         <About />
       </div>
       
-      {/* Section Recherche */}
+      {/* Section Recherche - Avec une ligne avant le titre comme demandé */}
       <div className="section-feature">
         <CombinedContentLibrary />
       </div>
       
-      {/* Section Horaires Shabbat */}
+      {/* Section Horaires Shabbat - Toutes les villes */}
       <div className="section-content">
         <ShabbatTimes />
       </div>
@@ -68,7 +68,7 @@ const Index = () => {
       {/* Footer */}
       <Footer />
       
-      {/* Boutons flottants */}
+      {/* Boutons flottants améliorés */}
       <WhatsAppButton />
       <LinkTreeButton />
       <NewsletterButton />
