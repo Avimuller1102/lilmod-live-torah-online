@@ -63,13 +63,13 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
       },
       {
         id: 'episode2',
-        title: 'Rav Menahem Akerman - Leçons de vie du Talmud',
+        title: 'Rav Menahem Akerman - Lecons de vie du Talmud',
         teacher: 'Rav Menahem Akerman',
         publishedAt: '2025-06-01T12:00:00Z',
         duration: '38:45',
         imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
-        description: 'Découvrez les sagesses éternelles du Talmud appliquées à notre époque moderne...'
+        description: 'Decouvrez les sagesses eternelles du Talmud appliquees a notre epoque moderne...'
       },
       {
         id: 'episode3',
@@ -89,27 +89,27 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         duration: '40:20',
         imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
-        description: 'Explorez les riches traditions du peuple juif à travers les âges...'
+        description: 'Explorez les riches traditions du peuple juif a travers les ages...'
       },
       {
         id: 'episode5',
-        title: 'Rav Yossef Sitruk - Méditations spirituelles',
+        title: 'Rav Yossef Sitruk - Meditations spirituelles',
         teacher: 'Rav Yossef Sitruk',
         publishedAt: '2025-05-29T09:30:00Z',
         duration: '35:15',
         imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
-        description: 'Des moments de réflexion spirituelle pour nourrir l'âme et l'esprit...'
+        description: 'Des moments de reflexion spirituelle pour nourrir l\'ame et l\'esprit...'
       },
       {
         id: 'episode6',
-        title: 'Rav Michel Schlesinger - Récits historiques',
+        title: 'Rav Michel Schlesinger - Recits historiques',
         teacher: 'Rav Michel Schlesinger',
         publishedAt: '2025-05-28T13:45:00Z',
         duration: '47:10',
         imageUrl: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
-        description: 'Plongez dans l'histoire fascinante du peuple juif à travers les siècles...'
+        description: 'Plongez dans l\'histoire fascinante du peuple juif a travers les siecles...'
       },
       {
         id: 'episode7',
@@ -123,13 +123,13 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
       },
       {
         id: 'episode8',
-        title: 'Rav Gabriel Dayan - Pensée contemporaine',
+        title: 'Rav Gabriel Dayan - Pensee contemporaine',
         teacher: 'Rav Gabriel Dayan',
         publishedAt: '2025-05-26T16:00:00Z',
         duration: '41:50',
         imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
-        description: 'Comment la pensée juive répond aux défis du monde contemporain...'
+        description: 'Comment la pensee juive repond aux defis du monde contemporain...'
       }
     ];
 
