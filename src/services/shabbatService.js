@@ -1,4 +1,3 @@
-
 /**
  * Service pour récupérer les horaires de Chabbat depuis Torah-Box
  */
@@ -27,22 +26,68 @@ const TORAH_BOX_URLS = {
   }
 };
 
-// Fonction pour extraire les horaires depuis une page Torah-Box
+// Fonction améliorée pour extraire les horaires depuis une page Torah-Box
 const extractShabbatTimesFromHTML = (html) => {
   try {
-    // Extraire les horaires depuis le HTML de Torah-Box
-    // Cette fonction cherche les patterns typiques des horaires
-    const entreeMatch = html.match(/allumage[^>]*>([^<]*\d{1,2}:\d{2}[^<]*)</i) || 
-                       html.match(/entrée[^>]*>([^<]*\d{1,2}:\d{2}[^<]*)</i) ||
-                       html.match(/(\d{1,2}:\d{2})[^<]*allumage/i);
+    // Nettoyer le HTML des caractères spéciaux
+    const cleanHtml = html.replace(/\s+/g, ' ').toLowerCase();
     
-    const sortieMatch = html.match(/sortie[^>]*>([^<]*\d{1,2}:\d{2}[^<]*)</i) || 
-                       html.match(/havdalah[^>]*>([^<]*\d{1,2}:\d{2}[^<]*)</i) ||
-                       html.match(/(\d{1,2}:\d{2})[^<]*sortie/i);
-
-    const entree = entreeMatch ? entreeMatch[1].match(/\d{1,2}:\d{2}/)?.[0] : null;
-    const sortie = sortieMatch ? sortieMatch[1].match(/\d{1,2}:\d{2}/)?.[0] : null;
-
+    // Patterns pour trouver les horaires d'allumage
+    const entreePatterns = [
+      /allumage[^>]*?(\d{1,2}:\d{2})/i,
+      /entrée[^>]*?(\d{1,2}:\d{2})/i,
+      /vendredi[^>]*?(\d{1,2}:\d{2})/i,
+      /début[^>]*?(\d{1,2}:\d{2})/i,
+      /<td[^>]*>.*?(\d{1,2}:\d{2}).*?<\/td>/i,
+      /(\d{1,2}:\d{2})[^>]*allumage/i
+    ];
+    
+    // Patterns pour trouver les horaires de sortie
+    const sortiePatterns = [
+      /sortie[^>]*?(\d{1,2}:\d{2})/i,
+      /havdalah[^>]*?(\d{1,2}:\d{2})/i,
+      /samedi[^>]*?(\d{1,2}:\d{2})/i,
+      /fin[^>]*?(\d{1,2}:\d{2})/i,
+      /(\d{1,2}:\d{2})[^>]*sortie/i,
+      /(\d{1,2}:\d{2})[^>]*havdalah/i
+    ];
+    
+    let entree = null;
+    let sortie = null;
+    
+    // Chercher l'heure d'entrée
+    for (const pattern of entreePatterns) {
+      const match = cleanHtml.match(pattern);
+      if (match && match[1]) {
+        entree = match[1];
+        break;
+      }
+    }
+    
+    // Chercher l'heure de sortie
+    for (const pattern of sortiePatterns) {
+      const match = cleanHtml.match(pattern);
+      if (match && match[1]) {
+        sortie = match[1];
+        break;
+      }
+    }
+    
+    // Si on trouve des horaires dans des tableaux
+    if (!entree || !sortie) {
+      const tableMatches = cleanHtml.match(/<table[^>]*>.*?<\/table>/gi);
+      if (tableMatches) {
+        for (const table of tableMatches) {
+          const timeMatches = table.match(/(\d{1,2}:\d{2})/g);
+          if (timeMatches && timeMatches.length >= 2) {
+            if (!entree) entree = timeMatches[0];
+            if (!sortie) sortie = timeMatches[timeMatches.length - 1];
+          }
+        }
+      }
+    }
+    
+    console.log(`Horaires extraits: Entrée: ${entree}, Sortie: ${sortie}`);
     return { entree, sortie };
   } catch (error) {
     console.error('Erreur lors de l\'extraction des horaires:', error);
@@ -50,37 +95,74 @@ const extractShabbatTimesFromHTML = (html) => {
   }
 };
 
-// Fonction pour récupérer les horaires d'une ville
-const fetchCityShabbatTimes = async (city, url) => {
-  try {
-    console.log(`Fetching Shabbat times for ${city}...`);
-    
-    // Utiliser un proxy CORS pour éviter les problèmes de CORS
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-    
-    const response = await fetch(proxyUrl);
-    const data = await response.json();
-    
-    if (data.contents) {
-      const times = extractShabbatTimesFromHTML(data.contents);
+// Fonction pour récupérer les horaires d'une ville avec retry
+const fetchCityShabbatTimes = async (city, url, retries = 3) => {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      console.log(`Fetching Shabbat times for ${city} (attempt ${attempt})...`);
       
-      return {
-        city,
-        entree: times.entree || generateFallbackTime(city, 'entree'),
-        sortie: times.sortie || generateFallbackTime(city, 'sortie')
-      };
+      // Utiliser plusieurs proxies CORS
+      const proxies = [
+        `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`,
+        `https://cors-anywhere.herokuapp.com/${url}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+      ];
+      
+      let response;
+      let data;
+      
+      for (const proxyUrl of proxies) {
+        try {
+          response = await fetch(proxyUrl, {
+            headers: {
+              'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+          });
+          
+          if (response.ok) {
+            data = await response.json();
+            if (data.contents || data.content) {
+              break;
+            }
+          }
+        } catch (proxyError) {
+          console.warn(`Proxy failed: ${proxyUrl}`, proxyError);
+          continue;
+        }
+      }
+      
+      if (data && (data.contents || data.content)) {
+        const htmlContent = data.contents || data.content;
+        const times = extractShabbatTimesFromHTML(htmlContent);
+        
+        if (times.entree && times.sortie) {
+          return {
+            city,
+            entree: times.entree,
+            sortie: times.sortie
+          };
+        }
+      }
+      
+      if (attempt === retries) {
+        throw new Error('Tous les proxies ont échoué');
+      }
+      
+      // Attendre avant de réessayer
+      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      
+    } catch (error) {
+      console.warn(`Tentative ${attempt} échouée pour ${city}:`, error);
+      
+      if (attempt === retries) {
+        console.warn(`Impossible de récupérer les horaires pour ${city}, utilisation des horaires de fallback`);
+        return {
+          city,
+          entree: generateFallbackTime(city, 'entree'),
+          sortie: generateFallbackTime(city, 'sortie')
+        };
+      }
     }
-    
-    throw new Error('Pas de contenu reçu');
-  } catch (error) {
-    console.warn(`Impossible de récupérer les horaires pour ${city}, utilisation des horaires de fallback:`, error);
-    
-    // Utiliser des horaires de fallback réalistes
-    return {
-      city,
-      entree: generateFallbackTime(city, 'entree'),
-      sortie: generateFallbackTime(city, 'sortie')
-    };
   }
 };
 
@@ -205,13 +287,24 @@ export const fetchShabbatTimes = async () => {
   try {
     console.log('Fetching Shabbat times from Torah-Box...');
     
-    // Récupérer les horaires pour toutes les villes
-    const francePromises = Object.entries(TORAH_BOX_URLS.france).map(([city, url]) => 
-      fetchCityShabbatTimes(city, url)
+    // Récupérer les horaires pour toutes les villes avec un délai entre les requêtes
+    const franceCities = Object.entries(TORAH_BOX_URLS.france);
+    const israelCities = Object.entries(TORAH_BOX_URLS.israel);
+    
+    const francePromises = franceCities.map(([city, url], index) => 
+      new Promise(resolve => {
+        setTimeout(() => {
+          resolve(fetchCityShabbatTimes(city, url));
+        }, index * 500); // Délai de 500ms entre chaque requête
+      })
     );
     
-    const israelPromises = Object.entries(TORAH_BOX_URLS.israel).map(([city, url]) => 
-      fetchCityShabbatTimes(city, url)
+    const israelPromises = israelCities.map(([city, url], index) => 
+      new Promise(resolve => {
+        setTimeout(() => {
+          resolve(fetchCityShabbatTimes(city, url));
+        }, (franceCities.length + index) * 500);
+      })
     );
     
     // Attendre que toutes les requêtes se terminent
