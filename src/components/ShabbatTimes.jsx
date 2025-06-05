@@ -8,37 +8,24 @@ const ShabbatTimes = () => {
   const [loading, setLoading] = useState(true);
 
   const cities = [
+    // France
     { name: 'Paris', country: 'France' },
-    { name: 'Marseille', country: 'France' },
-    { name: 'Lyon', country: 'France' },
     { name: 'Toulouse', country: 'France' },
+    { name: 'Lyon', country: 'France' },
+    { name: 'Marseille', country: 'France' },
+    { name: 'Lille', country: 'France' },
     { name: 'Nice', country: 'France' },
     { name: 'Strasbourg', country: 'France' },
+    { name: 'Bordeaux', country: 'France' },
+    { name: 'Nantes', country: 'France' },
+    // Israël
     { name: 'Jérusalem', country: 'Israël' },
     { name: 'Tel Aviv', country: 'Israël' },
-    { name: 'Haifa', country: 'Israël' },
+    { name: 'Haïfa', country: 'Israël' },
+    { name: 'Beer Sheva', country: 'Israël' },
     { name: 'Netanya', country: 'Israël' },
     { name: 'Ashdod', country: 'Israël' },
-    { name: 'Beer Sheva', country: 'Israël' },
-    { name: 'Londres', country: 'Royaume-Uni' },
-    { name: 'Manchester', country: 'Royaume-Uni' },
-    { name: 'New York', country: 'États-Unis' },
-    { name: 'Los Angeles', country: 'États-Unis' },
-    { name: 'Miami', country: 'États-Unis' },
-    { name: 'Montreal', country: 'Canada' },
-    { name: 'Toronto', country: 'Canada' },
-    { name: 'Casablanca', country: 'Maroc' },
-    { name: 'Tunis', country: 'Tunisie' },
-    { name: 'Bruxelles', country: 'Belgique' },
-    { name: 'Genève', country: 'Suisse' },
-    { name: 'Zurich', country: 'Suisse' },
-    { name: 'Amsterdam', country: 'Pays-Bas' },
-    { name: 'Rome', country: 'Italie' },
-    { name: 'Milan', country: 'Italie' },
-    { name: 'Berlin', country: 'Allemagne' },
-    { name: 'Francfort', country: 'Allemagne' },
-    { name: 'Melbourne', country: 'Australie' },
-    { name: 'Sydney', country: 'Australie' }
+    { name: 'Eilat', country: 'Israël' }
   ];
 
   useEffect(() => {
@@ -58,22 +45,22 @@ const ShabbatTimes = () => {
   }, []);
 
   return (
-    <section className="py-32 px-8 bg-white">
+    <section className="py-20 px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
-          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
             HORAIRES DU CHABBAT
           </h2>
         </div>
 
         {/* Information sur la semaine en cours en noir */}
         <div className="text-center mb-16">
-          <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-8 shadow-lg max-w-2xl mx-auto">
-            <h3 className="text-3xl font-bold text-black mb-4">Cette semaine</h3>
-            <p className="text-2xl font-bold text-black mb-2">נשא • 1-8 Juin 2025</p>
-            <p className="text-xl font-semibold text-black">א'-ח' סיון תשפ"ה</p>
+          <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-lg max-w-2xl mx-auto">
+            <h3 className="text-2xl font-bold text-black mb-4">Cette semaine</h3>
+            <p className="text-xl font-bold text-black mb-2">Nasso • 1-8 Juin 2025</p>
+            <p className="text-lg font-semibold text-black">א'-ח' סיון תשפ"ה</p>
           </div>
         </div>
 
@@ -82,7 +69,7 @@ const ShabbatTimes = () => {
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {cities.map((city, index) => {
               const mockTimes = {
                 candleLighting: `${18 + (index % 3)}:${30 + (index % 30)}`,
@@ -92,31 +79,31 @@ const ShabbatTimes = () => {
               return (
                 <div 
                   key={`${city.name}-${city.country}`}
-                  className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-200"
+                  className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-200"
                 >
                   <div className="flex items-center mb-4">
-                    <MapPin className="w-5 h-5 text-blue-600 mr-2" />
+                    <MapPin className="w-4 h-4 text-blue-600 mr-2" />
                     <div>
-                      <h3 className="font-bold text-gray-900 text-lg">{city.name}</h3>
-                      <p className="text-sm text-gray-600">{city.country}</p>
+                      <h3 className="font-bold text-gray-900 text-base">{city.name}</h3>
+                      <p className="text-xs text-gray-600">{city.country}</p>
                     </div>
                   </div>
                   
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-3">
+                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-2">
                       <div className="flex items-center">
-                        <Clock className="w-4 h-4 text-orange-600 mr-2" />
-                        <span className="text-sm font-medium text-gray-700">Allumage</span>
+                        <Clock className="w-3 h-3 text-orange-600 mr-2" />
+                        <span className="text-xs font-medium text-gray-700">Allumage</span>
                       </div>
-                      <span className="font-bold text-orange-600">{mockTimes.candleLighting}</span>
+                      <span className="font-bold text-orange-600 text-sm">{mockTimes.candleLighting}</span>
                     </div>
                     
-                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-3">
+                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-2">
                       <div className="flex items-center">
-                        <Calendar className="w-4 h-4 text-blue-600 mr-2" />
-                        <span className="text-sm font-medium text-gray-700">Havdalah</span>
+                        <Calendar className="w-3 h-3 text-blue-600 mr-2" />
+                        <span className="text-xs font-medium text-gray-700">Havdalah</span>
                       </div>
-                      <span className="font-bold text-blue-600">{mockTimes.havdalah}</span>
+                      <span className="font-bold text-blue-600 text-sm">{mockTimes.havdalah}</span>
                     </div>
                   </div>
                 </div>
