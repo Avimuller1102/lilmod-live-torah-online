@@ -86,7 +86,7 @@ const CombinedContentLibrary = () => {
               placeholder="Rechercher un cours, un rabbin, un sujet..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-14 pr-6 py-4 rounded-2xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 outline-none transition-all bg-white shadow-lg text-base text-center"
+              className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 outline-none transition-all bg-white shadow-lg text-base text-center font-medium"
             />
           </div>
         </div>
@@ -106,11 +106,11 @@ const CombinedContentLibrary = () => {
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-10">
                 {filteredVideos.map((video) => (
                   <Card 
                     key={video.id} 
-                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 bg-white shadow-lg overflow-hidden rounded-2xl"
+                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 bg-white shadow-lg overflow-hidden rounded-xl"
                     onClick={() => openYouTubeVideo(video)}
                   >
                     <CardContent className="p-0">
@@ -118,17 +118,17 @@ const CombinedContentLibrary = () => {
                         <img 
                           src={video.thumbnail} 
                           alt={video.title}
-                          className="w-full h-40 object-cover"
+                          className="w-full h-32 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent group-hover:from-black/80 transition-all flex items-center justify-center">
-                          <Play className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-all transform scale-75 group-hover:scale-100" />
+                          <Play className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-all transform scale-75 group-hover:scale-100" />
                         </div>
                         <div className="absolute bottom-2 right-2 bg-black/90 text-white px-2 py-1 rounded-lg text-xs font-bold">
                           {video.duration}
                         </div>
                       </div>
-                      <div className="p-4">
-                        <h4 className="font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-red-500 transition-colors text-sm">
+                      <div className="p-3">
+                        <h4 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-red-500 transition-colors text-sm">
                           {video.title}
                         </h4>
                         <div className="flex items-center text-xs text-gray-600">
@@ -149,7 +149,7 @@ const CombinedContentLibrary = () => {
                   className="inline-flex items-center bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   <Youtube className="w-5 h-5 mr-3" />
-                  <span className="text-black">Toutes nos vidéos YouTube</span>
+                  <span className="text-white">Toutes nos vidéos YouTube</span>
                 </a>
               </div>
             </div>
@@ -163,11 +163,11 @@ const CombinedContentLibrary = () => {
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-10">
                 {filteredEpisodes.map((episode) => (
                   <Card 
                     key={episode.id} 
-                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 bg-white shadow-lg overflow-hidden rounded-2xl"
+                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-xl border-0 bg-white shadow-lg overflow-hidden rounded-xl"
                     onClick={() => openSpotifyEpisode(episode)}
                   >
                     <CardContent className="p-0">
@@ -175,16 +175,16 @@ const CombinedContentLibrary = () => {
                         <img 
                           src={episode.imageUrl} 
                           alt={episode.title}
-                          className="w-full h-40 object-cover"
+                          className="w-full h-32 object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent group-hover:from-black/80 transition-all flex items-center justify-center">
-                          <Play className="w-12 h-12 text-white opacity-0 group-hover:opacity-100 transition-all transform scale-75 group-hover:scale-100" />
+                          <Play className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-all transform scale-75 group-hover:scale-100" />
                         </div>
                         <div className="absolute bottom-2 right-2 bg-black/90 text-white px-2 py-1 rounded-lg text-xs font-bold">
                           {episode.duration}
                         </div>
                       </div>
-                      <div className="p-4">
+                      <div className="p-3">
                         <h4 className="font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-green-500 transition-colors text-sm">
                           {episode.title}
                         </h4>
@@ -209,7 +209,7 @@ const CombinedContentLibrary = () => {
                   className="inline-flex items-center bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
                 >
                   <Headphones className="w-5 h-5 mr-3" />
-                  <span className="text-black">Tous nos podcasts Spotify</span>
+                  <span className="text-white">Tous nos podcasts Spotify</span>
                 </a>
               </div>
             </div>
