@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Search, Play, Clock, Calendar, Youtube, Headphones } from 'lucide-react';
 import { fetchLatestYouTubeVideos } from '../services/youtubeService';
 import { fetchLatestSpotifyEpisodes } from '../services/spotifyService';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const CombinedContentLibrary = () => {
   const { toast } = useToast();
@@ -78,7 +78,7 @@ const CombinedContentLibrary = () => {
         </div>
 
         {/* Barre de recherche centrée avec plus d'espace */}
-        <div className="max-w-2xl mx-auto mb-24">
+        <div className="max-w-2xl mx-auto mb-32">
           <div className="relative">
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -96,17 +96,17 @@ const CombinedContentLibrary = () => {
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
         ) : (
-          <div className="space-y-32">
+          <div className="space-y-48">
             {/* Section Vidéos YouTube avec plus d'espace */}
             <div>
-              <div className="flex items-center justify-center mb-16">
+              <div className="flex items-center justify-center mb-20">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
                   <Youtube className="w-8 h-8 text-red-500 mr-3" />
                   Dernières Vidéos YouTube
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-16">
                 {filteredVideos.map((video) => (
                   <Card 
                     key={video.id} 
@@ -141,7 +141,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center">
+              <div className="text-center mb-24">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -156,14 +156,14 @@ const CombinedContentLibrary = () => {
 
             {/* Section Podcasts Spotify avec plus d'espace */}
             <div>
-              <div className="flex items-center justify-center mb-16">
+              <div className="flex items-center justify-center mb-20">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
                   <Headphones className="w-8 h-8 text-green-500 mr-3" />
                   Derniers Podcasts Spotify
                 </h3>
               </div>
               
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-16">
                 {filteredEpisodes.map((episode) => (
                   <Card 
                     key={episode.id} 
@@ -201,7 +201,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center">
+              <div className="text-center mb-24">
                 <a 
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                   target="_blank" 
@@ -216,8 +216,8 @@ const CombinedContentLibrary = () => {
           </div>
         )}
 
-        {/* Lien vers Linktree */}
-        <div className="mt-20 flex justify-center">
+        {/* Lien vers Linktree avec plus d'espace */}
+        <div className="mt-32 flex justify-center">
           <a 
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 

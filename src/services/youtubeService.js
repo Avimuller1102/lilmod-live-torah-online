@@ -28,13 +28,18 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   try {
     console.log(`Fetching ${maxResults} latest YouTube videos from LILMOD channel`);
     
-    // Première requête pour obtenir les vidéos
+    // Première requête pour obtenir les vidéos avec leurs détails
     const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`;
     
     const searchResponse = await fetch(searchUrl);
+    
+    if (!searchResponse.ok) {
+      throw new Error(`YouTube API error: ${searchResponse.status}`);
+    }
+    
     const searchData = await searchResponse.json();
     
-    if (!searchData.items) {
+    if (!searchData.items || searchData.items.length === 0) {
       console.error('No videos found');
       return [];
     }
@@ -42,13 +47,18 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
     // Extraire les IDs des vidéos
     const videoIds = searchData.items.map(item => item.id.videoId).join(',');
     
-    // Deuxième requête pour obtenir les détails des vidéos (durée)
-    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${videoIds}&part=contentDetails`;
+    // Deuxième requête pour obtenir les détails des vidéos (durée et statistiques)
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${videoIds}&part=contentDetails,snippet`;
     
     const detailsResponse = await fetch(detailsUrl);
+    
+    if (!detailsResponse.ok) {
+      throw new Error(`YouTube Details API error: ${detailsResponse.status}`);
+    }
+    
     const detailsData = await detailsResponse.json();
     
-    // Combiner les données
+    // Combiner les données avec les durées réelles
     const videos = searchData.items.map(item => {
       const videoDetails = detailsData.items?.find(detail => detail.id === item.id.videoId);
       const duration = videoDetails ? parseDuration(videoDetails.contentDetails.duration) : '0:00';
@@ -64,7 +74,11 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
       };
     });
 
-    console.log(`Successfully fetched ${videos.length} videos from YouTube API`);
+    console.log(`Successfully fetched ${videos.length} videos with durations from YouTube API`);
+    videos.forEach(video => {
+      console.log(`Video: ${video.title} - Duration: ${video.duration}`);
+    });
+    
     return videos;
     
   } catch (error) {
