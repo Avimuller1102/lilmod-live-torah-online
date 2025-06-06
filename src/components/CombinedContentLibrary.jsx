@@ -78,7 +78,7 @@ const CombinedContentLibrary = () => {
         </div>
 
         {/* Barre de recherche centrée avec plus d'espace */}
-        <div className="max-w-2xl mx-auto mb-32">
+        <div className="max-w-2xl mx-auto mb-48">
           <div className="relative">
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -96,7 +96,7 @@ const CombinedContentLibrary = () => {
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
         ) : (
-          <div className="space-y-48">
+          <div className="space-y-64">
             {/* Section Vidéos YouTube avec plus d'espace */}
             <div>
               <div className="flex items-center justify-center mb-20">
@@ -141,7 +141,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-24">
+              <div className="text-center mb-32">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -201,7 +201,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-24">
+              <div className="text-center mb-32">
                 <a 
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                   target="_blank" 
@@ -217,7 +217,7 @@ const CombinedContentLibrary = () => {
         )}
 
         {/* Lien vers Linktree avec plus d'espace */}
-        <div className="mt-32 flex justify-center">
+        <div className="mt-48 flex justify-center">
           <a 
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 
