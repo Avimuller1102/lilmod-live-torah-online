@@ -3,14 +3,14 @@ import React from 'react';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 px-8 bg-white mt-24">
+    <section id="about" className="py-20 px-8 bg-white mt-12">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-20">
           <div className="mb-8"></div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             À PROPOS DE LILMOD.FR
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full mt-4"></div>
+          <div className="w-32 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full mt-6"></div>
         </div>
         
         <div className="max-w-3xl mx-auto">
@@ -38,7 +38,8 @@ const About = () => {
                     href="https://chat.whatsapp.com/KR5PN77WbfvDb4zFgBu3Cl" 
                     target="_blank"
                     rel="noopener noreferrer" 
-                    className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl border-none outline-none text-xl"
+                    className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold py-5 px-12 rounded-2xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl text-xl filter-none"
+                    style={{ filter: 'none', WebkitFilter: 'none' }}
                   >
                     <svg className="w-7 h-7 mr-4" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217s.232.002.333.012c.107.01.251-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289-.086.101-.173.188-.246.289-.086.101-.177.209-.076.411.101.202.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.333.202c.043.073.043.423-.101.828z"/>

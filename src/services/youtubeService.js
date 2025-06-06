@@ -4,11 +4,11 @@ const CHANNEL_ID = 'UCL_BSX_zC9p8QjPjqMrpt9Q';
 
 // Fonction pour convertir la durée ISO 8601 en format MM:SS
 const parseDuration = (duration) => {
-  if (!duration) return '45:30';
+  if (!duration) return '0:00';
   
   // Exemple: PT1H2M10S ou PT45M30S ou PT2M10S
   const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-  if (!match) return '45:30';
+  if (!match) return '0:00';
   
   const hours = parseInt(match[1] || 0);
   const minutes = parseInt(match[2] || 0);
@@ -26,9 +26,51 @@ const parseDuration = (duration) => {
 
 export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   try {
-    console.log(`Fetching ${maxResults} latest YouTube videos from https://www.youtube.com/@Lilmodfr/videos`);
+    console.log(`Fetching ${maxResults} latest YouTube videos from LILMOD channel`);
     
-    // Données de démonstration avec durées variées réalistes
+    // Première requête pour obtenir les vidéos
+    const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`;
+    
+    const searchResponse = await fetch(searchUrl);
+    const searchData = await searchResponse.json();
+    
+    if (!searchData.items) {
+      console.error('No videos found');
+      return [];
+    }
+    
+    // Extraire les IDs des vidéos
+    const videoIds = searchData.items.map(item => item.id.videoId).join(',');
+    
+    // Deuxième requête pour obtenir les détails des vidéos (durée)
+    const detailsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${videoIds}&part=contentDetails`;
+    
+    const detailsResponse = await fetch(detailsUrl);
+    const detailsData = await detailsResponse.json();
+    
+    // Combiner les données
+    const videos = searchData.items.map(item => {
+      const videoDetails = detailsData.items?.find(detail => detail.id === item.id.videoId);
+      const duration = videoDetails ? parseDuration(videoDetails.contentDetails.duration) : '0:00';
+      
+      return {
+        id: item.id.videoId,
+        title: item.snippet.title,
+        channelTitle: item.snippet.channelTitle,
+        publishedAt: item.snippet.publishedAt,
+        duration: duration,
+        thumbnail: item.snippet.thumbnails.high?.url || item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
+        url: `https://www.youtube.com/watch?v=${item.id.videoId}`
+      };
+    });
+
+    console.log(`Successfully fetched ${videos.length} videos from YouTube API`);
+    return videos;
+    
+  } catch (error) {
+    console.error('Error fetching YouTube videos:', error);
+    
+    // Fallback data en cas d'erreur
     const mockVideos = [
       {
         id: 'dQw4w9WgXcQ1',
@@ -65,48 +107,9 @@ export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
         duration: '29:33',
         thumbnail: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
         url: 'https://www.youtube.com/@Lilmodfr/videos'
-      },
-      {
-        id: 'dQw4w9WgXcQ5',
-        title: 'Rav Yossef Sitruk - La prière au quotidien',
-        channelTitle: 'LILMOD',
-        publishedAt: '2025-05-29T11:30:00Z',
-        duration: '47:10',
-        thumbnail: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
-        url: 'https://www.youtube.com/@Lilmodfr/videos'
-      },
-      {
-        id: 'dQw4w9WgXcQ6',
-        title: 'Rav Michel Schlesinger - Histoire du peuple juif',
-        channelTitle: 'LILMOD',
-        publishedAt: '2025-05-28T15:45:00Z',
-        duration: '1:15:25',
-        thumbnail: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
-        url: 'https://www.youtube.com/@Lilmodfr/videos'
-      },
-      {
-        id: 'dQw4w9WgXcQ7',
-        title: 'Rav Emmanuel Mimran - La Kabbale accessible',
-        channelTitle: 'LILMOD',
-        publishedAt: '2025-05-27T13:20:00Z',
-        duration: '34:50',
-        thumbnail: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
-        url: 'https://www.youtube.com/@Lilmodfr/videos'
-      },
-      {
-        id: 'dQw4w9WgXcQ8',
-        title: 'Rav Gabriel Dayan - Philosophie juive contemporaine',
-        channelTitle: 'LILMOD',
-        publishedAt: '2025-05-26T17:00:00Z',
-        duration: '58:12',
-        thumbnail: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
-        url: 'https://www.youtube.com/@Lilmodfr/videos'
       }
     ];
 
     return mockVideos.slice(0, maxResults);
-  } catch (error) {
-    console.error('Error fetching YouTube videos:', error);
-    return [];
   }
 };
