@@ -67,7 +67,7 @@ const CombinedContentLibrary = () => {
     <section className="py-20 px-8 bg-white">
       <div className="max-w-7xl mx-auto">
         
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
             RECHERCHE (Rabbanim, Cours..)
@@ -77,8 +77,8 @@ const CombinedContentLibrary = () => {
           </p>
         </div>
 
-        {/* Barre de recherche centrée */}
-        <div className="max-w-2xl mx-auto mb-16">
+        {/* Barre de recherche centrée avec plus d'espace */}
+        <div className="max-w-2xl mx-auto mb-24">
           <div className="relative">
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -96,10 +96,10 @@ const CombinedContentLibrary = () => {
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
         ) : (
-          <div className="space-y-20">
-            {/* Section Vidéos YouTube */}
+          <div className="space-y-32">
+            {/* Section Vidéos YouTube avec plus d'espace */}
             <div>
-              <div className="flex items-center justify-center mb-12">
+              <div className="flex items-center justify-center mb-16">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
                   <Youtube className="w-8 h-8 text-red-500 mr-3" />
                   Dernières Vidéos YouTube
@@ -154,9 +154,9 @@ const CombinedContentLibrary = () => {
               </div>
             </div>
 
-            {/* Section Podcasts Spotify */}
+            {/* Section Podcasts Spotify avec plus d'espace */}
             <div>
-              <div className="flex items-center justify-center mb-12">
+              <div className="flex items-center justify-center mb-16">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
                   <Headphones className="w-8 h-8 text-green-500 mr-3" />
                   Derniers Podcasts Spotify

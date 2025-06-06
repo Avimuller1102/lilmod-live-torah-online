@@ -8,23 +8,17 @@ const ShabbatTimes = () => {
   const [loading, setLoading] = useState(true);
 
   const cities = [
-    // France
+    // France - villes spécifiées
     { name: 'Paris', country: 'France' },
     { name: 'Toulouse', country: 'France' },
     { name: 'Lyon', country: 'France' },
     { name: 'Marseille', country: 'France' },
-    { name: 'Lille', country: 'France' },
     { name: 'Nice', country: 'France' },
     { name: 'Strasbourg', country: 'France' },
-    { name: 'Bordeaux', country: 'France' },
-    { name: 'Nantes', country: 'France' },
-    // Israël
+    // Israël - villes spécifiées
     { name: 'Jérusalem', country: 'Israël' },
     { name: 'Tel Aviv', country: 'Israël' },
     { name: 'Haïfa', country: 'Israël' },
-    { name: 'Beer Sheva', country: 'Israël' },
-    { name: 'Netanya', country: 'Israël' },
-    { name: 'Ashdod', country: 'Israël' },
     { name: 'Eilat', country: 'Israël' }
   ];
 
@@ -44,6 +38,25 @@ const ShabbatTimes = () => {
     getShabbatTimes();
   }, []);
 
+  const getCityTimes = (cityName) => {
+    if (!shabbatData) return { candleLighting: '19:30', havdalah: '20:45' };
+    
+    // Chercher dans les données France
+    const franceCity = shabbatData.france?.find(city => city.city === cityName);
+    if (franceCity) {
+      return { candleLighting: franceCity.entree, havdalah: franceCity.sortie };
+    }
+    
+    // Chercher dans les données Israël
+    const israelCity = shabbatData.israel?.find(city => city.city === cityName);
+    if (israelCity) {
+      return { candleLighting: israelCity.entree, havdalah: israelCity.sortie };
+    }
+    
+    // Fallback
+    return { candleLighting: '19:30', havdalah: '20:45' };
+  };
+
   return (
     <section className="py-20 px-8 bg-white">
       <div className="max-w-7xl mx-auto">
@@ -55,7 +68,7 @@ const ShabbatTimes = () => {
           </h2>
         </div>
 
-        {/* Information sur la semaine en cours en noir */}
+        {/* Information sur la semaine en cours */}
         <div className="text-center mb-16">
           <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-lg max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-black mb-4">Cette semaine</h3>
@@ -70,11 +83,8 @@ const ShabbatTimes = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {cities.map((city, index) => {
-              const mockTimes = {
-                candleLighting: `${18 + (index % 3)}:${30 + (index % 30)}`,
-                havdalah: `${19 + (index % 3)}:${35 + (index % 25)}`
-              };
+            {cities.map((city) => {
+              const times = getCityTimes(city.name);
 
               return (
                 <div 
@@ -95,7 +105,7 @@ const ShabbatTimes = () => {
                         <Clock className="w-3 h-3 text-orange-600 mr-2" />
                         <span className="text-xs font-medium text-gray-700">Allumage</span>
                       </div>
-                      <span className="font-bold text-orange-600 text-sm">{mockTimes.candleLighting}</span>
+                      <span className="font-bold text-orange-600 text-sm">{times.candleLighting}</span>
                     </div>
                     
                     <div className="flex items-center justify-between bg-white/70 rounded-lg p-2">
@@ -103,7 +113,7 @@ const ShabbatTimes = () => {
                         <Calendar className="w-3 h-3 text-blue-600 mr-2" />
                         <span className="text-xs font-medium text-gray-700">Havdalah</span>
                       </div>
-                      <span className="font-bold text-blue-600 text-sm">{mockTimes.havdalah}</span>
+                      <span className="font-bold text-blue-600 text-sm">{times.havdalah}</span>
                     </div>
                   </div>
                 </div>
