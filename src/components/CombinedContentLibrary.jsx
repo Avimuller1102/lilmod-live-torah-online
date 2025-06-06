@@ -77,8 +77,8 @@ const CombinedContentLibrary = () => {
           </p>
         </div>
 
-        {/* Barre de recherche centrée avec plus d'espace */}
-        <div className="max-w-2xl mx-auto mb-48">
+        {/* Barre de recherche centrée avec BEAUCOUP plus d'espace */}
+        <div className="max-w-2xl mx-auto mb-80">
           <div className="relative">
             <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -96,8 +96,8 @@ const CombinedContentLibrary = () => {
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
         ) : (
-          <div className="space-y-64">
-            {/* Section Vidéos YouTube avec plus d'espace */}
+          <div className="space-y-96">
+            {/* Section Vidéos YouTube avec BEAUCOUP plus d'espace */}
             <div>
               <div className="flex items-center justify-center mb-20">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
@@ -141,7 +141,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-32">
+              <div className="text-center mb-64">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -154,7 +154,7 @@ const CombinedContentLibrary = () => {
               </div>
             </div>
 
-            {/* Section Podcasts Spotify avec plus d'espace */}
+            {/* Section Podcasts Spotify avec BEAUCOUP plus d'espace */}
             <div>
               <div className="flex items-center justify-center mb-20">
                 <h3 className="text-3xl font-bold text-gray-900 flex items-center">
@@ -201,7 +201,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-32">
+              <div className="text-center mb-64">
                 <a 
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                   target="_blank" 
@@ -216,8 +216,8 @@ const CombinedContentLibrary = () => {
           </div>
         )}
 
-        {/* Lien vers Linktree avec plus d'espace */}
-        <div className="mt-48 flex justify-center">
+        {/* Lien vers Linktree avec BEAUCOUP plus d'espace avant la section suivante */}
+        <div className="mt-80 mb-64 flex justify-center">
           <a 
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 

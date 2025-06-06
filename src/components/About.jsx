@@ -5,12 +5,12 @@ const About = () => {
   return (
     <section id="about" className="py-20 px-8 bg-white mt-12">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="mb-16"></div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             À PROPOS DE LILMOD.FR
           </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full mt-4"></div>
+          <div className="w-32 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full mt-2"></div>
         </div>
         
         <div className="max-w-3xl mx-auto">
