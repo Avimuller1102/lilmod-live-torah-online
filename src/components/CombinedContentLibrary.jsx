@@ -64,49 +64,57 @@ const CombinedContentLibrary = () => {
   };
 
   return (
-    <section className="py-20 px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
-        
-        <div className="text-center mb-20">
-          <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            RECHERCHE (Rabbanim, Cours..)
-          </h2>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
-            Découvrez tous nos enseignements en un seul endroit. Recherchez par enseignant, sujet ou période.
-          </p>
-        </div>
-
-        {/* Barre de recherche centrée avec BEAUCOUP plus d'espace */}
-        <div className="max-w-2xl mx-auto mb-80">
-          <div className="relative">
-            <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Rechercher un cours, un rabbin, un sujet..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 outline-none transition-all bg-white shadow-lg text-base text-center font-medium"
-            />
+    <>
+      {/* Section principale avec recherche */}
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          
+          <div className="text-center mb-20">
+            <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              RECHERCHE (Rabbanim, Cours..)
+            </h2>
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              Découvrez tous nos enseignements en un seul endroit. Recherchez par enseignant, sujet ou période.
+            </p>
           </div>
-        </div>
 
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+          {/* Barre de recherche avec beaucoup d'espace */}
+          <div className="max-w-2xl mx-auto mb-96">
+            <div className="relative">
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Rechercher un cours, un rabbin, un sujet..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-14 pr-6 py-5 rounded-2xl border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 outline-none transition-all bg-white shadow-lg text-base text-center font-medium"
+              />
+            </div>
           </div>
-        ) : (
-          <div className="space-y-96">
-            {/* Section Vidéos YouTube avec BEAUCOUP plus d'espace */}
-            <div>
-              <div className="flex items-center justify-center mb-20">
-                <h3 className="text-3xl font-bold text-gray-900 flex items-center">
-                  <Youtube className="w-8 h-8 text-red-500 mr-3" />
-                  Dernières Vidéos YouTube
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-16">
+
+          {loading && (
+            <div className="flex justify-center items-center py-20">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Section YouTube distincte */}
+      <section id="videos" className="py-32 px-8 bg-white border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-32">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+              <Youtube className="w-8 h-8 text-red-500 mr-3" />
+              YouTube
+            </h2>
+            <p className="text-lg font-medium text-gray-600 mb-6">Vidéos & Lives</p>
+          </div>
+          
+          {!loading && (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
                 {filteredVideos.map((video) => (
                   <Card 
                     key={video.id} 
@@ -141,7 +149,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-64">
+              <div className="text-center">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -152,18 +160,25 @@ const CombinedContentLibrary = () => {
                   <span className="text-white">Toutes nos vidéos YouTube</span>
                 </a>
               </div>
-            </div>
+            </>
+          )}
+        </div>
+      </section>
 
-            {/* Section Podcasts Spotify avec BEAUCOUP plus d'espace */}
-            <div>
-              <div className="flex items-center justify-center mb-20">
-                <h3 className="text-3xl font-bold text-gray-900 flex items-center">
-                  <Headphones className="w-8 h-8 text-green-500 mr-3" />
-                  Derniers Podcasts Spotify
-                </h3>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 mb-16">
+      {/* Section Spotify distincte avec fond alterné */}
+      <section id="podcasts" className="py-32 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-32">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
+              <Headphones className="w-8 h-8 text-green-500 mr-3" />
+              Spotify
+            </h2>
+            <p className="text-lg font-medium text-gray-600 mb-6">Podcasts</p>
+          </div>
+          
+          {!loading && (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
                 {filteredEpisodes.map((episode) => (
                   <Card 
                     key={episode.id} 
@@ -201,7 +216,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-64">
+              <div className="text-center">
                 <a 
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                   target="_blank" 
@@ -212,26 +227,30 @@ const CombinedContentLibrary = () => {
                   <span className="text-white">Tous nos podcasts Spotify</span>
                 </a>
               </div>
-            </div>
-          </div>
-        )}
-
-        {/* Lien vers Linktree avec BEAUCOUP plus d'espace avant la section suivante */}
-        <div className="mt-80 mb-64 flex justify-center">
-          <a 
-            href="https://linktr.ee/lilmod.torahmitzion" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
-          >
-            <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Tous nos liens
-          </a>
+            </>
+          )}
         </div>
-      </div>
-    </section>
+      </section>
+
+      {/* Section Linktree avec espace important */}
+      <section className="py-32 px-8 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center">
+            <a 
+              href="https://linktr.ee/lilmod.torahmitzion" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+            >
+              <svg className="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+              Tous nos liens
+            </a>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 
