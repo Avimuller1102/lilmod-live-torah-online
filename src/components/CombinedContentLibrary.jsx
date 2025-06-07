@@ -79,8 +79,8 @@ const CombinedContentLibrary = () => {
             </p>
           </div>
 
-          {/* Barre de recherche avec moins d'espace */}
-          <div className="max-w-2xl mx-auto mb-24">
+          {/* Barre de recherche */}
+          <div className="max-w-2xl mx-auto mb-12">
             <div className="relative">
               <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -101,10 +101,13 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section YouTube distincte avec plus d'espace avant */}
-      <section id="videos" className="py-32 px-8 bg-white border-b border-gray-200" style={{ scrollMarginTop: '6rem', marginTop: '6rem' }}>
+      {/* Espace blanc de séparation */}
+      <section className="py-16 bg-white"></section>
+
+      {/* Section YouTube distincte */}
+      <section id="videos" className="py-24 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-32">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
               <Youtube className="w-8 h-8 text-red-500 mr-3" />
               YouTube
@@ -165,10 +168,13 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section Spotify distincte avec fond alterné et plus d'espace */}
-      <section id="podcasts" className="py-32 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem', marginTop: '8rem' }}>
+      {/* Espace blanc de séparation */}
+      <section className="py-20 bg-white"></section>
+
+      {/* Section Spotify distincte */}
+      <section id="podcasts" className="py-24 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-32">
+          <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
               <Headphones className="w-8 h-8 text-green-500 mr-3" />
               Spotify
@@ -232,8 +238,11 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section Linktree avec espace important */}
-      <section className="py-32 px-8 bg-white" style={{ marginTop: '2rem' }}>
+      {/* Espace blanc de séparation */}
+      <section className="py-20 bg-white"></section>
+
+      {/* Section Linktree */}
+      <section className="py-16 px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <a 
