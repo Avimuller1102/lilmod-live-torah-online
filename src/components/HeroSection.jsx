@@ -24,20 +24,20 @@ const HeroSection = () => {
         </div>
 
         {/* Titre principal en gras */}
-        <div className="mb-16 animate-slideIn">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8 max-w-5xl mx-auto leading-tight">
+        <div className="mb-24 animate-slideIn">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-12 max-w-5xl mx-auto leading-tight">
             <span className="font-black">LILMOD - Une <span className="text-orange-700 font-black">Torah vivante</span> sur tous les fronts</span>
           </h1>
-          <p className="text-xl md:text-2xl font-semibold text-gray-800 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl font-semibold text-gray-800 max-w-3xl mx-auto leading-relaxed mb-12">
             Découvrez l'étude de la Torah avec les meilleurs enseignants francophones. 
             Des cours accessibles partout dans le monde.
           </p>
         </div>
 
-        {/* Plateformes disponibles avec design centré */}
+        {/* Plateformes disponibles avec design centré et plus d'espace */}
         <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-12 border border-orange-300/40 shadow-2xl max-w-5xl mx-auto animate-fadeIn" style={{ animationDelay: '0.5s' }}>
           <div className="flex flex-col items-center gap-10">
-            <span className="text-xl font-bold text-gray-900">Disponible sur toutes les plateformes :</span>
+            <span className="text-xl font-bold text-gray-900 mb-4">Disponible sur toutes les plateformes :</span>
             <div className="flex flex-wrap items-center justify-center gap-10">
               <a 
                 href="https://www.youtube.com/@Lilmodfr/videos" 

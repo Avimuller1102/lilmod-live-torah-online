@@ -69,9 +69,9 @@ const CombinedContentLibrary = () => {
       <section className="py-20 px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <div className="w-32 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-12 rounded-full"></div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               RECHERCHE (Rabbanim, Cours..)
             </h2>
             <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
@@ -79,8 +79,8 @@ const CombinedContentLibrary = () => {
             </p>
           </div>
 
-          {/* Barre de recherche avec beaucoup d'espace */}
-          <div className="max-w-2xl mx-auto mb-96">
+          {/* Barre de recherche avec moins d'espace */}
+          <div className="max-w-2xl mx-auto mb-24">
             <div className="relative">
               <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -101,8 +101,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section YouTube distincte */}
-      <section id="videos" className="py-32 px-8 bg-white border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
+      {/* Section YouTube distincte avec plus d'espace avant */}
+      <section id="videos" className="py-32 px-8 bg-white border-b border-gray-200" style={{ scrollMarginTop: '6rem', marginTop: '6rem' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-32">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
@@ -165,8 +165,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section Spotify distincte avec fond alterné */}
-      <section id="podcasts" className="py-32 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem' }}>
+      {/* Section Spotify distincte avec fond alterné et plus d'espace */}
+      <section id="podcasts" className="py-32 px-8 bg-gray-50 border-b border-gray-200" style={{ scrollMarginTop: '6rem', marginTop: '8rem' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-32">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center">
@@ -233,7 +233,7 @@ const CombinedContentLibrary = () => {
       </section>
 
       {/* Section Linktree avec espace important */}
-      <section className="py-32 px-8 bg-white">
+      <section className="py-32 px-8 bg-white" style={{ marginTop: '2rem' }}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             <a 

@@ -12,7 +12,7 @@ const WhatsAppButton = () => {
       aria-label="Contact WhatsApp"
       style={{ filter: 'none', WebkitFilter: 'none', textShadow: 'none' }}
     >
-      <span className="mr-2 hidden sm:inline font-medium text-center">📲 Poser une question ?</span>
+      <span className="mr-2 hidden sm:inline font-medium text-center flex items-center">📲 Rejoindre sur WhatsApp</span>
       <MessageCircle className="w-5 h-5" />
     </a>
   );
