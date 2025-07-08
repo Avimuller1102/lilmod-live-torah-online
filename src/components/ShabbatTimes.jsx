@@ -138,16 +138,6 @@ const ShabbatTimes = () => {
             })}
           </div>
         )}
-
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-600">
-            Les horaires sont donnés à titre indicatif et synchronisés avec Torah-Box.
-            <br />
-            <span className="text-blue-600 font-medium">
-              Données mises à jour automatiquement
-            </span>
-          </p>
-        </div>
       </div>
     </section>
   );

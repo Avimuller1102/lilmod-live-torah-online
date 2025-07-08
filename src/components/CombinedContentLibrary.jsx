@@ -66,31 +66,32 @@ const CombinedContentLibrary = () => {
   return (
     <>
       {/* Section principale avec recherche - Atmosphère Torah */}
-      <section className="py-20 px-8 bg-gradient-to-br from-blue-50 via-white to-amber-50 relative overflow-hidden">
-        {/* Motifs décoratifs inspirés de l'étude juive */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-blue-600 rounded-full"></div>
-          <div className="absolute bottom-32 right-32 w-40 h-40 border-2 border-amber-500 rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 border-2 border-blue-400 rounded-full"></div>
+      <section className="py-24 px-8 bg-gradient-to-br from-blue-50 via-white to-amber-50 relative overflow-hidden">
+        {/* Motifs décoratifs inspirés de l'étude juive - Bulles améliorées */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full blur-2xl animate-pulse"></div>
+          <div className="absolute bottom-32 right-32 w-56 h-56 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+          <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-gradient-to-br from-blue-300 to-indigo-400 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute top-1/3 right-1/4 w-24 h-24 bg-gradient-to-br from-orange-300 to-yellow-400 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }}></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           {/* En-tête avec branding renforcé */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-8">
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center mb-10">
               <img 
-                src="/lovable-uploads/22a26f48-309c-4e16-8aaa-8f01984d9135.png" 
+                src="/lovable-uploads/23cfbdef-511e-4f4e-ae20-7fe823957cbb.png" 
                 alt="LILMOD - Torah Mitzion" 
-                className="h-16 md:h-20 drop-shadow-lg"
+                className="h-24 md:h-28 drop-shadow-lg rounded-2xl"
               />
             </div>
             
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 via-amber-500 to-blue-400 mx-auto mb-8 rounded-full"></div>
+            <div className="w-32 h-1 bg-gradient-to-r from-blue-600 via-amber-500 to-orange-500 mx-auto mb-10 rounded-full"></div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-6 leading-tight">
-              <span className="flex items-center justify-center gap-3 mb-2">
-                <BookOpen className="w-10 h-10 text-amber-500" />
-                BIBLIOTHÈQUE D'ÉTUDE
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <span className="flex items-center justify-center gap-3 mb-3">
+                <BookOpen className="w-12 h-12 text-amber-500" />
+                <span className="text-blue-600">BIBLIOTHÈQUE</span> <span className="text-orange-500">D'ÉTUDE</span>
               </span>
               <span className="text-2xl md:text-3xl font-semibold text-gray-700">
                 Votre portail vers la sagesse juive
@@ -105,12 +106,12 @@ const CombinedContentLibrary = () => {
           </div>
 
           {/* Barre de recherche améliorée */}
-          <div className="max-w-3xl mx-auto mb-12">
-            <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-600/20">
+          <div className="max-w-3xl mx-auto mb-16">
+            <div className="relative bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50">
               <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-blue-600 w-6 h-6" />
               <input
                 type="text"
-                placeholder="Rechercher un cours, un rabbin, une paracha..."
+                placeholder="Rechercher un cours, un Rav, une Paracha..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-16 pr-6 py-6 rounded-2xl border-0 focus:ring-2 focus:ring-blue-600 outline-none transition-all bg-transparent text-lg text-center font-medium placeholder-gray-500"
@@ -129,23 +130,26 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section YouTube - Avec titre attractif */}
-      <section id="videos" className="py-24 px-8 bg-gradient-to-br from-red-50 to-white relative" style={{ scrollMarginTop: '6rem' }}>
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-10 w-64 h-64 bg-red-500 rounded-full blur-3xl"></div>
+      {/* Section YouTube - Avec fond amélioré */}
+      <section id="videos" className="py-28 px-8 bg-gradient-to-br from-red-50 via-pink-50 to-orange-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
+        {/* Bulles décoratives pour YouTube */}
+        <div className="absolute inset-0 opacity-8">
+          <div className="absolute top-16 right-16 w-48 h-48 bg-gradient-to-br from-red-400 to-pink-500 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 left-20 w-36 h-36 bg-gradient-to-br from-orange-400 to-red-500 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/3 left-1/3 w-28 h-28 bg-gradient-to-tl from-pink-300 to-red-400 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                <Youtube className="w-6 h-6 text-white" />
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center mb-8">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-500 rounded-full flex items-center justify-center mr-4 shadow-xl">
+                <Youtube className="w-7 h-7 text-white" />
               </div>
               <div className="text-left">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                  NOS DERNIERS SHIOURIM
+                <h2 className="text-4xl md:text-5xl font-bold mb-2">
+                  <span className="text-red-600">NOS DERNIERS</span> <span className="text-orange-600">SHIOURIM</span>
                 </h2>
-                <p className="text-lg font-semibold text-red-600">Les shiourim qui transforment votre quotidien</p>
+                <p className="text-xl font-semibold text-red-500">Les shiourim qui transforment votre quotidien</p>
               </div>
             </div>
             
@@ -156,11 +160,11 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
                 {filteredVideos.map((video) => (
                   <Card 
                     key={video.id} 
-                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-0 bg-white shadow-lg overflow-hidden rounded-xl"
+                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-0 bg-white/95 backdrop-blur-sm shadow-lg overflow-hidden rounded-xl"
                     onClick={() => openYouTubeVideo(video)}
                   >
                     <CardContent className="p-0">
@@ -200,9 +204,9 @@ const CombinedContentLibrary = () => {
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="inline-flex items-center bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-10 py-5 rounded-xl font-bold transition-all shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
-                  <Youtube className="w-5 h-5 mr-3" />
+                  <Youtube className="w-6 h-6 mr-3" />
                   <span className="text-white">Découvrir tous nos shiourim</span>
                 </a>
               </div>
@@ -211,8 +215,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Séparateur décoratif amélioré avec texte hébraïque en bleu plus grand */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
+      {/* Séparateur décoratif - Suppression du texte hébraïque */}
+      <section className="py-32 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-repeat" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -220,39 +224,33 @@ const CombinedContentLibrary = () => {
         </div>
         <div className="max-w-7xl mx-auto px-8 text-center relative z-10">
           <div className="w-32 h-1 bg-white/50 mx-auto mb-12 rounded-full"></div>
-          <h3 className="text-4xl md:text-5xl font-bold text-blue-200 mb-8 leading-relaxed">
-            מתחברים לתורה • מתחברים לעם ישראל
-          </h3>
-          <p className="text-white/90 text-xl md:text-2xl max-w-3xl mx-auto mb-6 font-medium">
+          <p className="text-white/90 text-2xl md:text-3xl max-w-3xl mx-auto mb-6 font-medium">
             Nous connecter à la Torah • Nous connecter au peuple d'Israël
           </p>
-          <div className="w-16 h-1 bg-amber-400 mx-auto mb-8 rounded-full"></div>
-          <p className="text-3xl md:text-4xl font-bold text-blue-200 mb-6">
-            "כל המלמד תורה לבן חברו - מעלה עליו הכתוב כאילו ילדו"
-          </p>
-          <p className="text-white/90 text-lg md:text-xl max-w-4xl mx-auto font-medium italic">
-            "Quiconque enseigne la Torah à son prochain, l'Écriture le considère comme s'il l'avait enfanté"
-          </p>
+          <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full"></div>
         </div>
       </section>
 
-      {/* Section Spotify - Avec titre attractif */}
-      <section id="podcasts" className="py-24 px-8 bg-gradient-to-br from-green-50 to-white relative" style={{ scrollMarginTop: '6rem' }}>
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute bottom-10 left-10 w-64 h-64 bg-green-500 rounded-full blur-3xl"></div>
+      {/* Section Spotify - Avec fond amélioré */}
+      <section id="podcasts" className="py-28 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
+        {/* Bulles décoratives pour Spotify */}
+        <div className="absolute inset-0 opacity-8">
+          <div className="absolute bottom-16 left-16 w-44 h-44 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-br from-teal-400 to-green-500 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.2s' }}></div>
+          <div className="absolute top-2/3 right-1/3 w-28 h-28 bg-gradient-to-tl from-emerald-300 to-green-400 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.7s' }}></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
-              <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
-                <Headphones className="w-6 h-6 text-white" />
+          <div className="text-center mb-20">
+            <div className="flex items-center justify-center mb-8">
+              <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-500 rounded-full flex items-center justify-center mr-4 shadow-xl">
+                <Headphones className="w-7 h-7 text-white" />
               </div>
               <div className="text-left">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                  TORAH EN AUDIO
+                <h2 className="text-4xl md:text-5xl font-bold mb-2">
+                  <span className="text-green-600">TORAH</span> <span className="text-teal-600">EN AUDIO</span>
                 </h2>
-                <p className="text-lg font-semibold text-green-600">La Torah dans vos oreilles, partout où vous allez</p>
+                <p className="text-xl font-semibold text-green-500">La Torah dans vos oreilles, partout où vous allez</p>
               </div>
             </div>
             
@@ -263,11 +261,11 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
                 {filteredEpisodes.map((episode) => (
                   <Card 
                     key={episode.id} 
-                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-0 bg-white shadow-lg overflow-hidden rounded-xl"
+                    className="group cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-2xl border-0 bg-white/95 backdrop-blur-sm shadow-lg overflow-hidden rounded-xl"
                     onClick={() => openSpotifyEpisode(episode)}
                   >
                     <CardContent className="p-0">
@@ -310,9 +308,9 @@ const CombinedContentLibrary = () => {
                   href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-8 py-4 rounded-xl font-bold transition-all shadow-lg hover:shadow-xl transform hover:scale-105"
+                  className="inline-flex items-center bg-gradient-to-r from-green-600 to-green-500 hover:from-green-700 hover:to-green-600 text-white px-10 py-5 rounded-xl font-bold transition-all shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
-                  <Headphones className="w-5 h-5 mr-3" />
+                  <Headphones className="w-6 h-6 mr-3" />
                   <span className="text-white">Tous nos podcasts Torah</span>
                 </a>
               </div>
@@ -321,21 +319,12 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section finale - Linktree avec branding amélioré */}
-      <section className="py-20 px-8 bg-gradient-to-br from-amber-500 to-blue-600 relative overflow-hidden">
+      {/* Section finale - Linktree supprimée */}
+      <section className="py-24 px-8 bg-gradient-to-br from-amber-500 to-blue-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-4 border-white rounded-full"></div>
         </div>
         <div className="max-w-7xl mx-auto text-center relative z-10">
-          <div className="mb-8">
-            <h3 className="text-3xl font-bold text-white mb-4">
-              כל הקישורים שלנו במקום אחד
-            </h3>
-            <p className="text-white/90 text-lg">
-              Accédez à tous nos contenus, événements et moyens de contact
-            </p>
-          </div>
-          
           <a 
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 
@@ -345,7 +334,7 @@ const CombinedContentLibrary = () => {
             <svg className="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
             </svg>
-            כל הקישורים שלנו
+            Tous nos liens
           </a>
         </div>
       </section>
