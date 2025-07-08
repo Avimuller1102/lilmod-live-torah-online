@@ -4,62 +4,51 @@ import { Play, Youtube, Headphones } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-900 to-blue-900">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-300 via-orange-200 to-yellow-200">
       {/* Motifs de fond subtils */}
       <div className="absolute inset-0 opacity-15">
-        <div className="absolute top-20 left-20 w-80 h-80 bg-gradient-to-br from-blue-400/40 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-tl from-indigo-500/30 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/3 w-64 h-64 bg-gradient-to-r from-slate-400/20 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-orange-400/40 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-tl from-amber-400/35 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-8 text-center py-24">
-        {/* Logo LILMOD intégré dans le design */}
-        <div className="mb-20 animate-fadeIn">
+      <div className="relative z-10 max-w-6xl mx-auto px-8 text-center py-20">
+        {/* Logo LILMOD avec coins arrondis */}
+        <div className="mb-12 animate-fadeIn">
           <div className="flex flex-col items-center">
-            <div className="relative mb-12">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl blur-lg opacity-60"></div>
-              <img 
-                src="/lovable-uploads/9e7c9f9f-1291-4176-97d0-7127b7160926.png" 
-                alt="LILMOD - Torah Mitzion Logo" 
-                className="relative h-24 md:h-32 lg:h-40 px-8 py-4 bg-gradient-to-r from-orange-400 to-yellow-500 rounded-3xl shadow-2xl transform hover:scale-105 transition-all duration-500"
-                style={{ filter: 'drop-shadow(0 20px 40px rgba(0,0,0,0.3))' }}
-              />
-            </div>
+            <img 
+              src="/lovable-uploads/180a6222-23fc-4499-9a5f-62a4e32b8970.png" 
+              alt="LILMOD Logo" 
+              className="h-20 md:h-24 lg:h-28 mb-8 drop-shadow-xl transform hover:scale-105 transition-all duration-500 rounded-xl"
+            />
           </div>
         </div>
 
-        {/* Titre principal avec typographie améliorée */}
+        {/* Titre principal en bleu */}
         <div className="mb-24 animate-slideIn">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-16 max-w-6xl mx-auto leading-tight">
-            <span className="bg-gradient-to-r from-white via-blue-100 to-indigo-200 bg-clip-text text-transparent font-black tracking-tight font-serif">
-              LILMOD
-            </span>
-            <br />
-            <span className="text-3xl md:text-5xl lg:text-6xl font-bold text-orange-300 mt-6 block font-sans">
-              Une Torah vivante sur tous les fronts
-            </span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-12 max-w-5xl mx-auto leading-tight">
+            <span className="font-black text-blue-600">LILMOD - Une <span className="text-blue-800 font-black">Torah vivante</span> sur tous les fronts</span>
           </h1>
-          <p className="text-xl md:text-2xl font-medium text-blue-100 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl font-semibold text-gray-800 max-w-3xl mx-auto leading-relaxed mb-12">
             Découvrez l'étude de la Torah avec les meilleurs enseignants francophones. 
             Des cours accessibles partout dans le monde.
           </p>
         </div>
 
-        {/* Plateformes disponibles avec design amélioré */}
-        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-16 border border-white/20 shadow-2xl max-w-6xl mx-auto animate-fadeIn" style={{ animationDelay: '0.5s' }}>
-          <div className="flex flex-col items-center gap-16">
-            <span className="text-2xl font-bold text-white mb-8">Disponible sur toutes les plateformes :</span>
-            <div className="flex flex-wrap items-center justify-center gap-16">
+        {/* Plateformes disponibles avec design centré et plus d'espace */}
+        <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-12 border border-orange-300/40 shadow-2xl max-w-5xl mx-auto animate-fadeIn" style={{ animationDelay: '0.5s' }}>
+          <div className="flex flex-col items-center gap-10">
+            <span className="text-xl font-bold text-gray-900 mb-4">Disponible sur toutes les plateformes :</span>
+            <div className="flex flex-wrap items-center justify-center gap-10">
               <a 
                 href="https://www.youtube.com/@Lilmodfr/videos" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center bg-gradient-to-r from-white/90 to-red-50/90 hover:from-red-50 hover:to-red-100 px-16 py-10 rounded-3xl transition-all duration-300 border-2 border-red-200/50 hover:border-red-400 shadow-xl hover:shadow-2xl transform hover:scale-110 backdrop-blur-sm"
+                className="group flex items-center bg-white hover:bg-red-50 px-10 py-6 rounded-2xl transition-all duration-300 border-2 border-red-200 hover:border-red-400 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                <Youtube className="w-14 h-14 mr-8 text-red-600 group-hover:scale-110 transition-transform" />
+                <Youtube className="w-10 h-10 mr-5 text-red-500 group-hover:scale-110 transition-transform" />
                 <div className="text-left">
-                  <div className="font-bold text-slate-800 text-2xl">YouTube</div>
-                  <div className="text-lg text-slate-600 font-medium">Vidéos & Lives</div>
+                  <div className="font-bold text-gray-900 text-xl">YouTube</div>
+                  <div className="text-sm text-gray-600">Vidéos & Lives</div>
                 </div>
               </a>
               
@@ -67,12 +56,12 @@ const HeroSection = () => {
                 href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center bg-gradient-to-r from-white/90 to-green-50/90 hover:from-green-50 hover:to-green-100 px-16 py-10 rounded-3xl transition-all duration-300 border-2 border-green-200/50 hover:border-green-400 shadow-xl hover:shadow-2xl transform hover:scale-110 backdrop-blur-sm"
+                className="group flex items-center bg-white hover:bg-green-50 px-10 py-6 rounded-2xl transition-all duration-300 border-2 border-green-200 hover:border-green-400 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                <Headphones className="w-14 h-14 mr-8 text-green-600 group-hover:scale-110 transition-transform" />
+                <Headphones className="w-10 h-10 mr-5 text-green-500 group-hover:scale-110 transition-transform" />
                 <div className="text-left">
-                  <div className="font-bold text-slate-800 text-2xl">Spotify</div>
-                  <div className="text-lg text-slate-600 font-medium">Podcasts</div>
+                  <div className="font-bold text-gray-900 text-xl">Spotify</div>
+                  <div className="text-sm text-gray-600">Podcasts</div>
                 </div>
               </a>
             </div>
