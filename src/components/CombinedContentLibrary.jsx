@@ -69,9 +69,9 @@ const CombinedContentLibrary = () => {
       <section className="py-20 px-8 bg-gradient-to-br from-blue-50 via-white to-amber-50 relative overflow-hidden">
         {/* Motifs décoratifs inspirés de l'étude juive */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-[#5878ad] rounded-full"></div>
-          <div className="absolute bottom-32 right-32 w-40 h-40 border-2 border-[#f49923] rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 border-2 border-[#8390a1] rounded-full"></div>
+          <div className="absolute top-20 left-20 w-32 h-32 border-2 border-blue-600 rounded-full"></div>
+          <div className="absolute bottom-32 right-32 w-40 h-40 border-2 border-amber-500 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 border-2 border-blue-400 rounded-full"></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -85,11 +85,11 @@ const CombinedContentLibrary = () => {
               />
             </div>
             
-            <div className="w-24 h-1 bg-gradient-to-r from-[#5878ad] via-[#f49923] to-[#8390a1] mx-auto mb-8 rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 via-amber-500 to-blue-400 mx-auto mb-8 rounded-full"></div>
             
-            <h2 className="text-4xl md:text-5xl font-bold text-[#5878ad] mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-6 leading-tight">
               <span className="flex items-center justify-center gap-3 mb-2">
-                <BookOpen className="w-10 h-10 text-[#f49923]" />
+                <BookOpen className="w-10 h-10 text-amber-500" />
                 BIBLIOTHÈQUE D'ÉTUDE
               </span>
               <span className="text-2xl md:text-3xl font-semibold text-gray-700">
@@ -100,20 +100,20 @@ const CombinedContentLibrary = () => {
             <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
               Découvrez l'univers de l'étude juive avec nos meilleurs enseignants. 
               <br className="hidden md:block" />
-              <span className="font-semibold text-[#5878ad]">Une Torah vivante, accessible partout dans le monde</span>
+              <span className="font-semibold text-blue-600">Une Torah vivante, accessible partout dans le monde</span>
             </p>
           </div>
 
           {/* Barre de recherche améliorée */}
           <div className="max-w-3xl mx-auto mb-12">
-            <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-[#5878ad]/20">
-              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#5878ad] w-6 h-6" />
+            <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-blue-600/20">
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-blue-600 w-6 h-6" />
               <input
                 type="text"
                 placeholder="Rechercher un cours, un rabbin, une paracha..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-16 pr-6 py-6 rounded-2xl border-0 focus:ring-2 focus:ring-[#5878ad] outline-none transition-all bg-transparent text-lg text-center font-medium placeholder-gray-500"
+                className="w-full pl-16 pr-6 py-6 rounded-2xl border-0 focus:ring-2 focus:ring-blue-600 outline-none transition-all bg-transparent text-lg text-center font-medium placeholder-gray-500"
               />
             </div>
           </div>
@@ -121,31 +121,22 @@ const CombinedContentLibrary = () => {
           {loading && (
             <div className="flex justify-center items-center py-20">
               <div className="relative">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#5878ad]"></div>
-                <Users className="absolute inset-0 m-auto w-6 h-6 text-[#f49923]" />
+                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
+                <Users className="absolute inset-0 m-auto w-6 h-6 text-amber-500" />
               </div>
             </div>
           )}
         </div>
       </section>
 
-      {/* Séparateur décoratif */}
-      <section className="py-8 bg-gradient-to-r from-[#5878ad] via-[#f49923] to-[#8390a1]">
-        <div className="max-w-7xl mx-auto px-8">
-          <div className="h-px bg-white/30"></div>
-        </div>
-      </section>
-
-      {/* Section YouTube - Design unifié */}
+      {/* Section YouTube - Avec titre attractif */}
       <section id="videos" className="py-24 px-8 bg-gradient-to-br from-red-50 to-white relative" style={{ scrollMarginTop: '6rem' }}>
-        {/* Motif de fond spécifique YouTube */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-10 right-10 w-64 h-64 bg-red-500 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            {/* Titre attractif avec hiérarchie */}
             <div className="flex items-center justify-center mb-6">
               <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
                 <Youtube className="w-6 h-6 text-white" />
@@ -154,7 +145,7 @@ const CombinedContentLibrary = () => {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
                   NOS DERNIERS SHIOURIM
                 </h2>
-                <p className="text-lg font-semibold text-red-600">Vidéos & Lives Torah</p>
+                <p className="text-lg font-semibold text-red-600">Les shiourim qui transforment votre quotidien</p>
               </div>
             </div>
             
@@ -165,7 +156,6 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              {/* Grille uniforme pour les vidéos */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
                 {filteredVideos.map((video) => (
                   <Card 
@@ -189,12 +179,11 @@ const CombinedContentLibrary = () => {
                         </div>
                       </div>
                       <div className="p-4">
-                        {/* Hiérarchie typographique claire */}
                         <h4 className="font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-red-500 transition-colors text-base leading-tight">
                           {video.title}
                         </h4>
                         <div className="flex items-center justify-between text-sm">
-                          <span className="font-semibold text-[#5878ad]">LILMOD</span>
+                          <span className="font-semibold text-blue-600">LILMOD</span>
                           <div className="flex items-center text-gray-500">
                             <Calendar className="w-3 h-3 mr-1" />
                             <span className="font-medium">{formatDate(video.publishedAt)}</span>
@@ -222,34 +211,39 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Séparateur décoratif majeur */}
-      <section className="py-16 bg-gradient-to-br from-[#5878ad] to-[#8390a1] relative overflow-hidden">
+      {/* Séparateur décoratif amélioré avec texte hébraïque en bleu plus grand */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-repeat" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
           }}></div>
         </div>
         <div className="max-w-7xl mx-auto px-8 text-center relative z-10">
-          <div className="w-32 h-1 bg-white/50 mx-auto mb-8 rounded-full"></div>
-          <h3 className="text-2xl font-bold text-white mb-4">
+          <div className="w-32 h-1 bg-white/50 mx-auto mb-12 rounded-full"></div>
+          <h3 className="text-4xl md:text-5xl font-bold text-blue-200 mb-8 leading-relaxed">
             מתחברים לתורה • מתחברים לעם ישראל
           </h3>
-          <p className="text-white/90 text-lg max-w-2xl mx-auto">
+          <p className="text-white/90 text-xl md:text-2xl max-w-3xl mx-auto mb-6 font-medium">
+            Nous connecter à la Torah • Nous connecter au peuple d'Israël
+          </p>
+          <div className="w-16 h-1 bg-amber-400 mx-auto mb-8 rounded-full"></div>
+          <p className="text-3xl md:text-4xl font-bold text-blue-200 mb-6">
             "כל המלמד תורה לבן חברו - מעלה עליו הכתוב כאילו ילדו"
+          </p>
+          <p className="text-white/90 text-lg md:text-xl max-w-4xl mx-auto font-medium italic">
+            "Quiconque enseigne la Torah à son prochain, l'Écriture le considère comme s'il l'avait enfanté"
           </p>
         </div>
       </section>
 
-      {/* Section Spotify - Design unifié */}
+      {/* Section Spotify - Avec titre attractif */}
       <section id="podcasts" className="py-24 px-8 bg-gradient-to-br from-green-50 to-white relative" style={{ scrollMarginTop: '6rem' }}>
-        {/* Motif de fond spécifique Spotify */}
         <div className="absolute inset-0 opacity-5">
           <div className="absolute bottom-10 left-10 w-64 h-64 bg-green-500 rounded-full blur-3xl"></div>
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
-            {/* Titre attractif avec hiérarchie */}
             <div className="flex items-center justify-center mb-6">
               <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mr-4 shadow-lg">
                 <Headphones className="w-6 h-6 text-white" />
@@ -258,7 +252,7 @@ const CombinedContentLibrary = () => {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
                   TORAH EN AUDIO
                 </h2>
-                <p className="text-lg font-semibold text-green-600">Podcasts & Écoutes spirituelles</p>
+                <p className="text-lg font-semibold text-green-600">La Torah dans vos oreilles, partout où vous allez</p>
               </div>
             </div>
             
@@ -269,7 +263,6 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              {/* Grille uniforme pour les podcasts */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-16">
                 {filteredEpisodes.map((episode) => (
                   <Card 
@@ -293,7 +286,6 @@ const CombinedContentLibrary = () => {
                         </div>
                       </div>
                       <div className="p-4">
-                        {/* Hiérarchie typographique claire */}
                         <h4 className="font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-green-500 transition-colors text-base leading-tight">
                           {episode.title}
                         </h4>
@@ -301,7 +293,7 @@ const CombinedContentLibrary = () => {
                           <span className="font-bold text-green-600 text-xs uppercase tracking-wide">{episode.teacher}</span>
                         </div>
                         <div className="flex items-center justify-between text-sm">
-                          <span className="font-semibold text-[#5878ad]">PODCAST</span>
+                          <span className="font-semibold text-blue-600">PODCAST</span>
                           <div className="flex items-center text-gray-500">
                             <Calendar className="w-3 h-3 mr-1" />
                             <span className="font-medium">{formatDate(episode.publishedAt)}</span>
@@ -329,8 +321,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section finale - Linktree avec branding */}
-      <section className="py-20 px-8 bg-gradient-to-br from-[#f49923] to-[#8390a1] relative overflow-hidden">
+      {/* Section finale - Linktree avec branding amélioré */}
+      <section className="py-20 px-8 bg-gradient-to-br from-amber-500 to-blue-600 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-4 border-white rounded-full"></div>
         </div>
@@ -348,7 +340,7 @@ const CombinedContentLibrary = () => {
             href="https://linktr.ee/lilmod.torahmitzion" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-[#5878ad] px-12 py-6 rounded-2xl font-bold transition-all shadow-2xl hover:shadow-3xl transform hover:scale-105 text-xl"
+            className="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-blue-600 px-12 py-6 rounded-2xl font-bold transition-all shadow-2xl hover:shadow-3xl transform hover:scale-105 text-xl"
           >
             <svg className="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 24 24">
               <path d="M8 5v14l11-7z" />
