@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { Clock, MapPin, Calendar } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Clock, MapPin, Calendar, Star } from 'lucide-react';
 import { fetchShabbatTimes } from '../services/shabbatService';
 
 const ShabbatTimes = () => {
@@ -8,145 +9,95 @@ const ShabbatTimes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getShabbatTimes = async () => {
+    const loadShabbatTimes = async () => {
       try {
-        setLoading(true);
-        const timesData = await fetchShabbatTimes();
-        setShabbatData(timesData);
+        const data = await fetchShabbatTimes();
+        setShabbatData(data);
       } catch (error) {
-        console.error('Error fetching Shabbat times:', error);
+        console.error('Erreur lors du chargement des horaires:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    getShabbatTimes();
+    loadShabbatTimes();
   }, []);
 
-  const getCityTimes = (cityName) => {
-    if (!shabbatData) return { entree: '19:30', sortie: '20:45' };
-    
-    // Chercher dans toutes les régions
-    const allCities = [
-      ...(shabbatData.france || []),
-      ...(shabbatData.israel || []),
-      ...(shabbatData.international || [])
-    ];
-    
-    const cityData = allCities.find(city => city.city === cityName);
-    if (cityData) {
-      return { entree: cityData.entree, sortie: cityData.sortie };
-    }
-    
-    // Fallback
-    return { entree: '19:30', sortie: '20:45' };
-  };
-
-  // Liste complète des villes
-  const cities = [
-    // France
-    { name: 'Paris', country: 'France' },
-    { name: 'Lyon', country: 'France' },
-    { name: 'Marseille', country: 'France' },
-    { name: 'Nice', country: 'France' },
-    { name: 'Strasbourg', country: 'France' },
-    { name: 'Toulouse', country: 'France' },
-    // Israël
-    { name: 'Jérusalem', country: 'Israël' },
-    { name: 'Tel Aviv', country: 'Israël' },
-    { name: 'Ashdod', country: 'Israël' },
-    { name: 'Netanya', country: 'Israël' },
-    { name: 'Haïfa', country: 'Israël' },
-    // International
-    { name: 'Londres', country: 'Royaume-Uni' }
-  ];
+  if (loading) {
+    return (
+      <section className="py-20 px-4 bg-gradient-to-br from-indigo-50 via-white to-blue-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-slate-800 mb-4">Horaires du Chabbat</h2>
+          </div>
+          <div className="flex justify-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-600"></div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section className="py-20 px-8 bg-gradient-to-br from-blue-50 to-amber-50">
-      <div className="max-w-7xl mx-auto">
-        
+    <section className="py-32 px-4 bg-gradient-to-br from-indigo-50 via-white to-blue-50 relative overflow-hidden">
+      {/* Motifs de fond subtils */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-20 w-40 h-40 bg-indigo-500 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-56 h-56 bg-blue-600 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-slate-400 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
         <div className="text-center mb-16">
-          <div className="w-32 h-1 bg-gradient-to-r from-blue-600 to-amber-500 mx-auto mb-12 rounded-full"></div>
-          <h2 className="text-4xl md:text-5xl font-bold text-blue-600 mb-8">
-            HORAIRES DU CHABBAT
-          </h2>
+          <div className="flex items-center justify-center mb-8">
+            <Star className="w-8 h-8 text-indigo-600 mr-3" />
+            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-slate-800 via-indigo-800 to-blue-800 bg-clip-text text-transparent">
+              HORAIRES DU CHABBAT
+            </h2>
+            <Star className="w-8 h-8 text-indigo-600 ml-3" />
+          </div>
+          
+          {shabbatData?.parasha && (
+            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 max-w-2xl mx-auto mb-8 border border-indigo-200 shadow-lg">
+              <div className="flex items-center justify-center mb-4">
+                <Calendar className="w-6 h-6 text-indigo-600 mr-2" />
+                <h3 className="text-2xl font-bold text-slate-800">Paracha de la semaine</h3>
+              </div>
+              <p className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent mb-2">
+                {shabbatData.parasha.name}
+              </p>
+              <p className="text-lg text-slate-600 font-medium">{shabbatData.parasha.date}</p>
+            </div>
+          )}
         </div>
 
-        {/* Information sur la semaine en cours */}
-        <div className="text-center mb-16">
-          <div className="bg-gradient-to-br from-white to-blue-50 rounded-3xl p-8 shadow-xl max-w-2xl mx-auto border border-blue-200">
-            <h3 className="text-2xl font-bold text-blue-800 mb-4">Cette semaine</h3>
-            {shabbatData?.paracha ? (
-              <>
-                <p className="text-xl font-bold text-blue-600 mb-2">
-                  {shabbatData.paracha.name} • {shabbatData.paracha.dateRange}
-                </p>
-                <p className="text-lg font-semibold text-gray-700">
-                  {shabbatData.paracha.hebrewName}
-                </p>
-              </>
-            ) : (
-              <>
-                <p className="text-xl font-bold text-blue-600 mb-2">Houkat • 8-9 Juillet 2025</p>
-                <p className="text-lg font-semibold text-gray-700">חוקת</p>
-              </>
-            )}
-          </div>
-        </div>
-
-        {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-            {cities.map((city) => {
-              const times = getCityTimes(city.name);
-
-              return (
-                <div 
-                  key={`${city.name}-${city.country}`}
-                  className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-5 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-200"
-                >
-                  <div className="flex items-center mb-4">
-                    <MapPin className="w-4 h-4 text-blue-600 mr-2" />
-                    <div>
-                      <h3 className="font-bold text-blue-800 text-base">{city.name}</h3>
-                      <p className="text-xs text-gray-600">{city.country}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-2">
-                      <div className="flex items-center">
-                        <Clock className="w-3 h-3 text-amber-600 mr-2" />
-                        <span className="text-xs font-medium text-gray-700">Allumage</span>
-                      </div>
-                      <span className="font-bold text-amber-600 text-sm">{times.entree}</span>
-                    </div>
-                    
-                    <div className="flex items-center justify-between bg-white/70 rounded-lg p-2">
-                      <div className="flex items-center">
-                        <Calendar className="w-3 h-3 text-blue-600 mr-2" />
-                        <span className="text-xs font-medium text-gray-700">Havdalah</span>
-                      </div>
-                      <span className="font-bold text-blue-600 text-sm">{times.sortie}</span>
-                    </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {shabbatData?.cities?.map((city, index) => (
+            <Card key={index} className="bg-white/90 backdrop-blur-sm border-2 border-indigo-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-indigo-600 via-blue-600 to-slate-700 text-white p-6">
+                <CardTitle className="flex items-center text-xl font-bold">
+                  <MapPin className="w-5 h-5 mr-2" />
+                  {city.name}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600 font-medium">Allumage:</span>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1 text-orange-500" />
+                    <span className="font-bold text-orange-600">{city.candleLighting}</span>
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
-
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-600">
-            Les horaires sont donnés à titre indicatif et synchronisés avec Torah-Box.
-            <br />
-            <span className="text-blue-600 font-medium">
-              Données mises à jour automatiquement
-            </span>
-          </p>
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-600 font-medium">Sortie:</span>
+                  <div className="flex items-center">
+                    <Clock className="w-4 h-4 mr-1 text-blue-500" />
+                    <span className="font-bold text-blue-600">{city.havdalah}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </section>
