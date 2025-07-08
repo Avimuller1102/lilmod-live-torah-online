@@ -4,51 +4,57 @@ import { Play, Youtube, Headphones } from 'lucide-react';
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-amber-300 via-orange-200 to-yellow-200">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Motifs de fond subtils */}
-      <div className="absolute inset-0 opacity-15">
-        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-orange-400/40 to-transparent rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-tl from-amber-400/35 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 left-20 w-64 h-64 bg-gradient-to-br from-indigo-500/30 to-transparent rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-tl from-blue-600/25 to-transparent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
       </div>
       
       <div className="relative z-10 max-w-6xl mx-auto px-8 text-center py-20">
-        {/* Logo LILMOD avec coins arrondis */}
-        <div className="mb-12 animate-fadeIn">
+        {/* Logo LILMOD agrandi et mieux placé */}
+        <div className="mb-16 animate-fadeIn">
           <div className="flex flex-col items-center">
             <img 
-              src="/lovable-uploads/180a6222-23fc-4499-9a5f-62a4e32b8970.png" 
-              alt="LILMOD Logo" 
-              className="h-20 md:h-24 lg:h-28 mb-8 drop-shadow-xl transform hover:scale-105 transition-all duration-500 rounded-xl"
+              src="/lovable-uploads/f633489f-70d3-45ce-bfcf-5b9aced172df.png" 
+              alt="LILMOD - Torah Mitzion Logo" 
+              className="h-32 md:h-40 lg:h-48 mb-10 drop-shadow-2xl transform hover:scale-105 transition-all duration-500 rounded-2xl"
             />
           </div>
         </div>
 
-        {/* Titre principal en bleu */}
-        <div className="mb-24 animate-slideIn">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-12 max-w-5xl mx-auto leading-tight">
-            <span className="font-black text-blue-600">LILMOD - Une <span className="text-blue-800 font-black">Torah vivante</span> sur tous les fronts</span>
+        {/* Titre principal avec nouveau style */}
+        <div className="mb-20 animate-slideIn">
+          <h1 className="text-5xl md:text-6xl lg:text-8xl font-black mb-12 max-w-5xl mx-auto leading-tight font-serif">
+            <span className="bg-gradient-to-r from-slate-800 via-blue-900 to-indigo-900 bg-clip-text text-transparent font-black tracking-tight">
+              LILMOD
+            </span>
+            <br />
+            <span className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-700 mt-4 block">
+              Une Torah vivante sur tous les fronts
+            </span>
           </h1>
-          <p className="text-xl md:text-2xl font-semibold text-gray-800 max-w-3xl mx-auto leading-relaxed mb-12">
+          <p className="text-xl md:text-2xl font-medium text-slate-600 max-w-3xl mx-auto leading-relaxed">
             Découvrez l'étude de la Torah avec les meilleurs enseignants francophones. 
             Des cours accessibles partout dans le monde.
           </p>
         </div>
 
-        {/* Plateformes disponibles avec design centré et plus d'espace */}
-        <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-12 border border-orange-300/40 shadow-2xl max-w-5xl mx-auto animate-fadeIn" style={{ animationDelay: '0.5s' }}>
-          <div className="flex flex-col items-center gap-10">
-            <span className="text-xl font-bold text-gray-900 mb-4">Disponible sur toutes les plateformes :</span>
-            <div className="flex flex-wrap items-center justify-center gap-10">
+        {/* Plateformes disponibles avec design amélioré */}
+        <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-12 border-2 border-slate-200/50 shadow-2xl max-w-5xl mx-auto animate-fadeIn" style={{ animationDelay: '0.5s' }}>
+          <div className="flex flex-col items-center gap-12">
+            <span className="text-xl font-bold text-slate-800 mb-6">Disponible sur toutes les plateformes :</span>
+            <div className="flex flex-wrap items-center justify-center gap-12">
               <a 
                 href="https://www.youtube.com/@Lilmodfr/videos" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center bg-white hover:bg-red-50 px-10 py-6 rounded-2xl transition-all duration-300 border-2 border-red-200 hover:border-red-400 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="group flex items-center bg-gradient-to-r from-white to-red-50 hover:from-red-50 hover:to-red-100 px-12 py-8 rounded-2xl transition-all duration-300 border-2 border-red-200 hover:border-red-400 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
-                <Youtube className="w-10 h-10 mr-5 text-red-500 group-hover:scale-110 transition-transform" />
+                <Youtube className="w-12 h-12 mr-6 text-red-600 group-hover:scale-110 transition-transform" />
                 <div className="text-left">
-                  <div className="font-bold text-gray-900 text-xl">YouTube</div>
-                  <div className="text-sm text-gray-600">Vidéos & Lives</div>
+                  <div className="font-bold text-slate-800 text-xl">YouTube</div>
+                  <div className="text-base text-slate-600 font-medium">Vidéos & Lives</div>
                 </div>
               </a>
               
@@ -56,12 +62,12 @@ const HeroSection = () => {
                 href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center bg-white hover:bg-green-50 px-10 py-6 rounded-2xl transition-all duration-300 border-2 border-green-200 hover:border-green-400 shadow-lg hover:shadow-xl transform hover:scale-105"
+                className="group flex items-center bg-gradient-to-r from-white to-green-50 hover:from-green-50 hover:to-green-100 px-12 py-8 rounded-2xl transition-all duration-300 border-2 border-green-200 hover:border-green-400 shadow-xl hover:shadow-2xl transform hover:scale-105"
               >
-                <Headphones className="w-10 h-10 mr-5 text-green-500 group-hover:scale-110 transition-transform" />
+                <Headphones className="w-12 h-12 mr-6 text-green-600 group-hover:scale-110 transition-transform" />
                 <div className="text-left">
-                  <div className="font-bold text-gray-900 text-xl">Spotify</div>
-                  <div className="text-sm text-gray-600">Podcasts</div>
+                  <div className="font-bold text-slate-800 text-xl">Spotify</div>
+                  <div className="text-base text-slate-600 font-medium">Podcasts</div>
                 </div>
               </a>
             </div>
