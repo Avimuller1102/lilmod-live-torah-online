@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Search, Play, Clock, Calendar, Youtube, Headphones, BookOpen, Users } from 'lucide-react';
@@ -90,7 +91,7 @@ const CombinedContentLibrary = () => {
               </span>
             </h2>
             
-            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mt-4">
               Découvrez l'univers de l'étude juive avec nos meilleurs enseignants. 
               <br className="hidden md:block" />
               <span className="font-semibold text-blue-600">Une Torah vivante, accessible partout dans le monde</span>
@@ -146,7 +147,7 @@ const CombinedContentLibrary = () => {
               </div>
             </div>
             
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg mt-4">
               Rejoignez nos cours en direct et replays. Une communauté d'apprentissage qui grandit chaque jour.
             </p>
           </div>
@@ -192,7 +193,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-32">
+              <div className="text-center mb-48">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -208,10 +209,13 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Séparateur décoratif avec beaucoup plus d'espace */}
-      <section className="py-64 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
+      {/* Section décorative séparée - Message principal de LILMOD */}
+      <section className="py-64 px-8 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-repeat" style={{
+          <div className="absolute top-20 left-20 w-60 h-60 bg-gradient-to-br from-white to-blue-200 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-48 h-48 bg-gradient-to-br from-blue-200 to-white rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-gradient-to-br from-white to-blue-300 rounded-full blur-xl animate-pulse" style={{ animationDelay: '0.8s' }}></div>
+          <div className="absolute inset-0 bg-repeat opacity-5" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
           }}></div>
         </div>
@@ -248,7 +252,7 @@ const CombinedContentLibrary = () => {
               </div>
             </div>
             
-            <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <p className="text-gray-600 max-w-2xl mx-auto text-lg mt-4">
               Emportez l'étude partout avec vous. Écoutez nos rabbanim lors de vos déplacements.
             </p>
           </div>
