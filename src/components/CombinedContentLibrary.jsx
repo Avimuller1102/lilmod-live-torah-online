@@ -85,7 +85,7 @@ const CombinedContentLibrary = () => {
                 <span className="text-blue-600">BIBLIOTHÈQUE</span> <span className="text-orange-500">D'ÉTUDE</span>
               </span>
               
-              <span className="text-2xl md:text-3xl font-semibold text-gray-700 block">
+              <span className="text-2xl md:text-3xl font-semibold text-gray-700 block mt-4">
                 Votre portail vers la sagesse juive
               </span>
             </h2>
@@ -142,7 +142,7 @@ const CombinedContentLibrary = () => {
                   <span className="text-red-600">NOS DERNIERS</span> <span className="text-orange-600">CHIOURIM</span>
                 </h2>
                 
-                <p className="text-xl font-semibold text-red-500">Les chiourim qui transforment votre quotidien</p>
+                <p className="text-xl font-semibold text-red-500 mt-4">Les chiourim qui transforment votre quotidien</p>
               </div>
             </div>
             
@@ -244,7 +244,7 @@ const CombinedContentLibrary = () => {
                   <span className="text-green-600">TORAH</span> <span className="text-green-600">EN</span> <span className="text-green-600">AUDIO</span>
                 </h2>
                 
-                <p className="text-xl font-semibold text-green-500">La Torah dans vos oreilles, partout où vous allez</p>
+                <p className="text-xl font-semibold text-green-500 mt-4">La Torah dans vos oreilles, partout où vous allez</p>
               </div>
             </div>
             
