@@ -23,10 +23,10 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Titre principal en bleu */}
+        {/* Titre principal avec meilleure typographie italique */}
         <div className="mb-24 animate-slideIn">
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-12 max-w-5xl mx-auto leading-tight">
-            <span className="font-black text-blue-600">LILMOD - Une <span className="text-blue-800 font-black">Torah vivante</span> sur tous les fronts</span>
+            <span className="font-black text-blue-600 italic">LILMOD - Une <span className="text-blue-800 font-black italic">Torah vivante</span> sur tous les fronts</span>
           </h1>
           <p className="text-xl md:text-2xl font-semibold text-gray-800 max-w-3xl mx-auto leading-relaxed mb-12">
             Découvrez l'étude de la Torah avec les meilleurs enseignants francophones. 

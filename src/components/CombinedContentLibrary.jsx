@@ -66,7 +66,7 @@ const CombinedContentLibrary = () => {
   return (
     <>
       {/* Section principale avec recherche - Atmosphère Torah */}
-      <section className="py-24 px-8 bg-gradient-to-br from-blue-50 via-white to-amber-50 relative overflow-hidden">
+      <section className="py-32 px-8 bg-gradient-to-br from-blue-50 via-white to-amber-50 relative overflow-hidden">
         {/* Motifs décoratifs inspirés de l'étude juive - Bulles améliorées */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full blur-2xl animate-pulse"></div>
@@ -77,23 +77,16 @@ const CombinedContentLibrary = () => {
         
         <div className="max-w-7xl mx-auto relative z-10">
           {/* En-tête avec branding renforcé */}
-          <div className="text-center mb-20">
-            <div className="flex items-center justify-center mb-10">
-              <img 
-                src="/lovable-uploads/23cfbdef-511e-4f4e-ae20-7fe823957cbb.png" 
-                alt="LILMOD - Torah Mitzion" 
-                className="h-24 md:h-28 drop-shadow-lg rounded-2xl"
-              />
-            </div>
+          <div className="text-center mb-24">            
+            <div className="w-32 h-1 bg-gradient-to-r from-blue-600 via-amber-500 to-orange-500 mx-auto mb-12 rounded-full"></div>
             
-            <div className="w-32 h-1 bg-gradient-to-r from-blue-600 via-amber-500 to-orange-500 mx-auto mb-10 rounded-full"></div>
-            
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              <span className="flex items-center justify-center gap-3 mb-3">
+            <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+              <span className="flex items-center justify-center gap-3 mb-4">
                 <BookOpen className="w-12 h-12 text-amber-500" />
                 <span className="text-blue-600">BIBLIOTHÈQUE</span> <span className="text-orange-500">D'ÉTUDE</span>
               </span>
-              <span className="text-2xl md:text-3xl font-semibold text-gray-700">
+              
+              <span className="text-2xl md:text-3xl font-semibold text-gray-700 block">
                 Votre portail vers la sagesse juive
               </span>
             </h2>
@@ -106,7 +99,7 @@ const CombinedContentLibrary = () => {
           </div>
 
           {/* Barre de recherche améliorée */}
-          <div className="max-w-3xl mx-auto mb-16">
+          <div className="max-w-3xl mx-auto mb-20">
             <div className="relative bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-blue-200/50">
               <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-blue-600 w-6 h-6" />
               <input
@@ -130,8 +123,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section YouTube - Avec fond amélioré */}
-      <section id="videos" className="py-28 px-8 bg-gradient-to-br from-red-50 via-pink-50 to-orange-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
+      {/* Section YouTube - Avec fond amélioré et espace ajouté */}
+      <section id="videos" className="py-32 px-8 bg-gradient-to-br from-red-50 via-pink-50 to-orange-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
         {/* Bulles décoratives pour YouTube */}
         <div className="absolute inset-0 opacity-8">
           <div className="absolute top-16 right-16 w-48 h-48 bg-gradient-to-br from-red-400 to-pink-500 rounded-full blur-3xl animate-pulse"></div>
@@ -140,16 +133,17 @@ const CombinedContentLibrary = () => {
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-24">
             <div className="flex items-center justify-center mb-8">
               <div className="w-14 h-14 bg-gradient-to-br from-red-600 to-red-500 rounded-full flex items-center justify-center mr-4 shadow-xl">
                 <Youtube className="w-7 h-7 text-white" />
               </div>
               <div className="text-left">
-                <h2 className="text-4xl md:text-5xl font-bold mb-2">
-                  <span className="text-red-600">NOS DERNIERS</span> <span className="text-orange-600">SHIOURIM</span>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                  <span className="text-red-600">NOS DERNIERS</span> <span className="text-orange-600">CHIOURIM</span>
                 </h2>
-                <p className="text-xl font-semibold text-red-500">Les shiourim qui transforment votre quotidien</p>
+                
+                <p className="text-xl font-semibold text-red-500">Les chiourim qui transforment votre quotidien</p>
               </div>
             </div>
             
@@ -160,7 +154,7 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-24">
                 {filteredVideos.map((video) => (
                   <Card 
                     key={video.id} 
@@ -207,7 +201,7 @@ const CombinedContentLibrary = () => {
                   className="inline-flex items-center bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-10 py-5 rounded-xl font-bold transition-all shadow-xl hover:shadow-2xl transform hover:scale-105"
                 >
                   <Youtube className="w-6 h-6 mr-3" />
-                  <span className="text-white">Découvrir tous nos shiourim</span>
+                  <span className="text-white">Découvrir tous nos chiourim</span>
                 </a>
               </div>
             </>
@@ -215,24 +209,24 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Séparateur décoratif - Suppression du texte hébraïque */}
-      <section className="py-32 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
+      {/* Séparateur décoratif avec plus d'espace */}
+      <section className="py-40 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-repeat" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
           }}></div>
         </div>
         <div className="max-w-7xl mx-auto px-8 text-center relative z-10">
-          <div className="w-32 h-1 bg-white/50 mx-auto mb-12 rounded-full"></div>
-          <p className="text-white/90 text-2xl md:text-3xl max-w-3xl mx-auto mb-6 font-medium">
+          <div className="w-32 h-1 bg-white/50 mx-auto mb-16 rounded-full"></div>
+          <p className="text-white/90 text-2xl md:text-3xl max-w-3xl mx-auto mb-8 font-medium">
             Nous connecter à la Torah • Nous connecter au peuple d'Israël
           </p>
           <div className="w-16 h-1 bg-amber-400 mx-auto rounded-full"></div>
         </div>
       </section>
 
-      {/* Section Spotify - Avec fond amélioré */}
-      <section id="podcasts" className="py-28 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
+      {/* Section Spotify - Avec fond amélioré et "AUDIO" en vert */}
+      <section id="podcasts" className="py-32 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
         {/* Bulles décoratives pour Spotify */}
         <div className="absolute inset-0 opacity-8">
           <div className="absolute bottom-16 left-16 w-44 h-44 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full blur-3xl animate-pulse"></div>
@@ -241,15 +235,16 @@ const CombinedContentLibrary = () => {
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-24">
             <div className="flex items-center justify-center mb-8">
               <div className="w-14 h-14 bg-gradient-to-br from-green-600 to-green-500 rounded-full flex items-center justify-center mr-4 shadow-xl">
                 <Headphones className="w-7 h-7 text-white" />
               </div>
               <div className="text-left">
-                <h2 className="text-4xl md:text-5xl font-bold mb-2">
-                  <span className="text-green-600">TORAH</span> <span className="text-teal-600">EN AUDIO</span>
+                <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                  <span className="text-green-600">TORAH</span> <span className="text-green-600">EN</span> <span className="text-green-600">AUDIO</span>
                 </h2>
+                
                 <p className="text-xl font-semibold text-green-500">La Torah dans vos oreilles, partout où vous allez</p>
               </div>
             </div>
@@ -261,7 +256,7 @@ const CombinedContentLibrary = () => {
           
           {!loading && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 mb-24">
                 {filteredEpisodes.map((episode) => (
                   <Card 
                     key={episode.id} 
@@ -316,26 +311,6 @@ const CombinedContentLibrary = () => {
               </div>
             </>
           )}
-        </div>
-      </section>
-
-      {/* Section finale - Linktree supprimée */}
-      <section className="py-24 px-8 bg-gradient-to-br from-amber-500 to-blue-600 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border-4 border-white rounded-full"></div>
-        </div>
-        <div className="max-w-7xl mx-auto text-center relative z-10">
-          <a 
-            href="https://linktr.ee/lilmod.torahmitzion" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-white hover:bg-gray-100 text-blue-600 px-12 py-6 rounded-2xl font-bold transition-all shadow-2xl hover:shadow-3xl transform hover:scale-105 text-xl"
-          >
-            <svg className="w-6 h-6 mr-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M8 5v14l11-7z" />
-            </svg>
-            Tous nos liens
-          </a>
         </div>
       </section>
     </>

@@ -25,6 +25,15 @@ const Index = () => {
         <HeroSection />
       </div>
       
+      {/* Logo LILMOD agrandi avant la section À propos */}
+      <div className="py-16 flex justify-center">
+        <img 
+          src="/lovable-uploads/23cfbdef-511e-4f4e-ae20-7fe823957cbb.png" 
+          alt="LILMOD - Torah Mitzion" 
+          className="h-36 md:h-40 lg:h-44 drop-shadow-xl rounded-3xl transform hover:scale-105 transition-all duration-500"
+        />
+      </div>
+      
       {/* Section À propos - Juste après le Hero comme demandé */}
       <div className="section-content">
         <About />

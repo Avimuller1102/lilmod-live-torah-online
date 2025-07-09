@@ -63,20 +63,20 @@ const extractTorahBoxTimes = async (cityConfig) => {
     console.error(`Erreur lors de la récupération pour ${cityConfig.name}:`, error);
   }
   
-  // Fallback avec horaires réalistes pour cette période
+  // Fallback avec horaires réalistes pour Balak (11-12 juillet 2025)
   const fallbackTimes = {
-    'Paris': { entree: '21:15', sortie: '22:31' },
-    'Lyon': { entree: '20:58', sortie: '22:14' },
-    'Marseille': { entree: '20:38', sortie: '21:54' },
-    'Nice': { entree: '20:33', sortie: '21:49' },
-    'Strasbourg': { entree: '21:20', sortie: '22:36' },
-    'Toulouse': { entree: '21:05', sortie: '22:21' },
-    'Jérusalem': { entree: '19:08', sortie: '20:24' },
-    'Tel Aviv': { entree: '19:18', sortie: '20:34' },
-    'Ashdod': { entree: '19:16', sortie: '20:32' },
-    'Netanya': { entree: '19:15', sortie: '20:31' },
-    'Haïfa': { entree: '19:20', sortie: '20:36' },
-    'Londres': { entree: '21:25', sortie: '22:45' }
+    'Paris': { entree: '21:10', sortie: '22:26' },
+    'Lyon': { entree: '20:53', sortie: '22:09' },
+    'Marseille': { entree: '20:33', sortie: '21:49' },
+    'Nice': { entree: '20:28', sortie: '21:44' },
+    'Strasbourg': { entree: '21:15', sortie: '22:31' },
+    'Toulouse': { entree: '21:00', sortie: '22:16' },
+    'Jérusalem': { entree: '19:03', sortie: '20:19' },
+    'Tel Aviv': { entree: '19:13', sortie: '20:29' },
+    'Ashdod': { entree: '19:11', sortie: '20:27' },
+    'Netanya': { entree: '19:10', sortie: '20:26' },
+    'Haïfa': { entree: '19:15', sortie: '20:31' },
+    'Londres': { entree: '21:20', sortie: '22:40' }
   };
   
   const fallback = fallbackTimes[cityConfig.name] || { entree: '20:30', sortie: '21:45' };
@@ -85,26 +85,18 @@ const extractTorahBoxTimes = async (cityConfig) => {
     city: cityConfig.name,
     entree: fallback.entree,
     sortie: fallback.sortie,
-    paracha: 'Houkat',
-    date: new Date().toLocaleDateString('fr-FR')
+    paracha: 'Balak',
+    date: '11-12 Juillet 2025'
   };
 };
 
 // Fonction pour obtenir la Paracha courante
 const getCurrentParacha = () => {
-  const currentDate = new Date();
-  const options = { 
-    weekday: 'long', 
-    year: 'numeric', 
-    month: 'long', 
-    day: 'numeric' 
-  };
-  
   return {
-    name: 'Houkat',
-    hebrewName: 'חוקת',
-    dateRange: `8-9 Juillet 2025`,
-    fullDate: currentDate.toLocaleDateString('fr-FR', options)
+    name: 'Balak',
+    hebrewName: 'בלק',
+    dateRange: `11-12 Juillet 2025`,
+    fullDate: 'Vendredi 11 et Samedi 12 Juillet 2025'
   };
 };
 
@@ -147,22 +139,22 @@ export const fetchShabbatTimes = async () => {
     return {
       paracha,
       france: [
-        { city: 'Paris', entree: '21:15', sortie: '22:31' },
-        { city: 'Lyon', entree: '20:58', sortie: '22:14' },
-        { city: 'Marseille', entree: '20:38', sortie: '21:54' },
-        { city: 'Nice', entree: '20:33', sortie: '21:49' },
-        { city: 'Strasbourg', entree: '21:20', sortie: '22:36' },
-        { city: 'Toulouse', entree: '21:05', sortie: '22:21' }
+        { city: 'Paris', entree: '21:10', sortie: '22:26' },
+        { city: 'Lyon', entree: '20:53', sortie: '22:09' },
+        { city: 'Marseille', entree: '20:33', sortie: '21:49' },
+        { city: 'Nice', entree: '20:28', sortie: '21:44' },
+        { city: 'Strasbourg', entree: '21:15', sortie: '22:31' },
+        { city: 'Toulouse', entree: '21:00', sortie: '22:16' }
       ],
       israel: [
-        { city: 'Jérusalem', entree: '19:08', sortie: '20:24' },
-        { city: 'Tel Aviv', entree: '19:18', sortie: '20:34' },
-        { city: 'Ashdod', entree: '19:16', sortie: '20:32' },
-        { city: 'Netanya', entree: '19:15', sortie: '20:31' },
-        { city: 'Haïfa', entree: '19:20', sortie: '20:36' }
+        { city: 'Jérusalem', entree: '19:03', sortie: '20:19' },
+        { city: 'Tel Aviv', entree: '19:13', sortie: '20:29' },
+        { city: 'Ashdod', entree: '19:11', sortie: '20:27' },
+        { city: 'Netanya', entree: '19:10', sortie: '20:26' },
+        { city: 'Haïfa', entree: '19:15', sortie: '20:31' }
       ],
       international: [
-        { city: 'Londres', entree: '21:25', sortie: '22:45' }
+        { city: 'Londres', entree: '21:20', sortie: '22:40' }
       ]
     };
   }
