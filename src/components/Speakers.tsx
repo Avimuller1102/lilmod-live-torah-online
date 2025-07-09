@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { User, Video, Music, Link } from 'lucide-react';
@@ -54,7 +55,7 @@ const speakersData = [
   {
     id: 7,
     name: "Rav Fizson",
-    image: "/lovable-uploads/f1e410b4-aba2-4928-8f2f-28a039869592.png",
+    image: "/lovable-uploads/aef209f6-b2c9-4b30-82d6-a4993687c5d6.png",
     specialty: "Étude des textes",
     bio: "Le Rav Fizson se distingue par sa maîtrise des textes et son approche pédagogique.",
     youtubePlaylist: "https://www.youtube.com/@Lilmodfr/playlists"

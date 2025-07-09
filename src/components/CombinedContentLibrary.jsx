@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Search, Play, Clock, Calendar, Youtube, Headphones, BookOpen, Users } from 'lucide-react';
@@ -193,7 +192,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center">
+              <div className="text-center mb-32">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -209,8 +208,8 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Séparateur décoratif avec plus d'espace */}
-      <section className="py-40 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
+      {/* Séparateur décoratif avec beaucoup plus d'espace */}
+      <section className="py-64 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-repeat" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -225,7 +224,7 @@ const CombinedContentLibrary = () => {
         </div>
       </section>
 
-      {/* Section Spotify - Avec fond amélioré et "AUDIO" en vert */}
+      {/* Section Spotify - Avec fond amélioré et plus d'espace avant */}
       <section id="podcasts" className="py-32 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
         {/* Bulles décoratives pour Spotify */}
         <div className="absolute inset-0 opacity-8">
