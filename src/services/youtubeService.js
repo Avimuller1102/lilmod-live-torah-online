@@ -1,6 +1,5 @@
 
-// API configuration - Keys removed for security
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY || '';
+const YOUTUBE_API_KEY = 'REDACTED';
 const CHANNEL_ID = 'UCL_BSX_zC9p8QjPjqMrpt9Q';
 
 // Fonction pour convertir la durée ISO 8601 en format MM:SS
@@ -28,12 +27,6 @@ const parseDuration = (duration) => {
 export const fetchLatestYouTubeVideos = async (maxResults = 8) => {
   try {
     console.log(`Fetching ${maxResults} latest YouTube videos from LILMOD channel`);
-    
-    // Check if API key is available
-    if (!YOUTUBE_API_KEY) {
-      console.warn('YouTube API key not configured, using fallback data');
-      throw new Error('API key not available');
-    }
     
     // Première requête pour obtenir les vidéos avec leurs détails
     const searchUrl = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=${maxResults}&type=video`;
