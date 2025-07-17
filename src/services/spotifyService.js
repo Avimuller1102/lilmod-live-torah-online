@@ -1,12 +1,18 @@
 
-// Configuration Spotify
-const SPOTIFY_CLIENT_ID = 'de656bbec2fe41d98db2b4e746be06b6';
-const SPOTIFY_CLIENT_SECRET = 'REDACTED';
+// Configuration Spotify - Keys removed for security
+const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID || '';
+const SPOTIFY_CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET || '';
 const SHOW_ID = '5oJ8bkMtw0hR1iRxomrSRR';
 
 export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
   try {
     console.log(`Fetching ${maxResults} latest Spotify episodes from https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR`);
+    
+    // Check if API credentials are available
+    if (!SPOTIFY_CLIENT_ID || !SPOTIFY_CLIENT_SECRET) {
+      console.warn('Spotify API credentials not configured, using fallback data');
+      throw new Error('API credentials not available');
+    }
     
     // Tentative d'obtention du token Spotify
     try {

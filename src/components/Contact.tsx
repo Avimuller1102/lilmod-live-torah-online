@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { validateContactForm, sanitizeInput } from '@/utils/validation';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -18,16 +19,47 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
+    const sanitizedValue = sanitizeInput(e.target.value);
+    setFormData({ ...formData, [e.target.id]: sanitizedValue });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate form data
+    const validation = validateContactForm(formData);
+    if (!validation.isValid) {
+      toast({
+        title: "Erreur de validation",
+        description: validation.errors.join(', '),
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      // Ici, nous enverrions le message à aaronbotbol@gmail.com
-      console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
+      // Rate limiting check (simple client-side)
+      const lastSubmission = localStorage.getItem('lastFormSubmission');
+      const now = Date.now();
+      if (lastSubmission && now - parseInt(lastSubmission) < 60000) {
+        throw new Error('Veuillez attendre avant de soumettre un nouveau message');
+      }
+
+      // For security, this should be handled by a backend service
+      // Currently just logging the sanitized data
+      const sanitizedData = {
+        name: sanitizeInput(formData.name),
+        email: sanitizeInput(formData.email),
+        subject: sanitizeInput(formData.subject),
+        message: sanitizeInput(formData.message)
+      };
+      
+      console.log("Envoi sécurisé du message à aaronbotbol@gmail.com:", sanitizedData);
+      
+      // Store submission timestamp
+      localStorage.setItem('lastFormSubmission', now.toString());
       
       // Simulons un délai pour l'envoi
       await new Promise(resolve => setTimeout(resolve, 1000));
