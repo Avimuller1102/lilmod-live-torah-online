@@ -192,7 +192,7 @@ const CombinedContentLibrary = () => {
                 ))}
               </div>
               
-              <div className="text-center mb-32">
+              <div className="text-center mb-48">
                 <a 
                   href="https://www.youtube.com/@Lilmodfr/videos" 
                   target="_blank" 
@@ -209,7 +209,7 @@ const CombinedContentLibrary = () => {
       </section>
 
       {/* Séparateur décoratif avec beaucoup plus d'espace */}
-      <section className="py-64 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
+      <section className="py-80 bg-gradient-to-br from-blue-600 to-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0 bg-repeat" style={{
             backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")"
@@ -225,7 +225,7 @@ const CombinedContentLibrary = () => {
       </section>
 
       {/* Section Spotify - Avec fond amélioré et plus d'espace avant */}
-      <section id="podcasts" className="py-32 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
+      <section id="podcasts" className="py-48 px-8 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 relative overflow-hidden" style={{ scrollMarginTop: '6rem' }}>
         {/* Bulles décoratives pour Spotify */}
         <div className="absolute inset-0 opacity-8">
           <div className="absolute bottom-16 left-16 w-44 h-44 bg-gradient-to-br from-green-400 to-emerald-500 rounded-full blur-3xl animate-pulse"></div>
