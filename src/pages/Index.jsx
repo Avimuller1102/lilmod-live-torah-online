@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import About from '@/components/About';
 import CombinedContentLibrary from '@/components/CombinedContentLibrary';
-import ParachaWidget from '@/components/ParachaWidget';
+
 import ShabbatTimes from '@/components/ShabbatTimes';
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
@@ -45,12 +45,6 @@ const Index = () => {
         <CombinedContentLibrary />
       </div>
       
-      {/* Section Paracha de la semaine */}
-      <div className="py-16 px-8 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="max-w-4xl mx-auto">
-          <ParachaWidget />
-        </div>
-      </div>
       
       {/* Section Horaires Shabbat - Toutes les villes */}
       <div className="section-content">

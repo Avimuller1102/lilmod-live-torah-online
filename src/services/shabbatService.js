@@ -25,6 +25,49 @@ const CITIES_CONFIG = {
   ]
 };
 
+// Fonction pour extraire la paracha actuelle depuis Torah-Box
+const extractCurrentParacha = async () => {
+  try {
+    const proxyUrl = 'https://api.allorigins.win/get?url=';
+    const response = await fetch(proxyUrl + encodeURIComponent('https://www.torah-box.com/paracha/'));
+    const data = await response.json();
+    
+    if (data && data.contents) {
+      const htmlContent = data.contents;
+      
+      // Extraction du nom de la paracha
+      const parachaNameMatch = htmlContent.match(/<h1[^>]*>([^<]+)<\/h1>/i) || 
+                              htmlContent.match(/Paracha\s+([^\s<]+)/i);
+      const parachaName = parachaNameMatch ? parachaNameMatch[1].trim() : 'Pinhas';
+      
+      // Extraction du nom hébreu
+      const hebrewMatch = htmlContent.match(/[\u0590-\u05FF]+/);
+      const hebrewName = hebrewMatch ? hebrewMatch[0] : 'פינחס';
+      
+      // Extraction de la date
+      const dateMatch = htmlContent.match(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{4})/);
+      const currentDate = dateMatch ? dateMatch[1] : '18-19 Juillet 2025';
+      
+      return {
+        name: parachaName,
+        hebrewName: hebrewName,
+        dateRange: currentDate,
+        fullDate: `Paracha ${parachaName} • ${currentDate}`
+      };
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération de la paracha:', error);
+  }
+  
+  // Fallback
+  return {
+    name: 'Pinhas',
+    hebrewName: 'פינחס',
+    dateRange: '18-19 Juillet 2025',
+    fullDate: 'Paracha Pinhas • 18-19 Juillet 2025'
+  };
+};
+
 // Fonction pour extraire les horaires depuis Torah-Box
 const extractTorahBoxTimes = async (cityConfig) => {
   try {
@@ -37,25 +80,23 @@ const extractTorahBoxTimes = async (cityConfig) => {
       // Extraction des données depuis le HTML Torah-Box
       const htmlContent = data.contents;
       
-      // Recherche de la paracha
-      const parachaMatch = htmlContent.match(/Paracha ([^<]+)/i);
-      const paracha = parachaMatch ? parachaMatch[1].trim() : null;
+      // Recherche des horaires avec des patterns plus précis
+      const entreeMatch = htmlContent.match(/Allumage[^:]*:\s*(\d{1,2}:\d{2})/i) ||
+                         htmlContent.match(/entrée[^:]*:\s*(\d{1,2}:\d{2})/i) ||
+                         htmlContent.match(/(\d{1,2}:\d{2})/);
       
-      // Recherche des horaires (format hh:mm)
-      const timePattern = /(\d{1,2}:\d{2})/g;
-      const times = htmlContent.match(timePattern);
+      const sortieMatch = htmlContent.match(/Sortie[^:]*:\s*(\d{1,2}:\d{2})/i) ||
+                         htmlContent.match(/Havdala[^:]*:\s*(\d{1,2}:\d{2})/i);
       
-      // Recherche de la date
-      const datePattern = /(\d{1,2}\/\d{1,2}\/\d{4})/g;
-      const dates = htmlContent.match(datePattern);
+      // Recherche de la date actuelle
+      const dateMatch = htmlContent.match(/(\d{1,2}\/\d{1,2}\/\d{4})/);
       
-      if (times && times.length >= 2) {
+      if (entreeMatch && sortieMatch) {
         return {
           city: cityConfig.name,
-          entree: times[0],
-          sortie: times[1],
-          paracha: paracha,
-          date: dates ? dates[0] : null
+          entree: entreeMatch[1],
+          sortie: sortieMatch[1],
+          date: dateMatch ? dateMatch[1] : new Date().toLocaleDateString('fr-FR')
         };
       }
     }
@@ -85,20 +126,10 @@ const extractTorahBoxTimes = async (cityConfig) => {
     city: cityConfig.name,
     entree: fallback.entree,
     sortie: fallback.sortie,
-    paracha: 'Pinhas',
-    date: '18-19 Juillet 2025'
+    date: new Date().toLocaleDateString('fr-FR')
   };
 };
 
-// Fonction pour obtenir la Paracha courante
-const getCurrentParacha = () => {
-  return {
-    name: 'Pinhas',
-    hebrewName: 'פינחס',
-    dateRange: `18-19 Juillet 2025`,
-    fullDate: 'Vendredi 18 et Samedi 19 Juillet 2025'
-  };
-};
 
 export const fetchShabbatTimes = async () => {
   try {
@@ -119,7 +150,7 @@ export const fetchShabbatTimes = async () => {
     const israel = results.slice(CITIES_CONFIG.france.length, CITIES_CONFIG.france.length + CITIES_CONFIG.israel.length);
     const international = results.slice(CITIES_CONFIG.france.length + CITIES_CONFIG.israel.length);
     
-    const paracha = getCurrentParacha();
+    const paracha = await extractCurrentParacha();
     
     console.log('Horaires de Chabbat récupérés avec succès depuis Torah-Box');
     
@@ -134,7 +165,7 @@ export const fetchShabbatTimes = async () => {
     console.error('Erreur lors de la récupération des horaires:', error);
     
     // Données de fallback en cas d'erreur
-    const paracha = getCurrentParacha();
+    const paracha = await extractCurrentParacha();
     
     return {
       paracha,
