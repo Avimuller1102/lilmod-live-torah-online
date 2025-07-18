@@ -55,12 +55,12 @@ export const fetchCurrentParacha = async (): Promise<ParachaData | null> => {
   } catch (error) {
     console.error('Error fetching paracha:', error);
     
-    // Fallback avec données par défaut
+    // Fallback avec données par défaut - Paracha Pinhas
     return {
-      name: 'Paracha de la semaine',
-      hebrew: 'פרשת השבוע',
-      verses: '',
-      summary: 'Découvrez la paracha de cette semaine',
+      name: 'Pinhas',
+      hebrew: 'פינחס',
+      verses: 'Nombres 25:10 - 30:1',
+      summary: 'Pinhas reçoit l\'alliance de paix éternelle pour son zèle. Les filles de Tselofhad demandent leur héritage. Nomination de Josué comme successeur de Moïse.',
       date: new Date().toISOString().split('T')[0],
       year: new Date().getFullYear()
     };
