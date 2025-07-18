@@ -63,20 +63,20 @@ const extractTorahBoxTimes = async (cityConfig) => {
     console.error(`Erreur lors de la récupération pour ${cityConfig.name}:`, error);
   }
   
-  // Fallback avec horaires réalistes pour Balak (11-12 juillet 2025)
+  // Fallback avec horaires réalistes pour Pinhas (18-19 juillet 2025)
   const fallbackTimes = {
-    'Paris': { entree: '21:10', sortie: '22:26' },
-    'Lyon': { entree: '20:53', sortie: '22:09' },
-    'Marseille': { entree: '20:33', sortie: '21:49' },
-    'Nice': { entree: '20:28', sortie: '21:44' },
-    'Strasbourg': { entree: '21:15', sortie: '22:31' },
-    'Toulouse': { entree: '21:00', sortie: '22:16' },
-    'Jérusalem': { entree: '19:03', sortie: '20:19' },
-    'Tel Aviv': { entree: '19:13', sortie: '20:29' },
-    'Ashdod': { entree: '19:11', sortie: '20:27' },
-    'Netanya': { entree: '19:10', sortie: '20:26' },
-    'Haïfa': { entree: '19:15', sortie: '20:31' },
-    'Londres': { entree: '21:20', sortie: '22:40' }
+    'Paris': { entree: '21:05', sortie: '22:21' },
+    'Lyon': { entree: '20:48', sortie: '22:04' },
+    'Marseille': { entree: '20:28', sortie: '21:44' },
+    'Nice': { entree: '20:23', sortie: '21:39' },
+    'Strasbourg': { entree: '21:10', sortie: '22:26' },
+    'Toulouse': { entree: '20:55', sortie: '22:11' },
+    'Jérusalem': { entree: '18:58', sortie: '20:14' },
+    'Tel Aviv': { entree: '19:08', sortie: '20:24' },
+    'Ashdod': { entree: '19:06', sortie: '20:22' },
+    'Netanya': { entree: '19:05', sortie: '20:21' },
+    'Haïfa': { entree: '19:10', sortie: '20:26' },
+    'Londres': { entree: '21:15', sortie: '22:35' }
   };
   
   const fallback = fallbackTimes[cityConfig.name] || { entree: '20:30', sortie: '21:45' };
@@ -85,18 +85,18 @@ const extractTorahBoxTimes = async (cityConfig) => {
     city: cityConfig.name,
     entree: fallback.entree,
     sortie: fallback.sortie,
-    paracha: 'Balak',
-    date: '11-12 Juillet 2025'
+    paracha: 'Pinhas',
+    date: '18-19 Juillet 2025'
   };
 };
 
 // Fonction pour obtenir la Paracha courante
 const getCurrentParacha = () => {
   return {
-    name: 'Balak',
-    hebrewName: 'בלק',
-    dateRange: `11-12 Juillet 2025`,
-    fullDate: 'Vendredi 11 et Samedi 12 Juillet 2025'
+    name: 'Pinhas',
+    hebrewName: 'פינחס',
+    dateRange: `18-19 Juillet 2025`,
+    fullDate: 'Vendredi 18 et Samedi 19 Juillet 2025'
   };
 };
 
