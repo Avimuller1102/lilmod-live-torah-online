@@ -63,12 +63,12 @@ const extractCurrentParacha = async () => {
     console.error('Erreur lors de la récupération de la paracha:', error);
   }
   
-  // Fallback
+  // Fallback - forcer Pinhas pour cette semaine
   return {
     name: 'Pinhas',
     hebrewName: 'פינחס',
     dateRange: '18-19 Juillet 2025',
-    fullDate: 'Paracha Pinhas • 18-19 Juillet 2025'
+    fullDate: 'Pinhas • 18-19 Juillet 2025'
   };
 };
 
