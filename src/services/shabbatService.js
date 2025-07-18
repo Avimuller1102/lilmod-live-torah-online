@@ -35,10 +35,14 @@ const extractCurrentParacha = async () => {
     if (data && data.contents) {
       const htmlContent = data.contents;
       
-      // Extraction du nom de la paracha
-      const parachaNameMatch = htmlContent.match(/<h1[^>]*>([^<]+)<\/h1>/i) || 
-                              htmlContent.match(/Paracha\s+([^\s<]+)/i);
-      const parachaName = parachaNameMatch ? parachaNameMatch[1].trim() : 'Pinhas';
+      // Extraction du nom de la paracha - amélioration pour éviter "de"
+      const parachaNameMatch = htmlContent.match(/<h1[^>]*>(?:Paracha\s+)?([^<\s]+)/i) || 
+                              htmlContent.match(/Paracha\s+([A-Za-z\u0590-\u05FF]+)/i) ||
+                              htmlContent.match(/(?:^|\s)([A-Z][a-z]+)(?:\s|$)/);
+      let parachaName = parachaNameMatch ? parachaNameMatch[1].trim() : 'Pinhas';
+      
+      // Nettoyer le nom pour enlever les mots parasites
+      parachaName = parachaName.replace(/^(de|la|le|du)\s+/i, '').trim();
       
       // Extraction du nom hébreu
       const hebrewMatch = htmlContent.match(/[\u0590-\u05FF]+/);
