@@ -3,7 +3,6 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import About from '@/components/About';
-import ShabbatTimes from '@/components/ShabbatTimes';
 import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
@@ -21,15 +20,30 @@ const Index = () => {
     <div className="min-h-screen bg-white">
       <Navbar />
       <HeroSection />
-      <About />
-      <ShabbatTimes />
-      <CombinedContentLibrary />
-      <Stats />
-      <Speakers />
-      <Partners />
-      <NewsletterSignup />
-      <Support />
-      <Contact />
+      <div className="py-16 md:py-24">
+        <About />
+      </div>
+      <div className="py-16 md:py-24">
+        <CombinedContentLibrary />
+      </div>
+      <div className="py-16 md:py-24">
+        <Stats />
+      </div>
+      <div className="py-16 md:py-24">
+        <Speakers />
+      </div>
+      <div className="py-16 md:py-24">
+        <Partners />
+      </div>
+      <div className="py-16 md:py-24">
+        <NewsletterSignup />
+      </div>
+      <div className="py-16 md:py-24">
+        <Support />
+      </div>
+      <div className="py-16 md:py-24">
+        <Contact />
+      </div>
       <Footer />
       <WhatsAppButton />
       <LinkTreeButton />
