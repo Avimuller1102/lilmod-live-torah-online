@@ -204,7 +204,7 @@
 
 @layer utilities {
   .content-section {
-    @apply py-16 px-4 md:px-8;
+    @apply py-24 md:py-32 px-4 md:px-8;
   }
 
   /* Animations */

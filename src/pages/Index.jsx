@@ -5,7 +5,7 @@ import HeroSection from '@/components/HeroSection';
 import About from '@/components/About';
 import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 
-import ShabbatTimes from '@/components/ShabbatTimes';
+
 import Speakers from '@/components/Speakers';
 import Partners from '@/components/Partners';
 import NewsletterSignup from '@/components/NewsletterSignup';
@@ -18,11 +18,11 @@ import NewsletterButton from '@/components/NewsletterButton';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 space-y-24 md:space-y-32">
       <Navbar />
       
       {/* Section Hero - Point focal du site */}
-      <div className="section-hero">
+      <div className="hero-section content-section">
         <HeroSection />
       </div>
       
@@ -36,43 +36,39 @@ const Index = () => {
       </div>
       
       {/* Section À propos - Juste après le Hero comme demandé */}
-      <div className="section-content">
+      <div className="content-section">
         <About />
       </div>
       
       {/* Section Recherche - Avec une ligne avant le titre comme demandé */}
-      <div className="section-feature">
+      <div className="content-section">
         <CombinedContentLibrary />
       </div>
       
       
-      {/* Section Horaires Shabbat - Toutes les villes */}
-      <div className="section-content">
-        <ShabbatTimes />
-      </div>
       
       {/* Section Intervenants */}
-      <div className="section-feature">
+      <div className="content-section">
         <Speakers />
       </div>
       
       {/* Section Partenaires */}
-      <div className="section-content">
+      <div className="content-section">
         <Partners />
       </div>
       
       {/* Section Newsletter */}
-      <div className="section-content">
+      <div className="content-section">
         <NewsletterSignup />
       </div>
       
       {/* Section Support */}
-      <div className="section-feature">
+      <div className="content-section">
         <Support />
       </div>
       
       {/* Section Contact */}
-      <div className="section-content">
+      <div className="content-section">
         <Contact />
       </div>
       
