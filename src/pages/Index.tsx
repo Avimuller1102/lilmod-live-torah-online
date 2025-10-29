@@ -3,6 +3,7 @@ import React from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
 import About from '@/components/About';
+import ShabbatTimes from '@/components/ShabbatTimes';
 import CombinedContentLibrary from '@/components/CombinedContentLibrary';
 import Stats from '@/components/Stats';
 import Speakers from '@/components/Speakers';
@@ -21,6 +22,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <About />
+      <ShabbatTimes />
       <CombinedContentLibrary />
       <Stats />
       <Speakers />
