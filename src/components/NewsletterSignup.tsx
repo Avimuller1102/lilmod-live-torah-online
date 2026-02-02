@@ -1,41 +1,63 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Mail } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { newsletterSchema } from '@/lib/validationSchemas';
 
 const NewsletterSignup = () => {
+  const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; consent?: string }>({});
+
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
-    const emailInput = form.querySelector('#email') as HTMLInputElement;
-    const email = emailInput.value;
+    setErrors({});
+    
+    // Validate with Zod
+    const result = newsletterSchema.safeParse({ email, consent });
+    
+    if (!result.success) {
+      const fieldErrors: { email?: string; consent?: string } = {};
+      result.error.errors.forEach(err => {
+        const field = err.path[0] as 'email' | 'consent';
+        fieldErrors[field] = err.message;
+      });
+      setErrors(fieldErrors);
+      toast({
+        title: "Erreur de validation",
+        description: "Veuillez corriger les erreurs dans le formulaire.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Données validées
+    const validatedEmail = result.data.email;
     
     // Extraction du prénom et du nom à partir de l'adresse e-mail
     let firstName = "Abonné";
     let lastName = "";
     
-    if (email.includes('@')) {
-      const localPart = email.split('@')[0];
-      
-      // Essayer de déduire prénom et nom si le format est prénom.nom@domaine.com ou prénom_nom@domaine.com
-      if (localPart.includes('.')) {
-        const parts = localPart.split('.');
-        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
-        if (parts.length > 1) {
-          lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
-        }
-      } else if (localPart.includes('_')) {
-        const parts = localPart.split('_');
-        firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
-        if (parts.length > 1) {
-          lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
-        }
+    const localPart = validatedEmail.split('@')[0];
+    
+    // Essayer de déduire prénom et nom si le format est prénom.nom@domaine.com ou prénom_nom@domaine.com
+    if (localPart.includes('.')) {
+      const parts = localPart.split('.');
+      firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+      if (parts.length > 1) {
+        lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+      }
+    } else if (localPart.includes('_')) {
+      const parts = localPart.split('_');
+      firstName = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+      if (parts.length > 1) {
+        lastName = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
       }
     }
     
-    // Construction de l'URL avec les paramètres
-    const mailchimpUrl = `https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod?EMAIL=${encodeURIComponent(email)}&FNAME=${encodeURIComponent(firstName)}&LNAME=${encodeURIComponent(lastName)}&PHONE=0000000000`;
+    // Construction de l'URL avec les paramètres encodés
+    const mailchimpUrl = `https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod?EMAIL=${encodeURIComponent(validatedEmail)}&FNAME=${encodeURIComponent(firstName)}&LNAME=${encodeURIComponent(lastName)}&PHONE=0000000000`;
     
     // Redirection vers Mailchimp
     window.open(mailchimpUrl, '_blank');
@@ -46,7 +68,8 @@ const NewsletterSignup = () => {
     });
     
     // Réinitialiser le formulaire
-    form.reset();
+    setEmail('');
+    setConsent(false);
   };
 
   return (
@@ -78,31 +101,52 @@ const NewsletterSignup = () => {
                   <h3 className="font-bold text-xl text-lilmod-navy">S'inscrire à la newsletter</h3>
                 </div>
                 
-                <form onSubmit={handleSubscribe} className="space-y-4">
+                <form onSubmit={handleSubscribe} className="space-y-4" noValidate>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="newsletter-email" className="block text-sm font-medium text-gray-700 mb-1">
                       Adresse email
                     </label>
                     <input
                       type="email"
-                      id="email"
+                      id="newsletter-email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errors.email) setErrors(prev => ({ ...prev, email: undefined }));
+                      }}
                       placeholder="votre@email.com"
-                      required
-                      className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-lilmod-blue focus:border-transparent"
+                      className={`w-full px-4 py-2 border rounded-md focus:ring-2 focus:border-transparent ${
+                        errors.email 
+                          ? 'border-red-500 focus:ring-red-500' 
+                          : 'border-gray-300 focus:ring-lilmod-blue'
+                      }`}
+                      maxLength={255}
                     />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                    )}
                   </div>
                   
-                  <div className="flex items-center">
+                  <div className="flex items-start">
                     <input
                       type="checkbox"
-                      id="consent"
-                      required
-                      className="h-4 w-4 text-lilmod-blue focus:ring-lilmod-blue border-gray-300 rounded"
+                      id="newsletter-consent"
+                      checked={consent}
+                      onChange={(e) => {
+                        setConsent(e.target.checked);
+                        if (errors.consent) setErrors(prev => ({ ...prev, consent: undefined }));
+                      }}
+                      className={`h-4 w-4 mt-0.5 text-lilmod-blue focus:ring-lilmod-blue border-gray-300 rounded ${
+                        errors.consent ? 'border-red-500' : ''
+                      }`}
                     />
-                    <label htmlFor="consent" className="ml-2 block text-sm text-gray-700">
+                    <label htmlFor="newsletter-consent" className="ml-2 block text-sm text-gray-700">
                       J'accepte de recevoir la newsletter de LILMOD
                     </label>
                   </div>
+                  {errors.consent && (
+                    <p className="text-red-500 text-xs -mt-2">{errors.consent}</p>
+                  )}
                   
                   <button
                     type="submit"
