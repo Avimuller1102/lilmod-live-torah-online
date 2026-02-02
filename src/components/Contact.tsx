@@ -6,56 +6,28 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { contactSchema, type ContactFormData } from '@/lib/validationSchemas';
 
 const Contact = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState<ContactFormData>({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
-  const [errors, setErrors] = useState<Partial<Record<keyof ContactFormData, string>>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-    // Clear error when user starts typing
-    if (errors[id as keyof ContactFormData]) {
-      setErrors(prev => ({ ...prev, [id]: undefined }));
-    }
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setErrors({});
-    
-    // Validate with Zod
-    const result = contactSchema.safeParse(formData);
-    
-    if (!result.success) {
-      const fieldErrors: Partial<Record<keyof ContactFormData, string>> = {};
-      result.error.errors.forEach(err => {
-        const field = err.path[0] as keyof ContactFormData;
-        fieldErrors[field] = err.message;
-      });
-      setErrors(fieldErrors);
-      toast({
-        title: "Erreur de validation",
-        description: "Veuillez corriger les erreurs dans le formulaire.",
-        variant: "destructive",
-      });
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      // Données validées et nettoyées
-      const validatedData = result.data;
-      console.log("Envoi du message validé à aaronbotbol@gmail.com:", validatedData);
+      // Ici, nous enverrions le message à aaronbotbol@gmail.com
+      console.log("Envoi du message à aaronbotbol@gmail.com:", formData);
       
       // Simulons un délai pour l'envoi
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -64,6 +36,9 @@ const Contact = () => {
         title: "Message envoyé!",
         description: "Merci de nous avoir contacté. Nous vous répondrons dans les plus brefs délais.",
       });
+      
+      // Accusé de réception envoyé à l'utilisateur
+      console.log(`Accusé de réception envoyé à ${formData.email}`);
       
       // Réinitialiser le formulaire
       setFormData({
@@ -94,7 +69,7 @@ const Contact = () => {
             <CardContent className="p-8">
               <h3 className="text-xl font-bold text-lilmod-navy mb-6">Envoyez-nous un message</h3>
               
-              <form onSubmit={handleSubmit} noValidate>
+              <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
@@ -105,12 +80,9 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Votre nom" 
-                      className={`w-full ${errors.name ? 'border-red-500 focus:ring-red-500' : ''}`}
-                      maxLength={100}
+                      className="w-full"
+                      required
                     />
-                    {errors.name && (
-                      <p className="text-red-500 text-xs mt-1">{errors.name}</p>
-                    )}
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
@@ -122,12 +94,9 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="votre@email.com" 
-                      className={`w-full ${errors.email ? 'border-red-500 focus:ring-red-500' : ''}`}
-                      maxLength={255}
+                      className="w-full"
+                      required
                     />
-                    {errors.email && (
-                      <p className="text-red-500 text-xs mt-1">{errors.email}</p>
-                    )}
                   </div>
                 </div>
                 
@@ -140,12 +109,9 @@ const Contact = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Sujet de votre message" 
-                    className={`w-full ${errors.subject ? 'border-red-500 focus:ring-red-500' : ''}`}
-                    maxLength={200}
+                    className="w-full"
+                    required
                   />
-                  {errors.subject && (
-                    <p className="text-red-500 text-xs mt-1">{errors.subject}</p>
-                  )}
                 </div>
                 
                 <div className="mb-6">
@@ -157,15 +123,9 @@ const Contact = () => {
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Votre message..." 
-                    className={`w-full min-h-[150px] ${errors.message ? 'border-red-500 focus:ring-red-500' : ''}`}
-                    maxLength={2000}
+                    className="w-full min-h-[150px]"
+                    required
                   />
-                  {errors.message && (
-                    <p className="text-red-500 text-xs mt-1">{errors.message}</p>
-                  )}
-                  <p className="text-gray-400 text-xs mt-1 text-right">
-                    {formData.message.length}/2000
-                  </p>
                 </div>
                 
                 <Button 
