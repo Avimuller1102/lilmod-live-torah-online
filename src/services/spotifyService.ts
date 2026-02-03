@@ -1,113 +1,193 @@
-
 /**
- * Service pour récupérer les podcasts Spotify
+ * Service pour récupérer les épisodes Spotify avec l'API officielle
+ * 
+ * Note: Pour accéder à l'API Spotify, nous devons obtenir un token d'accès.
+ * Comme nous sommes côté client, nous utilisons le Client Credentials Flow
+ * qui permet d'accéder aux données publiques.
  */
 
 export type SpotifyEpisode = {
   id: string;
-  title: string;
-  duration: string;
-  publishedAt: string;
-  teacher: string;
-  url: string;
-  description?: string;
-  imageUrl?: string;
+  name: string;
+  description: string;
+  duration_ms: number;
+  release_date: string;
+  images: { url: string; height: number; width: number }[];
+  external_urls: { spotify: string };
+  html_description?: string;
 };
 
-// Fonction pour récupérer les derniers épisodes du podcast Spotify
-export const fetchLatestSpotifyEpisodes = async (
-  maxResults: number = 8
-): Promise<SpotifyEpisode[]> => {
+export type SpotifyShow = {
+  id: string;
+  name: string;
+  description: string;
+  publisher: string;
+  total_episodes: number;
+  images: { url: string; height: number; width: number }[];
+  external_urls: { spotify: string };
+};
+
+const CLIENT_ID = "de656bbec2fe41d98db2b4e746be06b6";
+const CLIENT_SECRET = "REDACTED";
+const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR";
+
+// Cache pour le token d'accès
+let accessToken: string | null = null;
+let tokenExpiry: number = 0;
+
+/**
+ * Obtient un token d'accès Spotify via Client Credentials Flow
+ */
+async function getAccessToken(): Promise<string> {
+  // Vérifier si le token actuel est encore valide
+  if (accessToken && Date.now() < tokenExpiry) {
+    return accessToken;
+  }
+
   try {
-    console.log("Fetching latest Spotify episodes...");
-    
-    // En production, ces données seraient récupérées via l'API Spotify
-    // Pour le moment, utilisons des liens réels du podcast LILMOD sur Spotify
-    
-    return [
-      {
-        id: "21oUMyupW707IPG2ZN3dGs",
-        title: "Rav Ben Ichay - Paracha Emor - Ce que Rabbi Chimon et son fils ont-ils vu la veille de Shabbat",
-        duration: "59:17",
-        publishedAt: "2025-05-17",
-        teacher: "Rav Ben Ichay",
-        url: "https://open.spotify.com/episode/21oUMyupW707IPG2ZN3dGs",
-        description: "Étude approfondie de la paracha Emor et du lien avec Rabbi Chimon bar Yohaï",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+    const response = await fetch("https://accounts.spotify.com/api/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Authorization": "Basic " + btoa(`${CLIENT_ID}:${CLIENT_SECRET}`),
       },
-      {
-        id: "7eNwxtZerDhh7C8EIYr46p",
-        title: "Rav Akerman - Étude du Kol Hator - Épisode 27",
-        duration: "35:28",
-        publishedAt: "2025-05-16",
-        teacher: "Rav Akerman",
-        url: "https://open.spotify.com/episode/7eNwxtZerDhh7C8EIYr46p",
-        description: "Suite de l'étude du Kol Hator du Gaon de Vilna",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+      body: "grant_type=client_credentials",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Spotify auth error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    accessToken = data.access_token;
+    // Expire 1 minute avant pour éviter les problèmes de timing
+    tokenExpiry = Date.now() + (data.expires_in - 60) * 1000;
+
+    return accessToken!;
+  } catch (error) {
+    console.error("Error getting Spotify access token:", error);
+    throw error;
+  }
+}
+
+/**
+ * Récupère les informations du podcast LILMOD
+ */
+export async function fetchSpotifyShow(): Promise<SpotifyShow | null> {
+  try {
+    const token = await getAccessToken();
+
+    const response = await fetch(`https://api.spotify.com/v1/shows/${SHOW_ID}?market=FR`, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
       },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Spotify API error: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching Spotify show:", error);
+    return null;
+  }
+}
+
+/**
+ * Récupère les derniers épisodes du podcast LILMOD
+ */
+export async function fetchSpotifyEpisodes(limit: number = 6): Promise<SpotifyEpisode[]> {
+  try {
+    console.log("Fetching Spotify episodes from API...");
+    const token = await getAccessToken();
+
+    const response = await fetch(
+      `https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?market=FR&limit=${limit}`,
       {
-        id: "3otTc1rbnoCu1ursllfiy1",
-        title: "Rav Ben Ichay - Paracha Emor - Deuxième partie",
-        duration: "52:17",
-        publishedAt: "2025-05-15",
-        teacher: "Rav Ben Ichay",
-        url: "https://open.spotify.com/episode/3otTc1rbnoCu1ursllfiy1",
-        description: "Suite de l'étude approfondie de la paracha Emor",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "41dMdnxWiTCiyKGQVm7QMB",
-        title: "Rav Akerman - Étude du Kol Hator - Épisode 26",
-        duration: "39:22",
-        publishedAt: "2025-05-14",
-        teacher: "Rav Akerman",
-        url: "https://open.spotify.com/episode/41dMdnxWiTCiyKGQVm7QMB",
-        description: "Suite de l'étude du Kol Hator du Gaon de Vilna",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "4EPsm4kc8SDCopI99REbfV",
-        title: "Rav Yossef Ben-Shoushan - Étude des Orot du Rav Kook - Chapitre 3",
-        duration: "46:14",
-        publishedAt: "2025-05-13",
-        teacher: "Rav Yossef Ben-Shoushan",
-        url: "https://open.spotify.com/episode/4EPsm4kc8SDCopI99REbfV",
-        description: "Étude approfondie des écrits du Rav Kook sur la Techouva",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "0QJY4sAdKBMbSDKuBcvUgL",
-        title: "Rav Yossef Ben-Shoushan - Étude de Orot Hatechouva - Partie 2",
-        duration: "38:00",
-        publishedAt: "2025-05-12",
-        teacher: "Rav Yossef Ben-Shoushan",
-        url: "https://open.spotify.com/episode/0QJY4sAdKBMbSDKuBcvUgL",
-        description: "Étude approfondie de Orot Hatechouva du Rav Kook",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "6Fu7VvlAIsvvYnUzaoUWly",
-        title: "Rav Yehuda Ben-Ichay - Paracha Ahare Mot-Kedochim - Tout peut s'arranger",
-        duration: "1:04:11",
-        publishedAt: "2025-05-10",
-        teacher: "Rav Yehuda Ben-Ichay",
-        url: "https://open.spotify.com/episode/6Fu7VvlAIsvvYnUzaoUWly",
-        description: "Étude de la paracha de la semaine",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
-      },
-      {
-        id: "1Ruagwl0ozdnzI56A9n5wN",
-        title: "Dr Gross - Étude de la paracha - Aharei moth-Quedoshim",
-        duration: "56:51",
-        publishedAt: "2025-05-09",
-        teacher: "Dr Gross",
-        url: "https://open.spotify.com/episode/1Ruagwl0ozdnzI56A9n5wN",
-        description: "Étude hebdomadaire de la paracha avec Dr Gross",
-        imageUrl: "https://i.scdn.co/image/ab6765630000ba8a8f6d612a29f10c96b5c63076"
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
       }
-    ];
+    );
+
+    if (!response.ok) {
+      throw new Error(`Spotify API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.items || [];
   } catch (error) {
     console.error("Error fetching Spotify episodes:", error);
-    return [];
+
+    // Fallback vers des données statiques
+    return [
+      {
+        id: "episode1",
+        name: "Paracha de la semaine - Derniers enseignements",
+        description: "Étude approfondie de la paracha avec des insights actuels",
+        duration_ms: 1920000,
+        release_date: "2025-02-01",
+        images: [{ url: "", height: 300, width: 300 }],
+        external_urls: { spotify: `https://open.spotify.com/show/${SHOW_ID}` },
+      },
+      {
+        id: "episode2",
+        name: "Actualité et Torah - Le regard juif sur le monde",
+        description: "Comprendre l'actualité à la lumière de la Torah",
+        duration_ms: 2700000,
+        release_date: "2025-01-28",
+        images: [{ url: "", height: 300, width: 300 }],
+        external_urls: { spotify: `https://open.spotify.com/show/${SHOW_ID}` },
+      },
+      {
+        id: "episode3",
+        name: "Pensée du Rav Kook - Introduction",
+        description: "Découverte de la philosophie du Rav Kook",
+        duration_ms: 2280000,
+        release_date: "2025-01-25",
+        images: [{ url: "", height: 300, width: 300 }],
+        external_urls: { spotify: `https://open.spotify.com/show/${SHOW_ID}` },
+      },
+      {
+        id: "episode4",
+        name: "Questions-Réponses - Vos interrogations",
+        description: "Réponses aux questions de notre communauté",
+        duration_ms: 3120000,
+        release_date: "2025-01-22",
+        images: [{ url: "", height: 300, width: 300 }],
+        external_urls: { spotify: `https://open.spotify.com/show/${SHOW_ID}` },
+      },
+    ];
   }
-};
+}
+
+/**
+ * Formate la durée en millisecondes en format lisible
+ */
+export function formatDuration(ms: number): string {
+  const totalMinutes = Math.floor(ms / 60000);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+
+  if (hours > 0) {
+    return `${hours}h ${minutes.toString().padStart(2, "0")}min`;
+  }
+  return `${minutes} min`;
+}
+
+/**
+ * Formate la date de publication
+ */
+export function formatReleaseDate(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return "Aujourd'hui";
+  if (diffDays === 1) return "Hier";
+  if (diffDays < 7) return `Il y a ${diffDays} jours`;
+  if (diffDays < 30) return `Il y a ${Math.floor(diffDays / 7)} semaine${diffDays >= 14 ? "s" : ""}`;
+  
+  return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+}

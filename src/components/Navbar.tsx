@@ -1,201 +1,267 @@
+/**
+ * LILMOD - Navbar Component
+ * 
+ * Responsive navigation with:
+ * - Sticky header with scroll effect
+ * - Mobile hamburger menu
+ * - Social links
+ * - Premium styling
+ */
 
-import React, { useState, useEffect } from 'react';
-import { Menu, X, Link, Youtube, Instagram, Mail } from 'lucide-react';
-import { Button } from "@/components/ui/button";
+import { useState, useEffect } from 'react';
+import { Menu, X, Youtube, Instagram, ExternalLink, Mail, Headphones } from 'lucide-react';
+import { NAV_LINKS, SOCIAL_LINKS, IMAGES } from '@/lib/constants';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Effet pour détecter le défilement de la page
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 10) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
+      setScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsOpen(false);
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  const toggleMenu = () => setIsOpen(!isOpen);
+  const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className={`sticky top-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-md py-2' : 'bg-white/95 backdrop-blur-sm py-4'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center">
-          <div className="flex items-center">
-            <a href="/" className="flex-shrink-0 flex items-center">
-              <img 
-                src="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" 
-                alt="LILMOD Logo" 
-                className="h-12 w-12 rounded-full border-2 border-lilmod-gold object-cover"
-              />
-              <div className="flex flex-col ml-2">
-                <div className="flex items-baseline">
-                  <span className="text-2xl font-bold text-lilmod-blue">LILMOD</span>
-                  <span className="text-xs text-lilmod-gold ml-1">.fr</span>
-                </div>
+    <>
+      {/* Skip Link for Accessibility */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-accent-500 focus:text-white focus:rounded-lg"
+      >
+        Aller au contenu principal
+      </a>
+
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/95 backdrop-blur-lg shadow-lg py-2'
+            : 'bg-transparent py-4'
+        }`}
+        role="navigation"
+        aria-label="Navigation principale"
+      >
+        <div className="container-custom">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <a
+              href="#home"
+              className="flex items-center gap-3 group"
+              aria-label="LILMOD - Retour à l'accueil"
+            >
+              <div className="relative">
+                <img
+                  src={IMAGES.logo}
+                  alt="LILMOD Logo"
+                  className="w-12 h-12 rounded-full border-2 border-accent-500 object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="eager"
+                />
+                <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+              </div>
+              <div className="flex flex-col">
+                <span className={`text-2xl font-display font-bold transition-colors ${
+                  scrolled ? 'text-primary-800' : 'text-white'
+                }`}>
+                  LILMOD
+                </span>
+                <span className={`text-xs font-medium transition-colors ${
+                  scrolled ? 'text-accent-500' : 'text-accent-300'
+                }`}>
+                  Torah Live depuis Israël
+                </span>
               </div>
             </a>
-          </div>
-          
-          <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
-            <a href="#home" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Accueil</a>
-            <a href="#videos" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Vidéos</a>
-            <a href="#audio" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Audio</a>
-            <a href="#speakers" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Intervenants</a>
-            <a href="#support" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Aider</a>
-            <a href="#contact" className="text-lilmod-navy hover:text-lilmod-blue font-medium transition-colors text-sm lg:text-base">Contact</a>
-            <a 
-              href="https://linktr.ee/lilmod.torahmitzion" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-lilmod-gold hover:text-lilmod-blue font-medium transition-colors bg-amber-50 px-3 py-1 rounded-md text-sm"
-            >
-              <Link className="w-4 h-4 mr-1" />
-              <span>Tous nos liens</span>
-            </a>
-            <a 
-              href="https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors text-sm"
-            >
-              <Mail className="w-4 h-4 mr-1" />
-              <span>Newsletter</span>
-            </a>
-          </div>
-          
-          <div className="flex md:hidden items-center">
-            <button 
+
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-6">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className={`text-sm font-medium transition-all duration-300 hover:text-accent-500 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full ${
+                    scrolled ? 'text-primary-700' : 'text-white/90'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
+
+              {/* CTA Buttons */}
+              <div className="flex items-center gap-3 ml-4">
+                <a
+                  href={SOCIAL_LINKS.linktree}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-accent-500/10 text-accent-600 rounded-lg hover:bg-accent-500/20 transition-colors"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span>Nos liens</span>
+                </a>
+                <a
+                  href={SOCIAL_LINKS.newsletter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                >
+                  <Mail className="w-4 h-4" />
+                  <span>Newsletter</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
               onClick={toggleMenu}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none"
-              aria-label="Menu"
+              className={`lg:hidden p-2 rounded-lg transition-colors ${
+                scrolled ? 'text-primary-800 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
+              }`}
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
-      </div>
-      
-      {isOpen && (
-        <div className="md:hidden">
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white">
-            <a 
-              href="#home" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Accueil
-            </a>
-            <a 
-              href="#videos" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Les cours en vidéos
-            </a>
-            <a 
-              href="#audio" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Les cours audio
-            </a>
-            <a 
-              href="#speakers" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Les intervenants
-            </a>
-            <a 
-              href="#support" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Aider
-            </a>
-            <a 
-              href="#contact" 
-              className="block px-3 py-2 text-lilmod-navy hover:text-lilmod-blue font-medium"
-              onClick={toggleMenu}
-            >
-              Nous Contacter
-            </a>
-            <div className="px-3 py-4 border-t border-gray-200 mt-3">
-              <p className="font-medium text-lilmod-navy mb-2">Suivez-nous</p>
-              <div className="flex flex-wrap space-x-4">
-                <a 
-                  href="https://www.youtube.com/@Lilmodfr" 
-                  target="_blank" 
+
+        {/* Mobile Menu */}
+        <div
+          id="mobile-menu"
+          className={`lg:hidden fixed inset-0 top-0 bg-white z-40 transition-transform duration-300 ${
+            isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+          aria-hidden={!isOpen}
+        >
+          <div className="flex flex-col h-full">
+            {/* Mobile Header */}
+            <div className="flex items-center justify-between p-4 border-b">
+              <a href="#home" className="flex items-center gap-3" onClick={closeMenu}>
+                <img
+                  src={IMAGES.logo}
+                  alt="LILMOD"
+                  className="w-10 h-10 rounded-full border-2 border-accent-500"
+                />
+                <span className="text-xl font-display font-bold text-primary-800">LILMOD</span>
+              </a>
+              <button
+                onClick={closeMenu}
+                className="p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg"
+                aria-label="Fermer le menu"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Mobile Links */}
+            <div className="flex-1 overflow-y-auto py-6 px-4">
+              <nav className="space-y-2">
+                {NAV_LINKS.map((link) => (
+                  <a
+                    key={link.href}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className="block px-4 py-3 text-lg font-medium text-primary-800 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+
+              {/* Mobile CTA */}
+              <div className="mt-6 space-y-3">
+                <a
+                  href={SOCIAL_LINKS.linktree}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:text-lilmod-navy"
+                  className="flex items-center justify-center gap-2 w-full py-3 font-medium bg-accent-500 text-white rounded-xl hover:bg-accent-600 transition-colors"
+                  onClick={closeMenu}
                 >
-                  <Youtube className="w-6 h-6" />
+                  <ExternalLink className="w-5 h-5" />
+                  Tous nos liens
                 </a>
-                <a 
-                  href="https://www.instagram.com/lilmod_fr" 
-                  target="_blank" 
+                <a
+                  href={SOCIAL_LINKS.newsletter}
+                  target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:text-lilmod-navy"
+                  className="flex items-center justify-center gap-2 w-full py-3 font-medium bg-primary-500 text-white rounded-xl hover:bg-primary-600 transition-colors"
+                  onClick={closeMenu}
                 >
-                  <Instagram className="w-6 h-6" />
+                  <Mail className="w-5 h-5" />
+                  S'abonner à la Newsletter
                 </a>
-                <a 
-                  href="https://linktr.ee/lilmod.torahmitzion" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:text-lilmod-navy"
-                >
-                  <Link className="w-6 h-6" />
-                </a>
-                <a 
-                  href="https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:text-lilmod-navy"
-                >
-                  <Mail className="w-6 h-6" />
-                </a>
-                <a 
-                  href="https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-lilmod-blue hover:text-lilmod-navy"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
-                  </svg>
-                </a>
+              </div>
+
+              {/* Mobile Social Links */}
+              <div className="mt-8 pt-6 border-t">
+                <p className="text-sm font-medium text-neutral-500 mb-4">Suivez-nous</p>
+                <div className="flex gap-4">
+                  <a
+                    href={SOCIAL_LINKS.youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors"
+                    aria-label="YouTube"
+                  >
+                    <Youtube className="w-6 h-6" />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-pink-50 text-pink-600 rounded-xl hover:bg-pink-100 transition-colors"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="w-6 h-6" />
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.spotify}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-green-50 text-green-600 rounded-xl hover:bg-green-100 transition-colors"
+                    aria-label="Spotify"
+                  >
+                    <Headphones className="w-6 h-6" />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Bouton flottant Linktree */}
-      <a 
-        href="https://linktr.ee/lilmod.torahmitzion" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-24 left-6 bg-lilmod-gold hover:bg-amber-600 text-white p-3 rounded-full shadow-lg z-50 flex items-center justify-center"
-        aria-label="Tous nos liens"
-      >
-        <span className="mr-2 hidden sm:inline">📲 Tous nos liens</span>
-        <Link className="w-5 h-5" />
-      </a>
-    </nav>
+        {/* Mobile Menu Overlay */}
+        {isOpen && (
+          <div
+            className="lg:hidden fixed inset-0 bg-black/50 z-30"
+            onClick={closeMenu}
+            aria-hidden="true"
+          />
+        )}
+      </nav>
+    </>
   );
 };
 

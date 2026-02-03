@@ -98,37 +98,53 @@ const AudioLibrary = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {episodes.map((episode) => (
               <Card key={episode.id} 
-                className="bg-white/10 backdrop-blur-md border-none text-white hover:bg-white/20 transition-all duration-300 overflow-hidden cursor-pointer transform hover:translate-y-[-2px] shadow-md hover:shadow-lg"
+                className="group bg-white/10 backdrop-blur-md border-none text-white hover:bg-white/20 transition-all duration-300 overflow-hidden cursor-pointer transform hover:translate-y-[-2px] shadow-md hover:shadow-lg"
                 onClick={() => openSpotifyEpisode(episode)}
               >
-                <CardContent className="p-6">
-                  <div className="flex flex-col h-full">
-                    <div className="mb-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <div className="bg-green-600 text-white rounded-full h-8 w-8 flex items-center justify-center shadow-sm">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
-                            <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm14.024-.983a1.125 1.125 0 010 1.966l-5.603 3.113A1.125 1.125 0 019 15.113V8.887c0-.857.921-1.4 1.671-.983l5.603 3.113z" clipRule="evenodd" />
-                          </svg>
-                        </div>
-                        <span className="text-sm text-lilmod-gold font-medium">{episode.duration}</span>
-                      </div>
-                      <h3 className="font-bold text-lg text-white line-clamp-2 font-serif">{episode.title}</h3>
-                      <div className="text-green-400 mt-1 font-medium">{episode.teacher}</div>
+                {/* Thumbnail */}
+                <div className="relative aspect-square bg-gray-800 overflow-hidden">
+                  {episode.imageUrl ? (
+                    <img 
+                      src={episode.imageUrl} 
+                      alt={episode.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
                     </div>
-                    
-                    {episode.description && (
-                      <p className="mt-1 text-sm text-gray-300 line-clamp-2 font-sans">{episode.description}</p>
-                    )}
-                    
-                    <div className="flex items-center justify-between mt-3 text-xs text-gray-400 pt-2 border-t border-white/10">
-                      <span>{new Date(episode.publishedAt).toLocaleDateString('fr-FR')}</span>
-                      <div className="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1 text-green-500">
-                          <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 00-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 00.75-.75v-4a.75.75 0 011.5 0v4A2.25 2.25 0 0112.75 17h-8.5A2.25 2.25 0 012 14.75v-8.5A2.25 2.25 0 014.25 4h5a.75.75 0 010 1.5h-5z" clipRule="evenodd" />
-                          <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 001.06.053L16.5 4.44v2.81a.75.75 0 001.5 0v-4.5a.75.75 0 00-.75-.75h-4.5a.75.75 0 000 1.5h2.553l-9.056 8.194a.75.75 0 00-.053 1.06z" clipRule="evenodd" />
-                        </svg>
-                        <span>Écouter</span>
-                      </div>
+                  )}
+                  
+                  {/* Play overlay on hover */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-white ml-1">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
+                  
+                  {/* Duration badge */}
+                  <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded font-medium">
+                    {episode.duration}
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <CardContent className="p-4">
+                  <h3 className="font-bold text-sm text-white line-clamp-2 mb-1 font-serif">{episode.title}</h3>
+                  <div className="text-green-400 text-xs font-medium mb-2">{episode.teacher}</div>
+                  
+                  <div className="flex items-center justify-between text-xs text-gray-400">
+                    <span>{new Date(episode.publishedAt).toLocaleDateString('fr-FR')}</span>
+                    <div className="flex items-center text-green-500">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                      </svg>
+                      <span>Écouter</span>
                     </div>
                   </div>
                 </CardContent>

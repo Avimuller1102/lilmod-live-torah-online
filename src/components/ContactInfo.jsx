@@ -6,8 +6,8 @@ import { ContactAddress } from './ContactAddress';
 
 const ContactInfo = () => {
   return (
-    <Card className="border-none shadow-lg overflow-hidden flex-1">
-      <CardContent className="p-8">
+    <Card className="border-none shadow-lg flex-1">
+      <CardContent className="p-8 pb-10">
         <div className="space-y-6">
           <div className="flex items-start">
             <Mail className="text-lilmod-blue w-6 h-6 mr-4 flex-shrink-0" />

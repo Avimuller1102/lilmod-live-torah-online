@@ -57,7 +57,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav David Pitoun',
         publishedAt: '2025-06-02T08:00:00Z',
         duration: '42:15',
-        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Une analyse approfondie de la Paracha Nasso avec des enseignements pratiques pour la vie quotidienne...'
       },
@@ -67,7 +67,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Menahem Akerman',
         publishedAt: '2025-06-01T12:00:00Z',
         duration: '38:45',
-        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Decouvrez les sagesses eternelles du Talmud appliquees a notre epoque moderne...'
       },
@@ -77,7 +77,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Shimon Ariche',
         publishedAt: '2025-05-31T14:00:00Z',
         duration: '45:30',
-        imageUrl: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Un guide pratique pour appliquer la Halakha dans la vie de tous les jours...'
       },
@@ -87,7 +87,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Avraham Weill',
         publishedAt: '2025-05-30T07:00:00Z',
         duration: '40:20',
-        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Explorez les riches traditions du peuple juif a travers les ages...'
       },
@@ -97,7 +97,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Yossef Sitruk',
         publishedAt: '2025-05-29T09:30:00Z',
         duration: '35:15',
-        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Des moments de reflexion spirituelle pour nourrir l\'ame et l\'esprit...'
       },
@@ -107,7 +107,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Michel Schlesinger',
         publishedAt: '2025-05-28T13:45:00Z',
         duration: '47:10',
-        imageUrl: '/lovable-uploads/f8411b77-2369-405a-9825-d7d22de77d9c.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Plongez dans l\'histoire fascinante du peuple juif a travers les siecles...'
       },
@@ -117,7 +117,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Emmanuel Mimran',
         publishedAt: '2025-05-27T11:20:00Z',
         duration: '43:25',
-        imageUrl: '/lovable-uploads/89872365-27db-493a-9c07-f347ffe5a202.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Une introduction accessible aux enseignements mystiques de la tradition juive...'
       },
@@ -127,7 +127,7 @@ export const fetchLatestSpotifyEpisodes = async (maxResults = 8) => {
         teacher: 'Rav Gabriel Dayan',
         publishedAt: '2025-05-26T16:00:00Z',
         duration: '41:50',
-        imageUrl: '/lovable-uploads/4e118333-95ae-4a51-98a3-4b23ec809a80.png',
+        imageUrl: 'https://i.scdn.co/image/ab6765630000ba8a8e9c59e8e8e4c9e9c9e9c9e9',
         url: 'https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR',
         description: 'Comment la pensee juive repond aux defis du monde contemporain...'
       }

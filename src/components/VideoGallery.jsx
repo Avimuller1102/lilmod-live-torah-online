@@ -101,27 +101,48 @@ const VideoGallery = () => {
             {videos.map((video) => (
               <Card 
                 key={video.id} 
-                className="border border-gray-200 bg-white/90 shadow-md hover:shadow-lg cursor-pointer transform transition-all duration-300 hover:translate-y-[-2px]"
+                className="group border border-gray-200 bg-white/90 shadow-md hover:shadow-lg cursor-pointer transform transition-all duration-300 hover:translate-y-[-2px] overflow-hidden"
                 onClick={() => openYouTubeVideo(video)}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-center mb-4">
-                    <div className="w-12 h-12 rounded-full bg-red-600 flex items-center justify-center mr-4 flex-shrink-0 shadow-md">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-white">
+                {/* Thumbnail */}
+                <div className="relative aspect-video bg-gray-100 overflow-hidden">
+                  {video.thumbnail ? (
+                    <img 
+                      src={video.thumbnail} 
+                      alt={video.title}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-12 h-12 text-white">
                         <path d="M8 5v14l11-7z" />
                       </svg>
                     </div>
-                    <div>
-                      <h3 className="font-bold text-lg text-lilmod-navy line-clamp-2 font-serif">{video.title}</h3>
+                  )}
+                  
+                  {/* Play overlay on hover */}
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-7 h-7 text-red-600 ml-1">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between mt-4 text-sm">
+                  {/* Duration badge */}
+                  <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded font-medium">
+                    {video.duration}
+                  </div>
+                </div>
+                
+                {/* Content */}
+                <CardContent className="p-4">
+                  <h3 className="font-bold text-sm text-lilmod-navy line-clamp-2 mb-2 font-serif">{video.title}</h3>
+                  
+                  <div className="flex items-center justify-between text-xs">
                     <span className="text-gray-600 font-sans">{video.channelTitle}</span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-lilmod-gold bg-amber-50 px-2 py-1 rounded-md font-medium">{video.duration}</span>
-                      <span className="text-gray-500">{new Date(video.publishedAt).toLocaleDateString('fr-FR')}</span>
-                    </div>
+                    <span className="text-gray-500">{new Date(video.publishedAt).toLocaleDateString('fr-FR')}</span>
                   </div>
                 </CardContent>
               </Card>

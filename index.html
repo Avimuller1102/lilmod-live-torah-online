@@ -1,28 +1,119 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>LILMOD - Torah Live Online</title>
-    <meta name="description" content="LILMOD by Torah Mitzion diffuse en LIVE depuis 2015, un message juif adapté à l'époque que nous vivons, celle du retour d'Israël sur sa terre." />
-    <meta name="author" content="LILMOD" />
 
-    <meta property="og:title" content="LILMOD - Torah Live Online" />
-    <meta property="og:description" content="LILMOD by Torah Mitzion diffuse en LIVE depuis 2015, un message juif adapté à l'époque que nous vivons, celle du retour d'Israël sur sa terre." />
+    <!-- Primary Meta Tags -->
+    <title>LILMOD.fr - Cours de Torah en Direct depuis Israël</title>
+    <meta
+      name="title"
+      content="LILMOD.fr - Cours de Torah en Direct depuis Israël"
+    />
+    <meta
+      name="description"
+      content="LILMOD by Torah Mitzion diffuse en LIVE depuis 2015 des cours de Torah en français. Plus de 2500 cours disponibles sur YouTube et Spotify. Rejoignez des milliers d'étudiants dans le monde."
+    />
+    <meta
+      name="keywords"
+      content="Torah, cours Torah, judaïsme, Israël, sionisme, Rav, étude juive, LILMOD, Torah Mitzion, live Torah"
+    />
+    <meta name="author" content="LILMOD - Torah Mitzion" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="French" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://lilmod.fr/" />
+    <meta
+      property="og:title"
+      content="LILMOD.fr - Cours de Torah en Direct depuis Israël"
+    />
+    <meta
+      property="og:description"
+      content="LILMOD by Torah Mitzion diffuse en LIVE depuis 2015 des cours de Torah en français. Rejoignez des milliers d'étudiants dans le monde."
+    />
+    <meta property="og:image" content="/assets/images/og-image.png" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="LILMOD.fr" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-    <link rel="icon" href="/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png" type="image/png">
+    <meta name="twitter:url" content="https://lilmod.fr/" />
+    <meta
+      name="twitter:title"
+      content="LILMOD.fr - Cours de Torah en Direct depuis Israël"
+    />
+    <meta
+      name="twitter:description"
+      content="LILMOD by Torah Mitzion diffuse en LIVE depuis 2015 des cours de Torah en français."
+    />
+    <meta name="twitter:image" content="/assets/images/og-image.png" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/images/logo.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/images/logo.png"
+    />
+
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Premium Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Playfair+Display:wght@400;500;600;700;800&family=Source+Sans+3:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "LILMOD",
+        "alternateName": "LILMOD.fr",
+        "url": "https://lilmod.fr",
+        "logo": "https://lilmod.fr/assets/images/logo.png",
+        "description": "LILMOD by Torah Mitzion diffuse en LIVE depuis 2015 des cours de Torah en français depuis Israël.",
+        "foundingDate": "2015",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "54 King Georges Street",
+          "addressLocality": "Jerusalem",
+          "addressCountry": "IL"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+972-585766985",
+          "contactType": "customer service",
+          "email": "aaronbotbol@gmail.com",
+          "availableLanguage": ["French", "Hebrew"]
+        },
+        "sameAs": [
+          "https://www.youtube.com/@Lilmodfr",
+          "https://www.instagram.com/lilmod_fr",
+          "https://open.spotify.com/show/5oJ8bkMtw0hR1iRxomrSRR",
+          "https://linktr.ee/lilmod.torahmitzion"
+        ]
+      }
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
-    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
-    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
