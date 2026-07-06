@@ -53,6 +53,10 @@ async function fetchFromServerless(limit: number): Promise<SpotifyEpisode[]> {
 }
 
 export function formatDuration(ms: number): string {
+  if (!ms || ms <= 0) {
+    return "Audio Spotify";
+  }
+
   const totalMinutes = Math.floor(ms / 60000);
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
@@ -64,6 +68,14 @@ export function formatDuration(ms: number): string {
 }
 
 export function formatReleaseDate(dateString: string): string {
+  if (!dateString) {
+    return "Récent";
+  }
+
   const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) {
+    return dateString;
+  }
+
   return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
 }
