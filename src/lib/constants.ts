@@ -31,7 +31,7 @@ export const SOCIAL_LINKS = {
   linktree: "https://linktr.ee/lilmod.torahmitzion",
   whatsapp: "https://chat.whatsapp.com/KR5PN77WbfvDb4zFgBu3Cl",
   newsletter: "https://mailchi.mp/4fbd1394a7fd/inscription-feed-lilmod",
-  donate: "https://www.jgive.com/new/en/usd/donation-targets/146180",
+  donate: "https://www.jgive.com/new/en/ils/donation-targets/166202",
 } as const;
 
 // =============================================================================
@@ -41,6 +41,7 @@ export const SOCIAL_LINKS = {
 export const NAV_LINKS = [
   { label: "Accueil", href: "#home" },
   { label: "À propos", href: "#about" },
+  { label: "Chabbat", href: "#shabbat" },
   { label: "Vidéos", href: "#videos" },
   { label: "Podcasts", href: "#audio" },
   { label: "Intervenants", href: "#speakers" },

@@ -9,7 +9,7 @@
  */
 
 import { useState, useEffect } from 'react';
-import { Menu, X, Youtube, Instagram, ExternalLink, Mail, Headphones } from 'lucide-react';
+import { Menu, X, Youtube, Instagram, ExternalLink, Mail, Headphones, Heart } from 'lucide-react';
 import { NAV_LINKS, SOCIAL_LINKS, IMAGES } from '@/lib/constants';
 
 const Navbar = () => {
@@ -59,7 +59,7 @@ const Navbar = () => {
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-lg shadow-lg py-2'
+            ? 'bg-white/90 backdrop-blur-xl shadow-sm ring-1 ring-neutral-900/5 py-2'
             : 'bg-transparent py-4'
         }`}
         role="navigation"
@@ -70,7 +70,7 @@ const Navbar = () => {
             {/* Logo */}
             <a
               href="#home"
-              className="flex items-center gap-3 group"
+              className="group flex min-w-0 flex-shrink-0 items-center gap-3 lg:mr-8"
               aria-label="LILMOD - Retour à l'accueil"
             >
               <div className="relative">
@@ -80,29 +80,28 @@ const Navbar = () => {
                   className="w-12 h-12 rounded-full border-2 border-accent-500 object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="eager"
                 />
-                <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white animate-pulse" />
               </div>
-              <div className="flex flex-col">
+              <div className="flex min-w-0 flex-col">
                 <span className={`text-2xl font-display font-bold transition-colors ${
-                  scrolled ? 'text-primary-800' : 'text-white'
+                  scrolled ? 'text-primary-900' : 'text-white'
                 }`}>
                   LILMOD
                 </span>
                 <span className={`text-xs font-medium transition-colors ${
                   scrolled ? 'text-accent-500' : 'text-accent-300'
-                }`}>
+                } truncate`}>
                   Torah Live depuis Israël
                 </span>
               </div>
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-4">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-medium transition-all duration-300 hover:text-accent-500 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full ${
+                  className={`text-sm font-semibold transition-all duration-300 hover:text-accent-500 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full ${
                     scrolled ? 'text-primary-700' : 'text-white/90'
                   }`}
                 >
@@ -111,12 +110,16 @@ const Navbar = () => {
               ))}
 
               {/* CTA Buttons */}
-              <div className="flex items-center gap-3 ml-4">
+              <div className="flex items-center gap-3 ml-2">
                 <a
                   href={SOCIAL_LINKS.linktree}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-accent-500/10 text-accent-600 rounded-lg hover:bg-accent-500/20 transition-colors"
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
+                    scrolled
+                      ? 'bg-accent-50 text-accent-700 hover:bg-accent-100'
+                      : 'bg-white/10 text-white hover:bg-white/20'
+                  }`}
                 >
                   <ExternalLink className="w-4 h-4" />
                   <span>Nos liens</span>
@@ -125,10 +128,23 @@ const Navbar = () => {
                   href={SOCIAL_LINKS.newsletter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 text-sm font-medium bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
+                    scrolled
+                      ? 'bg-primary-700 text-white hover:bg-primary-800'
+                      : 'bg-white text-primary-900 hover:bg-blue-50'
+                  }`}
                 >
                   <Mail className="w-4 h-4" />
                   <span>Newsletter</span>
+                </a>
+                <a
+                  href={SOCIAL_LINKS.donate}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 rounded-lg bg-accent-500 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-all hover:bg-accent-600"
+                >
+                  <Heart className="w-4 h-4 fill-current" />
+                  <span>Soutenir</span>
                 </a>
               </div>
             </div>
@@ -136,7 +152,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
+              className={`lg:hidden flex-shrink-0 p-2 rounded-lg transition-colors ${
                 scrolled ? 'text-primary-800 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
               }`}
               aria-expanded={isOpen}

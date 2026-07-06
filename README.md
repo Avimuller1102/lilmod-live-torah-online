@@ -59,6 +59,33 @@ Le formulaire de contact utilise [Formspree](https://formspree.io) pour envoyer 
 VITE_FORMSPREE_ID=votre_id_formspree
 ```
 
+### Configuration YouTube
+
+Le site fonctionne sans clé YouTube grâce à des contenus de secours. Pour afficher automatiquement les derniers cours :
+
+```env
+VITE_YOUTUBE_API_KEY=votre_cle_youtube_data_api
+```
+
+Créez une clé Google Cloud pour YouTube Data API v3 et restreignez-la à vos domaines de déploiement.
+
+Sur Netlify, les dernières vidéos sont aussi récupérées via le flux public YouTube par la fonction
+`netlify/functions/youtube-latest.js`, donc le site peut rester à jour sans exposer de clé côté client.
+
+### Configuration Spotify
+
+Le lecteur Spotify officiel fonctionne sans configuration. Pour afficher aussi les derniers épisodes en cartes dynamiques :
+
+1. Créez une app dans le dashboard Spotify Developer.
+2. Ajoutez ces variables dans Netlify :
+
+```env
+SPOTIFY_CLIENT_ID=votre_client_id
+SPOTIFY_CLIENT_SECRET=votre_client_secret
+```
+
+Ces valeurs ne doivent jamais être mises dans le code public.
+
 ## 📦 Scripts Disponibles
 
 | Commande          | Description                          |
@@ -107,28 +134,34 @@ src/
 └── index.css            # Design system CSS
 ```
 
-## 🚢 Déploiement
+## 🚢 Déploiement gratuit
 
-### Vercel (Recommandé)
+### Option recommandée : Netlify
 
-1. Connectez votre repo GitHub à [Vercel](https://vercel.com)
-2. Ajoutez la variable d'environnement `VITE_FORMSPREE_ID`
-3. Déployez !
+1. Poussez le projet sur GitHub.
+2. Créez un compte sur [Netlify](https://www.netlify.com/).
+3. Cliquez sur **Add new site** puis **Import an existing project**.
+4. Sélectionnez le repo GitHub.
+5. Configurez :
+   - Build command : `npm run build`
+   - Publish directory : `dist`
+6. Ajoutez les variables d'environnement :
+   - `VITE_FORMSPREE_ID`
+   - `VITE_YOUTUBE_API_KEY` optionnelle
+   - `SPOTIFY_CLIENT_ID` optionnelle
+   - `SPOTIFY_CLIENT_SECRET` optionnelle
+7. Déployez. Netlify donne une URL gratuite du type `https://votre-site.netlify.app`.
 
-```bash
-# Ou via CLI
-npm i -g vercel
-vercel
-```
+### Alternative : Vercel
 
-### Netlify
+1. Connectez votre repo GitHub à [Vercel](https://vercel.com).
+2. Framework preset : **Vite**.
+3. Build command : `npm run build`.
+4. Output directory : `dist`.
+5. Ajoutez les mêmes variables d'environnement.
+6. Déployez. Vercel donne une URL gratuite du type `https://votre-site.vercel.app`.
 
-1. Connectez votre repo à [Netlify](https://netlify.com)
-2. Build command : `npm run build`
-3. Publish directory : `dist`
-4. Ajoutez les variables d'environnement
-
-### Serveur Traditionnel
+### Déploiement manuel
 
 ```bash
 # Compiler le projet

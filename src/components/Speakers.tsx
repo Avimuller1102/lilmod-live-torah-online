@@ -75,12 +75,13 @@ const Speakers = () => {
   }, [selectedSpeaker]);
 
   return (
-    <section ref={sectionRef} id="speakers" className="section-padding bg-neutral-50">
+    <section ref={sectionRef} id="speakers" className="section-padding bg-white">
       <div className="container-custom">
         {/* Header */}
         <div className={`text-center mb-12 transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <h2 className="section-title">Nos Intervenants</h2>
-          <p className="section-subtitle mx-auto">Des Rabbanim et experts enseignant depuis Israël</p>
+          <span className="eyebrow">Intervenants</span>
+          <h2 className="section-title mt-5">Des voix solides, des approches complémentaires.</h2>
+          <p className="section-subtitle mx-auto">Des Rabbanim et experts enseignant depuis Israël.</p>
         </div>
 
         {/* Grid */}
@@ -93,7 +94,7 @@ const Speakers = () => {
               style={{ transitionDelay: `${i * 50}ms` }}
             >
               <div className="relative mb-3">
-                <div className="aspect-square rounded-xl overflow-hidden bg-neutral-100 shadow-sm group-hover:shadow-lg transition-shadow">
+                <div className="premium-card-3d aspect-square rounded-lg overflow-hidden bg-neutral-100 shadow-sm ring-1 ring-neutral-200 group-hover:shadow-lg transition-shadow">
                   <img
                     src={speaker.image}
                     alt={speaker.name}

@@ -52,9 +52,6 @@ const Contact = () => {
       formData.append('message', data.message);
       formData.append('_subject', `[LILMOD Contact] ${data.subject}`);
       
-      // Log for debugging
-      console.log('Submitting to Formspree:', FORMSPREE_ENDPOINT);
-
       const response = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         body: formData,
@@ -64,7 +61,6 @@ const Contact = () => {
       });
 
       const responseData = await response.json();
-      console.log('Formspree response:', responseData);
 
       if (response.ok) {
         setStatus('success');
@@ -87,9 +83,10 @@ const Contact = () => {
     <section id="contact" className="section-padding bg-white">
       <div className="container-custom">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="section-title">NOUS CONTACTER</h2>
-          <p className="section-subtitle">
+        <div className="mb-16 text-center">
+          <span className="eyebrow">Contact</span>
+          <h2 className="section-title mt-5">Une question, une idée, un partenariat ?</h2>
+          <p className="section-subtitle mx-auto">
             Une question ? Une suggestion ? N'hésitez pas à nous écrire, 
             nous vous répondrons dans les plus brefs délais.
           </p>
@@ -97,7 +94,7 @@ const Contact = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           {/* Contact Form */}
-          <div className="bg-neutral-50 rounded-3xl p-6 md:p-8 shadow-lg">
+          <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 shadow-sm md:p-8">
             <h3 className="text-xl font-display font-bold text-primary-800 mb-6 flex items-center gap-3">
               <MessageSquare className="w-6 h-6 text-accent-500" />
               Envoyez-nous un message
@@ -123,7 +120,7 @@ const Contact = () => {
                     id="name"
                     type="text"
                     {...register('name')}
-                    className={`w-full px-4 py-3 rounded-xl border ${
+                    className={`w-full px-4 py-3 rounded-lg border ${
                       errors.name ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                     } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                     placeholder="Votre nom"
@@ -142,7 +139,7 @@ const Contact = () => {
                     id="email"
                     type="email"
                     {...register('email')}
-                    className={`w-full px-4 py-3 rounded-xl border ${
+                    className={`w-full px-4 py-3 rounded-lg border ${
                       errors.email ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                     } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                     placeholder="votre@email.com"
@@ -163,7 +160,7 @@ const Contact = () => {
                   id="subject"
                   type="text"
                   {...register('subject')}
-                  className={`w-full px-4 py-3 rounded-xl border ${
+                  className={`w-full px-4 py-3 rounded-lg border ${
                     errors.subject ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                   } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   placeholder="Sujet de votre message"
@@ -183,7 +180,7 @@ const Contact = () => {
                   id="message"
                   {...register('message')}
                   rows={5}
-                  className={`w-full px-4 py-3 rounded-xl border resize-none ${
+                  className={`w-full px-4 py-3 rounded-lg border resize-none ${
                     errors.message ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                   } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
                   placeholder="Votre message..."
@@ -198,7 +195,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={status === 'submitting'}
-                className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-xl font-semibold transition-all duration-300 ${
+                className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg font-semibold transition-all duration-300 ${
                   status === 'submitting'
                     ? 'bg-neutral-300 cursor-not-allowed'
                     : 'bg-primary-500 hover:bg-primary-600 text-white hover:shadow-blue-lg hover:-translate-y-1'
@@ -219,7 +216,7 @@ const Contact = () => {
 
               {/* Status Messages */}
               {status === 'success' && (
-                <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <p className="text-green-700">
                     Message envoyé avec succès ! Nous vous répondrons bientôt.
@@ -228,7 +225,7 @@ const Contact = () => {
               )}
 
               {status === 'error' && (
-                <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
                   <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                   <p className="text-red-700">
                     Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.
@@ -241,7 +238,7 @@ const Contact = () => {
           {/* Contact Info */}
           <div className="space-y-6">
             {/* Contact Cards */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 border border-neutral-100">
+            <div className="bg-white rounded-lg shadow-sm p-6 border border-neutral-200">
               <h3 className="text-lg font-display font-bold text-primary-800 mb-6">
                 Informations de contact
               </h3>
@@ -249,7 +246,7 @@ const Contact = () => {
               <div className="space-y-5">
                 <a
                   href={`mailto:${SITE_CONFIG.email}`}
-                  className="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl hover:bg-primary-50 transition-colors group"
+                  className="flex items-start gap-4 p-4 bg-neutral-50 rounded-lg hover:bg-primary-50 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Mail className="w-6 h-6 text-white" />
@@ -264,7 +261,7 @@ const Contact = () => {
 
                 <a
                   href={`tel:${SITE_CONFIG.phone.replace(/\s/g, '')}`}
-                  className="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl hover:bg-primary-50 transition-colors group"
+                  className="flex items-start gap-4 p-4 bg-neutral-50 rounded-lg hover:bg-primary-50 transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-white" />
@@ -277,7 +274,7 @@ const Contact = () => {
                   </div>
                 </a>
 
-                <div className="flex items-start gap-4 p-4 bg-neutral-50 rounded-xl">
+                <div className="flex items-start gap-4 p-4 bg-neutral-50 rounded-lg">
                   <div className="w-12 h-12 bg-primary-500 rounded-xl flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-white" />
                   </div>
@@ -290,7 +287,7 @@ const Contact = () => {
             </div>
 
             {/* WhatsApp Community Card */}
-            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white shadow-lg">
+            <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-lg p-6 text-white shadow-lg">
               <div className="flex items-center gap-3 mb-4">
                 <Users className="w-8 h-8" />
                 <h3 className="text-xl font-display font-bold">

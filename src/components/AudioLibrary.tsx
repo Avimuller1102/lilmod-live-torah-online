@@ -1,26 +1,19 @@
 /**
  * LILMOD - Audio Library / Podcast
- * 
- * Spotify podcast episodes
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { Headphones, ExternalLink, Clock, Calendar, Loader2, RefreshCw } from 'lucide-react';
-import { SOCIAL_LINKS } from '@/lib/constants';
-import { 
-  fetchSpotifyEpisodes, 
-  fetchSpotifyShow, 
-  formatDuration, 
+import { useEffect, useRef, useState } from 'react';
+import { Calendar, Clock, ExternalLink, Headphones } from 'lucide-react';
+import { IMAGES, SOCIAL_LINKS } from '@/lib/constants';
+import {
+  fetchSpotifyEpisodes,
+  formatDuration,
   formatReleaseDate,
   type SpotifyEpisode,
-  type SpotifyShow 
-} from '@/services/spotifyService';
+} from '@/services/spotifyService.ts';
 
 const AudioLibrary = () => {
   const [episodes, setEpisodes] = useState<SpotifyEpisode[]>([]);
-  const [show, setShow] = useState<SpotifyShow | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -36,111 +29,78 @@ const AudioLibrary = () => {
   }, []);
 
   useEffect(() => {
-    loadData();
+    fetchSpotifyEpisodes(6).then(setEpisodes);
   }, []);
 
-  const loadData = async () => {
-    setLoading(true);
-    setError(null);
-    try {
-      const [eps, sh] = await Promise.all([
-        fetchSpotifyEpisodes(6),
-        fetchSpotifyShow()
-      ]);
-      setEpisodes(eps);
-      setShow(sh);
-    } catch (err) {
-      setError("Impossible de charger les épisodes");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <section ref={sectionRef} id="audio" className="section-padding bg-white">
+    <section ref={sectionRef} id="audio" className="section-padding section-band">
       <div className="container-custom">
-        {/* Header */}
-        <div className={`flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10 transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        <div className={`mb-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end transition-all duration-400 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
           <div>
-            <h2 className="section-title">Nos Podcasts</h2>
-            <p className="section-subtitle">Écoutez nos cours en format audio sur Spotify</p>
+            <span className="eyebrow">Podcasts</span>
+            <h2 className="section-title mt-5">Écouter LILMOD partout.</h2>
+            <p className="section-subtitle">
+              Retrouvez les cours en audio sur Spotify pour continuer l'étude en déplacement.
+            </p>
           </div>
-          <div className="flex gap-3">
-            <button onClick={loadData} disabled={loading} className="btn-outline text-sm">
-              <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-              Actualiser
-            </button>
-            <a href={SOCIAL_LINKS.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary text-sm bg-green-500 hover:bg-green-600">
-              <Headphones className="w-4 h-4" />
-              Spotify
+          <div className="flex justify-start lg:justify-end">
+            <a href={SOCIAL_LINKS.spotify} target="_blank" rel="noopener noreferrer" className="btn-primary bg-green-600 hover:bg-green-700">
+              <Headphones className="h-4 w-4" />
+              Ouvrir Spotify
+              <ExternalLink className="h-4 w-4" />
             </a>
           </div>
         </div>
 
-        {/* Spotify Embed */}
-        <div className={`mb-10 transition-all duration-400 delay-100 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <iframe 
-            src="https://open.spotify.com/embed/show/5oJ8bkMtw0hR1iRxomrSRR?theme=0" 
-            width="100%" 
-            height="232" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+        <div className={`mb-8 overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm transition-all delay-100 duration-400 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+          <iframe
+            src="https://open.spotify.com/embed/show/5oJ8bkMtw0hR1iRxomrSRR?theme=0"
+            width="100%"
+            height="232"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
-            className="rounded-xl"
+            title="Podcast LILMOD sur Spotify"
           />
         </div>
 
-        {/* Loading */}
-        {loading && (
-          <div className="flex items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 text-neutral-400 animate-spin" />
-          </div>
-        )}
-
-        {/* Error */}
-        {error && !loading && (
-          <div className="text-center py-16">
-            <p className="text-red-500 mb-4">{error}</p>
-            <button onClick={loadData} className="btn-primary">Réessayer</button>
-          </div>
-        )}
-
-        {/* Episodes Grid */}
-        {!loading && !error && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {episodes.map((ep, i) => (
-              <a
-                key={ep.id}
-                href={ep.external_urls.spotify}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`group card p-4 transition-all duration-400 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                style={{ transitionDelay: `${100 + i * 50}ms` }}
-              >
-                <div className="flex gap-4">
-                  {ep.images?.[0] && (
-                    <img src={ep.images[0].url} alt="" className="w-16 h-16 rounded-lg object-cover bg-neutral-100 flex-shrink-0" />
-                  )}
-                  <div className="min-w-0">
-                    <h4 className="font-medium text-neutral-900 text-sm line-clamp-2 mb-1 group-hover:text-green-600 transition-colors">
-                      {ep.name}
-                    </h4>
-                    <div className="flex items-center gap-3 text-xs text-neutral-500">
-                      <span className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        {formatDuration(ep.duration_ms)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Calendar className="w-3 h-3" />
-                        {formatReleaseDate(ep.release_date)}
-                      </span>
-                    </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {episodes.map((episode, index) => (
+            <a
+              key={episode.id}
+              href={episode.external_urls.spotify}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group card premium-card-3d holo-sheen p-4 transition-all duration-400 hover:-translate-y-1 ${
+                isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+              }`}
+              style={{ transitionDelay: `${100 + index * 50}ms` }}
+            >
+              <div className="flex gap-4">
+                <img
+                  src={episode.images?.[0]?.url || IMAGES.logo}
+                  alt=""
+                  className="h-16 w-16 flex-shrink-0 rounded-lg bg-neutral-100 object-cover"
+                />
+                <div className="min-w-0">
+                  <h4 className="line-clamp-2 text-sm font-bold text-neutral-950 transition-colors group-hover:text-green-700">
+                    {episode.name}
+                  </h4>
+                  <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">{episode.description}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
+                    <span className="flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {formatDuration(episode.duration_ms)}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="h-3 w-3" />
+                      {formatReleaseDate(episode.release_date)}
+                    </span>
                   </div>
                 </div>
-              </a>
-            ))}
-          </div>
-        )}
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

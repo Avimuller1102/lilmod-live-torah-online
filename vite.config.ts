@@ -26,6 +26,7 @@ export default defineConfig({
 
   // Path aliases for clean imports
   resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js", ".mjs", ".json"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
       "@components": path.resolve(__dirname, "./src/components"),

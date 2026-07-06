@@ -1,4 +1,6 @@
 import type { Config } from "tailwindcss";
+import animate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
 
 /**
  * Tailwind CSS Configuration for LILMOD
@@ -89,9 +91,9 @@ export default {
 
       // Typography
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        body: ["Source Sans 3", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
-        accent: ["Cormorant Garamond", "Georgia", "serif"],
+        display: ["Outfit", "Inter", "system-ui", "sans-serif"],
+        body: ["Inter", "-apple-system", "BlinkMacSystemFont", "sans-serif"],
+        accent: ["Outfit", "Inter", "system-ui", "sans-serif"],
       },
 
       // Font Sizes (Perfect Fourth Scale)
@@ -122,6 +124,15 @@ export default {
         "2xl": "1rem",
         "3xl": "1.5rem",
         "4xl": "2rem",
+      },
+
+      borderWidth: {
+        "3": "3px",
+      },
+
+      transitionDuration: {
+        "400": "400ms",
+        "600": "600ms",
       },
 
       // Box Shadows
@@ -194,7 +205,7 @@ export default {
     },
   },
   plugins: [
-    require("tailwindcss-animate"),
-    require("@tailwindcss/typography"),
+    animate,
+    typography,
   ],
 } satisfies Config;

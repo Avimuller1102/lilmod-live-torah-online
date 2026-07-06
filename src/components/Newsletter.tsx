@@ -30,26 +30,24 @@ const benefits = [
 
 const Newsletter = () => {
   return (
-    <section className="section-padding bg-gradient-to-br from-primary-50 via-white to-accent-50">
+    <section className="section-padding bg-white">
       <div className="container-custom">
-        <div className="max-w-4xl mx-auto">
+        <div className="mx-auto max-w-5xl">
           {/* Main Card */}
-          <div className="relative bg-white rounded-3xl shadow-xl overflow-hidden">
-            {/* Decorative Background */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-accent-200/30 to-primary-200/30 rounded-full -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-primary-200/30 to-accent-200/30 rounded-full translate-y-1/2 -translate-x-1/2" />
+          <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-primary-900 shadow-xl">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(216,174,69,0.26),transparent_28rem)]" />
 
-            <div className="relative p-8 md:p-12">
-              <div className="text-center mb-10">
+            <div className="relative p-6 md:p-10">
+              <div className="mb-10 text-center">
                 {/* Icon */}
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-6 shadow-blue">
+                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg bg-white/10 text-accent-200 ring-1 ring-white/10">
                   <Mail className="w-8 h-8 text-white" />
                 </div>
 
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-primary-800 mb-4">
-                  Restez informé avec notre Newsletter
+                <h2 className="mb-4 text-3xl font-black text-white md:text-4xl">
+                  Recevoir le programme avant de manquer le cours.
                 </h2>
-                <p className="text-neutral-600 max-w-lg mx-auto">
+                <p className="mx-auto max-w-xl text-blue-50/80">
                   Inscrivez-vous pour recevoir le programme des cours, des rappels, 
                   et du contenu exclusif directement dans votre boîte mail.
                 </p>
@@ -60,17 +58,14 @@ const Newsletter = () => {
                 {benefits.map((benefit, index) => {
                   const Icon = benefit.icon;
                   return (
-                    <div
-                      key={index}
-                      className="flex flex-col items-center text-center p-4 bg-neutral-50 rounded-2xl"
-                    >
-                      <div className="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center mb-3">
-                        <Icon className="w-6 h-6 text-accent-600" />
+                    <div key={index} className="rounded-lg border border-white/10 bg-white/10 p-4 text-center">
+                      <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-400/15 text-accent-200">
+                        <Icon className="h-5 w-5" />
                       </div>
-                      <h4 className="font-semibold text-primary-800 mb-1">
+                      <h4 className="mb-1 font-bold text-white">
                         {benefit.title}
                       </h4>
-                      <p className="text-sm text-neutral-500">
+                      <p className="text-sm text-blue-50/70">
                         {benefit.description}
                       </p>
                     </div>
@@ -84,13 +79,13 @@ const Newsletter = () => {
                   href={SOCIAL_LINKS.newsletter}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-10 py-4 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-blue-lg hover:-translate-y-1"
+                  className="inline-flex items-center justify-center gap-3 rounded-lg bg-accent-500 px-10 py-4 font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-accent-600 hover:shadow-lg hover:shadow-accent-500/25"
                 >
                   <Mail className="w-5 h-5" />
                   S'inscrire à la Newsletter
                 </a>
-                <p className="mt-4 text-sm text-neutral-400">
-                  📧 Pas de spam, désinscription facile à tout moment
+                <p className="mt-4 text-sm text-blue-50/60">
+                  Pas de spam, désinscription facile à tout moment.
                 </p>
               </div>
             </div>

@@ -7,6 +7,21 @@ export interface ParachaData {
   year: number;
 }
 
+type HebcalSedraItem = {
+  date: string;
+  parsha?: string;
+  hebrew?: string;
+  verse?: string;
+};
+
+type TorahBoxParacha = {
+  name?: string;
+  hebrew?: string;
+  verses?: string;
+  summary?: string;
+  date?: string;
+};
+
 // Service pour récupérer la paracha de la semaine depuis Hebcal
 export const fetchCurrentParacha = async (): Promise<ParachaData | null> => {
   try {
@@ -20,7 +35,7 @@ export const fetchCurrentParacha = async (): Promise<ParachaData | null> => {
       throw new Error('Failed to fetch from Hebcal API');
     }
     
-    const data = await response.json();
+    await response.json();
     
     // Récupérer la paracha depuis l'API des lectures de la Torah
     const parashaResponse = await fetch(`https://www.hebcal.com/sedrot/${year}?cfg=json`);
@@ -32,8 +47,7 @@ export const fetchCurrentParacha = async (): Promise<ParachaData | null> => {
     const parashaData = await parashaResponse.json();
     
     // Trouver la paracha actuelle
-    const currentDate = today.toISOString().split('T')[0];
-    const currentParasha = parashaData.items?.find((item: any) => {
+    const currentParasha = (parashaData.items as HebcalSedraItem[] | undefined)?.find((item) => {
       const itemDate = new Date(item.date);
       const diffTime = Math.abs(today.getTime() - itemDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -77,7 +91,7 @@ export const fetchParachaFromTorahBox = async (): Promise<ParachaData | null> =>
       return await fetchCurrentParacha(); // Fallback vers Hebcal
     }
     
-    const data = await response.json();
+    const data = (await response.json()) as TorahBoxParacha;
     
     return {
       name: data.name || 'Paracha de la semaine',

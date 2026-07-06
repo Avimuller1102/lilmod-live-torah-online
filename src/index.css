@@ -1,10 +1,7 @@
 /**
- * LILMOD - Modern Design System
- * 
- * Clean, modern styling with:
- * - Inter + Outfit fonts (modern, not newspaper)
- * - Fast, smooth animations
- * - Spacious layouts
+ * LILMOD - Design System
+ *
+ * Premium, restrained visual language for a Torah education platform.
  */
 
 /* =============================================================================
@@ -22,29 +19,29 @@
    ============================================================================= */
 
 :root {
-  /* Primary - Deep Blue */
-  --primary-50: #EEF2FF;
-  --primary-100: #E0E7FF;
-  --primary-200: #C7D2FE;
-  --primary-300: #A5B4FC;
-  --primary-400: #818CF8;
-  --primary-500: #3B5998;
-  --primary-600: #2D4373;
-  --primary-700: #1E3A5F;
-  --primary-800: #1A2E4A;
-  --primary-900: #0F1A2E;
+  /* Primary - Jerusalem night blue */
+  --primary-50: #EEF5FF;
+  --primary-100: #D9E9FF;
+  --primary-200: #B9D7FF;
+  --primary-300: #89BBF8;
+  --primary-400: #5794E6;
+  --primary-500: #2D6CBF;
+  --primary-600: #24579B;
+  --primary-700: #1E477A;
+  --primary-800: #18395F;
+  --primary-900: #10243D;
 
-  /* Accent - Gold */
-  --accent-50: #FFFBEB;
-  --accent-100: #FEF3C7;
-  --accent-200: #FDE68A;
-  --accent-300: #FCD34D;
-  --accent-400: #FBBF24;
-  --accent-500: #D4A853;
-  --accent-600: #B8922F;
-  --accent-700: #92710E;
-  --accent-800: #78510D;
-  --accent-900: #5C3D0A;
+  /* Accent - Limestone gold */
+  --accent-50: #FFF9EA;
+  --accent-100: #FCECC3;
+  --accent-200: #F4DA92;
+  --accent-300: #E8C76D;
+  --accent-400: #D9AE45;
+  --accent-500: #B88A24;
+  --accent-600: #956817;
+  --accent-700: #714B12;
+  --accent-800: #52370F;
+  --accent-900: #35220A;
 
   /* Neutrals */
   --neutral-50: #FAFAFA;
@@ -58,13 +55,12 @@
   --neutral-800: #262626;
   --neutral-900: #171717;
 
-  /* MODERN Typography - NO Times New Roman! */
   --font-display: 'Outfit', system-ui, sans-serif;
   --font-body: 'Inter', system-ui, sans-serif;
   --font-accent: 'Outfit', system-ui, sans-serif;
 
-  /* Fast animation timing */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --page-bg: #F8F5EF;
 }
 
 /* =============================================================================
@@ -74,21 +70,25 @@
 @layer base {
   html {
     @apply scroll-smooth antialiased;
+    scroll-padding-top: 92px;
   }
 
   body {
-    @apply bg-white text-neutral-800;
+    @apply text-neutral-800;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at top left, rgba(184, 138, 36, 0.12), transparent 34rem),
+      linear-gradient(180deg, #ffffff 0%, var(--page-bg) 58%, #ffffff 100%);
     font-family: var(--font-body);
     font-size: 16px;
     line-height: 1.6;
   }
 
-  /* MODERN Typography - Clean, not old-fashioned */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    @apply font-bold;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    @apply font-bold text-neutral-950;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
   }
 
   h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
@@ -105,7 +105,20 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-accent-500 ring-offset-2;
+    @apply outline-none ring-2 ring-accent-500 ring-offset-2 ring-offset-white;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
@@ -153,19 +166,17 @@
 @layer components {
   .container-custom {
     @apply w-full mx-auto px-5 sm:px-6 lg:px-8;
-    max-width: 1200px;
+    max-width: 1180px;
   }
 
-  /* Comfortable section spacing */
   .section-padding {
     @apply py-16 md:py-20 lg:py-24;
   }
 
-  /* Section title - MODERN, not newspaper */
   .section-title {
     font-family: var(--font-display);
-    @apply font-bold text-2xl md:text-3xl lg:text-4xl text-neutral-900 mb-4;
-    letter-spacing: -0.02em;
+    @apply font-bold text-3xl md:text-4xl lg:text-5xl text-neutral-950 mb-4;
+    letter-spacing: -0.015em;
   }
 
   .section-subtitle {
@@ -173,40 +184,85 @@
     line-height: 1.7;
   }
 
-  /* Buttons */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-accent-200 bg-accent-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-accent-700;
+  }
+
   .btn-primary {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 
-           bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl 
-           transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+           bg-primary-700 hover:bg-primary-800 text-white font-semibold rounded-lg 
+           transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary-900/15;
   }
 
   .btn-accent {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 
-           bg-accent-500 hover:bg-accent-600 text-white font-medium rounded-xl 
-           transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg;
+           bg-accent-500 hover:bg-accent-600 text-white font-semibold rounded-lg 
+           transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-500/25;
   }
 
   .btn-outline {
     @apply inline-flex items-center justify-center gap-2 px-6 py-3 
-           border-2 border-neutral-200 hover:border-primary-500 
-           text-neutral-700 hover:text-primary-600 font-medium rounded-xl 
-           transition-all duration-200;
+           border border-neutral-200 bg-white hover:border-primary-300 
+           text-neutral-700 hover:text-primary-700 font-semibold rounded-lg 
+           transition-all duration-200 hover:shadow-sm;
   }
 
-  /* Cards */
   .card {
-    @apply bg-white rounded-2xl shadow-sm border border-neutral-100 
-           transition-all duration-200 hover:shadow-md hover:border-neutral-200;
+    @apply bg-white rounded-lg shadow-sm border border-neutral-200/80 
+           transition-all duration-200 hover:shadow-lg hover:shadow-neutral-900/5 hover:border-neutral-300;
   }
 
-  /* Glass effect */
   .glass {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+    @apply bg-white/80 backdrop-blur-xl border border-white/50 shadow-sm;
   }
 
-  /* Gradient backgrounds */
   .bg-gradient-hero {
-    background: linear-gradient(135deg, #1E3A5F 0%, #2D4373 50%, #1A2E4A 100%);
+    background:
+      radial-gradient(circle at 18% 22%, rgba(216, 174, 69, 0.34), transparent 24rem),
+      radial-gradient(circle at 78% 14%, rgba(87, 148, 230, 0.25), transparent 22rem),
+      linear-gradient(135deg, #10243D 0%, #18395F 48%, #0C1A2C 100%);
+  }
+
+  .section-band {
+    @apply relative overflow-hidden;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.92), rgba(248,245,239,0.92)),
+      radial-gradient(circle at top right, rgba(232, 199, 109, 0.18), transparent 30rem);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .premium-card-3d {
+    transform-style: preserve-3d;
+    transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), border-color 260ms var(--ease-out);
+  }
+
+  .premium-card-3d:hover {
+    transform: perspective(1000px) rotateX(1.5deg) rotateY(-2deg) translateY(-4px);
+    box-shadow: 0 28px 80px -36px rgba(16, 36, 61, 0.45);
+  }
+
+  .holo-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .holo-sheen::before {
+    content: "";
+    position: absolute;
+    inset: -60% auto auto -40%;
+    width: 55%;
+    height: 220%;
+    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.42), transparent);
+    transform: rotate(18deg);
+    transition: transform 700ms var(--ease-out);
+    pointer-events: none;
+  }
+
+  .holo-sheen:hover::before {
+    transform: translateX(260%) rotate(18deg);
   }
 }
 

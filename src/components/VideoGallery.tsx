@@ -7,7 +7,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Youtube, Clock, Loader2, RefreshCw, X } from 'lucide-react';
 import { SOCIAL_LINKS } from '@/lib/constants';
-import { fetchLatestYouTubeVideos, type YouTubeVideo } from '@/services/youtubeService';
+import { fetchLatestYouTubeVideos, type YouTubeVideo } from '@/services/youtubeService.ts';
 
 const VideoGallery = () => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
@@ -65,12 +65,13 @@ const VideoGallery = () => {
     <section ref={sectionRef} id="videos" className="section-padding bg-white">
       <div className="container-custom">
         {/* Header */}
-        <div className={`flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-10 transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        <div className={`mb-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-end transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           <div>
-            <h2 className="section-title">Nos Vidéos</h2>
-            <p className="section-subtitle">Plus de 2500 cours disponibles sur YouTube</p>
+            <span className="eyebrow">Vidéothèque</span>
+            <h2 className="section-title mt-5">Les derniers cours en replay.</h2>
+            <p className="section-subtitle">Une sélection de cours disponibles sur YouTube, avec accès direct à toute la chaîne LILMOD.</p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3 lg:justify-end">
             <button
               onClick={loadVideos}
               disabled={loading}
@@ -88,15 +89,26 @@ const VideoGallery = () => {
 
         {/* Loading */}
         {loading && (
-          <div className="flex items-center justify-center py-20">
-            <Loader2 className="w-8 h-8 text-neutral-400 animate-spin" />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {Array.from({ length: 8 }).map((_, index) => (
+              <div key={index} className="card overflow-hidden">
+                <div className="aspect-video animate-pulse bg-neutral-100" />
+                <div className="space-y-3 p-4">
+                  <div className="h-4 w-4/5 animate-pulse rounded bg-neutral-100" />
+                  <div className="h-3 w-1/2 animate-pulse rounded bg-neutral-100" />
+                </div>
+              </div>
+            ))}
+            <div className="sr-only">
+              <Loader2 className="w-8 h-8 text-neutral-400 animate-spin" />
+            </div>
           </div>
         )}
 
         {/* Error */}
         {error && !loading && (
-          <div className="text-center py-20">
-            <p className="text-red-500 mb-4">{error}</p>
+          <div className="rounded-lg border border-red-100 bg-red-50 p-8 text-center">
+            <p className="mb-4 font-medium text-red-700">{error}</p>
             <button onClick={loadVideos} className="btn-primary">Réessayer</button>
           </div>
         )}
@@ -107,7 +119,7 @@ const VideoGallery = () => {
             {videos.map((video, i) => (
               <div
                 key={video.id}
-                className={`group card overflow-hidden cursor-pointer transition-all duration-400 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+                className={`group card premium-card-3d holo-sheen overflow-hidden cursor-pointer transition-all duration-400 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
                 style={{ transitionDelay: `${i * 50}ms` }}
                 onClick={() => setSelectedVideo(video.id)}
               >
@@ -119,18 +131,18 @@ const VideoGallery = () => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
-                      <Play className="w-5 h-5 text-primary-600 ml-0.5" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-primary-900/40 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg">
+                      <Play className="ml-0.5 h-5 w-5 text-primary-700" />
                     </div>
                   </div>
-                  <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-black/70 text-white text-xs rounded">
+                  <span className="absolute bottom-2 right-2 rounded bg-black/75 px-2 py-0.5 text-xs font-medium text-white">
                     {video.duration}
                   </span>
                 </div>
                 {/* Info */}
                 <div className="p-4">
-                  <h4 className="font-medium text-neutral-900 line-clamp-2 mb-2 text-sm">
+                  <h4 className="mb-2 line-clamp-2 text-sm font-bold text-neutral-950">
                     {video.title}
                   </h4>
                   <div className="flex items-center gap-1 text-xs text-neutral-500">

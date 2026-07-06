@@ -83,9 +83,16 @@ const scheduleData = [
   }
 ];
 
+type Course = {
+  time: string;
+  title: string;
+  teacher: string;
+  link: string;
+};
+
 const LiveSchedule = () => {
   // Fonction pour ajouter un cours à Google Calendar
-  const handleAddToCalendar = (course: any, day: string) => {
+  const handleAddToCalendar = (course: Course, day: string) => {
     // Dans une implémentation réelle, on génèrerait un lien Google Calendar
     // Pour l'instant, on affiche juste un toast
     toast({
@@ -95,7 +102,7 @@ const LiveSchedule = () => {
   };
 
   // Fonction pour configurer un rappel
-  const handleSetReminder = (course: any) => {
+  const handleSetReminder = (_course: Course) => {
     // Dans une implémentation réelle, on configurerait un rappel
     // Pour l'instant, on redirige vers le groupe WhatsApp
     window.open("https://chat.whatsapp.com/KR5PN77WbfvDb4zFgBu3Cl", "_blank");

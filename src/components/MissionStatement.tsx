@@ -1,31 +1,28 @@
 /**
  * LILMOD - Mission Statement
- * 
- * "Un Peuple - Une Torah - Une Terre"
- * Clean, modern design
  */
 
 import { useEffect, useRef, useState } from 'react';
-import { MapPin, BookOpen, Users } from 'lucide-react';
+import { BookOpen, MapPin, Users } from 'lucide-react';
 
 const pillars = [
   {
     icon: Users,
     hebrew: "עם",
     french: "Un Peuple",
-    color: "bg-blue-500",
+    text: "Une communauté francophone qui étudie ensemble, en direct et en replay.",
   },
   {
     icon: BookOpen,
     hebrew: "תורה",
     french: "Une Torah",
-    color: "bg-accent-500",
+    text: "Des textes étudiés avec exigence, clarté et fidélité à la tradition.",
   },
   {
     icon: MapPin,
     hebrew: "ארץ",
     french: "Une Terre",
-    color: "bg-green-500",
+    text: "Un enseignement enraciné à Jérusalem, tourné vers Israël et la diaspora.",
   },
 ];
 
@@ -45,38 +42,42 @@ const MissionStatement = () => {
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="mission"
-      className="py-20 md:py-28 pb-32 md:pb-40 bg-primary-800 text-white"
-    >
-      <div className="container-custom text-center">
-        {/* Main heading */}
-        <div className={`mb-12 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
-          <p className="text-accent-400 text-lg mb-4">עם ישראל חי</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-            Un Peuple • Une Torah • Une Terre
-          </h2>
-        </div>
+    <section ref={sectionRef} id="mission" className="section-band py-16 md:py-20">
+      <div className="container-custom">
+        <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className={`transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
+            <span className="eyebrow">עם ישראל חי</span>
+            <h2 className="section-title mt-5 text-balance">
+              Une plateforme pensée pour apprendre, pas seulement regarder.
+            </h2>
+            <p className="section-subtitle">
+              LILMOD relie les étudiants francophones aux enseignants d'Israël avec
+              une programmation régulière, des archives accessibles et un lien vivant
+              avec la communauté.
+            </p>
+          </div>
 
-        {/* Three pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {pillars.map((pillar, i) => {
-            const Icon = pillar.icon;
-            return (
-              <div
-                key={i}
-                className={`p-8 bg-white/5 rounded-2xl border border-white/10 transition-all duration-500 hover:bg-white/10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <div className={`w-14 h-14 ${pillar.color} rounded-xl flex items-center justify-center mx-auto mb-4`}>
-                  <Icon className="w-7 h-7 text-white" />
+          <div className="grid gap-4 sm:grid-cols-3">
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              return (
+                <div
+                  key={pillar.french}
+                  className={`card p-5 transition-all duration-500 hover:-translate-y-1 ${
+                    isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
+                  }`}
+                  style={{ transitionDelay: `${index * 80}ms` }}
+                >
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-primary-50 text-primary-700">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="mb-2 text-4xl font-black text-accent-600">{pillar.hebrew}</div>
+                  <h3 className="text-lg font-bold text-neutral-950">{pillar.french}</h3>
+                  <p className="mt-3 text-sm leading-6 text-neutral-600">{pillar.text}</p>
                 </div>
-                <div className="text-4xl font-bold text-accent-400 mb-2">{pillar.hebrew}</div>
-                <div className="text-xl font-semibold">{pillar.french}</div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

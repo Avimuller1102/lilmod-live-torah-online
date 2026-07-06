@@ -12,21 +12,22 @@
  * - Contact form with Formspree
  */
 
-import Navbar from '@/components/Navbar';
-import HeroSection from '@/components/HeroSection';
-import MissionStatement from '@/components/MissionStatement';
-import About from '@/components/About';
-import VideoGallery from '@/components/VideoGallery';
-import AudioLibrary from '@/components/AudioLibrary';
-import Speakers from '@/components/Speakers';
-import Newsletter from '@/components/Newsletter';
-import Support from '@/components/Support';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
+import Navbar from '@/components/Navbar.tsx';
+import HeroSection from '@/components/HeroSection.tsx';
+import MissionStatement from '@/components/MissionStatement.tsx';
+import ShabbatTimes from '@/components/ShabbatTimes.tsx';
+import About from '@/components/About.tsx';
+import VideoGallery from '@/components/VideoGallery.tsx';
+import AudioLibrary from '@/components/AudioLibrary.tsx';
+import Speakers from '@/components/Speakers.tsx';
+import Newsletter from '@/components/Newsletter.tsx';
+import Support from '@/components/Support.tsx';
+import Contact from '@/components/Contact.tsx';
+import Footer from '@/components/Footer.tsx';
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden bg-white text-neutral-900">
       {/* Navigation */}
       <Navbar />
       
@@ -37,6 +38,9 @@ function App() {
         
         {/* Mission Statement - "Un Peuple - Une Torah - Une Terre" */}
         <MissionStatement />
+
+        {/* Shabbat Times by city */}
+        <ShabbatTimes />
         
         {/* About Section */}
         <About />
