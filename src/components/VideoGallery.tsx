@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { Play, Youtube, Clock, Loader2, RefreshCw, X } from 'lucide-react';
-import { SOCIAL_LINKS } from '@/lib/constants';
+import { IMAGES, SOCIAL_LINKS } from '@/lib/constants';
 import { fetchLatestYouTubeVideos, type YouTubeVideo } from '@/services/youtubeService.ts';
 
 const VideoGallery = () => {
@@ -130,6 +130,9 @@ const VideoGallery = () => {
                     alt={video.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
+                    onError={(event) => {
+                      event.currentTarget.src = IMAGES.logo;
+                    }}
                   />
                   <div className="absolute inset-0 flex items-center justify-center bg-primary-900/40 opacity-0 transition-opacity group-hover:opacity-100">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white shadow-lg">

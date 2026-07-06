@@ -24,8 +24,11 @@ import Newsletter from '@/components/Newsletter.tsx';
 import Support from '@/components/Support.tsx';
 import Contact from '@/components/Contact.tsx';
 import Footer from '@/components/Footer.tsx';
+import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 function App() {
+  useSmoothScroll();
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-neutral-900">
       {/* Navigation */}
