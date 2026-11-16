@@ -3,7 +3,7 @@ const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR";
 // Adresse publique du flux RSS du podcast (optionnelle, pas une clé).
 // À remplir avec l'URL donnée par Spotify for Creators pour afficher
 // automatiquement tous les derniers épisodes.
-const PODCAST_RSS_URL = "";
+const PODCAST_RSS_URL = "https://anchor.fm/s/fab20250/podcast/rss";
 
 const headers = {
   "Access-Control-Allow-Origin": "*",
