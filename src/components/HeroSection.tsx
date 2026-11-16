@@ -121,8 +121,8 @@ const HeroSection = () => {
           >
             {[
               { icon: CalendarDays, value: '2015', label: 'en direct depuis' },
-              { icon: Youtube, value: '2500+', label: 'cours disponibles' },
-              { icon: Radio, value: '10+', label: 'lives chaque semaine' },
+              { icon: Youtube, value: '+2500', label: 'cours disponibles' },
+              { icon: Radio, value: '+10', label: 'lives chaque semaine' },
             ].map(({ icon: Icon, value, label }) => (
               <div key={label} className="premium-card-3d holo-sheen rounded-lg border border-white/20 bg-primary-900/35 p-4 text-white backdrop-blur-xl">
                 <Icon className="mb-3 h-5 w-5 text-accent-200" />

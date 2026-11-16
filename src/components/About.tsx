@@ -8,9 +8,9 @@ import { SITE_CONFIG, SOCIAL_LINKS } from '@/lib/constants';
 
 const metrics = [
   { icon: CalendarDays, stat: "2015", label: "année de lancement" },
-  { icon: Radio, stat: "10+", label: "cours live / semaine" },
-  { icon: Archive, stat: "2500+", label: "cours disponibles" },
-  { icon: Users, stat: "20+", label: "intervenants" },
+  { icon: Radio, stat: "+10", label: "cours live / semaine" },
+  { icon: Archive, stat: "+2500", label: "cours disponibles" },
+  { icon: Users, stat: "+20", label: "intervenants" },
 ];
 
 const promises = [
