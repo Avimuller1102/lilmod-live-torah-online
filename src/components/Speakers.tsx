@@ -5,47 +5,64 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { X, Youtube, ExternalLink } from 'lucide-react';
-import { SPEAKERS, SOCIAL_LINKS } from '@/lib/constants';
+import { X, Youtube } from 'lucide-react';
+import { useDialog } from '@/hooks/useDialog';
+import { IMAGES, SPEAKERS, SOCIAL_LINKS } from '@/lib/constants';
 
 type Speaker = typeof SPEAKERS[number];
 
+const speakerSearchUrl = (speaker: Speaker) =>
+  `${SOCIAL_LINKS.youtube}/search?query=${encodeURIComponent(speaker.searchQuery)}`;
+
 const SpeakerModal = ({ speaker, onClose }: { speaker: Speaker | null; onClose: () => void }) => {
+  const dialogRef = useDialog<HTMLDivElement>(Boolean(speaker), onClose);
   if (!speaker) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
-      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden animate-scale-in" onClick={e => e.stopPropagation()}>
-        <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 bg-neutral-100 hover:bg-neutral-200 rounded-full flex items-center justify-center">
-          <X className="w-4 h-4" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm" onClick={onClose}>
+      <div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="speaker-dialog-title"
+        tabIndex={-1}
+        className="relative w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl animate-scale-in focus:outline-none"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Fermer"
+          className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-neutral-100 hover:bg-neutral-200"
+        >
+          <X className="h-4 w-4" aria-hidden="true" />
         </button>
-
         <div className="p-6">
-          <div className="flex items-center gap-4 mb-4">
+          <div className="mb-4 flex items-center gap-4 pr-10">
             <img
               src={speaker.image}
-              alt={speaker.name}
-              className="w-20 h-20 rounded-xl object-cover bg-neutral-100"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&size=80&background=3B5998&color=fff`;
+              alt=""
+              width={80}
+              height={80}
+              className="h-20 w-20 rounded-xl bg-neutral-100 object-cover"
+              onError={(event) => {
+                event.currentTarget.src = IMAGES.logo;
               }}
             />
             <div>
-              <h3 className="text-xl font-bold text-neutral-900">{speaker.name}</h3>
-              <p className="text-accent-600 text-sm">{speaker.specialty}</p>
+              <h3 id="speaker-dialog-title" className="text-xl font-bold text-neutral-900">{speaker.name}</h3>
+              <p className="text-sm text-accent-700">{speaker.specialty}</p>
             </div>
           </div>
-          
-          <p className="text-neutral-600 text-sm mb-6">{speaker.bio}</p>
-
+          <p className="mb-6 text-sm leading-6 text-neutral-600">{speaker.bio}</p>
           <a
-            href={speaker.youtubePlaylist}
+            href={speakerSearchUrl(speaker)}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary w-full bg-red-500 hover:bg-red-600"
+            className="btn-primary w-full bg-red-600 hover:bg-red-700"
           >
-            <Youtube className="w-4 h-4" />
-            Voir ses cours
+            <Youtube className="h-4 w-4" aria-hidden="true" />
+            Voir ses cours sur YouTube
           </a>
         </div>
       </div>
@@ -69,10 +86,6 @@ const Speakers = () => {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = selectedSpeaker ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [selectedSpeaker]);
 
   return (
     <section ref={sectionRef} id="speakers" className="section-padding bg-white">
@@ -89,7 +102,10 @@ const Speakers = () => {
           {SPEAKERS.map((speaker, i) => (
             <button
               key={speaker.id}
+              type="button"
               onClick={() => setSelectedSpeaker(speaker)}
+              aria-haspopup="dialog"
+              aria-label={`${speaker.name} – ${speaker.specialty}`}
               className={`group text-center transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
               style={{ transitionDelay: `${i * 50}ms` }}
             >
@@ -97,16 +113,20 @@ const Speakers = () => {
                 <div className="premium-card-3d aspect-square rounded-lg overflow-hidden bg-neutral-100 shadow-sm ring-1 ring-neutral-200 group-hover:shadow-lg transition-shadow">
                   <img
                     src={speaker.image}
-                    alt={speaker.name}
+                    alt=""
+                    width={240}
+                    height={240}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${encodeURIComponent(speaker.name)}&size=200&background=3B5998&color=fff`;
+                    decoding="async"
+                    onError={(event) => {
+                      event.currentTarget.src = IMAGES.logo;
                     }}
                   />
                 </div>
               </div>
               <h3 className="font-medium text-neutral-900 text-sm">{speaker.name}</h3>
+              <p className="mt-0.5 text-xs text-neutral-500">{speaker.specialty}</p>
             </button>
           ))}
         </div>

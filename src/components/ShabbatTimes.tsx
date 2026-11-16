@@ -73,7 +73,7 @@ const ShabbatTimes = () => {
               Horaires de Chabbat
             </span>
             <h2 className="mt-5 text-balance text-4xl font-black text-white md:text-5xl">
-              Les horaires selon votre ville, sans approximation bricolée.
+              Les horaires de Chabbat, ville par ville.
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-blue-50/80">
               Sélectionnez un pays et une ville pour obtenir l'entrée et la sortie de Chabbat
@@ -135,7 +135,7 @@ const ShabbatTimes = () => {
                 <div className="rounded-lg border border-accent-300/30 bg-accent-300/10 px-4 py-3 text-right">
                   <div className="text-xs font-bold uppercase tracking-[0.18em] text-accent-100">Paracha</div>
                   <div className="mt-1 font-black text-white">{paracha?.name || "Chargement"}</div>
-                  <div className="text-sm text-blue-50/70">{paracha?.hebrewName}</div>
+                  <div className="text-sm text-blue-50/70" lang="he" dir="rtl">{paracha?.hebrewName}</div>
                 </div>
               </div>
 

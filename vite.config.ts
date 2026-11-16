@@ -1,6 +1,37 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import type { Plugin } from "vite";
+
+/**
+ * Adresse publique du site.
+ * Sur Netlify, `URL` vaut automatiquement le domaine principal du site
+ * (graceful-blancmange-8e4e41.netlify.app aujourd'hui, lilmod.fr dès que le
+ * domaine sera branché) : rien à modifier dans le code.
+ */
+const SITE_URL = (process.env.VITE_SITE_URL || process.env.URL || "https://graceful-blancmange-8e4e41.netlify.app").replace(/\/$/, "");
+process.env.VITE_SITE_URL = SITE_URL;
+
+/** Génère robots.txt et sitemap.xml avec la bonne adresse. */
+function seoFiles(): Plugin {
+  return {
+    name: "lilmod-seo-files",
+    apply: "build",
+    generateBundle() {
+      const today = new Date().toISOString().slice(0, 10);
+      this.emitFile({
+        type: "asset",
+        fileName: "robots.txt",
+        source: `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`,
+      });
+      this.emitFile({
+        type: "asset",
+        fileName: "sitemap.xml",
+        source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <url>\n    <loc>${SITE_URL}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>daily</changefreq>\n    <priority>1.0</priority>\n  </url>\n</urlset>\n`,
+      });
+    },
+  };
+}
 
 /**
  * Vite Configuration for LILMOD Website
@@ -13,7 +44,6 @@ export default defineConfig({
   server: {
     host: "localhost",
     port: 3000,
-    open: true,
   },
 
   // Preview server configuration
@@ -22,7 +52,7 @@ export default defineConfig({
   },
 
   // Plugins
-  plugins: [react()],
+  plugins: [react(), seoFiles()],
 
   // Path aliases for clean imports
   resolve: {

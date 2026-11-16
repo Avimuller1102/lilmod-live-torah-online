@@ -46,7 +46,7 @@ const MissionStatement = () => {
       <div className="container-custom">
         <div className="grid items-end gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <div className={`transition-all duration-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'}`}>
-            <span className="eyebrow">עם ישראל חי</span>
+            <span className="eyebrow" lang="he" dir="rtl">עם ישראל חי</span>
             <h2 className="section-title mt-5 text-balance">
               Une plateforme pensée pour apprendre, pas seulement regarder.
             </h2>
@@ -71,7 +71,7 @@ const MissionStatement = () => {
                   <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-primary-50 text-primary-700">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <div className="mb-2 text-4xl font-black text-accent-600">{pillar.hebrew}</div>
+                  <div className="mb-2 text-4xl font-black text-accent-600" lang="he" dir="rtl">{pillar.hebrew}</div>
                   <h3 className="text-lg font-bold text-neutral-950">{pillar.french}</h3>
                   <p className="mt-3 text-sm leading-6 text-neutral-600">{pillar.text}</p>
                 </div>

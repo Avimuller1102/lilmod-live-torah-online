@@ -7,6 +7,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Youtube, Clock, Loader2, RefreshCw, X } from 'lucide-react';
 import { IMAGES, SOCIAL_LINKS } from '@/lib/constants';
+import { useDialog } from '@/hooks/useDialog';
 import {
   fetchLatestYouTubeVideos,
   YOUTUBE_UPLOADS_EMBED_URL,
@@ -60,10 +61,9 @@ const VideoGallery = () => {
     return date.toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
   };
 
-  useEffect(() => {
-    document.body.style.overflow = selectedVideo ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [selectedVideo]);
+  const closeVideo = () => setSelectedVideo(null);
+  const dialogRef = useDialog<HTMLDivElement>(Boolean(selectedVideo), closeVideo);
+  const selectedTitle = videos.find((video) => video.id === selectedVideo)?.title ?? 'Vidéo LILMOD';
 
   return (
     <section ref={sectionRef} id="videos" className="section-padding bg-white">
@@ -152,19 +152,25 @@ const VideoGallery = () => {
         {!loading && !error && videos.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {videos.map((video, i) => (
-              <div
+              <button
+                type="button"
                 key={video.id}
-                className={`group card premium-card-3d holo-sheen overflow-hidden cursor-pointer transition-all duration-400 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+                className={`group card premium-card-3d holo-sheen block w-full overflow-hidden text-left cursor-pointer transition-all duration-400 hover:-translate-y-1 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
                 style={{ transitionDelay: `${i * 50}ms` }}
                 onClick={() => setSelectedVideo(video.id)}
+                aria-haspopup="dialog"
+                aria-label={`Regarder : ${video.title}`}
               >
                 {/* Thumbnail */}
                 <div className="relative aspect-video bg-neutral-100 overflow-hidden">
                   <img
                     src={video.thumbnail}
-                    alt={video.title}
+                    alt=""
+                    width={480}
+                    height={270}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
+                    decoding="async"
                     onError={(event) => {
                       event.currentTarget.src = IMAGES.logo;
                     }}
@@ -180,15 +186,15 @@ const VideoGallery = () => {
                 </div>
                 {/* Info */}
                 <div className="p-4">
-                  <h4 className="mb-2 line-clamp-2 text-sm font-bold text-neutral-950">
+                  <h3 className="mb-2 line-clamp-2 text-sm md:text-sm font-bold leading-5 text-neutral-950">
                     {video.title}
-                  </h4>
+                  </h3>
                   <div className="flex items-center gap-1 text-xs text-neutral-500">
                     <Clock className="w-3 h-3" />
-                    {formatDate(video.publishedAt)}
+                    <time dateTime={video.publishedAt}>{formatDate(video.publishedAt)}</time>
                   </div>
                 </div>
-              </div>
+              </button>
             ))}
           </div>
         )}
@@ -196,19 +202,33 @@ const VideoGallery = () => {
 
       {/* Modal */}
       {selectedVideo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90" onClick={() => setSelectedVideo(null)}>
-          <button onClick={() => setSelectedVideo(null)} className="absolute top-4 right-4 text-white hover:text-red-400">
-            <X className="w-8 h-8" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90" onClick={closeVideo}>
+          <div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={selectedTitle}
+            className="relative w-full max-w-5xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+          <button
+            type="button"
+            onClick={closeVideo}
+            aria-label="Fermer la vidéo"
+            className="absolute -top-12 right-0 flex h-10 w-10 items-center justify-center rounded-full text-white hover:bg-white/10 hover:text-red-400"
+          >
+            <X className="w-7 h-7" aria-hidden="true" />
           </button>
-          <div className="w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
+          <div className="aspect-video w-full overflow-hidden rounded-xl bg-black">
             <iframe
               src={`https://www.youtube-nocookie.com/embed/${selectedVideo}?autoplay=1&rel=0`}
-              title="Lecteur vidéo YouTube"
+              title={selectedTitle}
               className="w-full h-full"
               referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />
+          </div>
           </div>
         </div>
       )}

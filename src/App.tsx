@@ -20,15 +20,13 @@ import About from '@/components/About.tsx';
 import VideoGallery from '@/components/VideoGallery.tsx';
 import AudioLibrary from '@/components/AudioLibrary.tsx';
 import Speakers from '@/components/Speakers.tsx';
+import Testimonials from '@/components/Testimonials.tsx';
 import Newsletter from '@/components/Newsletter.tsx';
 import Support from '@/components/Support.tsx';
 import Contact from '@/components/Contact.tsx';
 import Footer from '@/components/Footer.tsx';
-import { useSmoothScroll } from '@/hooks/useSmoothScroll';
 
 function App() {
-  useSmoothScroll();
-
   return (
     <div className="min-h-screen overflow-x-hidden bg-white text-neutral-900">
       {/* Navigation */}
@@ -56,6 +54,9 @@ function App() {
         
         {/* Speakers / Teachers */}
         <Speakers />
+
+        {/* Témoignages d'Alya */}
+        <Testimonials />
         
         {/* Newsletter Signup */}
         <Newsletter />

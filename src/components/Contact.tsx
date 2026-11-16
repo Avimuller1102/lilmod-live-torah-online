@@ -41,6 +41,13 @@ const Contact = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
+    // Honeypot : un robot remplit ce champ caché, un humain jamais.
+    if (data._gotcha) {
+      setStatus('success');
+      reset();
+      return;
+    }
+
     setStatus('submitting');
 
     try {
@@ -48,6 +55,7 @@ const Contact = () => {
       const formData = new FormData();
       formData.append('name', data.name);
       formData.append('email', data.email);
+      formData.append('_replyto', data.email);
       formData.append('subject', data.subject);
       formData.append('message', data.message);
       formData.append('_subject', `[LILMOD Contact] ${data.subject}`);
@@ -60,13 +68,12 @@ const Contact = () => {
         },
       });
 
-      const responseData = await response.json();
+      const responseData = await response.json().catch(() => ({}));
 
       if (response.ok) {
         setStatus('success');
         reset();
-        // Reset success message after 5 seconds
-        setTimeout(() => setStatus('idle'), 5000);
+        setTimeout(() => setStatus('idle'), 8000);
       } else {
         console.error('Formspree error:', responseData);
         throw new Error(responseData.error || 'Submission failed');
@@ -74,8 +81,7 @@ const Contact = () => {
     } catch (error) {
       console.error('Form submission error:', error);
       setStatus('error');
-      // Reset error message after 5 seconds
-      setTimeout(() => setStatus('idle'), 5000);
+      setTimeout(() => setStatus('idle'), 8000);
     }
   };
 
@@ -87,8 +93,8 @@ const Contact = () => {
           <span className="eyebrow">Contact</span>
           <h2 className="section-title mt-5">Une question, une idée, un partenariat ?</h2>
           <p className="section-subtitle mx-auto">
-            Une question ? Une suggestion ? N'hésitez pas à nous écrire, 
-            nous vous répondrons dans les plus brefs délais.
+            Une suggestion, un témoignage à partager ou l'envie de soutenir LILMOD ?
+            Écrivez-nous, nous vous répondrons rapidement.
           </p>
         </div>
 
@@ -100,14 +106,15 @@ const Contact = () => {
               Envoyez-nous un message
             </h3>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
               {/* Honeypot field - hidden from users */}
               <input
                 type="text"
                 {...register('_gotcha')}
-                style={{ display: 'none' }}
+                className="hidden"
                 tabIndex={-1}
                 autoComplete="off"
+                aria-hidden="true"
               />
 
               {/* Name & Email Row */}
@@ -120,6 +127,9 @@ const Contact = () => {
                     id="name"
                     type="text"
                     {...register('name')}
+                    aria-invalid={errors.name ? 'true' : 'false'}
+                    aria-describedby={errors.name ? 'name-error' : undefined}
+                    autoComplete="name"
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.name ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                     } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -127,7 +137,7 @@ const Contact = () => {
                     disabled={status === 'submitting'}
                   />
                   {errors.name && (
-                    <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>
+                    <p id="name-error" className="mt-1 text-sm text-red-600">{errors.name.message}</p>
                   )}
                 </div>
 
@@ -139,6 +149,9 @@ const Contact = () => {
                     id="email"
                     type="email"
                     {...register('email')}
+                    aria-invalid={errors.email ? 'true' : 'false'}
+                    aria-describedby={errors.email ? 'email-error' : undefined}
+                    autoComplete="email"
                     className={`w-full px-4 py-3 rounded-lg border ${
                       errors.email ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                     } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -146,7 +159,7 @@ const Contact = () => {
                     disabled={status === 'submitting'}
                   />
                   {errors.email && (
-                    <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>
+                    <p id="email-error" className="mt-1 text-sm text-red-600">{errors.email.message}</p>
                   )}
                 </div>
               </div>
@@ -160,6 +173,9 @@ const Contact = () => {
                   id="subject"
                   type="text"
                   {...register('subject')}
+                    aria-invalid={errors.subject ? 'true' : 'false'}
+                    aria-describedby={errors.subject ? 'subject-error' : undefined}
+                    autoComplete="off"
                   className={`w-full px-4 py-3 rounded-lg border ${
                     errors.subject ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
                   } focus:outline-none focus:ring-2 focus:border-transparent transition-all`}
@@ -167,7 +183,7 @@ const Contact = () => {
                   disabled={status === 'submitting'}
                 />
                 {errors.subject && (
-                  <p className="mt-1 text-sm text-red-500">{errors.subject.message}</p>
+                  <p id="subject-error" className="mt-1 text-sm text-red-600">{errors.subject.message}</p>
                 )}
               </div>
 
@@ -179,6 +195,8 @@ const Contact = () => {
                 <textarea
                   id="message"
                   {...register('message')}
+                    aria-invalid={errors.message ? 'true' : 'false'}
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                   rows={5}
                   className={`w-full px-4 py-3 rounded-lg border resize-none ${
                     errors.message ? 'border-red-500 focus:ring-red-500' : 'border-neutral-200 focus:ring-accent-500'
@@ -187,7 +205,7 @@ const Contact = () => {
                   disabled={status === 'submitting'}
                 />
                 {errors.message && (
-                  <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>
+                  <p id="message-error" className="mt-1 text-sm text-red-600">{errors.message.message}</p>
                 )}
               </div>
 
@@ -215,11 +233,12 @@ const Contact = () => {
               </button>
 
               {/* Status Messages */}
+              <div aria-live="polite" role="status">
               {status === 'success' && (
                 <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
                   <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
                   <p className="text-green-700">
-                    Message envoyé avec succès ! Nous vous répondrons bientôt.
+                    Merci ! Votre message a bien été envoyé, nous vous répondrons rapidement.
                   </p>
                 </div>
               )}
@@ -228,10 +247,12 @@ const Contact = () => {
                 <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
                   <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
                   <p className="text-red-700">
-                    Une erreur est survenue. Veuillez réessayer ou nous contacter directement par email.
+                    Une erreur est survenue. Veuillez réessayer ou nous écrire directement à{' '}
+                    <a href={`mailto:${SITE_CONFIG.email}`} className="font-semibold underline">{SITE_CONFIG.email}</a>.
                   </p>
                 </div>
               )}
+              </div>
             </form>
           </div>
 

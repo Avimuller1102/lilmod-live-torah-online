@@ -6,7 +6,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Heart, Gift, Star, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
-import { SOCIAL_LINKS, DONATION_AMOUNTS } from '@/lib/constants';
+import { SOCIAL_LINKS } from '@/lib/constants';
 
 const Support = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -21,9 +21,6 @@ const Support = () => {
     return () => observer.disconnect();
   }, []);
 
-  const handleDonationClick = () => {
-    window.open(SOCIAL_LINKS.donate, '_blank', 'noopener,noreferrer');
-  };
 
   return (
     <section
@@ -48,8 +45,8 @@ const Support = () => {
 
           {/* Header */}
           <div className={`text-center mb-14 transition-all duration-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-400/15 rounded-lg mb-6 border border-accent-400/20">
-              <Heart className="w-10 h-10 text-accent-400 fill-current" />
+            <div className="mx-auto flex items-center justify-center w-16 h-16 bg-accent-400/15 rounded-lg mb-6 border border-accent-400/20">
+              <Heart className="w-10 h-10 text-accent-400 fill-current" aria-hidden="true" />
             </div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-accent-500/20 border border-accent-400/30 rounded-full mb-4">
               <span className="text-accent-300 text-sm font-medium tracking-wide">Association à but non lucratif</span>
@@ -73,7 +70,7 @@ const Support = () => {
 
               {/* Impact quote */}
               <div className="text-center mb-10 p-6 bg-gradient-to-br from-primary-50 to-accent-50 rounded-lg border border-accent-100">
-                <p className="text-2xl font-bold text-primary-800 mb-1">"תורה לשמה"</p>
+                <p className="text-2xl font-bold text-primary-800 mb-1" lang="he" dir="rtl">תורה לשמה</p>
                 <p className="text-sm text-neutral-500">L'étude de la Torah pour elle-même</p>
               </div>
 
@@ -89,7 +86,7 @@ const Support = () => {
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-primary-800 mb-1">{title}</h4>
+                      <h3 className="text-base md:text-base font-bold text-primary-800 mb-1">{title}</h3>
                       <p className="text-sm text-neutral-500 leading-relaxed">{desc}</p>
                     </div>
                   </div>
@@ -99,23 +96,21 @@ const Support = () => {
               {/* Divider */}
               <div className="border-t border-neutral-100 mb-8" />
 
-              {/* Donation Amounts */}
-              <div className="mb-8">
-                <p className="text-center text-sm font-semibold text-neutral-400 uppercase tracking-wider mb-5">
-                  Choisissez un montant
-                </p>
-                <div className="grid grid-cols-3 gap-4 max-w-sm mx-auto">
-                  {DONATION_AMOUNTS.map((amount) => (
-                    <button
-                      key={amount.value}
-                      onClick={handleDonationClick}
-                      className="relative group py-4 px-4 bg-gradient-to-br from-accent-50 to-amber-50 hover:from-accent-100 hover:to-amber-100 border border-accent-200 hover:border-accent-500 rounded-lg font-bold text-accent-700 transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-accent-200"
-                    >
-                      <span className="text-lg">{amount.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+              {/* How it works */}
+              <ol className="mx-auto mb-10 grid max-w-3xl gap-4 sm:grid-cols-3">
+                {[
+                  'Cliquez sur « Faire un don »',
+                  'Choisissez librement votre montant sur JGive',
+                  'Recevez votre confirmation par email',
+                ].map((step, index) => (
+                  <li key={step} className="flex items-center gap-3 rounded-lg border border-accent-100 bg-accent-50/60 p-4 text-sm font-medium text-neutral-700">
+                    <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent-500 font-bold text-white" aria-hidden="true">
+                      {index + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
 
               {/* Main CTA */}
               <div className="text-center">

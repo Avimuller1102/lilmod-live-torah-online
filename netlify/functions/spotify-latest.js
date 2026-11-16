@@ -142,13 +142,18 @@ async function fetchFromPodcastRss(limit) {
         description: truncate(cleanHtml(description), 260),
         duration_ms: parseDuration(matchFirst(item, /<itunes:duration>([\s\S]*?)<\/itunes:duration>/)),
         release_date: Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10),
-        images: image ? [{ url: image, height: 300, width: 300 }] : [],
+        images: image ? [{ url: thumbnail(image), height: 160, width: 160 }] : [],
         external_urls: {
           spotify: link || `https://open.spotify.com/show/${SHOW_ID}`,
         },
       };
     })
     .filter((episode) => episode.name);
+}
+
+/** Les pochettes du flux font 3000 px : on les redimensionne via le CDN d'images Netlify. */
+function thumbnail(url) {
+  return `/.netlify/images?url=${encodeURIComponent(url)}&w=160&h=160&fit=cover&fm=webp&q=75`;
 }
 
 function stripCdata(value) {

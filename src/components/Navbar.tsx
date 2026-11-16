@@ -97,7 +97,7 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden xl:flex items-center gap-4 whitespace-nowrap">
-              {NAV_LINKS.map((link) => (
+              {NAV_LINKS.filter((link) => link.href !== '#home').map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
@@ -151,6 +151,7 @@ const Navbar = () => {
 
             {/* Mobile Menu Button */}
             <button
+              type="button"
               onClick={toggleMenu}
               className={`xl:hidden flex-shrink-0 p-2 rounded-lg transition-colors ${
                 scrolled ? 'text-primary-800 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
@@ -167,8 +168,8 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           id="mobile-menu"
-          className={`xl:hidden fixed inset-0 top-0 bg-white z-40 transition-transform duration-300 ${
-            isOpen ? 'translate-x-0' : 'translate-x-full'
+          className={`xl:hidden fixed inset-0 top-0 bg-white z-40 transition-[transform,visibility] duration-300 ${
+            isOpen ? 'visible translate-x-0' : 'invisible translate-x-full'
           }`}
           aria-hidden={!isOpen}
         >
@@ -184,6 +185,7 @@ const Navbar = () => {
                 <span className="text-xl font-display font-bold text-primary-800">LILMOD</span>
               </a>
               <button
+                type="button"
                 onClick={closeMenu}
                 className="p-2 text-neutral-600 hover:bg-neutral-100 rounded-lg"
                 aria-label="Fermer le menu"

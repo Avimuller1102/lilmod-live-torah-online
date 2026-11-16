@@ -1,6 +1,6 @@
 # 🕎 LILMOD.fr - Cours de Torah en Direct depuis Israël
 
-![LILMOD Banner](/public/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png)
+![LILMOD](public/images/og-image.jpg)
 
 > **LILMOD** est une plateforme à but non lucratif qui diffuse en live des cours de Torah en français depuis 2015. Notre mission : rendre accessible un enseignement juif authentique et pertinent.
 
@@ -17,6 +17,8 @@
 - 📺 **Vidéothèque** - Plus de 2500 cours disponibles sur YouTube
 - 🎧 **Podcasts** - Écoutez nos cours sur Spotify
 - 👨‍🏫 **Enseignants Experts** - Une équipe de Rabbanim reconnus
+- ✈️ **Témoignages d'Alya** - Des étudiants racontent leur installation en Israël (`TESTIMONIALS` dans `src/lib/constants.ts`)
+- 🕯️ **Horaires de Chabbat** - Par ville, via Hebcal
 - 📧 **Newsletter** - Restez informé du programme hebdomadaire
 - 💬 **Contact** - Formulaire de contact fonctionnel
 
@@ -117,6 +119,13 @@ src/
 ├── main.tsx             # Point d'entrée
 └── index.css            # Design system CSS
 ```
+
+## 🌐 Nom de domaine (lilmod.fr)
+
+L'adresse du site (balises de partage, sitemap, robots.txt) est calculée automatiquement à partir
+du domaine principal Netlify (variable `URL`). Une fois `lilmod.fr` ajouté dans
+**Netlify → Domain management** et défini comme domaine principal, il suffit de relancer un déploiement :
+aucune modification du code n'est nécessaire.
 
 ## 🚢 Déploiement gratuit
 
