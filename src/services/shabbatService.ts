@@ -90,8 +90,8 @@ export async function fetchShabbatCity(city: ShabbatCity): Promise<{
       country: city.countryLabel,
       entree: candle ? extractTime(candle.date) : "À confirmer",
       sortie: havdalah ? extractTime(havdalah.date) : "À confirmer",
-      candleLabel: candle?.title || "Allumage des bougies",
-      havdalahLabel: havdalah?.title || "Sortie de Chabbat",
+      candleLabel: "Allumage des bougies",
+      havdalahLabel: "Sortie de Chabbat (Havdala)",
     },
     paracha: {
       name: parasha?.title?.replace(/^Parashat\s+/i, "") || "Paracha de la semaine",

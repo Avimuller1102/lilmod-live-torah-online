@@ -105,7 +105,7 @@ const HeroSection = () => {
             }`}
           >
             {[
-              { icon: CalendarDays, value: '2015', label: 'années de diffusion' },
+              { icon: CalendarDays, value: '2015', label: 'en direct depuis' },
               { icon: Youtube, value: '2500+', label: 'cours disponibles' },
               { icon: Radio, value: '10+', label: 'lives chaque semaine' },
             ].map(({ icon: Icon, value, label }) => (

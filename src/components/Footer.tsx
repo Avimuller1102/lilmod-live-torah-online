@@ -80,7 +80,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6">Liens Rapides</h4>
+            <h4 className="text-lg font-display font-bold mb-6 text-white">Liens Rapides</h4>
             <ul className="space-y-3">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
@@ -108,7 +108,7 @@ const Footer = () => {
 
           {/* Newsletter & Contact */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6">Restez Connecté</h4>
+            <h4 className="text-lg font-display font-bold mb-6 text-white">Restez Connecté</h4>
             <div className="space-y-4">
               <a
                 href={SOCIAL_LINKS.newsletter}
@@ -148,23 +148,22 @@ const Footer = () => {
 
           {/* Partners */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6">Nos Partenaires</h4>
+            <h4 className="text-lg font-display font-bold mb-6 text-white">Nos Partenaires</h4>
             <div className="space-y-4">
               {PARTNERS.map((partner) => (
-                <a
+                <div
                   key={partner.id}
-                  href={partner.url}
-                  className="flex items-center gap-3 p-3 bg-white/10 hover:bg-white/15 rounded-xl transition-colors group"
+                  className="flex items-center gap-3 p-3 bg-white/10 rounded-xl"
                 >
                   <img
                     src={partner.logo}
                     alt={partner.name}
                     className="w-10 h-10 object-contain rounded bg-white/10"
                   />
-                  <span className="text-sm text-blue-200 group-hover:text-accent-400 transition-colors">
+                  <span className="text-sm text-blue-200">
                     {partner.name}
                   </span>
-                </a>
+                </div>
               ))}
             </div>
           </div>

@@ -70,7 +70,7 @@ const Navbar = () => {
             {/* Logo */}
             <a
               href="#home"
-              className="group flex min-w-0 flex-shrink-0 items-center gap-3 lg:mr-8"
+              className="group flex min-w-0 flex-shrink-0 items-center gap-3 xl:mr-8"
               aria-label="LILMOD - Retour à l'accueil"
             >
               <div className="relative">
@@ -96,7 +96,7 @@ const Navbar = () => {
             </a>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden xl:flex items-center gap-4 whitespace-nowrap">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
@@ -115,7 +115,7 @@ const Navbar = () => {
                   href={SOCIAL_LINKS.linktree}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
+                  className={`hidden 2xl:flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
                     scrolled
                       ? 'bg-accent-50 text-accent-700 hover:bg-accent-100'
                       : 'bg-white/10 text-white hover:bg-white/20'
@@ -152,7 +152,7 @@ const Navbar = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={toggleMenu}
-              className={`lg:hidden flex-shrink-0 p-2 rounded-lg transition-colors ${
+              className={`xl:hidden flex-shrink-0 p-2 rounded-lg transition-colors ${
                 scrolled ? 'text-primary-800 hover:bg-neutral-100' : 'text-white hover:bg-white/10'
               }`}
               aria-expanded={isOpen}
@@ -167,7 +167,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         <div
           id="mobile-menu"
-          className={`lg:hidden fixed inset-0 top-0 bg-white z-40 transition-transform duration-300 ${
+          className={`xl:hidden fixed inset-0 top-0 bg-white z-40 transition-transform duration-300 ${
             isOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
           aria-hidden={!isOpen}
@@ -271,7 +271,7 @@ const Navbar = () => {
         {/* Mobile Menu Overlay */}
         {isOpen && (
           <div
-            className="lg:hidden fixed inset-0 bg-black/50 z-30"
+            className="xl:hidden fixed inset-0 bg-black/50 z-30"
             onClick={closeMenu}
             aria-hidden="true"
           />

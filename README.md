@@ -101,9 +101,8 @@ Ces valeurs ne doivent jamais être mises dans le code public.
 
 | Rôle       | Police             | Usage                  |
 | ---------- | ------------------ | ---------------------- |
-| **Titres** | Playfair Display   | Headings, display text |
-| **Corps**  | Source Sans 3      | Paragraphes, UI        |
-| **Accent** | Cormorant Garamond | Citations, highlights  |
+| **Titres** | Outfit             | Headings, display text |
+| **Corps**  | Inter              | Paragraphes, UI        |
 
 ### Palette de Couleurs - "Jerusalem Gold"
 
@@ -205,7 +204,6 @@ Le site est entièrement responsive avec des breakpoints :
 - **TypeScript 5** - Typage statique
 - **Vite 5** - Build tool
 - **Tailwind CSS 3** - Framework CSS utility-first
-- **Radix UI** - Composants accessibles
 - **React Hook Form** - Gestion des formulaires
 - **Zod** - Validation des schémas
 - **Lucide React** - Icônes

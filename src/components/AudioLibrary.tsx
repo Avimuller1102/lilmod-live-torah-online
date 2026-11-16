@@ -12,6 +12,13 @@ import {
   type SpotifyEpisode,
 } from '@/services/spotifyService.ts';
 
+const cleanDescription = (text: string) =>
+  text
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/(👉|🎥|📣)\s*/gu, '')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+
 const AudioLibrary = () => {
   const [episodes, setEpisodes] = useState<SpotifyEpisode[]>([]);
   const [loadingEpisodes, setLoadingEpisodes] = useState(true);
@@ -133,7 +140,7 @@ const AudioLibrary = () => {
                     <h4 className="line-clamp-2 text-sm font-bold text-neutral-950 transition-colors group-hover:text-green-700">
                       {episode.name}
                     </h4>
-                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">{episode.description}</p>
+                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">{cleanDescription(episode.description)}</p>
                     <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-neutral-500">
                       <span className="flex items-center gap-1">
                         <Clock className="h-3 w-3" />
