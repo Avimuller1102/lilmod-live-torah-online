@@ -36,34 +36,34 @@ function App() {
       <main id="main-content">
         {/* Hero Section */}
         <HeroSection />
-        
+
         {/* Mission Statement - "Un Peuple - Une Torah - Une Terre" */}
         <MissionStatement />
 
-        {/* Shabbat Times by city */}
-        <ShabbatTimes />
-        
         {/* About Section */}
         <About />
-        
+
         {/* Video Gallery */}
         <VideoGallery />
-        
+
         {/* Audio Library / Podcast */}
         <AudioLibrary />
-        
+
+        {/* Shabbat Times by city */}
+        <ShabbatTimes />
+
         {/* Speakers / Teachers */}
         <Speakers />
 
         {/* Témoignages d'Alya */}
         <Testimonials />
-        
+
         {/* Newsletter Signup */}
         <Newsletter />
-        
+
         {/* Support / Donate */}
         <Support />
-        
+
         {/* Contact Form */}
         <Contact />
       </main>
