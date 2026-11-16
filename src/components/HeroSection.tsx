@@ -79,7 +79,7 @@ const HeroSection = () => {
           </div>
 
           <h1
-            className={`max-w-4xl text-balance text-4xl font-black leading-[1.02] text-white sm:text-5xl md:text-7xl lg:text-8xl transition-all delay-100 duration-500 ${
+            className={`max-w-4xl text-balance text-4xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-7xl lg:text-8xl transition-all delay-100 duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
             }`}
           >
@@ -115,7 +115,7 @@ const HeroSection = () => {
           </div>
 
           <div
-            className={`mt-12 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3 transition-all delay-300 duration-500 ${
+            className={`mt-10 grid max-w-3xl grid-cols-3 gap-2 sm:mt-12 sm:gap-3 transition-all delay-300 duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
             }`}
           >
@@ -124,10 +124,10 @@ const HeroSection = () => {
               { icon: Youtube, value: '+2500', label: 'cours disponibles' },
               { icon: Radio, value: '+10', label: 'lives chaque semaine' },
             ].map(({ icon: Icon, value, label }) => (
-              <div key={label} className="premium-card-3d holo-sheen rounded-lg border border-white/20 bg-primary-900/35 p-4 text-white backdrop-blur-xl">
-                <Icon className="mb-3 h-5 w-5 text-accent-200" />
-                <div className="text-3xl font-black text-white">{value}</div>
-                <div className="mt-1 text-sm text-blue-50/75">{label}</div>
+              <div key={label} className="rounded-xl border border-white/15 bg-primary-900/35 p-3 text-white backdrop-blur-xl sm:p-4">
+                <Icon className="mb-2 h-4 w-4 text-accent-200 sm:mb-3 sm:h-5 sm:w-5" aria-hidden="true" />
+                <div className="font-display text-xl font-bold text-white sm:text-3xl">{value}</div>
+                <div className="mt-0.5 text-[11px] leading-tight text-blue-50/75 sm:mt-1 sm:text-sm">{label}</div>
               </div>
             ))}
           </div>

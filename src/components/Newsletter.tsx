@@ -23,71 +23,67 @@ const benefits = [
   },
   {
     icon: Gift,
-    title: "Contenu exclusif",
-    description: "Accédez à du contenu réservé aux abonnés",
+    title: "Nouveaux cours",
+    description: "Soyez informé des nouvelles séries",
   },
 ];
 
 const Newsletter = () => {
   return (
-    <section className="section-padding bg-white">
+    <section aria-labelledby="newsletter-title" className="bg-white py-12 md:py-16">
       <div className="container-custom">
-        <div className="mx-auto max-w-5xl">
-          {/* Main Card */}
-          <div className="relative overflow-hidden rounded-lg border border-neutral-200 bg-primary-900 shadow-xl">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(216,174,69,0.26),transparent_28rem)]" />
+        <div className="relative overflow-hidden rounded-2xl border border-accent-200/70 bg-gradient-to-br from-accent-50 via-white to-primary-50 p-6 md:p-10">
+          <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-accent-200/40 blur-3xl" aria-hidden="true" />
 
-            <div className="relative p-6 md:p-10">
-              <div className="mb-10 text-center">
-                {/* Icon */}
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-lg bg-white/10 text-accent-200 ring-1 ring-white/10">
-                  <Mail className="w-8 h-8 text-white" />
-                </div>
-
-                <h2 className="mb-4 text-3xl font-black text-white md:text-4xl">
-                  Recevoir le programme avant de manquer le cours.
-                </h2>
-                <p className="mx-auto max-w-xl text-blue-50/80">
-                  Inscrivez-vous pour recevoir le programme des cours, des rappels, 
-                  et du contenu exclusif directement dans votre boîte mail.
-                </p>
+          <div className="relative grid gap-8 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+            <div>
+              <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary-700 text-white">
+                <Mail className="h-5 w-5" aria-hidden="true" />
               </div>
-
-              {/* Benefits */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-                {benefits.map((benefit, index) => {
+              <h2 id="newsletter-title" className="text-2xl font-bold text-neutral-950 md:text-3xl">
+                Recevez le programme de la semaine.
+              </h2>
+              <p className="mt-3 max-w-xl text-neutral-600">
+                Les horaires des cours, les rappels avant les lives et les nouveautés,
+                directement dans votre boîte mail.
+              </p>
+              <ul className="mt-5 flex flex-wrap gap-2">
+                {benefits.map((benefit) => {
                   const Icon = benefit.icon;
                   return (
-                    <div key={index} className="rounded-lg border border-white/10 bg-white/10 p-4 text-center">
-                      <div className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-lg bg-accent-400/15 text-accent-200">
-                        <Icon className="h-5 w-5" />
-                      </div>
-                      <h4 className="mb-1 font-bold text-white">
-                        {benefit.title}
-                      </h4>
-                      <p className="text-sm text-blue-50/70">
-                        {benefit.description}
-                      </p>
-                    </div>
+                    <li
+                      key={benefit.title}
+                      className="inline-flex items-center gap-2 rounded-full border border-neutral-200 bg-white/80 px-3 py-1.5 text-sm font-medium text-neutral-700"
+                    >
+                      <Icon className="h-4 w-4 text-accent-600" aria-hidden="true" />
+                      {benefit.title}
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
+            </div>
 
-              {/* CTA Button */}
-              <div className="text-center">
-                <a
-                  href={SOCIAL_LINKS.newsletter}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 rounded-lg bg-accent-500 px-10 py-4 font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-accent-600 hover:shadow-lg hover:shadow-accent-500/25"
-                >
-                  <Mail className="w-5 h-5" />
-                  S'inscrire à la Newsletter
-                </a>
-                <p className="mt-4 text-sm text-blue-50/60">
-                  Pas de spam, désinscription facile à tout moment.
-                </p>
-              </div>
+            <div className="flex flex-col gap-3 lg:items-end">
+              <a
+                href={SOCIAL_LINKS.newsletter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary w-full justify-center px-8 py-4 text-base lg:w-auto"
+              >
+                <Mail className="h-5 w-5" aria-hidden="true" />
+                S'inscrire à la newsletter
+              </a>
+              <a
+                href={SOCIAL_LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline w-full justify-center lg:w-auto"
+              >
+                Ou suivre le groupe WhatsApp
+              </a>
+              <p className="text-center text-xs text-neutral-500 lg:text-right">
+                Gratuit · désinscription en un clic
+              </p>
             </div>
           </div>
         </div>

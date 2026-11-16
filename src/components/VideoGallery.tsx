@@ -93,7 +93,7 @@ const VideoGallery = () => {
 
         {/* Loading */}
         {loading && (
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="carousel-sm sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
             {Array.from({ length: 8 }).map((_, index) => (
               <div key={index} className="card overflow-hidden">
                 <div className="aspect-video animate-pulse bg-neutral-100" />
@@ -150,7 +150,7 @@ const VideoGallery = () => {
 
         {/* Video Grid */}
         {!loading && !error && videos.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="carousel-sm sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
             {videos.map((video, i) => (
               <button
                 type="button"

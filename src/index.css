@@ -4,12 +4,6 @@
  * Premium, restrained visual language for a Torah education platform.
  */
 
-/* =============================================================================
-   MODERN FONTS - Inter + Outfit (not Times New Roman!)
-   ============================================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -70,7 +64,7 @@
 @layer base {
   html {
     @apply scroll-smooth antialiased;
-    scroll-padding-top: 92px;
+    scroll-padding-top: 76px;
     scrollbar-gutter: stable;
   }
 
@@ -82,20 +76,22 @@
       linear-gradient(180deg, #ffffff 0%, var(--page-bg) 58%, #ffffff 100%);
     font-family: var(--font-body);
     font-size: 16px;
-    line-height: 1.6;
+    line-height: 1.65;
     text-rendering: optimizeLegibility;
+    font-feature-settings: "cv11", "ss01";
   }
 
-  main > section {
-    content-visibility: auto;
-    contain-intrinsic-size: 900px;
+  ::selection {
+    background: rgba(217, 174, 69, 0.35);
+    color: #10243D;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
     @apply font-bold text-neutral-950;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
@@ -105,6 +101,11 @@
 
   p {
     @apply text-base leading-relaxed;
+    text-wrap: pretty;
+  }
+
+  img {
+    @apply select-none;
   }
 
   a {
@@ -180,18 +181,20 @@
   }
 
   .section-padding {
-    @apply py-16 md:py-20 lg:py-24;
+    @apply py-14 md:py-20 lg:py-24;
   }
 
   .section-title {
     font-family: var(--font-display);
-    @apply font-bold text-3xl md:text-4xl lg:text-5xl text-neutral-950 mb-4;
-    letter-spacing: -0.015em;
+    @apply font-bold text-[1.85rem] leading-[1.12] sm:text-4xl lg:text-[2.85rem] text-neutral-950 mb-4;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
   }
 
   .section-subtitle {
     @apply text-base md:text-lg text-neutral-600 max-w-2xl;
     line-height: 1.7;
+    text-wrap: pretty;
   }
 
   .eyebrow {
@@ -218,8 +221,8 @@
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-neutral-200/80 
-           transition-all duration-200 hover:shadow-lg hover:shadow-neutral-900/5 hover:border-neutral-300;
+    @apply bg-white rounded-xl shadow-[0_1px_2px_rgba(16,36,61,0.04)] border border-neutral-200/80
+           transition-[box-shadow,border-color,transform] duration-300 hover:shadow-[0_18px_40px_-24px_rgba(16,36,61,0.35)] hover:border-neutral-300;
   }
 
   .glass {
@@ -244,38 +247,76 @@
     text-wrap: balance;
   }
 
+  /* Légère élévation au survol (remplace l'ancien effet de bascule 3D) */
   .premium-card-3d {
-    backface-visibility: hidden;
-    contain: paint;
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: transform 360ms var(--ease-out), box-shadow 360ms var(--ease-out), border-color 360ms var(--ease-out);
+    transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out), border-color 300ms var(--ease-out);
   }
 
-  .premium-card-3d:hover {
-    transform: perspective(1000px) rotateX(1.5deg) rotateY(-2deg) translate3d(0, -4px, 0);
-    box-shadow: 0 28px 80px -36px rgba(16, 36, 61, 0.45);
+  @media (hover: hover) {
+    .premium-card-3d:hover {
+      transform: translate3d(0, -3px, 0);
+      box-shadow: 0 22px 48px -28px rgba(16, 36, 61, 0.4);
+    }
   }
 
   .holo-sheen {
     position: relative;
-    overflow: hidden;
   }
 
-  .holo-sheen::before {
-    content: "";
-    position: absolute;
-    inset: -60% auto auto -40%;
-    width: 55%;
-    height: 220%;
-    background: linear-gradient(110deg, transparent, rgba(255,255,255,0.42), transparent);
-    transform: rotate(18deg);
-    transition: transform 700ms var(--ease-out);
-    pointer-events: none;
+  /* Carrousel horizontal sur mobile, grille au-delà */
+  .carousel-sm,
+  .carousel-lg {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.25rem;
+    margin-inline: -1.25rem;
+    padding: 0.25rem 1.25rem 1rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .holo-sheen:hover::before {
-    transform: translateX(260%) rotate(18deg);
+  .carousel-sm::-webkit-scrollbar,
+  .carousel-lg::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-sm > *,
+  .carousel-lg > * {
+    flex: 0 0 82%;
+    scroll-snap-align: start;
+  }
+
+  @media (min-width: 640px) {
+    .carousel-sm {
+      display: grid;
+      overflow: visible;
+      margin-inline: 0;
+      padding: 0;
+    }
+
+    .carousel-sm > * {
+      flex: none;
+    }
+
+    .carousel-lg > * {
+      flex-basis: 60%;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .carousel-lg {
+      display: grid;
+      overflow: visible;
+      margin-inline: 0;
+      padding: 0;
+    }
+
+    .carousel-lg > * {
+      flex: none;
+    }
   }
 }
 

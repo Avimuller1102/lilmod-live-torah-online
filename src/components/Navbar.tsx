@@ -9,22 +9,17 @@
  */
 
 import { useState, useEffect } from 'react';
+import { useScrollState } from '@/hooks/useScrollState';
+import BackToTop from '@/components/BackToTop';
 import { Menu, X, Youtube, Instagram, ExternalLink, Mail, Headphones, Heart } from 'lucide-react';
 import { NAV_LINKS, SOCIAL_LINKS, IMAGES } from '@/lib/constants';
 
+const SECTION_IDS = NAV_LINKS.map((link) => link.href.slice(1));
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const { progress, scrollY, active } = useScrollState(SECTION_IDS);
+  const scrolled = scrollY > 20;
 
   // Close menu on escape key
   useEffect(() => {
@@ -97,17 +92,23 @@ const Navbar = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden xl:flex items-center gap-4 whitespace-nowrap">
-              {NAV_LINKS.filter((link) => link.href !== '#home').map((link) => (
+              {NAV_LINKS.filter((link) => link.href !== '#home').map((link) => {
+                const isActive = active === link.href.slice(1);
+                return (
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`text-sm font-semibold transition-all duration-300 hover:text-accent-500 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-accent-500 after:transition-all after:duration-300 hover:after:w-full ${
-                    scrolled ? 'text-primary-700' : 'text-white/90'
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`relative py-1 text-sm font-semibold transition-colors duration-200 after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:rounded-full after:bg-accent-500 after:transition-all after:duration-300 hover:text-accent-600 hover:after:w-full ${
+                    isActive ? 'after:w-full' : 'after:w-0'
+                  } ${
+                    scrolled ? (isActive ? 'text-primary-900' : 'text-primary-700') : 'text-white/90'
                   }`}
                 >
                   {link.label}
                 </a>
-              ))}
+                );
+              })}
 
               {/* CTA Buttons */}
               <div className="flex items-center gap-3 ml-2">
@@ -196,13 +197,18 @@ const Navbar = () => {
 
             {/* Mobile Links */}
             <div className="flex-1 overflow-y-auto py-6 px-4">
-              <nav className="space-y-2">
+              <nav className="space-y-1" aria-label="Menu mobile">
                 {NAV_LINKS.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={closeMenu}
-                    className="block px-4 py-3 text-lg font-medium text-primary-800 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition-colors"
+                    aria-current={active === link.href.slice(1) ? 'true' : undefined}
+                    className={`flex items-center justify-between rounded-xl px-4 py-3 text-lg font-semibold transition-colors ${
+                      active === link.href.slice(1)
+                        ? 'bg-accent-50 text-primary-900'
+                        : 'text-primary-800 hover:bg-primary-50 hover:text-primary-600'
+                    }`}
                   >
                     {link.label}
                   </a>
@@ -278,7 +284,17 @@ const Navbar = () => {
             aria-hidden="true"
           />
         )}
+        {/* Barre de progression de lecture */}
+        <div
+          className={`pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-accent-400 to-accent-600 transition-opacity duration-300 ${
+            scrolled ? 'opacity-100' : 'opacity-0'
+          }`}
+          style={{ transform: `scaleX(${progress})` }}
+          aria-hidden="true"
+        />
       </nav>
+
+      <BackToTop visible={scrollY > 900 && !isOpen} />
     </>
   );
 };

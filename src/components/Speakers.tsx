@@ -98,7 +98,7 @@ const Speakers = () => {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+        <div className="flex flex-wrap justify-center gap-x-3 gap-y-5 sm:gap-x-4 md:gap-6">
           {SPEAKERS.map((speaker, i) => (
             <button
               key={speaker.id}
@@ -106,11 +106,11 @@ const Speakers = () => {
               onClick={() => setSelectedSpeaker(speaker)}
               aria-haspopup="dialog"
               aria-label={`${speaker.name} – ${speaker.specialty}`}
-              className={`group text-center transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
+              className={`group w-[calc((100%-1.5rem)/3)] text-center transition-all duration-400 sm:w-[calc((100%-2rem)/3)] md:w-[calc((100%-4.5rem)/4)] lg:w-[calc((100%-6rem)/5)] ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
               style={{ transitionDelay: `${i * 50}ms` }}
             >
-              <div className="relative mb-3">
-                <div className="premium-card-3d aspect-square rounded-lg overflow-hidden bg-neutral-100 shadow-sm ring-1 ring-neutral-200 group-hover:shadow-lg transition-shadow">
+              <div className="relative mb-2 sm:mb-3">
+                <div className="premium-card-3d aspect-square rounded-xl overflow-hidden bg-neutral-100 shadow-sm ring-1 ring-neutral-200 group-hover:shadow-lg transition-shadow">
                   <img
                     src={speaker.image}
                     alt=""
@@ -125,8 +125,8 @@ const Speakers = () => {
                   />
                 </div>
               </div>
-              <h3 className="font-medium text-neutral-900 text-sm">{speaker.name}</h3>
-              <p className="mt-0.5 text-xs text-neutral-500">{speaker.specialty}</p>
+              <h3 className="text-[13px] font-semibold leading-tight text-neutral-900 sm:text-sm">{speaker.name}</h3>
+              <p className="mt-1 hidden text-xs leading-snug text-neutral-500 sm:block">{speaker.specialty}</p>
             </button>
           ))}
         </div>

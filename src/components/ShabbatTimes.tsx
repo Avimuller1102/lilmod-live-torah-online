@@ -72,7 +72,7 @@ const ShabbatTimes = () => {
               <Sparkles className="h-3.5 w-3.5" />
               Horaires de Chabbat
             </span>
-            <h2 className="mt-5 text-balance text-4xl font-black text-white md:text-5xl">
+            <h2 className="mt-5 text-balance text-4xl font-extrabold text-white md:text-5xl">
               Les horaires de Chabbat, ville par ville.
             </h2>
             <p className="mt-5 max-w-xl text-lg leading-8 text-blue-50/80">
@@ -130,11 +130,11 @@ const ShabbatTimes = () => {
                     <MapPin className="h-4 w-4" />
                     {selectedCity.city}, {selectedCity.countryLabel}
                   </div>
-                  <h3 className="mt-2 text-3xl font-black text-white">Cette semaine</h3>
+                  <h3 className="mt-2 text-3xl font-extrabold text-white">Cette semaine</h3>
                 </div>
                 <div className="rounded-lg border border-accent-300/30 bg-accent-300/10 px-4 py-3 text-right">
                   <div className="text-xs font-bold uppercase tracking-[0.18em] text-accent-100">Paracha</div>
-                  <div className="mt-1 font-black text-white">{paracha?.name || "Chargement"}</div>
+                  <div className="mt-1 font-extrabold text-white">{paracha?.name || "Chargement"}</div>
                   <div className="text-sm text-blue-50/70" lang="he" dir="rtl">{paracha?.hebrewName}</div>
                 </div>
               </div>
@@ -165,11 +165,11 @@ const ShabbatTimes = () => {
                 {paracha?.dateRange || "Calcul de la semaine en cours"}
               </div>
 
-              <div className="mt-7 grid gap-2 sm:grid-cols-2">
+              <div className="mt-7 grid grid-cols-2 gap-2">
                 {countryTimes.map((time) => (
                   <div key={`${time.city}-${time.entree}`} className="rounded-lg border border-white/10 bg-primary-900/30 p-3">
                     <div className="font-bold text-white">{time.city}</div>
-                    <div className="mt-1 flex items-center justify-between text-sm text-blue-50/75">
+                    <div className="mt-1 flex flex-col text-xs text-blue-50/75 sm:flex-row sm:items-center sm:justify-between sm:text-sm">
                       <span>Entrée {time.entree}</span>
                       <span>Sortie {time.sortie}</span>
                     </div>
@@ -203,7 +203,7 @@ const TimePanel = ({
       </div>
       <Clock3 className="h-5 w-5 text-accent-200" />
     </div>
-    <div className="text-5xl font-black tabular-nums text-white">{value}</div>
+    <div className="text-5xl font-extrabold tabular-nums text-white">{value}</div>
     <p className="mt-3 line-clamp-2 text-sm leading-6 text-blue-50/70">{caption}</p>
   </div>
 );

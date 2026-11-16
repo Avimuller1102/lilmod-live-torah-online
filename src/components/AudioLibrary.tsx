@@ -99,7 +99,7 @@ const AudioLibrary = () => {
                   <Music2 className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-neutral-950">Tous les épisodes sur Spotify</h3>
+                  <h3 className="text-xl font-extrabold text-neutral-950">Tous les épisodes sur Spotify</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
                     Le lecteur ci-dessus joue le dernier épisode publié. Abonnez-vous au podcast
                     LILMOD sur Spotify pour retrouver l'ensemble des cours audio et être averti des nouveautés.
@@ -115,7 +115,7 @@ const AudioLibrary = () => {
         )}
 
         {!loadingEpisodes && episodes.length > 0 && (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="carousel-sm sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
             {episodes.map((episode, index) => (
               <a
                 key={episode.id}

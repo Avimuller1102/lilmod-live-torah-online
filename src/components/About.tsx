@@ -87,7 +87,7 @@ const About = () => {
                   <div className={`mb-7 flex h-12 w-12 items-center justify-center rounded-lg ${index === 0 ? 'bg-white/10 text-accent-200' : 'bg-accent-50 text-accent-700'}`}>
                     <Icon className="h-6 w-6" />
                   </div>
-                  <div className={`text-4xl font-black ${index === 0 ? 'text-white' : 'text-neutral-950'}`}>{item.stat}</div>
+                  <div className={`text-4xl font-extrabold ${index === 0 ? 'text-white' : 'text-neutral-950'}`}>{item.stat}</div>
                   <div className={`mt-2 text-sm font-medium ${index === 0 ? 'text-blue-100/80' : 'text-neutral-500'}`}>{item.label}</div>
                 </div>
               );

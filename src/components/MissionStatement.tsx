@@ -57,23 +57,25 @@ const MissionStatement = () => {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
             {pillars.map((pillar, index) => {
               const Icon = pillar.icon;
               return (
                 <div
                   key={pillar.french}
-                  className={`card p-5 transition-all duration-500 hover:-translate-y-1 ${
+                  className={`card flex items-start gap-4 p-4 transition-all duration-500 sm:block sm:p-5 ${
                     isVisible ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
                   }`}
                   style={{ transitionDelay: `${index * 80}ms` }}
                 >
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg bg-primary-50 text-primary-700">
-                    <Icon className="h-5 w-5" />
+                  <div className="mb-5 hidden h-11 w-11 items-center justify-center rounded-lg bg-primary-50 text-primary-700 sm:flex">
+                    <Icon className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <div className="mb-2 text-4xl font-black text-accent-600" lang="he" dir="rtl">{pillar.hebrew}</div>
-                  <h3 className="text-lg font-bold text-neutral-950">{pillar.french}</h3>
-                  <p className="mt-3 text-sm leading-6 text-neutral-600">{pillar.text}</p>
+                  <div className="w-14 flex-shrink-0 font-display text-3xl font-bold text-accent-600 sm:mb-2 sm:w-auto sm:text-4xl" lang="he" dir="rtl">{pillar.hebrew}</div>
+                  <div>
+                    <h3 className="text-base font-bold text-neutral-950 sm:text-lg">{pillar.french}</h3>
+                    <p className="mt-1 text-sm leading-6 text-neutral-600 sm:mt-3">{pillar.text}</p>
+                  </div>
                 </div>
               );
             })}
