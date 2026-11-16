@@ -45,7 +45,11 @@ async function fetchFromServerless(limit: number): Promise<SpotifyEpisode[]> {
     const response = await fetch(`/.netlify/functions/spotify-latest?limit=${limit}`);
     if (!response.ok) return [];
 
+    if (!response.headers.get("content-type")?.includes("application/json")) return [];
+
     const data = await response.json();
+    // L'oEmbed ne renvoie que le dernier épisode, déjà affiché par le lecteur officiel.
+    if (data.source === "spotify-oembed") return [];
     return Array.isArray(data.episodes) ? data.episodes : [];
   } catch {
     return [];

@@ -1,5 +1,10 @@
 const SHOW_ID = "5oJ8bkMtw0hR1iRxomrSRR";
 
+// Adresse publique du flux RSS du podcast (optionnelle, pas une clé).
+// À remplir avec l'URL donnée par Spotify for Creators pour afficher
+// automatiquement tous les derniers épisodes.
+const PODCAST_RSS_URL = "";
+
 const headers = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "Content-Type",
@@ -21,12 +26,12 @@ export const handler = async (event) => {
   }
 
   try {
-    const embedEpisodes = await fetchFromSpotifyEmbedToken(limit);
-    if (embedEpisodes.length > 0) {
-      return jsonResponse({ episodes: embedEpisodes, source: "spotify-embed-token" });
+    const rssEpisodes = await fetchFromPodcastRss(limit);
+    if (rssEpisodes.length > 0) {
+      return jsonResponse({ episodes: rssEpisodes, source: "podcast-rss" });
     }
   } catch (error) {
-    errors.push(error.message || "Spotify embed token unavailable");
+    errors.push(error.message || "Podcast RSS unavailable");
   }
 
   try {
@@ -98,48 +103,65 @@ async function getAccessToken(clientId, clientSecret) {
   return data.access_token;
 }
 
-async function fetchFromSpotifyEmbedToken(limit) {
-  const token = await getEmbedAccessToken();
-  const response = await fetch(`https://api.spotify.com/v1/shows/${SHOW_ID}/episodes?market=FR&limit=${limit}`, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`Spotify embed API error: ${response.status}`);
+/**
+ * Flux RSS public du podcast (Spotify for Creators, Ausha, etc.).
+ * Ce n'est pas une clé : c'est l'adresse publique du podcast, visible dans
+ * Spotify for Creators > Paramètres > Disponibilité > Flux RSS.
+ */
+async function fetchFromPodcastRss(limit) {
+  const feedUrl = process.env.PODCAST_RSS_URL || PODCAST_RSS_URL;
+  if (!feedUrl) {
+    throw new Error("Podcast RSS URL is not configured");
   }
 
-  const data = await response.json();
-  return data.items || [];
+  const response = await fetch(feedUrl, { headers: { Accept: "application/rss+xml, application/xml, text/xml" } });
+  if (!response.ok) {
+    throw new Error(`Podcast RSS error: ${response.status}`);
+  }
+
+  const xml = await response.text();
+  const channelImage = matchFirst(xml, /<itunes:image[^>]*href="([^"]+)"/);
+
+  return [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)]
+    .slice(0, limit)
+    .map(([, item]) => {
+      const title = cleanHtml(stripCdata(matchFirst(item, /<title>([\s\S]*?)<\/title>/)));
+      const link = stripCdata(matchFirst(item, /<link>([\s\S]*?)<\/link>/)).trim();
+      const guid = stripCdata(matchFirst(item, /<guid[^>]*>([\s\S]*?)<\/guid>/)).trim();
+      const pubDate = matchFirst(item, /<pubDate>([\s\S]*?)<\/pubDate>/);
+      const date = new Date(pubDate);
+      const image = matchFirst(item, /<itunes:image[^>]*href="([^"]+)"/) || channelImage;
+      const description = stripCdata(
+        matchFirst(item, /<description>([\s\S]*?)<\/description>/) ||
+          matchFirst(item, /<itunes:summary>([\s\S]*?)<\/itunes:summary>/),
+      );
+
+      return {
+        id: guid || link || title,
+        name: title,
+        description: truncate(cleanHtml(description), 260),
+        duration_ms: parseDuration(matchFirst(item, /<itunes:duration>([\s\S]*?)<\/itunes:duration>/)),
+        release_date: Number.isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10),
+        images: image ? [{ url: image, height: 300, width: 300 }] : [],
+        external_urls: {
+          spotify: link || `https://open.spotify.com/show/${SHOW_ID}`,
+        },
+      };
+    })
+    .filter((episode) => episode.name);
 }
 
-async function getEmbedAccessToken() {
-  const response = await fetch(`https://open.spotify.com/embed/show/${SHOW_ID}`, {
-    headers: {
-      "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8",
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36",
-    },
-  });
+function stripCdata(value) {
+  return String(value || "").replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
+}
 
-  if (!response.ok) {
-    throw new Error(`Spotify embed page error: ${response.status}`);
-  }
-
-  const html = await response.text();
-  const nextData = matchFirst(html, /<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
-  if (!nextData) {
-    throw new Error("Spotify embed token is missing");
-  }
-
-  const data = JSON.parse(nextData);
-  const token = data?.props?.pageProps?.state?.settings?.session?.accessToken;
-  if (!token) {
-    throw new Error("Spotify embed token is empty");
-  }
-
-  return token;
+function parseDuration(value) {
+  const text = String(value || "").trim();
+  if (!text) return 0;
+  if (/^\d+$/.test(text)) return Number(text) * 1000;
+  const parts = text.split(":").map(Number);
+  if (parts.some(Number.isNaN)) return 0;
+  return parts.reduce((total, part) => total * 60 + part, 0) * 1000;
 }
 
 async function fetchFromPublicSpotifyPage(limit) {

@@ -7,7 +7,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { Play, Youtube, Clock, Loader2, RefreshCw, X } from 'lucide-react';
 import { IMAGES, SOCIAL_LINKS } from '@/lib/constants';
-import { fetchLatestYouTubeVideos, type YouTubeVideo } from '@/services/youtubeService.ts';
+import {
+  fetchLatestYouTubeVideos,
+  YOUTUBE_UPLOADS_EMBED_URL,
+  type YouTubeVideo,
+} from '@/services/youtubeService.ts';
 
 const VideoGallery = () => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
@@ -69,7 +73,7 @@ const VideoGallery = () => {
           <div>
             <span className="eyebrow">Vidéothèque</span>
             <h2 className="section-title mt-5">Les derniers cours en replay.</h2>
-            <p className="section-subtitle">Une sélection de cours disponibles sur YouTube, avec accès direct à toute la chaîne LILMOD.</p>
+            <p className="section-subtitle">Les cours les plus récents publiés sur la chaîne YouTube LILMOD, mis à jour automatiquement.</p>
           </div>
           <div className="flex flex-wrap gap-3 lg:justify-end">
             <button
@@ -113,8 +117,39 @@ const VideoGallery = () => {
           </div>
         )}
 
+        {/* Fallback: official YouTube player of the channel uploads (always up to date) */}
+        {!loading && !error && videos.length === 0 && (
+          <div className={`card overflow-hidden transition-all duration-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+            <div className="aspect-video bg-black">
+              <iframe
+                src={YOUTUBE_UPLOADS_EMBED_URL}
+                title="Dernières vidéos de la chaîne LILMOD"
+                className="h-full w-full"
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+            <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-neutral-600">
+                Le lecteur démarre sur la dernière vidéo publiée ; utilisez la liste du lecteur pour parcourir les précédentes.
+              </p>
+              <a
+                href={`${SOCIAL_LINKS.youtube}/videos`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline shrink-0 text-sm"
+              >
+                <Youtube className="h-4 w-4" />
+                Toutes les vidéos
+              </a>
+            </div>
+          </div>
+        )}
+
         {/* Video Grid */}
-        {!loading && !error && (
+        {!loading && !error && videos.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {videos.map((video, i) => (
               <div
@@ -167,8 +202,10 @@ const VideoGallery = () => {
           </button>
           <div className="w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden" onClick={e => e.stopPropagation()}>
             <iframe
-              src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+              src={`https://www.youtube-nocookie.com/embed/${selectedVideo}?autoplay=1&rel=0`}
+              title="Lecteur vidéo YouTube"
               className="w-full h-full"
+              referrerPolicy="strict-origin-when-cross-origin"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             />

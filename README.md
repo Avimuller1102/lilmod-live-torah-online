@@ -59,32 +59,17 @@ Le formulaire de contact utilise [Formspree](https://formspree.io) pour envoyer 
 VITE_FORMSPREE_ID=votre_id_formspree
 ```
 
-### Configuration YouTube
+### YouTube et Spotify (aucune clé)
 
-Le site fonctionne sans clé YouTube grâce à des contenus de secours. Pour afficher automatiquement les derniers cours :
+- **YouTube** : la fonction `netlify/functions/youtube-latest.js` lit le flux RSS public de la chaîne
+  et affiche automatiquement les dernières vidéos. Si la fonction n'est pas disponible, le site affiche
+  le lecteur officiel de la playlist « Uploads » de la chaîne, qui démarre toujours sur la dernière vidéo.
+- **Spotify** : le lecteur officiel affiche le dernier épisode. Pour afficher en plus la liste des derniers
+  épisodes, renseignez (optionnel) l'adresse publique du flux RSS du podcast dans la variable Netlify
+  `PODCAST_RSS_URL` (Spotify for Creators → Paramètres → Disponibilité → Flux RSS).
 
-```env
-VITE_YOUTUBE_API_KEY=votre_cle_youtube_data_api
-```
-
-Créez une clé Google Cloud pour YouTube Data API v3 et restreignez-la à vos domaines de déploiement.
-
-Sur Netlify, les dernières vidéos sont aussi récupérées via le flux public YouTube par la fonction
-`netlify/functions/youtube-latest.js`, donc le site peut rester à jour sans exposer de clé côté client.
-
-### Configuration Spotify
-
-Le lecteur Spotify officiel fonctionne sans configuration. Pour afficher aussi les derniers épisodes en cartes dynamiques :
-
-1. Créez une app dans le dashboard Spotify Developer.
-2. Ajoutez ces variables dans Netlify :
-
-```env
-SPOTIFY_CLIENT_ID=votre_client_id
-SPOTIFY_CLIENT_SECRET=votre_client_secret
-```
-
-Ces valeurs ne doivent jamais être mises dans le code public.
+> Les fonctions Netlify ne sont déployées que si le site Netlify est relié au repo GitHub
+> (un glisser-déposer du dossier `dist` ne les inclut pas).
 
 ## 📦 Scripts Disponibles
 
@@ -146,9 +131,7 @@ src/
    - Publish directory : `dist`
 6. Ajoutez les variables d'environnement :
    - `VITE_FORMSPREE_ID`
-   - `VITE_YOUTUBE_API_KEY` optionnelle
-   - `SPOTIFY_CLIENT_ID` optionnelle
-   - `SPOTIFY_CLIENT_SECRET` optionnelle
+   - `PODCAST_RSS_URL` optionnelle
 7. Déployez. Netlify donne une URL gratuite du type `https://votre-site.netlify.app`.
 
 ### Alternative : Vercel

@@ -3,7 +3,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
-import { Calendar, Clock, ExternalLink, Headphones, Loader2, Music2, ShieldCheck } from 'lucide-react';
+import { Calendar, Clock, ExternalLink, Headphones, Loader2, Music2 } from 'lucide-react';
 import { IMAGES, SOCIAL_LINKS } from '@/lib/constants';
 import {
   fetchSpotifyEpisodes,
@@ -76,9 +76,10 @@ const AudioLibrary = () => {
           <iframe
             src="https://open.spotify.com/embed/show/5oJ8bkMtw0hR1iRxomrSRR?theme=0"
             width="100%"
-            height="232"
+            height="352"
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             loading="lazy"
+            className="block"
             title="Podcast LILMOD sur Spotify"
           />
         </div>
@@ -91,24 +92,23 @@ const AudioLibrary = () => {
         )}
 
         {!loadingEpisodes && episodes.length === 0 && (
-          <div className="premium-card-3d rounded-lg border border-green-200 bg-white p-6 shadow-sm">
+          <div className="rounded-lg border border-green-200 bg-white p-6 shadow-sm">
             <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex gap-4">
                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg bg-green-50 text-green-700">
-                  <ShieldCheck className="h-6 w-6" />
+                  <Music2 className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-black text-neutral-950">Podcast officiel Spotify connecté</h3>
+                  <h3 className="text-xl font-black text-neutral-950">Tous les épisodes sur Spotify</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
-                    Je n'affiche aucun faux épisode. Les cartes dynamiques apparaîtront dès que
-                    `SPOTIFY_CLIENT_ID` et `SPOTIFY_CLIENT_SECRET` seront configurés dans Netlify.
-                    En attendant, le lecteur officiel ci-dessus montre le podcast LILMOD directement depuis Spotify.
+                    Le lecteur ci-dessus joue le dernier épisode publié. Abonnez-vous au podcast
+                    LILMOD sur Spotify pour retrouver l'ensemble des cours audio et être averti des nouveautés.
                   </p>
                 </div>
               </div>
               <a href={SOCIAL_LINKS.spotify} target="_blank" rel="noopener noreferrer" className="btn-outline flex-shrink-0">
-                <Music2 className="h-4 w-4" />
-                Voir sur Spotify
+                <Headphones className="h-4 w-4" />
+                Voir tous les épisodes
               </a>
             </div>
           </div>
