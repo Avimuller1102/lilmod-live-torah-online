@@ -61,6 +61,21 @@ const HeroSection = () => {
               <p className="text-sm font-bold uppercase tracking-[0.22em] text-accent-200">LILMOD by Torah Mitzion</p>
               <p className="text-sm text-blue-100/80">Un peuple, une Torah, une terre</p>
             </div>
+            <a
+              href="https://torahmitzion.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 hidden border-l border-white/20 pl-5 sm:block"
+              aria-label="Torah MiTzion - site officiel"
+            >
+              <img
+                src={IMAGES.torahMitzionLogo}
+                alt="Torah MiTzion"
+                width={226}
+                height={105}
+                className="h-14 w-auto"
+              />
+            </a>
           </div>
 
           <h1

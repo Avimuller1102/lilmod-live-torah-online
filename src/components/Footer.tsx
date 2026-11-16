@@ -37,6 +37,26 @@ const Footer = () => {
               {SITE_CONFIG.description}
             </p>
 
+            <a
+              href="https://torahmitzion.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mb-6 inline-flex flex-col gap-2"
+              aria-label="Torah MiTzion - site officiel"
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200/70">
+                Un programme de
+              </span>
+              <img
+                src={IMAGES.torahMitzionLogo}
+                alt="Torah MiTzion"
+                width={226}
+                height={105}
+                loading="lazy"
+                className="h-14 w-auto"
+              />
+            </a>
+
             {/* Social Links */}
             <div className="flex gap-3">
               <a

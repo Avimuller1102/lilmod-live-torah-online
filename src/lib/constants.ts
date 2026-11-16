@@ -56,6 +56,7 @@ export const NAV_LINKS = [
 export const IMAGES = {
   // Logo
   logo: "/lovable-uploads/ef1966f8-ad71-4e6c-ac5f-613ab18d578c.png",
+  torahMitzionLogo: "/images/torah-mitzion-logo.png",
   
   // Speakers
   speakers: {
