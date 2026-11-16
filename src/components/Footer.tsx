@@ -18,22 +18,22 @@ const Footer = () => {
   return (
     <footer className="bg-primary-900 text-white">
       {/* Main Footer */}
-      <div className="container-custom py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+      <div className="container-custom py-10 md:py-16">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-4 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <a href="#home" className="flex items-center gap-3 mb-6">
+            <a href="#home" className="flex items-center gap-3 mb-4 md:mb-6">
               <img
                 src={IMAGES.logo}
                 alt="LILMOD"
-                className="w-14 h-14 rounded-full border-2 border-accent-500"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full border-2 border-accent-500"
               />
               <div>
                 <span className="text-2xl font-display font-bold">LILMOD</span>
                 <span className="text-accent-400 text-sm">.fr</span>
               </div>
             </a>
-            <p className="text-blue-200 text-sm leading-relaxed mb-6">
+            <p className="text-blue-200 text-sm leading-relaxed mb-5 md:mb-6">
               {SITE_CONFIG.description}
             </p>
 
@@ -41,7 +41,7 @@ const Footer = () => {
               href="https://torahmitzion.org/"
               target="_blank"
               rel="noopener noreferrer"
-              className="mb-6 inline-flex flex-col gap-2"
+              className="mb-5 inline-flex flex-col gap-2 md:mb-6"
               aria-label="Torah MiTzion - site officiel"
             >
               <span className="text-xs font-semibold uppercase tracking-[0.18em] text-blue-200/70">
@@ -53,7 +53,7 @@ const Footer = () => {
                 width={226}
                 height={105}
                 loading="lazy"
-                className="h-14 w-auto"
+                className="h-11 w-auto md:h-14"
               />
             </a>
 
@@ -100,8 +100,8 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6 text-white">Liens Rapides</h4>
-            <ul className="space-y-3">
+            <h4 className="text-base md:text-lg font-display font-bold mb-3 md:mb-6 text-white">Liens Rapides</h4>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[15px] md:block md:space-y-3 md:text-base">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>
                   <a
@@ -112,7 +112,7 @@ const Footer = () => {
                   </a>
                 </li>
               ))}
-              <li>
+              <li className="col-span-2 pt-1 md:pt-0">
                 <a
                   href={SOCIAL_LINKS.linktree}
                   target="_blank"
@@ -128,8 +128,8 @@ const Footer = () => {
 
           {/* Newsletter & Contact */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6 text-white">Restez Connecté</h4>
-            <div className="space-y-4">
+            <h4 className="text-base md:text-lg font-display font-bold mb-3 md:mb-6 text-white">Restez Connecté</h4>
+            <div className="grid grid-cols-2 gap-2 md:block md:space-y-4">
               <a
                 href={SOCIAL_LINKS.newsletter}
                 target="_blank"
@@ -141,7 +141,7 @@ const Footer = () => {
                   <div className="font-medium group-hover:text-accent-400 transition-colors">
                     Newsletter
                   </div>
-                  <div className="text-xs text-blue-200">Programme hebdomadaire</div>
+                  <div className="hidden text-xs text-blue-200 sm:block">Programme hebdomadaire</div>
                 </div>
               </a>
 
@@ -158,7 +158,7 @@ const Footer = () => {
                   <div className="font-medium group-hover:text-white transition-colors">
                     WhatsApp
                   </div>
-                  <div className="text-xs text-blue-200 group-hover:text-white/80 transition-colors">
+                  <div className="hidden text-xs text-blue-200 group-hover:text-white/80 transition-colors sm:block">
                     Groupe communauté
                   </div>
                 </div>
@@ -168,8 +168,8 @@ const Footer = () => {
 
           {/* Partners */}
           <div>
-            <h4 className="text-lg font-display font-bold mb-6 text-white">Nos Partenaires</h4>
-            <div className="space-y-4">
+            <h4 className="text-base md:text-lg font-display font-bold mb-3 md:mb-6 text-white">Nos Partenaires</h4>
+            <div className="grid grid-cols-2 gap-2 md:block md:space-y-4">
               {PARTNERS.map((partner) => (
                 <div
                   key={partner.id}
@@ -178,9 +178,9 @@ const Footer = () => {
                   <img
                     src={partner.logo}
                     alt={partner.name}
-                    className="w-10 h-10 object-contain rounded bg-white/10"
+                    className="w-8 h-8 md:w-10 md:h-10 flex-shrink-0 object-contain rounded bg-white/10"
                   />
-                  <span className="text-sm text-blue-200">
+                  <span className="text-xs leading-tight text-blue-200 md:text-sm">
                     {partner.name}
                   </span>
                 </div>
@@ -192,13 +192,13 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-white/10">
-        <div className="container-custom py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-blue-200">
+        <div className="container-custom py-4 md:py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-1 md:gap-4">
+            <p className="text-xs md:text-sm text-blue-200">
               © {currentYear} {SITE_CONFIG.name} - Tous droits réservés
             </p>
-            <p className="text-sm text-blue-200 flex items-center gap-2">
-              Fait avec <Heart className="w-4 h-4 text-red-400" /> depuis Jérusalem
+            <p className="text-xs md:text-sm text-blue-200 flex items-center gap-1.5">
+              Fait avec <Heart className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-400" aria-hidden="true" /> depuis Jérusalem
             </p>
           </div>
         </div>
