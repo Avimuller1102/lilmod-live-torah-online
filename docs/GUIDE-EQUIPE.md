@@ -43,7 +43,8 @@ Menu **Cours récurrents** : décrivez une fois les séances habituelles (ex. «
 
 ## 4. Les heures et les fuseaux
 
-- Saisissez l'heure dans le fuseau qui vous arrange (Israël ou France) : le site affiche **toujours les deux**.
+- L'heure de référence est **l'heure de France**. Partout (site, e-mails, WhatsApp), l'heure d'Israël est indiquée entre parenthèses : « 17h00 (18h00 Israël) ».
+- Saisissez l'heure de France (choix par défaut) ; vous pouvez aussi saisir une heure d'Israël, elle sera convertie.
 - Les changements d'heure de chaque pays (qui n'ont pas lieu aux mêmes dates) sont gérés automatiquement.
 
 ## 5. Liens Zoom publics ou privés

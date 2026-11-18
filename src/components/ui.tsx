@@ -78,19 +78,11 @@ export function TeacherAvatar({ teacher, size = 40 }: { teacher?: Teacher; size?
 /* Heures ------------------------------------------------------------- */
 
 export function DualTime({ iso, className = '' }: { iso: string; className?: string }) {
-  const { il, fr, same } = dualTimes(iso);
+  const { il, fr } = dualTimes(iso);
   return (
     <span className={className}>
-      <span className="font-semibold">{il.replace(':', 'h')}</span>
-      <span className="text-neutral-500"> Israël</span>
-      {!same && (
-        <>
-          <span className="text-neutral-300" aria-hidden="true"> · </span>
-          <span className="font-semibold">{fr.replace(':', 'h')}</span>
-          <span className="text-neutral-500"> France</span>
-        </>
-      )}
-      {same && <span className="text-neutral-500"> / France</span>}
+      <span className="font-semibold">{fr.replace(':', 'h')}</span>
+      <span className="text-neutral-500"> ({il.replace(':', 'h')} Israël)</span>
     </span>
   );
 }

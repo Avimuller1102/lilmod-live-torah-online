@@ -16,13 +16,13 @@ import { CATEGORIES } from '../../shared/catalog.js';
 type Course = Record<string, any>;
 
 const EMPTY = {
-  title: '', description: '', teacherId: '', seriesId: '', category: '', date: '', time: '20:00', endTime: '', timezone: TZ_ISRAEL,
+  title: '', description: '', teacherId: '', seriesId: '', category: '', date: '', time: '19:00', endTime: '', timezone: TZ_FRANCE,
   platform: 'zoom', joinUrl: '', joinPublic: true, status: 'draft', visibility: 'public', thumbnail: '', replayUrl: '', pdfUrl: '', notes: '', organizer: '',
 };
 
 function toForm(c?: Course, dayKey?: string) {
   if (!c) return { ...EMPTY, date: dayKey || '' };
-  const tz = c.timezone || TZ_ISRAEL;
+  const tz = c.timezone || TZ_FRANCE;
   return {
     ...EMPTY,
     ...c,
@@ -96,14 +96,14 @@ export function CourseEditor({ course, dayKey, teachers, series, onClose, onSave
         </Field>
         <Field label="Heure saisie en" htmlFor="c-tz">
           <select id="c-tz" className="field" value={form.timezone} onChange={(e) => set('timezone', e.target.value)}>
-            <option value={TZ_ISRAEL}>Israël</option>
             <option value={TZ_FRANCE}>France</option>
+            <option value={TZ_ISRAEL}>Israël</option>
           </select>
         </Field>
       </div>
       {preview && (
         <p className="rounded-xl bg-primary-50 px-3 py-2 text-sm text-primary-900">
-          Affiché aux visiteurs : <strong>{preview.il}</strong> en Israël · <strong>{preview.fr}</strong> en France
+          Affiché aux visiteurs : <strong>{preview.fr.replace(':', 'h')}</strong> ({preview.il.replace(':', 'h')} Israël)
         </p>
       )}
       <Field label="Description / sujet" htmlFor="c-desc">
@@ -335,8 +335,8 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
                       <li key={c.id} className="flex flex-col gap-2 py-3 sm:flex-row sm:items-center sm:justify-between">
                         <button type="button" onClick={() => setEditing({ course: c })} className="min-w-0 text-left">
                           <span className="flex flex-wrap items-center gap-2">
-                            <span className="font-semibold text-primary-800">{il}</span>
-                            <span className="text-xs text-neutral-500">({fr} France)</span>
+                            <span className="font-semibold text-primary-800">{fr.replace(':', 'h')}</span>
+                            <span className="text-xs text-neutral-500">({il.replace(':', 'h')} Israël)</span>
                             <Pill className={STATUS_STYLE[c.status]}>{STATUSES[c.status]}</Pill>
                             {c.recurrenceId && <Pill className="bg-primary-50 text-primary-700">récurrent</Pill>}
                             {!c.joinUrl && <Pill className="bg-amber-50 text-amber-800">sans lien</Pill>}

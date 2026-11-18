@@ -2,7 +2,7 @@
  * API d'administration LILMOD — toutes les routes sous /api/admin/ sont protégées
  * (session signée + en-tête anti-CSRF pour les modifications).
  */
-import { addDaysToKey, courseTiming, localDateKey, weekOf, zonedTimeToUtc, TZ_ISRAEL } from '../../shared/time.js';
+import { addDaysToKey, courseTiming, localDateKey, weekOf, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
 import { duplicateWeek, makeId, prepareWeekFromRules, slugify, sortByStart, validateCourses } from '../../shared/programme.js';
 import { previewMergeTags } from '../../shared/messages.js';
 import {
@@ -29,8 +29,8 @@ function weekRange(weekStart) {
   const start = DATE_RE.test(weekStart || '') ? weekStart : weekOf(new Date()).start;
   return {
     start,
-    fromMs: zonedTimeToUtc(start, '00:00', TZ_ISRAEL).getTime(),
-    toMs: zonedTimeToUtc(addDaysToKey(start, 7), '00:00', TZ_ISRAEL).getTime(),
+    fromMs: zonedTimeToUtc(start, '00:00', TZ_FRANCE).getTime(),
+    toMs: zonedTimeToUtc(addDaysToKey(start, 7), '00:00', TZ_FRANCE).getTime(),
   };
 }
 const inRange = (c, r) => c.start && Date.parse(c.start) >= r.fromMs && Date.parse(c.start) < r.toMs;

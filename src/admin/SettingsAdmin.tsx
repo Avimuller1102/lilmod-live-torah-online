@@ -119,7 +119,7 @@ export default function SettingsAdmin({ session }: { session: Session }) {
           </div>
         </Panel>
 
-        <Panel title="Horaires des communications (heure d'Israël)" actions={<button type="submit" className={btn.primary}>Enregistrer</button>}>
+        <Panel title="Horaires des communications (heure de France)" actions={<button type="submit" className={btn.primary}>Enregistrer</button>}>
           <div className="grid gap-4 md:grid-cols-4">
             <Field label="Newsletter : jour conseillé" htmlFor="w-day">
               <select id="w-day" className="field" value={form.weekly.sendDay} onChange={(e) => set('weekly.sendDay', Number(e.target.value))}>

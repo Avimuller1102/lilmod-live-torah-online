@@ -9,7 +9,7 @@ import { useData, usePublicSettings, type Course, type Teacher } from '@/lib/api
 import { useSeo } from '@/lib/seo';
 import { CourseStatusBadge, DualTime, EmptyState, PLATFORM_LABEL, TeacherAvatar } from '@/components/ui';
 import { useNow } from '@/components/home/UpNext';
-import { courseEnd, courseTiming, formatDayKey, localDateKey, localTime, TZ_FRANCE } from '../../shared/time.js';
+import { courseEnd, courseTiming, formatDayKey, localDateKey, timeLabel } from '../../shared/time.js';
 import { googleCalendarUrl, whatsappShareUrl } from '../../shared/messages.js';
 import { CATEGORIES } from '../../shared/catalog.js';
 
@@ -21,7 +21,7 @@ const CoursePage = () => {
   const [copied, setCopied] = useState(false);
   const course = data?.course;
   const teacher = data?.teacher?.id ? data.teacher : undefined;
-  useSeo(course ? course.title : 'Cours', course ? `${formatDayKey(localDateKey(course.start))} à ${localTime(course.start)} (heure d'Israël)${teacher ? ` avec ${teacher.name}` : ''}. ${course.description || ''}` : undefined);
+  useSeo(course ? course.title : 'Cours', course ? `${formatDayKey(localDateKey(course.start))} à ${timeLabel(course.start)}${teacher ? ` avec ${teacher.name}` : ''}. ${course.description || ''}` : undefined);
 
   if (loading)
     return (
@@ -45,7 +45,8 @@ const CoursePage = () => {
   const canJoin = (timing === 'live' || timing === 'upcoming') && course.joinPublic && course.joinUrl;
   const minutesToStart = Math.round((Date.parse(course.start) - now.getTime()) / 60000);
   const theme = CATEGORIES.find((c) => c.id === course.category);
-  const shareText = `LILMOD — ${course.title}\n${formatDayKey(localDateKey(course.start))} à ${localTime(course.start).replace(':', 'h')} (Israël)${teacher ? `\nAvec ${teacher.name}` : ''}\n${pageUrl}`;
+  const shareText = `LILMOD — ${course.title}
+${formatDayKey(localDateKey(course.start))} à ${timeLabel(course.start)}${teacher ? `\nAvec ${teacher.name}` : ''}\n${pageUrl}`;
 
   const copy = async () => {
     try {
@@ -116,7 +117,7 @@ const CoursePage = () => {
               <DualTime iso={course.start} />
             </p>
             <p className="mt-1 text-sm text-neutral-500">
-              Fin prévue : {localTime(courseEnd(course).toISOString()).replace(':', 'h')} (Israël) · {localTime(courseEnd(course).toISOString(), TZ_FRANCE).replace(':', 'h')} (France)
+              Fin prévue : {timeLabel(courseEnd(course).toISOString())}
             </p>
 
             {timing === 'upcoming' && minutesToStart <= 120 && minutesToStart > 0 && (

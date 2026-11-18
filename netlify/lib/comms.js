@@ -9,7 +9,7 @@
  *   explicitement dans les paramètres, et chaque envoi réel demande une confirmation ;
  * - une erreur Mailchimp ou WhatsApp est journalisée et ne bloque jamais le site.
  */
-import { addDaysToKey, localDateKey, weekOf, zonedTimeToUtc, TZ_ISRAEL } from '../../shared/time.js';
+import { addDaysToKey, localDateKey, weekOf, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
 import { isPublicCourse, makeId } from '../../shared/programme.js';
 import { emailDaily, emailWeekly, whatsappDaily, whatsappWeekly } from '../../shared/messages.js';
 import { getComms, getCourses, getSettings, getTeachers, log, saveComms } from './data.js';
@@ -30,8 +30,8 @@ export async function fetchParasha(dayKey) {
 
 async function publishedCoursesBetween(fromKey, toKey) {
   const courses = await getCourses();
-  const from = zonedTimeToUtc(fromKey, '00:00', TZ_ISRAEL).getTime();
-  const to = zonedTimeToUtc(addDaysToKey(toKey, 1), '00:00', TZ_ISRAEL).getTime();
+  const from = zonedTimeToUtc(fromKey, '00:00', TZ_FRANCE).getTime();
+  const to = zonedTimeToUtc(addDaysToKey(toKey, 1), '00:00', TZ_FRANCE).getTime();
   return courses.filter((c) => isPublicCourse(c) && Date.parse(c.start) >= from && Date.parse(c.start) < to);
 }
 

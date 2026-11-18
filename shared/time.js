@@ -75,13 +75,13 @@ export function zonedTimeToUtc(dateStr, timeStr, timeZone) {
 const pad = (n) => String(n).padStart(2, '0');
 
 /** "YYYY-MM-DD" de l'instant dans le fuseau donné. */
-export function localDateKey(date, timeZone = TZ_ISRAEL) {
+export function localDateKey(date, timeZone = TZ_FRANCE) {
   const p = zonedParts(date, timeZone);
   return `${p.year}-${pad(p.month)}-${pad(p.day)}`;
 }
 
 /** "HH:mm" de l'instant dans le fuseau donné. */
-export function localTime(date, timeZone = TZ_ISRAEL) {
+export function localTime(date, timeZone = TZ_FRANCE) {
   const p = zonedParts(date, timeZone);
   return `${pad(p.hour)}:${pad(p.minute)}`;
 }
@@ -100,10 +100,10 @@ export function weekdayOfKey(key) {
 }
 
 /**
- * Semaine LILMOD : du dimanche au samedi (rythme israélien), calculée dans le
- * fuseau d'Israël. Retourne les clés de dates et les bornes UTC.
+ * Semaine LILMOD : du dimanche au samedi, calculée à l'heure de France
+ * (heure de référence de LILMOD). Retourne les clés de dates et les bornes UTC.
  */
-export function weekOf(date = new Date(), timeZone = TZ_ISRAEL) {
+export function weekOf(date = new Date(), timeZone = TZ_FRANCE) {
   const today = localDateKey(date, timeZone);
   const start = addDaysToKey(today, -weekdayOfKey(today));
   const days = Array.from({ length: 7 }, (_, i) => addDaysToKey(start, i));
@@ -126,7 +126,7 @@ export function formatDayKey(key, { withYear = false } = {}) {
 }
 
 /** "22 nov. 2026" */
-export function formatShortDate(date, timeZone = TZ_ISRAEL) {
+export function formatShortDate(date, timeZone = TZ_FRANCE) {
   if (!date) return '';
   return new Intl.DateTimeFormat('fr-FR', { timeZone, day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(date));
 }
@@ -136,6 +136,12 @@ export function dualTimes(iso) {
   const il = localTime(iso, TZ_ISRAEL);
   const fr = localTime(iso, TZ_FRANCE);
   return { il, fr, same: il === fr };
+}
+
+/** Libellé de référence : heure de France, heure d'Israël entre parenthèses. « 17h00 (18h00 Israël) » */
+export function timeLabel(iso) {
+  const { il, fr } = dualTimes(iso);
+  return `${fr.replace(':', 'h')} (${il.replace(':', 'h')} Israël)`;
 }
 
 /** Durée par défaut d'un cours sans heure de fin (minutes). */

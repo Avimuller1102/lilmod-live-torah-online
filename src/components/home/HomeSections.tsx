@@ -34,7 +34,7 @@ export function WeekPreview() {
         <SectionHeader
           eyebrow="Programme de la semaine"
           title={`${total} cours cette semaine`}
-          subtitle={`Du ${formatDayKey(week.start)} au ${formatDayKey(week.end)}. Horaires affichés à l'heure d'Israël.`}
+          subtitle={`Du ${formatDayKey(week.start)} au ${formatDayKey(week.end)}. Horaires à l'heure de France (heure d'Israël entre parenthèses).`}
           action={
             <Link to="/programme" className="btn-primary">
               Consulter le programme complet

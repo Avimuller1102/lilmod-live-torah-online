@@ -8,7 +8,7 @@
  *   GET /api/v1/ics/:id              fichier calendrier d'un cours
  * Les brouillons, cours privés, notes internes et liens non publics ne sortent jamais.
  */
-import { addDaysToKey, weekOf, zonedTimeToUtc, TZ_ISRAEL } from '../../shared/time.js';
+import { addDaysToKey, weekOf, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
 import { isPublicCourse, publicCourse, sortByStart } from '../../shared/programme.js';
 import { CATEGORIES, enrichVideo } from '../../shared/catalog.js';
 import { courseToIcs } from '../../shared/messages.js';
@@ -27,8 +27,8 @@ async function programme(url) {
   const week = weekOf(new Date());
   const from = DATE_RE.test(url.searchParams.get('from') || '') ? url.searchParams.get('from') : week.start;
   const to = DATE_RE.test(url.searchParams.get('to') || '') ? url.searchParams.get('to') : addDaysToKey(week.start, 13);
-  const fromMs = zonedTimeToUtc(from, '00:00', TZ_ISRAEL).getTime();
-  const toMs = zonedTimeToUtc(addDaysToKey(to, 1), '00:00', TZ_ISRAEL).getTime();
+  const fromMs = zonedTimeToUtc(from, '00:00', TZ_FRANCE).getTime();
+  const toMs = zonedTimeToUtc(addDaysToKey(to, 1), '00:00', TZ_FRANCE).getTime();
   if (toMs - fromMs > 120 * 86400000) return error('Période trop longue (120 jours maximum).');
   const [courses, teachers, series] = await Promise.all([getCourses(), getTeachers(), getSeries()]);
   const list = sortByStart(courses.filter((c) => isPublicCourse(c) && Date.parse(c.start) >= fromMs && Date.parse(c.start) < toMs)).map(publicCourse);

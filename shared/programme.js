@@ -4,6 +4,7 @@
  */
 import {
   TZ_ISRAEL,
+  TZ_FRANCE,
   SUPPORTED_TIMEZONES,
   addDaysToKey,
   courseEnd,
@@ -224,7 +225,7 @@ export function validateCourses(courses, { teachers = [], sentCommunications = [
 }
 
 /** Cours d'une journée (fuseau Israël par défaut), triés, sans les annulés si demandé. */
-export function coursesOfDay(courses, dayKey, { includeCancelled = false, timeZone = TZ_ISRAEL } = {}) {
+export function coursesOfDay(courses, dayKey, { includeCancelled = false, timeZone = TZ_FRANCE } = {}) {
   return sortByStart(
     courses.filter((c) => c.start && localDateKey(c.start, timeZone) === dayKey && (includeCancelled || c.status !== 'cancelled')),
   );

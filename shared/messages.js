@@ -24,8 +24,8 @@ function teacherName(course, teachers) {
 }
 
 function timeLabel(course) {
-  const { il, fr, same } = dualTimes(course.start);
-  return same ? h(il) : `${h(il)} Israël · ${h(fr)} France`;
+  const { il, fr } = dualTimes(course.start);
+  return `${h(fr)} (${h(il)} Israël)`;
 }
 
 /** Cours à annoncer : on exclut toujours les annulés et les non publics. */
@@ -127,7 +127,7 @@ function courseRowHtml(c, { teachers, siteUrl, withButton }) {
   const join = withButton && c.joinPublic && c.joinUrl ? c.joinUrl : courseUrl(siteUrl, c);
   return `<tr><td style="padding:14px 0;border-bottom:1px solid ${COLORS.line}">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-<td width="92" valign="top" style="font-size:18px;font-weight:bold;color:${COLORS.navy}">${h(il)}<div style="font-size:11px;font-weight:normal;color:${COLORS.muted}">${same ? 'Israël / France' : `Israël<br>${h(fr)} France`}</div></td>
+<td width="92" valign="top" style="font-size:18px;font-weight:bold;color:${COLORS.navy}">${h(fr)}<div style="font-size:11px;font-weight:normal;color:${COLORS.muted}">${same ? 'France / Israël' : `(${h(il)} Israël)`}</div></td>
 <td valign="top"><div style="font-size:16px;font-weight:bold;color:${COLORS.text};line-height:1.35">${escapeHtml(c.title)}</div>
 ${t ? `<div style="font-size:14px;color:${COLORS.gold};margin-top:2px">${escapeHtml(t)}</div>` : ''}
 ${c.description ? `<div style="font-size:13px;color:${COLORS.muted};margin-top:4px;line-height:1.5">${escapeHtml(c.description).slice(0, 220)}</div>` : ''}

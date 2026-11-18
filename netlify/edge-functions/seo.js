@@ -10,7 +10,7 @@ const DEFAULT_DESC =
 
 const STATIC = {
   '/': { title: "LILMOD – La Torah en direct d'Israël", description: DEFAULT_DESC },
-  '/programme': { title: 'Programme de la semaine – LILMOD', description: "Les cours de Torah LILMOD de la semaine : horaires en Israël et en France, liens pour rejoindre les cours en direct." },
+  '/programme': { title: 'Programme de la semaine – LILMOD', description: "Les cours de Torah LILMOD de la semaine : horaires à l'heure de France et d'Israël, liens pour rejoindre les cours en direct." },
   '/cours': { title: 'Cours en replay – LILMOD', description: 'Bibliothèque des cours de Torah LILMOD en replay : recherche par titre, enseignant, thème et série.' },
   '/intervenants': { title: 'Nos intervenants – LILMOD', description: 'Les Rabbanim et enseignants de LILMOD : leurs cours en direct, leurs séries et leurs replays.' },
   '/series': { title: 'Séries de cours – LILMOD', description: "Les séries d'enseignements LILMOD : suivez un cours épisode après épisode." },
@@ -41,11 +41,11 @@ async function routeMeta(url) {
     const res = await fetch(`${origin}/api/v1/programme/${encodeURIComponent(parts[1])}`);
     if (!res.ok) return { found: false };
     const { course, teacher } = await res.json();
-    const when = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Asia/Jerusalem', weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(course.start));
+    const when = new Intl.DateTimeFormat('fr-FR', { timeZone: 'Europe/Paris', weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }).format(new Date(course.start));
     return {
       found: true,
       title: `${course.title} – LILMOD`,
-      description: clip(`${when} (heure d'Israël)${teacher?.name ? ` avec ${teacher.name}` : ''}. ${course.description || 'Cours de Torah en direct.'}`),
+      description: clip(`${when} (heure de France)${teacher?.name ? ` avec ${teacher.name}` : ''}. ${course.description || 'Cours de Torah en direct.'}`),
       image: teacher?.photo,
       jsonld: {
         '@context': 'https://schema.org',

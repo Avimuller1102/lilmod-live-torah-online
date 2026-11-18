@@ -27,7 +27,7 @@ const ProgrammePage = () => {
   const today = localDateKey(now);
   const [day, setDay] = useState<string>('');
 
-  useSeo('Programme de la semaine', "Les cours de Torah LILMOD de la semaine : horaires en Israël et en France, liens pour rejoindre les cours en direct, replays.");
+  useSeo('Programme de la semaine', "Les cours de Torah LILMOD de la semaine : horaires à l'heure de France et d'Israël, liens pour rejoindre les cours en direct, replays.");
 
   const teachers = data?.teachers || [];
   const courses = useMemo(
@@ -59,7 +59,7 @@ const ProgrammePage = () => {
       <PageHero
         eyebrow="Programme"
         title="Le programme de la semaine"
-        subtitle="Tous les cours en direct, à l'heure d'Israël et de France."
+        subtitle="Tous les cours en direct, à l'heure de France (heure d'Israël entre parenthèses)."
       >
         <div className="mt-6 hidden flex-wrap gap-3 sm:flex">
           <a href={settings.whatsappGroupUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost-light text-sm">

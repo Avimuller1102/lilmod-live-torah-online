@@ -12,8 +12,8 @@ import { PLATFORMS } from '../../shared/programme.js';
 import { CATEGORIES } from '../../shared/catalog.js';
 
 const EMPTY = {
-  title: '', description: '', teacherId: '', seriesId: '', category: '', weekdays: [0] as number[], time: '20:30', durationMin: 60,
-  timezone: TZ_ISRAEL, intervalWeeks: 1, startDate: localDateKey(new Date()), endDate: '', platform: 'zoom', joinUrl: '', joinPublic: true,
+  title: '', description: '', teacherId: '', seriesId: '', category: '', weekdays: [0] as number[], time: '19:00', durationMin: 60,
+  timezone: TZ_FRANCE, intervalWeeks: 1, startDate: localDateKey(new Date()), endDate: '', platform: 'zoom', joinUrl: '', joinPublic: true,
   visibility: 'public', thumbnail: '', organizer: '', active: true,
 };
 
@@ -96,8 +96,8 @@ export default function RulesAdmin() {
               <Field label="Durée (min)" htmlFor="r-dur"><input id="r-dur" type="number" min={10} max={600} className="field" value={form.durationMin} onChange={(e) => set('durationMin', e.target.value)} /></Field>
               <Field label="Heure saisie en" htmlFor="r-tz">
                 <select id="r-tz" className="field" value={form.timezone} onChange={(e) => set('timezone', e.target.value)}>
-                  <option value={TZ_ISRAEL}>Israël</option>
                   <option value={TZ_FRANCE}>France</option>
+                  <option value={TZ_ISRAEL}>Israël</option>
                 </select>
               </Field>
               <Field label="Périodicité" htmlFor="r-int">

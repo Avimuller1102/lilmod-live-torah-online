@@ -106,7 +106,7 @@ test('messages WhatsApp et e-mails depuis les cours, sans les annulés', () => {
   const opts = { teachers, siteUrl: 'https://lilmod.fr', weekStart: '2026-11-15', dayKey: '2026-11-15' };
   const w = whatsappWeekly(courses, opts);
   assert.match(w, /PROGRAMME DE LA SEMAINE/);
-  assert.match(w, /20h30 Israël · 19h30 France — Paracha Vayetsé/);
+  assert.match(w, /19h30 \(20h30 Israël\) — Paracha Vayetsé/);
   assert.match(w, /Avec Rav Yehouda Ben Ichay/);
   assert.doesNotMatch(w, /annulé|privé/);
   assert.match(w, /https:\/\/lilmod.fr\/programme\//);
@@ -153,4 +153,11 @@ test('détection intervenant, thèmes, séries, épisodes (titres réels)', () =
   const r = searchAll('ben ishai', { teachers: SEED_TEACHERS, series: SEED_SERIES, videos: [v] });
   assert.equal(r.teachers[0].id, 'ben-ichay');
   assert.equal(searchAll('zzzz', { teachers: SEED_TEACHERS }).teachers.length, 0);
+});
+
+test('heure de France en premier, heure d’Israël entre parenthèses', async () => {
+  const { timeLabel } = await import('../shared/time.js');
+  assert.equal(timeLabel(zonedTimeToUtc('2026-11-16', '17:00', TZ_FRANCE).toISOString()), '17h00 (18h00 Israël)');
+  // fin mars : la France n'a pas encore changé d'heure, Israël si → 2 h d'écart
+  assert.equal(timeLabel(zonedTimeToUtc('2026-03-28', '17:00', TZ_FRANCE).toISOString()), '17h00 (19h00 Israël)');
 });

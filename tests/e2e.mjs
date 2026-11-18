@@ -75,7 +75,7 @@ try {
     assert.match(teachers.find((t) => t.id === 'gross').photo, /^\/api\/v1\/media\//);
   });
 
-  await step('Créer un cours récurrent (chaque dimanche et mercredi, 20h30 Israël)', async () => {
+  await step('Créer un cours récurrent (chaque dimanche et mercredi, 19h00 France)', async () => {
     await page.goto(`${BASE}/admin/recurrences`);
     await page.getByRole('button', { name: 'Nouveau cours récurrent' }).click();
     await page.fill('#r-title', 'La Paracha de la semaine');
@@ -83,7 +83,7 @@ try {
     await page.selectOption('#r-teacher', 'ben-ichay');
     await page.fill('#r-join', 'https://zoom.us/j/111');
     await page.getByRole('button', { name: 'Enregistrer' }).click();
-    await page.getByText('Dimanche, Mercredi à 20:30').waitFor();
+    await page.getByText('Dimanche, Mercredi à 19:00 (heure de France)').waitFor();
   });
 
   await step('Préparer la semaine suivante depuis les récurrences', async () => {

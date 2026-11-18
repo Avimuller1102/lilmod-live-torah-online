@@ -9,7 +9,7 @@ import { Check, Copy, ExternalLink, Mail, MessageCircle, RefreshCw, Send } from 
 import { adminApi, useAdmin } from './api';
 import { Field, Panel, Pill, btn, useFlash } from './ui';
 import type { Session } from './AdminApp';
-import { addDaysToKey, formatDayKey, localDateKey, weekOf, zonedTimeToUtc, TZ_ISRAEL } from '../../shared/time.js';
+import { addDaysToKey, formatDayKey, localDateKey, weekOf, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
 import { whatsappShareUrl } from '../../shared/messages.js';
 
 const STATUS_LABEL: Record<string, string> = {
@@ -37,7 +37,7 @@ export default function CommsAdmin({ channel, session }: { channel: 'email' | 'w
     const day = kind === 'weekly' ? period : period;
     const s = settings?.settings;
     const time = kind === 'weekly' ? s?.weekly?.sendTime || '09:00' : s?.daily?.sendTime || '08:00';
-    const d = zonedTimeToUtc(day, time, TZ_ISRAEL);
+    const d = zonedTimeToUtc(day, time, TZ_FRANCE);
     const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
     setSendAt(local);
   }, [kind, period, settings]);
