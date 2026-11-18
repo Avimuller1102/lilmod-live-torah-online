@@ -3,8 +3,9 @@
  */
 
 import { useEffect, useState } from 'react';
-import { ArrowRight, CalendarDays, Heart, Play, Radio, Youtube } from 'lucide-react';
-import { IMAGES, SOCIAL_LINKS, SPEAKERS } from '@/lib/constants';
+import { Link } from 'react-router-dom';
+import { ArrowRight, CalendarDays, Play, Radio, Youtube } from 'lucide-react';
+import { IMAGES, SPEAKERS } from '@/lib/constants';
 
 const heroFaces = SPEAKERS.slice(0, 8);
 
@@ -33,10 +34,10 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.08)_0,transparent_28%,rgba(216,174,69,0.13)_100%)]" />
       </div>
 
-      <div className="container-custom relative z-10 flex min-h-[100svh] items-center pb-20 pt-28 md:pt-32">
+      <div className="container-custom relative z-10 flex min-h-[88svh] items-center pb-24 pt-28 md:min-h-[92svh] md:pb-32 md:pt-32">
         <div className="w-full min-w-0 max-w-4xl">
           <div
-            className={`mb-7 inline-flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur transition-all duration-500 ${
+            className={`mb-5 inline-flex items-center gap-3 rounded-full sm:mb-7 border border-white/20 bg-white/10 px-4 py-2 backdrop-blur transition-all duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
             }`}
           >
@@ -44,11 +45,11 @@ const HeroSection = () => {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
             </span>
-            <span className="text-sm font-bold text-white">Cours de Torah en live depuis Jérusalem</span>
+            <span className="text-sm font-semibold text-white">LILMOD — La Torah en direct d'Israël</span>
           </div>
 
           <div
-            className={`mb-6 flex items-center gap-4 transition-all delay-75 duration-500 ${
+            className={`mb-6 hidden items-center gap-4 transition-all delay-75 duration-500 sm:flex ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
             }`}
           >
@@ -79,39 +80,35 @@ const HeroSection = () => {
           </div>
 
           <h1
-            className={`max-w-4xl text-balance text-4xl font-extrabold leading-[1.02] text-white sm:text-5xl md:text-7xl lg:text-8xl transition-all delay-100 duration-500 ${
+            className={`max-w-4xl text-balance font-display text-[2.6rem] font-semibold leading-[1.04] tracking-[-0.02em] text-white sm:text-6xl md:text-7xl transition-all delay-100 duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
             }`}
           >
-            Étudier la Torah en français, en direct d'Israël.
+            Étudiez la Torah, où que vous soyez.
           </h1>
 
           <p
-            className={`mt-7 w-full max-w-[21rem] text-base leading-8 text-blue-50/90 sm:max-w-xl md:max-w-2xl md:text-xl transition-all delay-150 duration-500 ${
+            className={`mt-5 w-full max-w-xl text-[17px] leading-7 text-blue-50/90 md:mt-7 md:max-w-2xl md:text-xl md:leading-8 transition-all delay-150 duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
             }`}
           >
-            Plus de 10 cours live par semaine, des milliers d'enseignements disponibles,
-            et une communauté francophone connectée aux textes depuis Jérusalem.
+            Retrouvez chaque semaine des cours en direct avec des Rabbanim francophones, échangez avec
+            les enseignants et approfondissez votre étude grâce à notre bibliothèque de vidéos.
           </p>
 
           <div
-            className={`mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap transition-all delay-200 duration-500 ${
+            className={`mt-7 flex flex-col gap-3 sm:mt-10 sm:flex-row sm:flex-wrap transition-all delay-200 duration-500 ${
               isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-5 opacity-0'
             }`}
           >
-            <a href="#videos" className="btn-accent w-full px-7 py-4 sm:w-auto">
-              <Play className="h-5 w-5 fill-current" />
-              Voir les cours
-            </a>
-            <a href="#audio" className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20 sm:w-auto">
-              <Radio className="h-5 w-5" />
-              Écouter les podcasts
-            </a>
-            <a href={SOCIAL_LINKS.donate} target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-white/20 bg-white/10 px-7 py-4 font-semibold text-white backdrop-blur transition-all hover:-translate-y-0.5 hover:bg-white/20 sm:w-auto">
-              <Heart className="h-5 w-5 fill-current text-red-300" />
-              Soutenir
-            </a>
+            <Link to="/programme" className="btn-accent w-full px-7 py-4 text-base sm:w-auto">
+              <CalendarDays className="h-5 w-5" aria-hidden="true" />
+              Voir le programme de la semaine
+            </Link>
+            <Link to="/cours" className="btn-ghost-light w-full px-7 py-4 text-base sm:w-auto">
+              <Play className="h-5 w-5 fill-current" aria-hidden="true" />
+              Explorer les cours en replay
+            </Link>
           </div>
 
           <div
@@ -134,13 +131,6 @@ const HeroSection = () => {
         </div>
       </div>
 
-      <a
-        href="#mission"
-        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/80 backdrop-blur transition-colors hover:text-white md:inline-flex"
-      >
-        Découvrir
-        <ArrowRight className="h-4 w-4 rotate-90" />
-      </a>
     </section>
   );
 };

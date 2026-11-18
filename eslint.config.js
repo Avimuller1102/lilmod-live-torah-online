@@ -25,5 +25,10 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-unused-vars": "off",
     },
+  },
+  {
+    // L'administration manipule des données JSON dynamiques renvoyées par l'API.
+    files: ["src/admin/**/*.{ts,tsx}"],
+    rules: { "@typescript-eslint/no-explicit-any": "off" },
   }
 );

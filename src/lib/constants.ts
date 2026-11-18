@@ -34,22 +34,6 @@ export const SOCIAL_LINKS = {
 } as const;
 
 // =============================================================================
-// NAVIGATION
-// =============================================================================
-
-export const NAV_LINKS = [
-  { label: "Accueil", href: "#home" },
-  { label: "À propos", href: "#about" },
-  { label: "Vidéos", href: "#videos" },
-  { label: "Podcasts", href: "#audio" },
-  { label: "Chabbat", href: "#shabbat" },
-  { label: "Intervenants", href: "#speakers" },
-  { label: "Témoignages", href: "#temoignages" },
-  { label: "Soutenir", href: "#support" },
-  { label: "Contact", href: "#contact" },
-] as const;
-
-// =============================================================================
 // IMAGES (optimisées en WebP dans /public/images)
 // =============================================================================
 

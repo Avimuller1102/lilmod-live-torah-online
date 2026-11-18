@@ -10,7 +10,19 @@
  */
 
 import { Youtube, Instagram, ExternalLink, Mail, Headphones, Heart } from 'lucide-react';
-import { SITE_CONFIG, SOCIAL_LINKS, NAV_LINKS, PARTNERS, IMAGES } from '@/lib/constants';
+import { Link } from 'react-router-dom';
+import { SITE_CONFIG, SOCIAL_LINKS, PARTNERS, IMAGES } from '@/lib/constants';
+
+const FOOTER_LINKS = [
+  { label: 'Programme', to: '/programme' },
+  { label: 'Cours en replay', to: '/cours' },
+  { label: 'Intervenants', to: '/intervenants' },
+  { label: 'Séries', to: '/series' },
+  { label: 'Témoignages', to: '/#temoignages' },
+  { label: 'Soutenir', to: '/#support' },
+  { label: 'Contact', to: '/#contact' },
+  { label: 'Recherche', to: '/recherche' },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -22,7 +34,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-4 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <a href="#home" className="flex items-center gap-3 mb-4 md:mb-6">
+            <Link to="/" className="flex items-center gap-3 mb-4 md:mb-6">
               <img
                 src={IMAGES.logo}
                 alt="LILMOD"
@@ -32,7 +44,7 @@ const Footer = () => {
                 <span className="text-2xl font-display font-bold">LILMOD</span>
                 <span className="text-accent-400 text-sm">.fr</span>
               </div>
-            </a>
+            </Link>
             <p className="text-blue-200 text-sm leading-relaxed mb-5 md:mb-6">
               {SITE_CONFIG.description}
             </p>
@@ -102,14 +114,11 @@ const Footer = () => {
           <div>
             <h4 className="text-base md:text-lg font-display font-bold mb-3 md:mb-6 text-white">Liens Rapides</h4>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 text-[15px] md:block md:space-y-3 md:text-base">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    className="text-blue-200 hover:text-accent-400 transition-colors"
-                  >
+              {FOOTER_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to} className="text-blue-200 hover:text-accent-300 transition-colors">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
               <li className="col-span-2 pt-1 md:pt-0">
@@ -195,7 +204,8 @@ const Footer = () => {
         <div className="container-custom py-4 md:py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-1 md:gap-4">
             <p className="text-xs md:text-sm text-blue-200">
-              © {currentYear} {SITE_CONFIG.name} - Tous droits réservés
+              © {currentYear} {SITE_CONFIG.name} — Torah MiTzion ·{' '}
+              <Link to="/confidentialite" className="underline-offset-2 hover:underline">Confidentialité</Link>
             </p>
             <p className="text-xs md:text-sm text-blue-200 flex items-center gap-1.5">
               Fait avec <Heart className="w-3.5 h-3.5 md:w-4 md:h-4 text-red-400" aria-hidden="true" /> depuis Jérusalem

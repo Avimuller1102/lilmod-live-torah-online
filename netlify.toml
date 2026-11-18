@@ -10,6 +10,58 @@
   node_bundler = "esbuild"
 
 # Pochettes du podcast redimensionnées par le CDN d'images Netlify
+# Anciennes adresses (ancien site WordPress) : redirections permanentes
+[[redirects]]
+  from = "/programme-de-la-semaine/*"
+  to = "/programme"
+  status = 301
+[[redirects]]
+  from = "/cours-en-direct/*"
+  to = "/programme"
+  status = 301
+[[redirects]]
+  from = "/rabbanim/*"
+  to = "/intervenants"
+  status = 301
+[[redirects]]
+  from = "/intervenant/*"
+  to = "/intervenants"
+  status = 301
+[[redirects]]
+  from = "/videos/*"
+  to = "/cours"
+  status = 301
+[[redirects]]
+  from = "/category/*"
+  to = "/cours"
+  status = 301
+[[redirects]]
+  from = "/tag/*"
+  to = "/cours"
+  status = 301
+[[redirects]]
+  from = "/contact/*"
+  to = "/#contact"
+  status = 301
+[[redirects]]
+  from = "/feed/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/"
+  status = 301
+
+# Application : toutes les pages (/programme, /cours/…) sont servies par index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [images]
   remote_images = ["https://d3t3ozftmdmh3i\\.cloudfront\\.net/.*"]
 
@@ -36,6 +88,12 @@
   for = "/icons/*"
   [headers.values]
     Cache-Control = "public, max-age=604800"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-store"
 
 [[headers]]
   for = "/site.webmanifest"
