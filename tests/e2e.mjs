@@ -52,6 +52,29 @@ try {
     await page.getByText('Bonjour admin').waitFor();
   });
 
+  await step('Importer le programme réel de la newsletter (9 cours + récurrences)', async () => {
+    const { SAMPLE } = await import('./importer.test.js');
+    await page.goto(`${BASE}/admin/programme`);
+    await page.getByRole('button', { name: 'Importer un programme' }).click();
+    await page.fill('#import-text', SAMPLE);
+    await page.getByRole('button', { name: 'Analyser' }).click();
+    await page.getByText('9 cours reconnus').waitFor();
+    await page.getByRole('button', { name: /Importer 9 cours/ }).click();
+    await page.getByText(/9 cours importés, 9 cours récurrents créés/).waitFor();
+    if (shots) await page.screenshot({ path: `${shots}/admin-import.png` });
+  });
+
+  await step('Téléverser la photo d’un intervenant', async () => {
+    await page.goto(`${BASE}/admin/intervenants`);
+    await page.locator('li:has-text("Dr Michael Gross") button:has-text("Modifier")').click();
+    await page.setInputFiles('input[type=file]', { name: 'gross.png', mimeType: 'image/png', buffer: Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==', 'base64') });
+    await page.getByText('Photo téléversée').waitFor();
+    await page.getByRole('button', { name: 'Enregistrer' }).click();
+    await page.getByText('Intervenant enregistré').waitFor();
+    const { teachers } = await (await page.request.get(`${BASE}/api/v1/catalog`)).json();
+    assert.match(teachers.find((t) => t.id === 'gross').photo, /^\/api\/v1\/media\//);
+  });
+
   await step('Créer un cours récurrent (chaque dimanche et mercredi, 20h30 Israël)', async () => {
     await page.goto(`${BASE}/admin/recurrences`);
     await page.getByRole('button', { name: 'Nouveau cours récurrent' }).click();
@@ -66,8 +89,8 @@ try {
   await step('Préparer la semaine suivante depuis les récurrences', async () => {
     await page.goto(`${BASE}/admin`);
     await page.getByRole('button', { name: 'Préparer la semaine suivante' }).click();
-    await page.getByText(/2 cours créés en brouillon/).waitFor();
-    assert.equal(await page.getByText('La Paracha de la semaine').count(), 2);
+    await page.getByText(/cours créés en brouillon/).waitFor();
+    assert.equal(await page.getByText('La Paracha de la semaine', { exact: true }).count(), 2);
   });
 
   await step('Ajouter un cours en direct maintenant (heure de France) et publier', async () => {
@@ -94,14 +117,14 @@ try {
     await page.locator('button[aria-label="Semaine suivante"]').click();
     await page.getByText('La Paracha de la semaine').first().waitFor();
     await page.getByRole('button', { name: 'Publier la semaine' }).click();
-    await page.getByText(/2 cours publiés/).waitFor();
+    await page.getByText(/cours publiés/).waitFor();
   });
 
   await step('Accueil : cours « En direct » et bouton Rejoindre', async () => {
     await page.goto(BASE);
     await page.getByRole('heading', { name: 'Un cours est en direct' }).waitFor();
-    const join = page.locator('#prochains-cours a:has-text("Rejoindre le cours")').first();
-    assert.equal(await join.getAttribute('href'), 'https://zoom.us/j/222');
+    const hrefs = await page.locator('#prochains-cours a:has-text("Rejoindre le cours")').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
+    assert.ok(hrefs.includes('https://zoom.us/j/222'), JSON.stringify(hrefs));
     if (shots) await page.screenshot({ path: `${shots}/accueil.png` });
   });
 

@@ -18,6 +18,9 @@ import { buildDaily, buildWeekly, emailAction, logWhatsapp } from '../lib/comms.
 import * as mailchimp from '../lib/mailchimp.js';
 import { fetchAllWithApi, fetchFeed } from '../lib/youtube.js';
 import { error, json, readBody, routeParts, siteUrl } from '../lib/http.js';
+import { importKey, parseProgrammeText } from '../../shared/importer.js';
+import { occurrenceId } from '../../shared/programme.js';
+import { weekdayOfKey } from '../../shared/time.js';
 
 const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const fail = (message, status = 400) => Object.assign(new Error(message), { status });
@@ -171,6 +174,81 @@ async function publishWeek({ weekStart, includeDrafts = false }, user) {
   await saveCourses(courses);
   await log('programme.publié', { weekStart: r.start, published: published.length, skipped: skipped.length }, { user });
   return { published, skipped };
+}
+
+/* ------------------------------------------------------------------ */
+/* Import d'un programme rédigé (newsletter, WhatsApp)                 */
+/* ------------------------------------------------------------------ */
+
+async function importProgramme({ text, apply = false, status = 'draft', createRules = false }, user) {
+  if (!String(text || '').trim()) throw fail('Collez le texte du programme.');
+  const [teachers, courses, rules] = await Promise.all([getTeachers(), getCourses(), getRules()]);
+  const parsed = parseProgrammeText(String(text).slice(0, 60000), { teachers });
+  if (!parsed.length) throw fail("Aucun cours reconnu. Vérifiez que chaque cours comporte un jour (ex. « Lundi 16 Novembre ») et une heure (ex. « 17H00 France »).");
+  const existingKeys = new Set(courses.filter((c) => c.start).map((c) => importKey(c)));
+  const items = parsed.map((p) => ({ ...p, duplicate: existingKeys.has(importKey(p)) }));
+  if (!apply) return { items, applied: false };
+
+  const now = new Date().toISOString();
+  const newTeachers = [];
+  const created = [];
+  const createdRules = [];
+  for (const item of items) {
+    if (item.duplicate) continue;
+    let teacherId = item.teacherId;
+    if (!teacherId && item.teacherName) {
+      const base = slugify(item.teacherName.replace(/^(rav|dr|rabbanit|mme|m\.)\s+/i, '')) || makeId('t');
+      teacherId = teachers.some((t) => t.id === base) ? `${base}-${newTeachers.length + 1}` : base;
+      const t = { id: teacherId, name: item.teacherName, shortName: item.teacherName, photo: '', specialty: '', bio: '', aliases: [], hidden: false, createdAt: now };
+      teachers.push(t);
+      newTeachers.push(t);
+    }
+    const base = {
+      title: item.title, description: '', teacherId, seriesId: '', category: item.category || '', timezone: item.timezone,
+      platform: /zoom\.us/i.test(item.joinUrl) ? 'zoom' : /youtu/i.test(item.joinUrl) ? 'youtube' : 'other',
+      joinUrl: item.joinUrl, joinPublic: true, visibility: 'public', thumbnail: '', organizer: item.organizer || '',
+    };
+    let courseId = makeId('c');
+    let recurrenceId = '';
+    if (createRules) {
+      const same = rules.find((r) => r.active !== false && r.teacherId === teacherId && r.time === item.time && r.timezone === item.timezone && (r.weekdays || []).includes(weekdayOfKey(item.date)));
+      const rule = same || { ...base, id: makeId('r'), weekdays: [weekdayOfKey(item.date)], time: item.time, durationMin: 60, intervalWeeks: 1, startDate: item.date, endDate: '', active: true, createdAt: now };
+      if (!same) {
+        rules.push(rule);
+        createdRules.push(rule);
+      }
+      courseId = occurrenceId(rule.id, item.date);
+      recurrenceId = rule.id;
+      if (courses.some((c) => c.id === courseId)) continue;
+    }
+    const start = new Date(item.start);
+    const course = {
+      ...base, id: courseId, recurrenceId, occurrenceDate: item.date, start: item.start, end: new Date(start.getTime() + 60 * 60000).toISOString(),
+      status, replayUrl: '', pdfUrl: '', notes: 'Importé depuis le programme rédigé.', createdAt: now, updatedAt: now, updatedBy: user,
+      publishedAt: status === 'published' ? now : '',
+    };
+    courses.push(course);
+    created.push(course);
+  }
+  if (newTeachers.length) await saveTeachers(teachers);
+  if (createdRules.length) await saveRules(rules);
+  await saveCourses(courses);
+  await log('programme.importé', { created: created.length, rules: createdRules.length, teachers: newTeachers.map((t) => t.name), status }, { user });
+  return { items, applied: true, created: created.length, rules: createdRules.length, teachers: newTeachers.map((t) => t.name) };
+}
+
+/* ------------------------------------------------------------------ */
+/* Photos téléversées (stockées dans Netlify Blobs)                    */
+/* ------------------------------------------------------------------ */
+
+async function uploadMedia({ dataUrl }, user) {
+  const m = String(dataUrl || '').match(/^data:(image\/(?:webp|jpeg|png));base64,([A-Za-z0-9+/=]+)$/);
+  if (!m) throw fail('Image invalide (formats acceptés : WebP, JPEG, PNG).');
+  if (m[2].length > 700_000) throw fail('Image trop lourde (500 Ko maximum après réduction).');
+  const id = makeId('img').replace(/_/g, '-');
+  await writeJSON(`media-${id}`, { type: m[1], data: m[2], createdAt: new Date().toISOString(), user });
+  await log('image.téléversée', { id }, { user });
+  return { url: `/api/v1/media/${id}` };
 }
 
 /* ------------------------------------------------------------------ */
@@ -337,6 +415,12 @@ export default async (req) => {
     if (a === 'programme' && b === 'duplicate' && method === 'POST') return json(await duplicate(body, user));
     if (a === 'programme' && b === 'validate') return json(await validateWeek(url.searchParams.get('weekStart')));
     if (a === 'programme' && b === 'publish' && method === 'POST') return json(await publishWeek(body, user));
+    if (a === 'programme' && b === 'import' && method === 'POST') {
+      if (body.status === 'published' && !['admin', 'editor'].includes(session.role)) throw fail('Non autorisé.', 403);
+      return json(await importProgramme({ ...body, status: body.status === 'published' ? 'published' : 'draft' }, user));
+    }
+    if (a === 'media' && method === 'POST') return json(await uploadMedia(body, user));
+    if (a === 'mailchimp' && b === 'last-campaign') return json(await mailchimp.lastSentCampaign());
 
     // Récurrences, intervenants, séries
     const collections = {

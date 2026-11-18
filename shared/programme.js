@@ -113,6 +113,7 @@ export function expandRule(rule, fromKey, toKey) {
       visibility: rule.visibility || 'public',
       status: 'draft',
       thumbnail: rule.thumbnail || '',
+      organizer: rule.organizer || '',
       replayUrl: '',
       pdfUrl: '',
       notes: '',

@@ -4,9 +4,10 @@
  */
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { AlertTriangle, CheckCircle2, ChevronLeft, ChevronRight, Copy, Eye, Plus, Repeat, Send, Trash2 } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, ChevronLeft, ChevronRight, Copy, Eye, FileInput, Plus, Repeat, Send, Trash2 } from 'lucide-react';
 import { adminApi, useAdmin } from './api';
 import { Field, Modal, Panel, Pill, STATUS_STYLE, btn, useFlash } from './ui';
+import ImportDialog from './ImportDialog';
 import type { Session } from './AdminApp';
 import { addDaysToKey, dualTimes, formatDayKey, localDateKey, localTime, weekOf, zonedTimeToUtc, TZ_ISRAEL, TZ_FRANCE } from '../../shared/time.js';
 import { PLATFORMS, STATUSES } from '../../shared/programme.js';
@@ -16,7 +17,7 @@ type Course = Record<string, any>;
 
 const EMPTY = {
   title: '', description: '', teacherId: '', seriesId: '', category: '', date: '', time: '20:00', endTime: '', timezone: TZ_ISRAEL,
-  platform: 'zoom', joinUrl: '', joinPublic: true, status: 'draft', visibility: 'public', thumbnail: '', replayUrl: '', pdfUrl: '', notes: '',
+  platform: 'zoom', joinUrl: '', joinPublic: true, status: 'draft', visibility: 'public', thumbnail: '', replayUrl: '', pdfUrl: '', notes: '', organizer: '',
 };
 
 function toForm(c?: Course, dayKey?: string) {
@@ -124,7 +125,7 @@ export function CourseEditor({ course, dayKey, teachers, series, onClose, onSave
         <input type="checkbox" className="mt-1 h-4 w-4" checked={form.joinPublic} onChange={(e) => set('joinPublic', e.target.checked)} />
         <span><strong>Lien public</strong> : affiché sur le site et dans les messages. Décochez pour un lien Zoom privé (il ne sera jamais publié).</span>
       </label>
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Field label="Statut" htmlFor="c-status">
           <select id="c-status" className="field" value={form.status} onChange={(e) => set('status', e.target.value)}>
             {Object.entries(STATUSES).map(([k, v]) => <option key={k} value={k}>{v as string}</option>)}
@@ -135,6 +136,10 @@ export function CourseEditor({ course, dayKey, teachers, series, onClose, onSave
             <option value="public">Public</option>
             <option value="private">Réservé (non affiché)</option>
           </select>
+        </Field>
+        <Field label="Organisateur" htmlFor="c-org">
+          <input id="c-org" className="field" list="organizers" placeholder="LILMOD, Midreshet Yehouda-Manitou…" value={form.organizer} onChange={(e) => set('organizer', e.target.value)} />
+          <datalist id="organizers"><option value="LILMOD" /><option value="Midreshet Yehouda-Manitou" /><option value="Le HOUG" /></datalist>
         </Field>
         <Field label="Série" htmlFor="c-series">
           <select id="c-series" className="field" value={form.seriesId} onChange={(e) => set('seriesId', e.target.value)}>
@@ -169,6 +174,8 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
   const [issues, setIssues] = useState<any[] | null>(null);
   const [editing, setEditing] = useState<{ course?: Course; dayKey?: string } | null>(null);
   const [busy, setBusy] = useState('');
+  const [importOpen, setImportOpen] = useState(false);
+  const { data: mcStatus } = useAdmin<any>('/mailchimp/status');
   const flash = useFlash();
   const teachers = tData?.items || [];
   const series = sData?.items || [];
@@ -249,6 +256,9 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
         <div className="flex flex-wrap gap-2">
           <button type="button" className={btn.primary} disabled={!!busy} onClick={() => setEditing({ dayKey: weekStart })}>
             <Plus className="h-4 w-4" aria-hidden="true" /> Ajouter un cours
+          </button>
+          <button type="button" className={btn.outline} disabled={!!busy} onClick={() => setImportOpen(true)}>
+            <FileInput className="h-4 w-4" aria-hidden="true" /> Importer un programme
           </button>
           <button type="button" className={btn.outline} disabled={!!busy} onClick={() => run('prepare', () => adminApi('POST', '/programme/prepare', { weekStart }), (r) => `${r.created.length} cours créés en brouillon depuis les cours récurrents.`)}>
             <Repeat className="h-4 w-4" aria-hidden="true" /> Préparer depuis les cours récurrents
@@ -333,7 +343,7 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
                             {c.visibility === 'private' && <Pill className="bg-neutral-100 text-neutral-600">réservé</Pill>}
                           </span>
                           <span className={`mt-0.5 block font-semibold text-neutral-900 ${c.status === 'cancelled' ? 'line-through' : ''}`}>{c.title || '(sans titre)'}</span>
-                          <span className="text-sm text-neutral-500">{t?.name || 'Enseignant non défini'}</span>
+                          <span className="text-sm text-neutral-500">{t?.name || 'Enseignant non défini'}{c.organizer ? ` · ${c.organizer}` : ''}</span>
                         </button>
                         <div className="flex flex-shrink-0 flex-wrap gap-1.5">
                           {c.status === 'draft' && <button type="button" className={btn.outline} onClick={() => quickStatus(c, 'scheduled')}>Valider</button>}
@@ -359,6 +369,7 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
         })}
       </div>
 
+      <ImportDialog open={importOpen} onClose={() => setImportOpen(false)} flash={flash} mailchimpReady={!!mcStatus?.ok} onDone={() => { setImportOpen(false); reload(); }} />
       <Modal open={!!editing} title={editing?.course ? 'Modifier le cours' : 'Nouveau cours'} onClose={() => setEditing(null)} wide>
         {editing && (
           <CourseEditor

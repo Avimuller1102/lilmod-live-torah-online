@@ -68,6 +68,7 @@ const CoursePage = () => {
             <CourseStatusBadge course={course} now={now} />
             {theme && <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold text-white">{theme.label}</span>}
             <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold text-white">{PLATFORM_LABEL[course.platform] || 'En ligne'}</span>
+            {course.organizer && <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs font-semibold text-white">{course.organizer === 'LILMOD' ? 'LILMOD' : `Avec ${course.organizer}`}</span>}
           </div>
           <h1 className={`max-w-3xl font-display text-3xl font-semibold leading-tight text-white md:text-5xl ${timing === 'cancelled' ? 'line-through decoration-2' : ''}`}>{course.title}</h1>
           {teacher && (

@@ -64,11 +64,12 @@ export const SEED_TEACHERS = [
   { id: 'ben-shoushan', name: 'Rav Yossef Ben Shoushan', shortName: 'Rav Ben Shoushan', photo: '/images/speakers/ben-shoushan.webp', specialty: 'Pensée du Rav Kook', bio: '', aliases: ['ben shoushan', 'benshoushan', 'ben-shoushan', 'ben chouchan'] },
   { id: 'botshko', name: 'Rav Botshko', shortName: 'Rav Botshko', photo: '/images/speakers/botshko.webp', specialty: 'Philosophie juive', bio: '', aliases: ['botshko', 'botschko'] },
   { id: 'chouraqui', name: 'Rav Chouraqui', shortName: 'Rav Chouraqui', photo: '/images/speakers/chouraqui.webp', specialty: 'Talmud', bio: '', aliases: ['chouraqui'] },
-  { id: 'fizson', name: 'Rav Fizson', shortName: 'Rav Fizson', photo: '/images/speakers/fizson.webp', specialty: 'Étude des textes', bio: '', aliases: ['fizson', 'fiszon'] },
+  { id: 'fizson', name: 'Rav Eytan Fiszon', shortName: 'Rav Fiszon', photo: '/images/speakers/fizson.webp', specialty: 'Textes de la prière', bio: '', aliases: ['fizson', 'fiszon', 'eytan fiszon'] },
   { id: 'spira', name: 'Georges Spira', shortName: 'Georges Spira', photo: '/images/speakers/spira.webp', specialty: 'Philosophie et pensée juive', bio: '', aliases: ['georges spira', 'spira'] },
   { id: 'kling', name: 'Rav Elie Kling', shortName: 'Rav Kling', photo: '/images/speakers/kling.webp', specialty: 'Paracha et enseignement', bio: '', aliases: ['kling'] },
-  { id: 'ouziel', name: 'Rav Shlomo Ouziel', shortName: 'Rav Ouziel', photo: '/images/speakers/ouziel.webp', specialty: 'Études talmudiques', bio: '', aliases: ['ouziel'] },
-  { id: 'gross', name: 'Dr Michael Gross', shortName: 'Dr Gross', photo: '', specialty: 'Une notion de la Paracha', bio: '', aliases: ['michael gross', 'dr gross'] },
+  { id: 'ouziel', name: 'Rav Shmouel Ouziel', shortName: 'Rav Ouziel', photo: '/images/speakers/ouziel.webp', specialty: 'Paracha Hachavoua', bio: '', aliases: ['ouziel', 'shmouel ouziel', 'shlomo ouziel'] },
+  { id: 'gross', name: 'Dr Michael Gross', shortName: 'Dr Gross', photo: '', specialty: 'Réflexion sur la Paracha', bio: '', aliases: ['michael gross', 'dr gross'] },
+  { id: 'elikan', name: 'Rav Shmuel Elikan', shortName: 'Rav Elikan', photo: '', specialty: 'Torah et psychologie', bio: '', aliases: ['elikan', 'shmuel elikan', 'shmouel elikan'] },
   { id: 'abitbol', name: 'Marc Abitbol', shortName: 'Marc Abitbol', photo: '', specialty: 'Fêtes et pensée juive', bio: '', aliases: ['marc abitbol'] },
 ];
 

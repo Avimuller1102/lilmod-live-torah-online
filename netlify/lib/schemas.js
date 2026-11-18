@@ -40,6 +40,7 @@ export const courseSchema = z.object({
   replayUrl: url,
   pdfUrl: url,
   notes: text(4000),
+  organizer: text(120),
   recurrenceId: id.default(''),
   occurrenceDate: z.string().max(10).default(''),
 });
@@ -63,6 +64,7 @@ export const ruleSchema = z.object({
   joinPublic: z.boolean().default(false),
   visibility: z.enum(['public', 'private']).default('public'),
   thumbnail: localUrl,
+  organizer: text(120),
   active: z.boolean().default(true),
 });
 

@@ -79,3 +79,22 @@ export const scheduleCampaign = (campaignId, isoTime) =>
 export const sendNow = (campaignId) => mc(`/campaigns/${campaignId}/actions/send`, { method: 'POST' });
 
 export const campaignStatus = (campaignId) => mc(`/campaigns/${campaignId}?fields=id,status,send_time,emails_sent`);
+
+/** Dernière campagne envoyée : objet, date et version texte (pour l'import du programme). */
+export async function lastSentCampaign() {
+  const list = await mc('/campaigns?status=sent&sort_field=send_time&sort_dir=DESC&count=1&fields=campaigns.id,campaigns.send_time,campaigns.settings.subject_line');
+  const campaign = list.campaigns?.[0];
+  if (!campaign) throw Object.assign(new Error('Aucune campagne envoyée trouvée dans Mailchimp.'), { status: 404 });
+  const content = await mc(`/campaigns/${campaign.id}/content?fields=plain_text,html`);
+  let text = content.plain_text || '';
+  if (!text && content.html) {
+    text = content.html
+      .replace(/<(br|\/p|\/div|\/h\d|\/tr|\/li)[^>]*>/gi, '\n')
+      .replace(/<a[^>]*href="([^"]+)"[^>]*>[\s\S]*?<\/a>/gi, ' $1 ')
+      .replace(/<[^>]+>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&#39;|&rsquo;/g, "'");
+  }
+  return { id: campaign.id, subject: campaign.settings?.subject_line || '', sendTime: campaign.send_time, text };
+}

@@ -14,7 +14,7 @@ export type Video = {
 export type Course = {
   id: string; title: string; description?: string; teacherId: string; seriesId?: string; category?: string;
   start: string; end?: string; timezone: string; platform: 'zoom' | 'youtube' | 'other'; joinUrl?: string; joinPublic?: boolean;
-  status: string; visibility?: string; thumbnail?: string; replayUrl?: string; pdfUrl?: string;
+  status: string; visibility?: string; thumbnail?: string; replayUrl?: string; pdfUrl?: string; organizer?: string;
 };
 export type Catalog = { teachers: Teacher[]; series: Series[]; categories: Category[]; videos: Video[] };
 export type Programme = { from: string; to: string; courses: Course[]; teachers: Teacher[]; series: Series[] };

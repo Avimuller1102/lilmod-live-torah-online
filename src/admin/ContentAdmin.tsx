@@ -10,6 +10,68 @@ import { formatShortDate } from '../../shared/time.js';
 
 const list = (v: string) => v.split(',').map((x) => x.trim()).filter(Boolean);
 
+/** Recadre la photo en carré (centre), la réduit à 480 px et la convertit en WebP. */
+async function resizePhoto(file: File): Promise<string> {
+  const url = URL.createObjectURL(file);
+  try {
+    const img = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const i = new Image();
+      i.onload = () => resolve(i);
+      i.onerror = () => reject(new Error('Image illisible.'));
+      i.src = url;
+    });
+    const side = Math.min(img.naturalWidth, img.naturalHeight);
+    const size = Math.min(480, side);
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d')!;
+    ctx.drawImage(img, (img.naturalWidth - side) / 2, (img.naturalHeight - side) / 2, side, side, 0, 0, size, size);
+    const webp = canvas.toDataURL('image/webp', 0.85);
+    return webp.startsWith('data:image/webp') ? webp : canvas.toDataURL('image/jpeg', 0.85);
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+function PhotoField({ value, onChange, flash }: { value: string; onChange: (v: string) => void; flash: any }) {
+  const [busy, setBusy] = useState(false);
+  return (
+    <div>
+      <span className="field-label">Photo</span>
+      <div className="flex items-center gap-3">
+        {value ? <img src={value} alt="" className="h-16 w-16 rounded-2xl object-cover ring-1 ring-neutral-200" /> : <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-neutral-100 text-xs text-neutral-400">aucune</span>}
+        <label className={`${btn.outline} cursor-pointer`}>
+          {busy ? 'Envoi…' : 'Téléverser une photo'}
+          <input
+            type="file"
+            accept="image/*"
+            className="sr-only"
+            disabled={busy}
+            onChange={async (e) => {
+              const file = e.target.files?.[0];
+              if (!file) return;
+              setBusy(true);
+              try {
+                const dataUrl = await resizePhoto(file);
+                const r = await adminApi('POST', '/media', { dataUrl });
+                onChange(r.url);
+                flash.ok('Photo téléversée : pensez à enregistrer.');
+              } catch (err: any) {
+                flash.error(err.message);
+              } finally {
+                setBusy(false);
+                e.target.value = '';
+              }
+            }}
+          />
+        </label>
+        {value && <button type="button" className={btn.outline} onClick={() => onChange('')}>Retirer</button>}
+      </div>
+    </div>
+  );
+}
+
 function Teachers() {
   const { data, reload } = useAdmin<{ items: any[] }>('/teachers');
   const [form, setForm] = useState<any>(null);
@@ -63,7 +125,7 @@ function Teachers() {
               <Field label="Nom court" htmlFor="t-short"><input id="t-short" className="field" value={form.shortName} onChange={(e) => set('shortName', e.target.value)} /></Field>
               <Field label="Domaines d'enseignement" htmlFor="t-spec"><input id="t-spec" className="field" value={form.specialty} onChange={(e) => set('specialty', e.target.value)} /></Field>
             </div>
-            <Field label="Photo (lien https:// ou /images/…)" htmlFor="t-photo"><input id="t-photo" className="field" value={form.photo} onChange={(e) => set('photo', e.target.value)} /></Field>
+            <PhotoField value={form.photo} onChange={(v) => set('photo', v)} flash={flash} />
             <Field label="Présentation vérifiée" htmlFor="t-bio"><textarea id="t-bio" rows={4} className="field" value={form.bio} onChange={(e) => set('bio', e.target.value)} /></Field>
             <Field label="Variantes d'écriture (séparées par des virgules)" htmlFor="t-alias" hint="Ex. : ben ichay, ben ishai, benichay"><input id="t-alias" className="field" value={form.aliases} onChange={(e) => set('aliases', e.target.value)} /></Field>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4" checked={form.hidden} onChange={(e) => set('hidden', e.target.checked)} /> Masquer sur le site</label>

@@ -207,3 +207,44 @@ test('tâche horaire résistante aux pannes', async () => {
   assert.ok(report.videosError);
   assert.ok(report.coursesDone >= 1, 'cours passés marqués terminés');
 });
+
+test('import du programme rédigé : aperçu, création, récurrences, sans doublon', async () => {
+  const { SAMPLE } = await import('./importer.test.js');
+  cookie = '';
+  await A('POST', '/login', { username: 'admin', password: process.env.ADMIN_PASSWORD });
+  const preview = await A('POST', '/programme/import', { text: SAMPLE });
+  assert.equal(preview.status, 200, JSON.stringify(preview.data));
+  assert.equal(preview.data.items.length, 9);
+  assert.equal(preview.data.applied, false);
+  const before = (await A('GET', '/courses')).data.courses.length;
+  const applied = await A('POST', '/programme/import', { text: SAMPLE, apply: true, status: 'published', createRules: true });
+  const fresh = preview.data.items.filter((i) => !i.duplicate).length;
+  assert.ok(fresh >= 8, `${fresh} cours nouveaux`);
+  assert.equal(applied.data.created, fresh);
+  assert.equal(applied.data.rules, fresh);
+  assert.equal((await A('GET', '/courses')).data.courses.length, before + fresh);
+  const again = await A('POST', '/programme/import', { text: SAMPLE, apply: true, status: 'published', createRules: true });
+  assert.equal(again.data.created, 0, 'pas de doublon au second import');
+  assert.ok(again.data.items.every((i) => i.duplicate));
+  // « Préparer la semaine » ne recrée pas les cours importés
+  const prep = await A('POST', '/programme/prepare', { weekStart: '2026-11-15' });
+  assert.equal(prep.data.created.filter((c) => c.title.includes('Amida')).length, 0);
+  // la semaine suivante est préparée à partir des récurrences créées
+  const next = await A('POST', '/programme/prepare', { weekStart: '2026-11-22' });
+  assert.ok(next.data.created.length >= 8);
+  assert.ok(next.data.created.some((c) => c.organizer === 'Le HOUG'));
+  const pub = await P('/programme?from=2026-11-15&to=2026-11-21');
+  const elikan = pub.data.courses.find((c) => c.teacherId === 'elikan');
+  assert.equal(elikan.joinUrl, 'https://zoom.us/j/99172021386?pwd=fMOKyc6tTVMD4EYBLe80iL8vAKgrk9.1');
+  assert.equal(elikan.organizer, 'Midreshet Yehouda-Manitou');
+  assert.equal((await A('POST', '/programme/import', { text: 'rien à voir' })).status, 400);
+});
+
+test('photo téléversée et servie', async () => {
+  const png = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+  const up = await A('POST', '/media', { dataUrl: `data:image/png;base64,${png}` });
+  assert.equal(up.status, 200);
+  const res = await api(new Request(`https://lilmod.fr${up.data.url}`));
+  assert.equal(res.headers.get('content-type'), 'image/png');
+  assert.equal((await A('POST', '/media', { dataUrl: 'data:text/html;base64,PHNjcmlwdD4=' })).status, 400);
+});

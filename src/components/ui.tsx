@@ -131,6 +131,7 @@ export function CourseCard({ course, teacher, compact = false, now = new Date() 
           {teacher.name}
         </p>
       )}
+      {course.organizer && course.organizer !== 'LILMOD' && <p className="mt-1 text-xs font-medium text-neutral-500">Avec {course.organizer}</p>}
       {!compact && course.description && <p className="mt-2 line-clamp-2 text-sm text-neutral-600">{course.description}</p>}
       <div className="relative z-10 mt-auto flex flex-wrap gap-2 pt-4">
         {canJoin && (

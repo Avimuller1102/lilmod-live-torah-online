@@ -14,7 +14,7 @@ import { CATEGORIES } from '../../shared/catalog.js';
 const EMPTY = {
   title: '', description: '', teacherId: '', seriesId: '', category: '', weekdays: [0] as number[], time: '20:30', durationMin: 60,
   timezone: TZ_ISRAEL, intervalWeeks: 1, startDate: localDateKey(new Date()), endDate: '', platform: 'zoom', joinUrl: '', joinPublic: true,
-  visibility: 'public', thumbnail: '', active: true,
+  visibility: 'public', thumbnail: '', organizer: '', active: true,
 };
 
 export default function RulesAdmin() {
@@ -136,6 +136,7 @@ export default function RulesAdmin() {
                 </select>
               </Field>
             </div>
+            <Field label="Organisateur" htmlFor="r-org"><input id="r-org" className="field" list="organizers-r" value={form.organizer} onChange={(e) => set('organizer', e.target.value)} /><datalist id="organizers-r"><option value="LILMOD" /><option value="Midreshet Yehouda-Manitou" /><option value="Le HOUG" /></datalist></Field>
             <Field label="Lien de participation habituel" htmlFor="r-join"><input id="r-join" type="url" className="field" placeholder="https://" value={form.joinUrl} onChange={(e) => set('joinUrl', e.target.value)} /></Field>
             <label className="flex items-center gap-2 text-sm"><input type="checkbox" className="h-4 w-4" checked={form.joinPublic} onChange={(e) => set('joinPublic', e.target.checked)} /> Lien public (affiché sur le site et dans les messages)</label>
             <Field label="Description" htmlFor="r-desc"><textarea id="r-desc" rows={2} className="field" value={form.description} onChange={(e) => set('description', e.target.value)} /></Field>

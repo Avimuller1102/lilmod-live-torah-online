@@ -14,6 +14,7 @@ import { CATEGORIES, enrichVideo } from '../../shared/catalog.js';
 import { courseToIcs } from '../../shared/messages.js';
 import { getCourses, getSeries, getSettings, getTeachers, getVideos, upsertVideos } from '../lib/data.js';
 import { fetchFeed } from '../lib/youtube.js';
+import { readJSON } from '../lib/store.js';
 import { error, json, routeParts, siteUrl } from '../lib/http.js';
 
 const CACHE_SHORT = 'public, max-age=60, stale-while-revalidate=300';
@@ -92,6 +93,13 @@ export default async (req) => {
         { whatsappGroupUrl: s.whatsappGroupUrl, newsletterSignupUrl: s.newsletterSignupUrl, donateUrl: s.donateUrl, contactEmail: s.contactEmail },
         { cache: CACHE_MEDIUM },
       );
+    }
+    if (resource === 'media' && id) {
+      const media = await readJSON(`media-${id.replace(/[^a-z0-9_-]/gi, '')}`, null);
+      if (!media) return error('Image introuvable.', 404);
+      return new Response(Buffer.from(media.data, 'base64'), {
+        headers: { 'Content-Type': media.type, 'Cache-Control': 'public, max-age=31536000, immutable', 'X-Content-Type-Options': 'nosniff' },
+      });
     }
     if (resource === 'ics' && id) {
       const course = (await getCourses()).find((c) => c.id === id);
