@@ -59,9 +59,9 @@ const ProgrammePage = () => {
       <PageHero
         eyebrow="Programme"
         title="Le programme de la semaine"
-        subtitle="Tous les cours en direct, avec l'heure en Israël et en France. Les changements d'heure de chaque pays sont pris en compte automatiquement."
+        subtitle="Tous les cours en direct, à l'heure d'Israël et de France."
       >
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 hidden flex-wrap gap-3 sm:flex">
           <a href={settings.whatsappGroupUrl} target="_blank" rel="noopener noreferrer" className="btn-ghost-light text-sm">
             <MessageCircle className="h-4 w-4" aria-hidden="true" /> Recevoir le programme sur WhatsApp
           </a>
@@ -71,7 +71,7 @@ const ProgrammePage = () => {
         </div>
       </PageHero>
 
-      <section className="section-padding pt-8 md:pt-10">
+      <section className="section-padding pt-4 md:pt-10">
         <div className="container-custom">
           {/* Navigation de semaine */}
           <div className="sticky top-[60px] z-30 -mx-5 mb-6 border-b border-neutral-200/80 bg-[#F7F3EC]/95 px-5 py-3 backdrop-blur sm:static sm:mx-0 sm:rounded-2xl sm:border sm:bg-white sm:px-4">

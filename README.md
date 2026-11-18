@@ -13,14 +13,14 @@
 
 ## ✨ Fonctionnalités
 
-- 🎥 **Cours en Direct** - Plus de 10 sessions live par semaine avec Q&A
-- 📺 **Vidéothèque** - Plus de 2500 cours disponibles sur YouTube
-- 🎧 **Podcasts** - Écoutez nos cours sur Spotify
-- 👨‍🏫 **Enseignants Experts** - Une équipe de Rabbanim reconnus
-- ✈️ **Témoignages d'Alya** - Des étudiants racontent leur installation en Israël (`TESTIMONIALS` dans `src/lib/constants.ts`)
-- 🕯️ **Horaires de Chabbat** - Par ville, via Hebcal
-- 📧 **Newsletter** - Restez informé du programme hebdomadaire
-- 💬 **Contact** - Formulaire de contact fonctionnel
+- 📅 **Programme hebdomadaire** (`/programme`) — référence unique des horaires, heure d'Israël et de France, cours en direct, agenda, partage WhatsApp
+- 🛠️ **Administration** (`/admin`) — cours récurrents, « Préparer la semaine suivante », contrôles avant publication, publication
+- ✉️ **Newsletter Mailchimp** et 💬 **messages WhatsApp** générés depuis le programme (aucune ressaisie)
+- 🎥 **Bibliothèque** (`/cours`) — recherche tolérante, filtres, séries, fiches vidéo
+- 👨‍🏫 **Intervenants** (`/intervenants`) et 📚 **séries** (`/series`)
+- ✈️ Témoignages d'Alya, 🕯️ horaires de Chabbat, 🎧 podcast, ❤️ soutien
+
+📖 **Guide de l'équipe** : [docs/GUIDE-EQUIPE.md](docs/GUIDE-EQUIPE.md) · 🔧 **Documentation technique** : [docs/TECHNIQUE.md](docs/TECHNIQUE.md)
 
 ## 🚀 Démarrage Rapide
 
@@ -100,36 +100,17 @@ VITE_FORMSPREE_ID=votre_id_formspree
 ## 🏗️ Structure du Projet
 
 ```
-src/
-├── components/           # Composants React
-│   ├── Navbar.tsx       # Navigation responsive
-│   ├── HeroSection.tsx  # Section héro animée
-│   ├── About.tsx        # Section à propos
-│   ├── VideoGallery.tsx # Galerie vidéo YouTube
-│   ├── AudioLibrary.tsx # Section podcast Spotify
-│   ├── Speakers.tsx     # Grille des intervenants
-│   ├── Newsletter.tsx   # Inscription newsletter
-│   ├── Support.tsx      # Section donation
-│   ├── Contact.tsx      # Formulaire de contact
-│   └── Footer.tsx       # Pied de page
-├── lib/
-│   ├── constants.ts     # Configuration centralisée
-│   └── utils.ts         # Utilitaires (cn, etc.)
-├── App.tsx              # Composant racine
-├── main.tsx             # Point d'entrée
-└── index.css            # Design system CSS
+shared/                 Logique commune site + serveur (fuseaux, programme, messages, catalogue)
+netlify/functions/      api.js (public), admin.js (administration), sitemap.js, scheduled-hourly.js,
+                        youtube-latest.js, spotify-latest.js
+netlify/edge-functions/ seo.js (métadonnées et données structurées par page)
+netlify/lib/            stockage (Netlify Blobs), auth, validation, Mailchimp, YouTube, communications
+src/pages/              pages publiques
+src/admin/              administration
+src/components/         composants (ui.tsx = design system)
+tests/                  tests unitaires, API, SEO et parcours navigateur
+docs/                   guide de l'équipe et documentation technique
 ```
-
-## 🌐 Nom de domaine
-
-- Site : **https://lilmod.fr** (domaine principal Netlify, HTTPS automatique Let's Encrypt)
-- `www.lilmod.fr` et `http://` redirigent automatiquement vers `https://lilmod.fr`
-- Adresse Netlify de secours : https://lilmod-fr.netlify.app
-- DNS chez GoDaddy : `A @ → 75.2.60.5` et `CNAME www → lilmod-fr.netlify.app`
-- Le domaine est en renouvellement automatique chez GoDaddy (échéance annuelle : 1er février)
-
-L'adresse utilisée pour les balises de partage, le sitemap et robots.txt vient de la variable
-Netlify `URL` (le domaine principal) : aucun changement de code n'est nécessaire si le domaine change.
 
 ## 🚢 Déploiement gratuit
 

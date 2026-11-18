@@ -248,11 +248,11 @@ export function ExternalButton({ href, children, className = 'btn-outline' }: { 
 
 export function PageHero({ eyebrow, title, subtitle, children }: { eyebrow?: string; title: string; subtitle?: string; children?: ReactNode }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-hero pb-12 pt-28 text-white md:pb-16 md:pt-36">
+    <section className="relative overflow-hidden bg-gradient-hero pb-8 pt-24 text-white md:pb-16 md:pt-36">
       <div className="container-custom relative">
-        {eyebrow && <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-accent-200">{eyebrow}</p>}
-        <h1 className="max-w-3xl font-display text-[2.1rem] font-semibold leading-[1.1] text-white sm:text-5xl">{title}</h1>
-        {subtitle && <p className="mt-4 max-w-2xl text-base leading-7 text-blue-50/85 md:text-lg">{subtitle}</p>}
+        {eyebrow && <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-accent-200 md:mb-3">{eyebrow}</p>}
+        <h1 className="max-w-3xl font-display text-[1.9rem] font-semibold leading-[1.1] text-white sm:text-5xl">{title}</h1>
+        {subtitle && <p className="mt-3 max-w-2xl text-[15px] leading-6 text-blue-50/85 md:mt-4 md:text-lg md:leading-7">{subtitle}</p>}
         {children}
       </div>
     </section>
