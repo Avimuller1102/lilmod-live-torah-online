@@ -15,9 +15,32 @@ export const DEFAULT_SETTINGS = {
   liveSendingEnabled: false,
 };
 
-export const getCourses = () => readJSON('courses', []);
+/**
+ * Corrections de données ponctuelles, exécutées une seule fois (marqueur dans « migrations »).
+ * 2026-11 : le cours du Rav Ben Ichay est organisé par Emounah Chelema, pas par LILMOD.
+ */
+let migrating = null;
+function migrate() {
+  migrating ||= (async () => {
+    const done = await readJSON('migrations', []);
+    if (done.includes('ben-ichay-emounah-chelema')) return;
+    const fix = (list) => {
+      let n = 0;
+      for (const x of list) if (x.teacherId === 'ben-ichay' && (!x.organizer || x.organizer === 'LILMOD')) { x.organizer = 'Emounah Chelema'; n += 1; }
+      return n;
+    };
+    const courses = await readJSON('courses', []);
+    const rules = await readJSON('rules', []);
+    if (fix(courses)) await writeJSON('courses', courses);
+    if (fix(rules)) await writeJSON('rules', rules);
+    await writeJSON('migrations', [...done, 'ben-ichay-emounah-chelema']);
+  })().catch(() => { migrating = null; });
+  return migrating;
+}
+
+export const getCourses = async () => (await migrate(), readJSON('courses', []));
 export const saveCourses = (v) => writeJSON('courses', v);
-export const getRules = () => readJSON('rules', []);
+export const getRules = async () => (await migrate(), readJSON('rules', []));
 export const saveRules = (v) => writeJSON('rules', v);
 /** Éléments enregistrés + éléments de départ ajoutés depuis (sans écraser les modifications). */
 function withSeeds(stored, seeds) {

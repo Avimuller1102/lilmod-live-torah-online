@@ -139,7 +139,7 @@ export function CourseEditor({ course, dayKey, teachers, series, onClose, onSave
         </Field>
         <Field label="Organisateur" htmlFor="c-org">
           <input id="c-org" className="field" list="organizers" placeholder="LILMOD, Midreshet Yehouda-Manitou…" value={form.organizer} onChange={(e) => set('organizer', e.target.value)} />
-          <datalist id="organizers"><option value="LILMOD" /><option value="Midreshet Yehouda-Manitou" /><option value="Le HOUG" /></datalist>
+          <datalist id="organizers"><option value="LILMOD" /><option value="Midreshet Yehouda-Manitou" /><option value="Le HOUG" /><option value="Emounah Chelema" /></datalist>
         </Field>
         <Field label="Série" htmlFor="c-series">
           <select id="c-series" className="field" value={form.seriesId} onChange={(e) => set('seriesId', e.target.value)}>

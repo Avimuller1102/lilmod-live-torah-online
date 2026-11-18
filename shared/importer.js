@@ -62,6 +62,7 @@ function cleanOrganizer(raw) {
   const f = plain(v);
   if (/yehouda|yeouda|manitou/.test(f)) return 'Midreshet Yehouda-Manitou';
   if (/houg/.test(f)) return 'Le HOUG';
+  if (/emoun|chelema|shelema/.test(f)) return 'Emounah Chelema';
   if (/lilmod/.test(f)) return 'LILMOD';
   return v.replace(/\s+/g, ' ');
 }

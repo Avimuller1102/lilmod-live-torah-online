@@ -20,6 +20,7 @@ const ORG_LOGOS: Record<string, string> = {
   LILMOD: '/images/logo-lilmod.webp',
   'Midreshet Yehouda-Manitou': '/images/partners/manitou.webp',
   'Le HOUG': '/images/partners/houg.webp',
+  'Emounah Chelema': '/images/partners/emouna-chelema.webp',
 };
 
 const loadImage = (src: string) =>

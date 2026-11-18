@@ -60,6 +60,7 @@ export const IMAGES = {
   partners: {
     manitou: "/images/partners/manitou.webp",
     houg: "/images/partners/houg.webp",
+    emounaChelema: "/images/partners/emouna-chelema.webp",
   },
 } as const;
 
