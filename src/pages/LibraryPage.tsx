@@ -74,9 +74,17 @@ const LibraryPage = () => {
           {/* Séries */}
           {!hasFilters && (data?.series || []).length > 0 && (
             <div className="mb-10">
-              <h2 className="mb-4 font-display text-2xl font-semibold text-neutral-950">Séries</h2>
+              <div className="mb-4 flex items-end justify-between gap-3">
+                <h2 className="font-display text-2xl font-semibold text-neutral-950">Séries</h2>
+                <Link to="/series" className="text-sm font-semibold text-primary-700 hover:underline">Toutes les séries →</Link>
+              </div>
               <ul className="carousel-sm sm:grid-cols-2 sm:gap-4 lg:grid-cols-4">
-                {data!.series.map((s) => {
+                {data!.series
+                  .map((s) => ({ s, c: data!.videos.filter((v) => v.seriesId === s.id).length }))
+                  .filter((x) => x.c > 0)
+                  .sort((a, b) => b.c - a.c)
+                  .slice(0, 8)
+                  .map(({ s }) => {
                   const count = data!.videos.filter((v) => v.seriesId === s.id).length;
                   return (
                     <li key={s.id}>

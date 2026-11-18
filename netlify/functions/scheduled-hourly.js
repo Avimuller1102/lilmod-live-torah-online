@@ -8,7 +8,7 @@
  * Chaque étape est isolée : un échec est journalisé sans bloquer les autres.
  */
 import { courseTiming, localDateKey, zonedParts, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
-import { getCourses, getSettings, log, saveCourses, upsertVideos } from '../lib/data.js';
+import { getCourses, getSeries, getSettings, log, saveCourses, upsertVideos } from '../lib/data.js';
 import { fetchFeed } from '../lib/youtube.js';
 import { buildDaily, emailAction, findComm } from '../lib/comms.js';
 import { mailchimpConfigured } from '../lib/mailchimp.js';
@@ -20,6 +20,24 @@ export async function runHourly(now = new Date()) {
   } catch (e) {
     report.videosError = e.message;
     await log('tâche.vidéos.erreur', { error: e.message }, { level: 'error' });
+  }
+
+  // Une fois par nuit (3 h, heure de France) : épisodes récents de chaque playlist / série.
+  if (zonedParts(now, TZ_FRANCE).hour === 3) {
+    try {
+      const collected = [];
+      for (const s of await getSeries()) {
+        if (!s.playlistId) continue;
+        try {
+          collected.push(...(await fetchFeed({ playlistId: s.playlistId })).map((v) => ({ ...v, seriesId: s.id })));
+        } catch {
+          /* une playlist indisponible n'empêche pas les autres */
+        }
+      }
+      report.playlists = await upsertVideos(collected);
+    } catch (e) {
+      report.playlistsError = e.message;
+    }
   }
 
   try {

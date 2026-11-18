@@ -60,7 +60,7 @@ export const TeacherPage = () => {
   const teacher = data?.teachers.find((t) => t.id === id);
   useSeo(teacher?.name || 'Intervenant', teacher ? `${teacher.name}${teacher.specialty ? ` — ${teacher.specialty}` : ''}. Cours en direct et replays sur LILMOD.` : undefined);
   const videos = (data?.videos || []).filter((v) => v.teacherId === id);
-  const series = (data?.series || []).filter((s) => s.teacherId === id);
+  const series = (data?.series || []).filter((s) => s.teacherId === id && (data?.videos || []).some((v) => v.seriesId === s.id));
   const upcoming = (prog?.courses || []).filter((c) => c.teacherId === id && ['upcoming', 'live'].includes(courseTiming(c, now)));
 
   if (loading) return <div className="container-custom pb-20 pt-32"><CardSkeleton count={2} /></div>;

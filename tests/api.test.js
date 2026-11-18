@@ -16,6 +16,7 @@ const mailchimpCalls = [];
 const realFetch = globalThis.fetch;
 globalThis.fetch = async (url, opts = {}) => {
   const u = String(url);
+  if (u.includes('youtube.com/feeds') && u.includes('playlist_id=')) return new Response('<feed></feed>');
   if (u.includes('youtube.com/feeds')) {
     return new Response(`<feed><entry><yt:videoId>abc123def45</yt:videoId><title>Rav Menahem Akerman - Tefila : la Amida. Episode 4</title><published>2026-11-14T18:03:50+00:00</published><media:description>Cours</media:description></entry></feed>`);
   }

@@ -308,6 +308,11 @@ async function syncVideos(user) {
       const all = await fetchAllWithApi({ apiKey: process.env.YOUTUBE_API_KEY });
       collected.push(...all);
       report.sources.push(`Import complet (API YouTube) : ${all.length} vidéos`);
+      for (const s of await getSeries()) {
+        if (!s.playlistId) continue;
+        const items = await fetchAllWithApi({ apiKey: process.env.YOUTUBE_API_KEY, playlistId: s.playlistId, maxPages: 10 });
+        collected.push(...items.map((v) => ({ ...v, seriesId: s.id })));
+      }
     } catch (e) {
       report.errors.push(e.message);
     }

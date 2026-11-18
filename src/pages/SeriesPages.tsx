@@ -21,7 +21,11 @@ export const SeriesListPage = () => {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"><CardSkeleton count={4} /></div>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {(data?.series || []).map((s) => {
+              {(data?.series || [])
+                .map((s) => ({ s, n: (data?.videos || []).filter((v) => v.seriesId === s.id).length }))
+                .filter((x) => x.n > 0)
+                .sort((a, b) => b.n - a.n)
+                .map(({ s }) => {
                 const eps = (data?.videos || []).filter((v) => v.seriesId === s.id);
                 const teacher = teacherById(data?.teachers, s.teacherId);
                 return (

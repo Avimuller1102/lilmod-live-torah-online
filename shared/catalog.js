@@ -121,6 +121,56 @@ export const SEED_SERIES = [
   { id: 'la-paracha-avec-le-rav-ben-ichay', title: 'La Paracha avec le Rav Ben Ichay', teacherId: 'ben-ichay', description: 'Le cours hebdomadaire du Rav Yehouda Ben Ichay sur la Paracha de la semaine.', match: ['paracha', 'parachat'], playlistId: '' },
 ];
 
+
+/**
+ * Séries issues des playlists publiques de la chaîne YouTube LILMOD
+ * (youtube.com/@Lilmodfr/playlists, relevé du 18/11/2026). Titres repris tels quels ;
+ * l'intervenant est détecté depuis le titre. Les vidéos sont rattachées via le flux de chaque playlist.
+ */
+const PLAYLIST_SERIES = [
+  ["PL_WyOEzEbvkojXDnvdZ4q7eWQxMLt7rEC", "Marc Abitbol – « Talmud 10 Sephirot »"],
+  ["PL_WyOEzEbvkqEwCapW7HXIECu1ychLPXl", "Sefirot et Sefirat HaOmer – Rav Akerman – Donner du sens au décompte"],
+  ["PL_WyOEzEbvkrqoDHdX7JDMto-XNdvtn2l", "Marc Abitbol – Les fetes selon les enseignements du Rav Ashlag"],
+  ["PL_WyOEzEbvkoDNcrzs7Qz89YRVXdQnvPI", "Rav Menahem Akerman – Le miracle de Hanouka"],
+  ["PL_WyOEzEbvkqYVWkvVj4dv7GY2tpfjGLD", "Azkara, Elie Botbol – Rav Shimon Boussidan"],
+  ["PL_WyOEzEbvkoPloZBTfpInawrvDP5vqbo", "Marc Abitbol – Introduction à la Kabbala du Rav Ashlag : recevoir pour donner"],
+  ["PL_WyOEzEbvkrBFpvX-Og6YeDegotFu-sy", "Rav Elie kling – interview 7 octobre 2 ans après"],
+  ["PL_WyOEzEbvkpEmLbempzMk-GFmFSGI7J8", "Rambam hilhot melahim:les rois et les guerres"],
+  ["PL_WyOEzEbvkpQr6reDiNG7xeaZ_spnGFO", "Etude de Orot Hatechouva-Rav Yossef Ben-Shoushan"],
+  ["PL_WyOEzEbvkptjv3obRHUKit3ij9UbTHl", "Rav Menahem Akerman – Étude du Kol Ator du Gaon de Vilna 5785"],
+  ["PL_WyOEzEbvkqDvxT9IZpeqNbZXRJK945T", "HBG – Dr Michael Gross – La Paracha à la lumière du Midrach 5785"],
+  ["PL_WyOEzEbvkrmdBGF_x4nFm4mCOZbfVem", "Rosh Hashana"],
+  ["PL_WyOEzEbvkoMYyuy2HW0oeo1mRjtm5qA", "Rav Akerman – La Mitsva de monter sur le mont du temple ?"],
+  ["PL_WyOEzEbvkqtTUD2SrQJ205e7h5lejlp", "HBG – Dr Michael Gross – Chant et Pioutim"],
+  ["PL_WyOEzEbvkq2VLU4QBb5Pp4wn0aIBitz", "Rav Akerman – Morale de guerre – 5784"],
+  ["PL_WyOEzEbvkph49oehjnfcCkSTRaHv7z7", "Playlist sur Chavouot !"],
+  ["PL_WyOEzEbvkpCKmGddwipU-sRQ3Vq4wc_", "Jérusalem – Liberation de notre capitale 🧡"],
+  ["PL_WyOEzEbvkr1S9pmAGezcIPzLVM9n_BP", "Rav Akerman – SEMINAIRE \"JUDAISME ET CONVERSION\""],
+  ["PL_WyOEzEbvkrVdhl3K1WmtR_s76RSEy2P", "YOM HAATSMAOUT, YOM HAZIKARON"],
+  ["PL_WyOEzEbvkoVmnbZVoekr33Txb_bGGtQ", "Yom HASHOAH"],
+  ["PL_WyOEzEbvko5PuZP8OpxafXlhwJ0SecD", "Replay de Pessah"],
+  ["PL_WyOEzEbvkqJ1jcfWB-iAVUjATn4DVWb", "Rav Akerman La Tefila – 5784"],
+  ["PL_WyOEzEbvko1Z8suWNF1326WZ3jMg3RA", "Au cœur d'Israël – 5774"],
+  ["PL_WyOEzEbvkr8c7xTTWElk8klY44i600L", "TOU BICHVAT"],
+  ["PL_WyOEzEbvkqMug8BXfLW8dVq6QOFbku2", "HBG – Dr Michael Gross – Etude du Ibn Ezra sur la PARACHA – 5774"],
+  ["PL_WyOEzEbvkqVPkKH1F4rryqWu7Xk8rjf", "Hannouca avec LILMOD"],
+  ["PL_WyOEzEbvkqmWghofLyuoWXLRWRfVT_7", "HBG – Dr Michael Gross – Etude du RAMBAN sur la PARACHA – 5784"],
+  ["PL_WyOEzEbvkpymvch4jxA-A8vcYxO1shF", "Rav Ben Ichay – la paracha de la semaine 5784"],
+  ["PL_WyOEzEbvkpDKCtBdWLJe6rHupoCqBy8", "Rav Akerman – OROT HATECHOUVA Chapitre 5 – 5783"],
+  ["PL_WyOEzEbvkrl4cnnR0fvLEcKlXSHDs1J", "Rav Yossef Ben – shoushan – année 5783"],
+];
+
+for (const [playlistId, title] of PLAYLIST_SERIES) {
+  SEED_SERIES.push({
+    id: `playlist-${playlistId.slice(-10).toLowerCase().replace(/[^a-z0-9]/g, '')}`,
+    title,
+    teacherId: detectTeacherId(title),
+    description: `Playlist YouTube « ${title} ».`,
+    match: [],
+    playlistId,
+  });
+}
+
 export function videoSeriesId(video, series) {
   if (video.seriesId) return video.seriesId;
   const f = ` ${fold(video.title)} `;

@@ -19,9 +19,16 @@ export const getCourses = () => readJSON('courses', []);
 export const saveCourses = (v) => writeJSON('courses', v);
 export const getRules = () => readJSON('rules', []);
 export const saveRules = (v) => writeJSON('rules', v);
-export const getTeachers = async () => (await readJSON('teachers', null)) ?? SEED_TEACHERS;
+/** Éléments enregistrés + éléments de départ ajoutés depuis (sans écraser les modifications). */
+function withSeeds(stored, seeds) {
+  if (!stored) return seeds;
+  const ids = new Set(stored.map((i) => i.id));
+  return [...stored, ...seeds.filter((s) => !ids.has(s.id))];
+}
+
+export const getTeachers = async () => withSeeds(await readJSON('teachers', null), SEED_TEACHERS);
 export const saveTeachers = (v) => writeJSON('teachers', v);
-export const getSeries = async () => (await readJSON('series', null)) ?? SEED_SERIES;
+export const getSeries = async () => withSeeds(await readJSON('series', null), SEED_SERIES);
 export const saveSeries = (v) => writeJSON('series', v);
 export const getVideoMap = () => readJSON('videos', {});
 export const saveVideoMap = (v) => writeJSON('videos', v);
@@ -80,7 +87,7 @@ export async function upsertVideos(incoming) {
       ...(prev
         ? {
             teacherId: prev.teacherId || '',
-            seriesId: prev.seriesId || '',
+            seriesId: prev.seriesId || v.seriesId || '',
             categories: prev.categories || [],
             featured: Boolean(prev.featured),
             hidden: Boolean(prev.hidden),
@@ -88,7 +95,7 @@ export async function upsertVideos(incoming) {
             duration: v.duration || prev.duration || '',
             description: v.description || prev.description || '',
           }
-        : { teacherId: '', seriesId: '', categories: [], featured: false, hidden: false, firstSeenAt: new Date().toISOString() }),
+        : { teacherId: '', seriesId: v.seriesId || '', categories: [], featured: false, hidden: false, firstSeenAt: new Date().toISOString() }),
     };
   }
   await saveVideoMap(map);
