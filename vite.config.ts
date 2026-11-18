@@ -6,10 +6,10 @@ import type { Plugin } from "vite";
 /**
  * Adresse publique du site.
  * Sur Netlify, `URL` vaut automatiquement le domaine principal du site
- * (lilmod-fr.netlify.app aujourd'hui, lilmod.fr dès que le
+ * (lilmod.fr ; repli sur cette adresse si la variable est absente, dès que le
  * domaine sera branché) : rien à modifier dans le code.
  */
-const SITE_URL = (process.env.VITE_SITE_URL || process.env.URL || "https://lilmod-fr.netlify.app").replace(/\/$/, "");
+const SITE_URL = (process.env.VITE_SITE_URL || process.env.URL || "https://lilmod.fr").replace(/\/$/, "");
 process.env.VITE_SITE_URL = SITE_URL;
 
 /** Génère robots.txt et sitemap.xml avec la bonne adresse. */

@@ -120,12 +120,16 @@ src/
 └── index.css            # Design system CSS
 ```
 
-## 🌐 Nom de domaine (lilmod.fr)
+## 🌐 Nom de domaine
 
-L'adresse du site (balises de partage, sitemap, robots.txt) est calculée automatiquement à partir
-du domaine principal Netlify (variable `URL`). Une fois `lilmod.fr` ajouté dans
-**Netlify → Domain management** et défini comme domaine principal, il suffit de relancer un déploiement :
-aucune modification du code n'est nécessaire.
+- Site : **https://lilmod.fr** (domaine principal Netlify, HTTPS automatique Let's Encrypt)
+- `www.lilmod.fr` et `http://` redirigent automatiquement vers `https://lilmod.fr`
+- Adresse Netlify de secours : https://lilmod-fr.netlify.app
+- DNS chez GoDaddy : `A @ → 75.2.60.5` et `CNAME www → lilmod-fr.netlify.app`
+- Le domaine est en renouvellement automatique chez GoDaddy (échéance annuelle : 1er février)
+
+L'adresse utilisée pour les balises de partage, le sitemap et robots.txt vient de la variable
+Netlify `URL` (le domaine principal) : aucun changement de code n'est nécessaire si le domaine change.
 
 ## 🚢 Déploiement gratuit
 
