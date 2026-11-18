@@ -11,6 +11,7 @@ import { Field, Panel, Pill, btn, useFlash } from './ui';
 import type { Session } from './AdminApp';
 import { addDaysToKey, formatDayKey, localDateKey, weekOf, zonedTimeToUtc, TZ_FRANCE } from '../../shared/time.js';
 import { whatsappShareUrl } from '../../shared/messages.js';
+import PosterPanel from './Poster';
 
 const STATUS_LABEL: Record<string, string> = {
   prepared: 'préparé', draft: 'brouillon Mailchimp', test: 'test envoyé', scheduled: 'programmé', sent: 'envoyé', failed: 'échec',
@@ -148,6 +149,11 @@ export default function CommsAdmin({ channel, session }: { channel: 'email' | 'w
             <iframe title="Aperçu de l'e-mail" srcDoc={data.html} className="h-[640px] w-full rounded-xl border border-neutral-200 bg-white" sandbox="" />
           </Panel>
           <div className="space-y-5">
+            {kind === 'weekly' && data.courses?.length > 0 && (
+              <Panel title="Affiche de la semaine">
+                <PosterPanel data={data} weekStart={data.period} flash={flash} onSaved={reload} />
+              </Panel>
+            )}
             <Panel title="Mailchimp">
               {!mc?.configured ? (
                 <div className="space-y-3 text-sm">

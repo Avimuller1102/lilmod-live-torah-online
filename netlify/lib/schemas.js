@@ -123,6 +123,8 @@ export const settingsSchema = z.object({
     .object({
       sendDay: z.number().int().min(0).max(6).default(0),
       sendTime: z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/).default('09:00'),
+      title: z.string().trim().max(160).default('Programme de la semaine LILMOD et Midreshet Yehouda-Manitou'),
+      posters: z.record(z.string().regex(/^\d{4}-\d{2}-\d{2}$/), localUrl).default({}),
     })
     .default({}),
   liveSendingEnabled: z.boolean().default(false),

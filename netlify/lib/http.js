@@ -14,7 +14,7 @@ export function error(message, status = 400, extra = {}) {
   return json({ error: message, ...extra }, { status });
 }
 
-export async function readBody(req, maxBytes = 1_500_000) {
+export async function readBody(req, maxBytes = 3_000_000) {
   const text = await req.text();
   if (text.length > maxBytes) throw Object.assign(new Error('Requête trop volumineuse.'), { status: 413 });
   if (!text) return {};

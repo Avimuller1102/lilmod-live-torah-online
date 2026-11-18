@@ -22,7 +22,7 @@ export async function fetchParasha(dayKey) {
     if (!res.ok) return '';
     const data = await res.json();
     const item = (data.items || []).find((i) => i.category === 'parashat');
-    return item ? String(item.title).replace(/^Parachat\s+|^Parashat\s+|^Parasha\s+/i, '') : '';
+    return item ? String(item.title).replace(/^Parac?hah?t?\s+|^Parashah?t?\s+/i, '') : '';
   } catch {
     return '';
   }
@@ -43,7 +43,11 @@ export async function buildWeekly(weekStart, site) {
     getSettings(),
     fetchParasha(addDaysToKey(start, 6)),
   ]);
-  const opts = { teachers, siteUrl: site, weekStart: start, parasha, contactEmail: settings.contactEmail, whatsappUrl: settings.whatsappGroupUrl };
+  const poster = settings.weekly?.posters?.[start] || '';
+  const opts = {
+    teachers, siteUrl: site, weekStart: start, parasha, contactEmail: settings.contactEmail, whatsappUrl: settings.whatsappGroupUrl,
+    title: settings.weekly?.title, posterUrl: poster && poster.startsWith('/') ? `${site}${poster}` : poster,
+  };
   return { key: `weekly:${start}`, weekStart: start, parasha, courses, email: emailWeekly(courses, opts), whatsapp: whatsappWeekly(courses, opts) };
 }
 

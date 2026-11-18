@@ -10,7 +10,7 @@ export const DEFAULT_SETTINGS = {
   contactEmail: 'aaronbotbol@gmail.com',
   mailchimp: { audienceId: '', fromName: 'LILMOD', replyTo: '', dailyTag: '', weeklyTag: '', testEmails: [] },
   daily: { prepareHour: 7, sendTime: '08:00', autoSend: false },
-  weekly: { sendDay: 0, sendTime: '09:00' },
+  weekly: { sendDay: 0, sendTime: '09:00', title: 'Programme de la semaine LILMOD et Midreshet Yehouda-Manitou', posters: {} },
   // Aucun envoi réel vers les abonnés tant que ce verrou n'est pas levé explicitement.
   liveSendingEnabled: false,
 };

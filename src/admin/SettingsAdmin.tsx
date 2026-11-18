@@ -134,6 +134,9 @@ export default function SettingsAdmin({ session }: { session: Session }) {
             </Field>
             <Field label="E-mail du jour : envoyé à" htmlFor="d-send"><input id="d-send" type="time" className="field" value={form.daily.sendTime} onChange={(e) => set('daily.sendTime', e.target.value)} /></Field>
           </div>
+          <div className="mt-4">
+            <Field label="Titre de la newsletter hebdomadaire" htmlFor="w-title"><input id="w-title" className="field" value={form.weekly.title || ''} onChange={(e) => set('weekly.title', e.target.value)} /></Field>
+          </div>
           <p className="mt-3 text-xs text-neutral-500">Chaque matin, le brouillon de l'e-mail du jour est préparé dans Mailchimp (s'il y a des cours). Il n'est envoyé automatiquement que si l'envoi quotidien automatique est activé ci-dessous.</p>
         </Panel>
       </form>

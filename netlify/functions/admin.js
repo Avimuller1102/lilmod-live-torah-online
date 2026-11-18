@@ -248,7 +248,7 @@ async function importProgramme({ text, apply = false, status = 'draft', createRu
 async function uploadMedia({ dataUrl }, user) {
   const m = String(dataUrl || '').match(/^data:(image\/(?:webp|jpeg|png));base64,([A-Za-z0-9+/=]+)$/);
   if (!m) throw fail('Image invalide (formats acceptés : WebP, JPEG, PNG).');
-  if (m[2].length > 700_000) throw fail('Image trop lourde (500 Ko maximum après réduction).');
+  if (m[2].length > 2_400_000) throw fail('Image trop lourde (1,7 Mo maximum).');
   const id = makeId('img').replace(/_/g, '-');
   await writeJSON(`media-${id}`, { type: m[1], data: m[2], createdAt: new Date().toISOString(), user });
   await log('image.téléversée', { id }, { user });
@@ -473,6 +473,11 @@ export default async (req) => {
         rawHtml: built.email.html,
         whatsapp: built.whatsapp,
         courseIds: built.email.courseIds,
+        courses: built.courses
+          .filter((x) => x.status !== 'cancelled' && x.visibility !== 'private')
+          .map(({ id, title, start, teacherId, organizer }) => ({ id, title, start, teacherId, organizer })),
+        teachers: (await getTeachers()).map(({ id, name, shortName }) => ({ id, name, shortName })),
+        poster: kind === 'weekly' ? (await getSettings()).weekly?.posters?.[built.weekStart] || '' : '',
         history: comms.filter((x) => x.key.startsWith(built.key)),
       });
     }

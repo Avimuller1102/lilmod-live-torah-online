@@ -91,80 +91,99 @@ export const escapeHtml = (s) =>
 
 const COLORS = { navy: '#10243D', gold: '#B88A24', sand: '#F8F5EF', text: '#262626', muted: '#5f6670', line: '#E8E2D6' };
 
-function emailShell({ siteUrl, preheader, title, subtitle, body, contactEmail, whatsappUrl }) {
+const YOUTUBE_URL = 'https://www.youtube.com/@Lilmodfr';
+
+/** Gabarit e-mail inspiré de la newsletter LILMOD habituelle (colonne centrée, blocs par jour). */
+function emailShell({ siteUrl, preheader, title, subtitle, body, contactEmail, whatsappUrl, posterUrl }) {
+  const btn = (href, label, bg) =>
+    `<a class="btn" href="${escapeHtml(href)}" style="display:inline-block;background:${bg};color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;padding:13px 26px;border-radius:24px">${label}</a>`;
   return `<!doctype html>
 <html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(title)}</title>
-<style>@media (max-width:620px){.wrap{width:100%!important}.pad{padding:20px!important}.btn{display:block!important;text-align:center!important}}</style></head>
-<body style="margin:0;padding:0;background:${COLORS.sand};font-family:Arial,Helvetica,sans-serif;color:${COLORS.text}">
+<style>@media (max-width:620px){.wrap{width:100%!important}.pad{padding:18px!important}.btn{display:block!important}}</style></head>
+<body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;color:${COLORS.text}">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0">${escapeHtml(preheader)}</div>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${COLORS.sand}"><tr><td align="center" style="padding:24px 12px">
-<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px;background:#ffffff;border-radius:14px;overflow:hidden">
-<tr><td style="background:${COLORS.navy};padding:28px 32px" class="pad">
-<table role="presentation" cellpadding="0" cellspacing="0"><tr>
-<td><img src="${siteUrl}/icons/icon-192.png" width="52" height="52" alt="LILMOD" style="display:block;border-radius:50%;border:2px solid ${COLORS.gold}"></td>
-<td style="padding-left:14px;color:#ffffff;font-size:22px;font-weight:bold;letter-spacing:.5px">LILMOD<div style="font-size:12px;font-weight:normal;color:#E8C76D;letter-spacing:2px;text-transform:uppercase">La Torah en direct d'Israël</div></td>
-</tr></table>
-<h1 style="margin:22px 0 4px;color:#ffffff;font-size:24px;line-height:1.25">${escapeHtml(title)}</h1>
-${subtitle ? `<p style="margin:0;color:#c9d6ea;font-size:15px">${escapeHtml(subtitle)}</p>` : ''}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:20px 10px">
+<table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;max-width:600px">
+<tr><td align="center" class="pad" style="background:${COLORS.navy};background-image:linear-gradient(140deg,#0F1E36 0%,#172C4D 55%,#0A1426 100%);border-radius:18px 18px 0 0;padding:30px 28px 26px">
+<a href="${siteUrl}/"><img src="${siteUrl}/icons/icon-192.png" width="76" height="76" alt="LILMOD" style="display:block;border-radius:50%;border:3px solid #CFA653;background:#ffffff"></a>
+<p style="margin:14px 0 0;font-size:12px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;color:#E8C76D">LILMOD · La Torah en direct d'Israël</p>
+<h1 style="margin:10px 0 0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:1.25;font-weight:normal;color:#ffffff">${escapeHtml(title)}</h1>
+${subtitle ? `<p style="margin:10px 0 0;font-size:15px;color:#E8C76D">${escapeHtml(subtitle)}</p>` : ''}
 </td></tr>
-<tr><td class="pad" style="padding:28px 32px">${body}</td></tr>
-<tr><td class="pad" style="padding:0 32px 28px">
-<a class="btn" href="${siteUrl}/programme/" style="display:inline-block;background:${COLORS.navy};color:#ffffff;text-decoration:none;font-weight:bold;padding:13px 22px;border-radius:8px;margin:0 8px 8px 0">Programme complet</a>
-<a class="btn" href="${siteUrl}/cours/" style="display:inline-block;background:${COLORS.sand};color:${COLORS.navy};text-decoration:none;font-weight:bold;padding:13px 22px;border-radius:8px;border:1px solid ${COLORS.line}">Derniers replays</a>
+<tr><td style="height:6px;background:#CFA653;background-image:linear-gradient(90deg,#9A722B,#E8C76D,#9A722B);font-size:0;line-height:0">&nbsp;</td></tr>
+<tr><td style="height:18px;font-size:0;line-height:0">&nbsp;</td></tr>
+${posterUrl ? `<tr><td align="center" style="padding:0 0 18px"><img src="${escapeHtml(posterUrl)}" width="600" alt="Programme de la semaine" style="display:block;width:100%;max-width:600px;height:auto"></td></tr>` : ''}
+<tr><td class="pad" style="padding:0 24px">${body}</td></tr>
+<tr><td align="center" class="pad" style="padding:26px 24px;border-top:1px solid ${COLORS.line}">
+<p style="margin:0 0 4px;font-size:22px;font-weight:bold;color:#25D366">WhatsApp</p>
+<p style="margin:0 0 14px;font-size:14px;line-height:1.6;color:${COLORS.text}">LILMOD diffuse chaque jour les cours du jour sur WhatsApp.<br>Retrouvez toutes les infos sur le groupe.</p>
+${whatsappUrl ? btn(whatsappUrl, 'Rejoindre le groupe WhatsApp', '#25D366') : ''}
 </td></tr>
-<tr><td style="background:${COLORS.sand};padding:22px 32px;font-size:12px;line-height:1.6;color:${COLORS.muted}" class="pad">
-LILMOD by Torah MiTzion — cours de Torah en français, en direct de Jérusalem.<br>
+<tr><td align="center" class="pad" style="padding:26px 24px;border-top:1px solid ${COLORS.line}">
+<p style="margin:0 0 4px;font-size:22px;font-weight:bold;color:#FF0000">YouTube</p>
+<p style="margin:0 0 14px;font-size:14px;line-height:1.6">Abonnez-vous à notre chaîne pour revoir tous les replays.</p>
+${btn(YOUTUBE_URL, 'Voir les replays', '#E62117')}
+<p style="margin:16px 0 0;font-size:14px"><a href="${siteUrl}/programme/" style="color:${COLORS.navy};font-weight:bold">Le programme complet et les horaires sur lilmod.fr</a></p>
+</td></tr>
+<tr><td align="center" class="pad" style="padding:22px 24px;border-top:1px solid ${COLORS.line};font-size:12px;line-height:1.6;color:${COLORS.muted}">
+LILMOD by Torah MiTzion — cours de Torah en français, en direct d'Israël.<br>
 ${contactEmail ? `Contact : <a href="mailto:${escapeHtml(contactEmail)}" style="color:${COLORS.muted}">${escapeHtml(contactEmail)}</a><br>` : ''}
-${whatsappUrl ? `<a href="${escapeHtml(whatsappUrl)}" style="color:${COLORS.muted}">Rejoindre le groupe WhatsApp</a> · ` : ''}<a href="${siteUrl}/" style="color:${COLORS.muted}">lilmod.fr</a><br><br>
 Vous recevez cet e-mail car vous êtes inscrit(e) aux communications LILMOD.<br>
 <a href="*|UPDATE_PROFILE|*" style="color:${COLORS.muted}">Gérer mes préférences</a> · <a href="*|UNSUB|*" style="color:${COLORS.muted}">Se désinscrire</a><br>*|LIST:ADDRESSLINE|*
 </td></tr></table></td></tr></table></body></html>`;
 }
 
-function courseRowHtml(c, { teachers, siteUrl, withButton }) {
+/** Un cours : intervenant, heure (France puis Israël), titre, lien Zoom cliquable, organisateur, bouton. */
+function courseBlockHtml(c, { teachers, siteUrl }) {
   const t = teacherName(c, teachers);
-  const { il, fr, same } = dualTimes(c.start);
-  const join = withButton && c.joinPublic && c.joinUrl ? c.joinUrl : courseUrl(siteUrl, c);
-  return `<tr><td style="padding:14px 0;border-bottom:1px solid ${COLORS.line}">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-<td width="92" valign="top" style="font-size:18px;font-weight:bold;color:${COLORS.navy}">${h(fr)}<div style="font-size:11px;font-weight:normal;color:${COLORS.muted}">${same ? 'France / Israël' : `(${h(il)} Israël)`}</div></td>
-<td valign="top"><div style="font-size:16px;font-weight:bold;color:${COLORS.text};line-height:1.35">${escapeHtml(c.title)}</div>
-${t ? `<div style="font-size:14px;color:${COLORS.gold};margin-top:2px">${escapeHtml(t)}</div>` : ''}
-${c.description ? `<div style="font-size:13px;color:${COLORS.muted};margin-top:4px;line-height:1.5">${escapeHtml(c.description).slice(0, 220)}</div>` : ''}
-<a href="${escapeHtml(join)}" style="display:inline-block;margin-top:8px;font-size:13px;font-weight:bold;color:${COLORS.navy}">${withButton && c.joinPublic && c.joinUrl ? 'Rejoindre le cours →' : 'Voir le cours →'}</a>
-</td></tr></table></td></tr>`;
+  const { il, fr } = dualTimes(c.start);
+  const link = c.joinUrl || courseUrl(siteUrl, c);
+  const isZoom = /zoom\.us/i.test(c.joinUrl || '');
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:14px 0 18px">
+${t ? `<p style="margin:0;font-size:16px;font-weight:bold;text-decoration:underline;color:${COLORS.navy}">${escapeHtml(t)}</p>` : ''}
+<p style="margin:2px 0 8px;font-size:15px;font-weight:bold;color:#C8102E">${h(fr)} France <span style="font-weight:normal;color:${COLORS.muted}">(${h(il)} Israël)</span></p>
+<p style="margin:0 0 8px;font-size:17px;line-height:1.4;font-weight:bold;color:${COLORS.text}">${escapeHtml(c.title)}</p>
+${c.description ? `<p style="margin:0 0 8px;font-size:14px;line-height:1.5;color:${COLORS.muted}">${escapeHtml(c.description).slice(0, 260)}</p>` : ''}
+${c.joinUrl ? `<p style="margin:0 0 10px;font-size:13px;line-height:1.4;word-break:break-all"><a href="${escapeHtml(c.joinUrl)}" style="color:#1a73e8">${escapeHtml(c.joinUrl)}</a></p>` : ''}
+${c.organizer ? `<p style="margin:0 0 12px;font-size:12px;font-weight:bold;letter-spacing:.3px;color:${COLORS.text}">By ${escapeHtml(c.organizer.toUpperCase())}</p>` : ''}
+<a class="btn" href="${escapeHtml(link)}" style="display:inline-block;background:#1a73e8;color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;padding:13px 26px;border-radius:24px">${isZoom ? 'Rejoindre le cours sur Zoom' : c.joinUrl ? 'Rejoindre le cours' : 'Voir le cours'}</a>
+</td></tr></table>`;
 }
 
-export function emailWeekly(courses, { teachers = [], siteUrl, weekStart, parasha = '', contactEmail = '', whatsappUrl = '' }) {
-  const list = announceable(courses);
+function dayBlocksHtml(list, days, opts) {
   let body = '';
-  for (let i = 0; i < 7; i++) {
-    const day = addDaysToKey(weekStart, i);
+  for (const day of days) {
     const ofDay = coursesOfDay(list, day);
     if (!ofDay.length) continue;
-    body += `<h2 style="margin:22px 0 4px;font-size:15px;letter-spacing:1px;text-transform:uppercase;color:${COLORS.gold}">${escapeHtml(formatDayKey(day))}</h2>
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${ofDay.map((c) => courseRowHtml(c, { teachers, siteUrl, withButton: false })).join('')}</table>`;
+    body += `<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:20px 0 4px;border-top:1px solid ${COLORS.line}">
+<p style="margin:0;font-size:15px;font-weight:bold;text-decoration:underline;color:${COLORS.text}">${escapeHtml(formatDayKey(day))}</p>
+</td></tr></table>${ofDay.map((c) => courseBlockHtml(c, opts)).join('')}`;
   }
-  if (!body) body = `<p style="font-size:15px">Le programme de la semaine sera bientôt publié sur <a href="${siteUrl}/programme/">lilmod.fr</a>.</p>`;
-  const title = `Programme de la semaine du ${formatDayKey(weekStart)}`;
+  return body;
+}
+
+export function emailWeekly(courses, { teachers = [], siteUrl, weekStart, parasha = '', contactEmail = '', whatsappUrl = '', title = '', posterUrl = '' }) {
+  const list = announceable(courses);
+  const days = Array.from({ length: 7 }, (_, i) => addDaysToKey(weekStart, i));
+  let body = dayBlocksHtml(list, days, { teachers, siteUrl });
+  if (!body) body = `<p style="font-size:15px;text-align:center">Le programme de la semaine sera bientôt publié sur <a href="${siteUrl}/programme/">lilmod.fr</a>.</p>`;
+  const heading = title || 'Programme de la semaine LILMOD';
   return {
-    subject: `LILMOD — ${title}${parasha ? ` · Paracha ${parasha}` : ''}`,
-    previewText: `${list.length} cours cette semaine en direct d'Israël`,
-    html: emailShell({ siteUrl, preheader: `${list.length} cours cette semaine`, title, subtitle: parasha ? `Paracha ${parasha}` : '', body, contactEmail, whatsappUrl }),
+    subject: `${heading}${parasha ? ` · Paracha ${parasha}` : ''}`,
+    previewText: `${list.length} cours cette semaine, en direct d'Israël`,
+    html: emailShell({ siteUrl, preheader: `${list.length} cours cette semaine`, title: heading, subtitle: [`Semaine du ${formatDayKey(weekStart)}`, parasha && `Paracha ${parasha}`].filter(Boolean).join(' · '), body, contactEmail, whatsappUrl, posterUrl }),
     courseIds: list.map((c) => c.id),
   };
 }
 
 export function emailDaily(courses, { teachers = [], siteUrl, dayKey, contactEmail = '', whatsappUrl = '' }) {
   const ofDay = coursesOfDay(announceable(courses), dayKey);
-  const body = ofDay.length
-    ? `<table role="presentation" width="100%" cellpadding="0" cellspacing="0">${ofDay.map((c) => courseRowHtml(c, { teachers, siteUrl, withButton: true })).join('')}</table>`
-    : `<p style="font-size:15px">Pas de cours programmé aujourd'hui.</p>`;
-  const title = `Les cours d'aujourd'hui — ${formatDayKey(dayKey)}`;
+  const body = ofDay.length ? dayBlocksHtml(ofDay, [dayKey], { teachers, siteUrl }) : `<p style="font-size:15px;text-align:center">Pas de cours programmé aujourd'hui.</p>`;
+  const title = "Les cours d'aujourd'hui";
   return {
-    subject: `LILMOD — ${title}`,
+    subject: `LILMOD — ${title} (${formatDayKey(dayKey)})`,
     previewText: `${ofDay.length} cours aujourd'hui`,
-    html: emailShell({ siteUrl, preheader: `${ofDay.length} cours aujourd'hui`, title, subtitle: '', body, contactEmail, whatsappUrl }),
+    html: emailShell({ siteUrl, preheader: `${ofDay.length} cours aujourd'hui`, title, subtitle: formatDayKey(dayKey), body, contactEmail, whatsappUrl }),
     courseIds: ofDay.map((c) => c.id),
     empty: ofDay.length === 0,
   };
