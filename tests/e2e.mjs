@@ -110,14 +110,14 @@ try {
     await page.getByRole('button', { name: 'Vérifier' }).click();
     await page.getByText(/point\(s\) à vérifier|Tout est en ordre/).waitFor();
     await page.getByRole('button', { name: 'Publier la semaine' }).click();
-    await page.getByText(/cours publiés/).waitFor();
+    await page.getByText(/cours publiés|déjà en ligne/).waitFor();
   });
 
   await step('Publier aussi la semaine suivante', async () => {
     await page.locator('button[aria-label="Semaine suivante"]').click();
     await page.getByText('La Paracha de la semaine').first().waitFor();
     await page.getByRole('button', { name: 'Publier la semaine' }).click();
-    await page.getByText(/cours publiés/).waitFor();
+    await page.getByText(/cours publiés|déjà en ligne/).waitFor();
   });
 
   await step('Accueil : cours « En direct » et bouton Rejoindre', async () => {

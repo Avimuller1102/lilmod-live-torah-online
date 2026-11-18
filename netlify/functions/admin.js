@@ -158,8 +158,12 @@ async function publishWeek({ weekStart, includeDrafts = false }, user) {
   const now = new Date().toISOString();
   const published = [];
   const skipped = [];
+  let alreadyOnline = 0;
+  let total = 0;
   for (const c of courses) {
     if (!inRange(c, r)) continue;
+    total += 1;
+    if (['published', 'done', 'replay'].includes(c.status)) alreadyOnline += 1;
     if (!(c.status === 'scheduled' || (includeDrafts && c.status === 'draft'))) continue;
     if (blocked.has(c.id)) {
       skipped.push({ id: c.id, title: c.title });
@@ -173,7 +177,7 @@ async function publishWeek({ weekStart, includeDrafts = false }, user) {
   }
   await saveCourses(courses);
   await log('programme.publié', { weekStart: r.start, published: published.length, skipped: skipped.length }, { user });
-  return { published, skipped };
+  return { published, skipped, alreadyOnline, total };
 }
 
 /* ------------------------------------------------------------------ */

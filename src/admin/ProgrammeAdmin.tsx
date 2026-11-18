@@ -278,7 +278,11 @@ export default function ProgrammeAdmin({ session }: { session: Session }) {
             disabled={!!busy}
             onClick={() => {
               if (!window.confirm('Publier les cours « Programmé » et « Brouillon » de cette semaine sur le site ? Les cours comportant une erreur bloquante ne seront pas publiés.')) return;
-              run('publish', () => adminApi('POST', '/programme/publish', { weekStart, includeDrafts: true }), (r) => `${r.published.length} cours publiés${r.skipped.length ? `, ${r.skipped.length} bloqués (à corriger)` : ''}.`);
+              run('publish', () => adminApi('POST', '/programme/publish', { weekStart, includeDrafts: true }), (r) => {
+                if (!r.total) return "Aucun cours cette semaine : ajoutez des cours ou cliquez sur « Préparer depuis les cours récurrents ».";
+                if (!r.published.length && !r.skipped.length) return `Tout est déjà en ligne pour cette semaine (${r.alreadyOnline} cours publiés).`;
+                return `${r.published.length} cours publiés${r.alreadyOnline ? ` (${r.alreadyOnline} déjà en ligne)` : ''}${r.skipped.length ? ` — ${r.skipped.length} bloqué(s) : cliquez sur « Vérifier » pour voir quoi corriger` : ''}.`;
+              });
             }}
           >
             <Send className="h-4 w-4" aria-hidden="true" /> Publier la semaine
