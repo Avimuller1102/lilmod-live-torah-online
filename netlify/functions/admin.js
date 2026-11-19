@@ -194,6 +194,10 @@ async function importProgramme({ text, apply = false, status = 'draft', createRu
   if (!apply) return { items, applied: false };
 
   const now = new Date().toISOString();
+  // Organisateur absent du texte (ex. message WhatsApp) : on reprend le dernier connu pour cet intervenant.
+  const lastOrganizer = (teacherId) =>
+    [...courses].filter((c) => c.teacherId === teacherId && c.organizer).sort((a, b) => String(b.start).localeCompare(String(a.start)))[0]?.organizer ||
+    rules.find((r) => r.teacherId === teacherId && r.organizer)?.organizer || '';
   const newTeachers = [];
   const created = [];
   const createdRules = [];
@@ -210,7 +214,7 @@ async function importProgramme({ text, apply = false, status = 'draft', createRu
     const base = {
       title: item.title, description: '', teacherId, seriesId: '', category: item.category || '', timezone: item.timezone,
       platform: /zoom\.us/i.test(item.joinUrl) ? 'zoom' : /youtu/i.test(item.joinUrl) ? 'youtube' : 'other',
-      joinUrl: item.joinUrl, joinPublic: true, visibility: 'public', thumbnail: '', organizer: item.organizer || '',
+      joinUrl: item.joinUrl, joinPublic: true, visibility: 'public', thumbnail: '', organizer: item.organizer || lastOrganizer(teacherId),
     };
     let courseId = makeId('c');
     let recurrenceId = '';

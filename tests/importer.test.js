@@ -152,3 +152,30 @@ test('intervenant inconnu signalé, rien d’inventé', () => {
   assert.ok(c.warnings.some((w) => /à créer/.test(w)));
   assert.ok(c.warnings.some((w) => /Lien/.test(w)));
 });
+
+test('import : format du message WhatsApp (emojis, « LUNDI 23.11 », double horaire)', () => {
+  const text = `📚 *LILMOD – PROGRAMME DE LA SEMAINE*
+📅 *Du dimanche 22 au vendredi 27 novembre 2026*
+━━━━━━━━━━━━━━
+📅 *MARDI 24.11*
+
+👤 *Rav Eytan Fiszon*
+🎧 17h00 (France)
+📘 Les principaux textes de la prière
+👉 https://zoom.us/j/99172021386?pwd=abc
+
+👤 *Marc Abitbol*
+🎧 *19h30 (France) – 20h30 (Israël)*
+📘 Cours sur Hanoucca
+👉 https://lilmod.zoom.us/j/86032656801?pwd=def
+━━━━━━━━━━━━━━`;
+  const r = parseProgrammeText(text, { teachers: SEED_TEACHERS, reference: new Date('2026-11-19T12:00:00Z') });
+  assert.equal(r.length, 2);
+  assert.equal(r[0].date, '2026-11-24');
+  assert.equal(r[0].teacherId, 'fizson');
+  assert.equal(r[0].title, 'Les principaux textes de la prière');
+  assert.equal(r[1].time, '19:30');
+  assert.equal(r[1].timezone, 'Europe/Paris');
+  assert.equal(r[1].teacherId, 'abitbol');
+  assert.equal(r[1].joinUrl, 'https://lilmod.zoom.us/j/86032656801?pwd=def');
+});

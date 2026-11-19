@@ -10,6 +10,9 @@
  *   By MIDRESHET YEHOUDA             ← organisateur
  *   [Cliquez ici…](https://us.list-manage.com/…)   ← lien de suivi Mailchimp, ignoré
  *
+ * Le format du message WhatsApp est aussi reconnu (📅 *LUNDI 23.11*, 👤 intervenant,
+ * 🎧 18h30 (France), 📘 titre, 👉 lien) : emojis et astérisques sont ignorés.
+ *
  * Rien n'est inventé : un champ absent reste vide et est signalé.
  */
 import { TZ_FRANCE, TZ_ISRAEL, addDaysToKey, zonedTimeToUtc } from './time.js';
@@ -29,13 +32,27 @@ const pad = (n) => String(n).padStart(2, '0');
 
 /** "Dimanche 15 Novembre" → "2026-11-15" (année la plus proche de la date de référence). */
 export function parseDayLine(line, reference = new Date()) {
-  const m = plain(line).replace(/[*_]/g, '').match(/^(dimanche|lundi|mardi|mercredi|jeudi|vendredi|samedi|chabbat|shabbat)\s+(\d{1,2})(?:er)?\s+([a-z]+)(?:\s+(\d{4}))?\s*$/);
-  if (!m) return null;
-  const month = MONTHS.indexOf(m[3]);
-  if (month < 0) return null;
-  const day = Number(m[2]);
+  const txt = plain(line).replace(/[*_]/g, '').trim();
+  // « Dimanche 15 Novembre [2026] »
+  let m = txt.match(/^(dimanche|lundi|mardi|mercredi|jeudi|vendredi|samedi|chabbat|shabbat)\s+(\d{1,2})(?:er)?\s+([a-z]+)(?:\s+(\d{4}))?\s*$/);
+  let day, month, year;
+  if (m) {
+    month = MONTHS.indexOf(m[3]);
+    if (month < 0) return null;
+    day = Number(m[2]);
+    year = m[4];
+  } else {
+    // Format WhatsApp : « DIMANCHE 22.11 », « Lundi 23/11 », « Mardi 24-11-2026 »
+    m = txt.match(/^(dimanche|lundi|mardi|mercredi|jeudi|vendredi|samedi|chabbat|shabbat)\s+(\d{1,2})[./-](\d{1,2})(?:[./-](\d{2,4}))?\s*$/);
+    if (!m) return null;
+    day = Number(m[2]);
+    month = Number(m[3]) - 1;
+    if (month < 0 || month > 11) return null;
+    year = m[4] && (m[4].length === 2 ? `20${m[4]}` : m[4]);
+  }
+  if (day < 1 || day > 31) return null;
   const refYear = reference.getUTCFullYear();
-  const candidates = m[4] ? [Number(m[4])] : [refYear - 1, refYear, refYear + 1];
+  const candidates = year ? [Number(year)] : [refYear - 1, refYear, refYear + 1];
   let best = null;
   for (const y of candidates) {
     const t = Date.UTC(y, month, day);
@@ -46,7 +63,9 @@ export function parseDayLine(line, reference = new Date()) {
 
 /** "17H00 France", "20h30 Israël", "10:15" → { time, timezone } */
 export function parseTimeLine(line) {
-  const m = plain(line).replace(/[*_]/g, '').match(/^(\d{1,2})\s*[h:]\s*(\d{2})?\s*(?:\(?\s*(france|israel|heure de france|heure d'israel|heure israel)\s*\)?)?\s*$/);
+  // « 19h30 (France) – 20h30 (Israël) » : seule la première heure compte.
+  const first = plain(line).replace(/[*_]/g, '').split(/\s+[–—-]\s+|\s*\/\s*/)[0];
+  const m = first.match(/^(\d{1,2})\s*[h:]\s*(\d{2})?\s*(?:\(?\s*(france|israel|heure de france|heure d'israel|heure israel)\s*\)?)?\s*$/);
   if (!m) return null;
   const hour = Number(m[1]);
   if (hour > 23) return null;
@@ -75,8 +94,9 @@ export function parseProgrammeText(text, { teachers = [], reference = new Date()
   const lines = String(text || '')
     .replace(/\r/g, '')
     .split('\n')
-    .map((l) => l.replace(/ /g, ' ').trim())
-    .filter(Boolean);
+    // Emojis et puces en début de ligne (format WhatsApp : 📅 👤 🎧 📘 👉), lignes décoratives (━━━)
+    .map((l) => l.replace(/\u00a0/g, ' ').replace(/^[^\p{L}\p{N}]+/u, '').replace(/^[*_]+|[*_]+$/g, '').trim())
+    .filter((l) => /[\p{L}\p{N}]/u.test(l));
 
   const courses = [];
   let currentDay = null;
