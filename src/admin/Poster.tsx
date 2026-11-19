@@ -286,10 +286,10 @@ export default function PosterPanel({ data, weekStart, flash, onSaved }: any) {
     render();
   }, [render]);
 
-  const download = () => {
+  const download = (format: 'png' | 'jpg') => {
     const a = document.createElement('a');
-    a.href = ref.current!.toDataURL('image/png');
-    a.download = `lilmod-programme-${weekStart}.png`;
+    a.href = format === 'png' ? ref.current!.toDataURL('image/png') : ref.current!.toDataURL('image/jpeg', 0.92);
+    a.download = `lilmod-programme-${weekStart}.${format}`;
     a.click();
   };
 
@@ -317,8 +317,11 @@ export default function PosterPanel({ data, weekStart, flash, onSaved }: any) {
         <button type="button" className={btn.accent} disabled={!!busy} onClick={useInNewsletter}>
           <ImagePlus className="h-4 w-4" aria-hidden="true" /> {data.poster ? "Mettre à jour l'affiche de la newsletter" : 'Mettre en haut de la newsletter'}
         </button>
-        <button type="button" className={btn.outline} onClick={download}>
-          <Download className="h-4 w-4" aria-hidden="true" /> Télécharger (WhatsApp, Instagram)
+        <button type="button" className={btn.outline} onClick={() => download('jpg')}>
+          <Download className="h-4 w-4" aria-hidden="true" /> Télécharger en JPG
+        </button>
+        <button type="button" className={btn.outline} onClick={() => download('png')}>
+          <Download className="h-4 w-4" aria-hidden="true" /> Télécharger en PNG
         </button>
         <button type="button" className={btn.outline} onClick={render} aria-label="Redessiner">
           <RefreshCw className="h-4 w-4" aria-hidden="true" />
