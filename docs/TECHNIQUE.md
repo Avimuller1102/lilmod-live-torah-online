@@ -93,3 +93,10 @@ se remplissent dès la première visite de `/cours` (puis chaque heure).
 - **Site** : Netlify → Deploys → choisir le déploiement précédent → *Publish deploy* (instantané).
 - **Code** : la branche `sauvegarde/avant-plateforme` contient l'état exact d'avant la refonte.
 - **Données** : Paramètres → Sauvegardes (export / restauration ; une copie de sécurité est créée avant chaque restauration).
+
+## Crédits Netlify (offre gratuite)
+
+- Chaque **déploiement en production** coûte environ 15 crédits (sur 300 par mois) : regrouper les modifications et ne pousser sur `main` qu'une fois par lot.
+- Les branches autres que `main` ne sont pas construites (`ignore = "exit 0"` dans netlify.toml).
+- Le contenu (programme, intervenants, newsletter, affiche, photos) est stocké dans Netlify Blobs : le modifier depuis /admin **ne nécessite aucun déploiement**.
+- Les réponses publiques de l'API et le sitemap sont mis en cache « durable » sur le CDN pour limiter les exécutions de fonctions.

@@ -4,9 +4,12 @@ export const SECURITY_HEADERS = {
 };
 
 export function json(data, { status = 200, headers = {}, cache = 'no-store' } = {}) {
+  // Réponses publiques : partagées par le cache « durable » du CDN Netlify,
+  // pour limiter les exécutions de fonctions (et donc les crédits consommés).
+  const cdn = cache.startsWith('public') ? { 'Netlify-CDN-Cache-Control': `${cache}, durable` } : {};
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': cache, ...SECURITY_HEADERS, ...headers },
+    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': cache, ...cdn, ...SECURITY_HEADERS, ...headers },
   });
 }
 
