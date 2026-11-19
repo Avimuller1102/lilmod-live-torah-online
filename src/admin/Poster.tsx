@@ -1,30 +1,38 @@
 /**
- * Affiche de la semaine, dessinée automatiquement à partir des cours publiés.
- * Utilisable en haut de la newsletter, et téléchargeable pour WhatsApp / Instagram.
+ * Affiche de la semaine, au design LILMOD habituel (modèle fourni par l'équipe) :
+ * le fond est le modèle vierge, les dates et les cours publiés sont écrits automatiquement
+ * dans les colonnes. Utilisable en haut de la newsletter et téléchargeable (JPG / PNG).
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Download, ImagePlus, RefreshCw } from 'lucide-react';
 import { adminApi } from './api';
 import { btn } from './ui';
-import { addDaysToKey, dualTimes, localDateKey, WEEKDAYS_FR } from '../../shared/time.js';
+import { addDaysToKey, dualTimes, localDateKey } from '../../shared/time.js';
 
-const W = 1200;
-const NAVY = '#0F1E36';
-const NAVY2 = '#172C4D';
-const GOLD = '#CFA653';
-const GOLD_DARK = '#9A722B';
-const SAND = '#F7F3EC';
-const MONTHS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+/** Modèle vierge (1024 × 950) et position des 6 colonnes, du dimanche au vendredi. */
+const TEMPLATE = '/images/affiche-modele.webp';
+const TW = 1024;
+const TH = 950;
+const COLUMNS: [number, number][] = [[14, 169], [183, 339], [351, 507], [519, 675], [687, 844], [856, 1012]];
+const BODY_TOP = 222;
+const BODY_BOTTOM = 830;
+const SCALE = 2; // rendu net (2048 × 1900)
+
+const ORANGE = '#E8920F';
+const INK = '#2B2B2B';
+const GREY = '#7A7A7A';
 
 const ORG_LOGOS: Record<string, string> = {
-  LILMOD: '/images/logo-lilmod.webp',
+  LILMOD: '/images/partners/lilmod-fleur.webp',
   'Midreshet Yehouda-Manitou': '/images/partners/manitou.webp',
-  'Le HOUG': '/images/partners/houg.webp',
+  'Le HOUG': '/images/partners/houg-affiche.webp',
   'Emounah Chelema': '/images/partners/emouna-chelema.webp',
+  "Manitou l'hébreu": '/images/partners/manitou-hebreu.webp',
 };
 
 const loadImage = (src: string) =>
   new Promise<HTMLImageElement | null>((resolve) => {
+    if (!src) return resolve(null);
     const img = new Image();
     img.onload = () => resolve(img);
     img.onerror = () => resolve(null);
@@ -32,7 +40,7 @@ const loadImage = (src: string) =>
   });
 
 function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, maxLines: number) {
-  const words = String(text || '').split(/\s+/);
+  const words = String(text || '').split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   let line = '';
   for (const w of words) {
@@ -53,234 +61,106 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, max
   return lines;
 }
 
-function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
-  ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
-  ctx.closePath();
+/** Logo centré dans une boîte, proportions conservées. */
+function drawLogo(ctx: CanvasRenderingContext2D, img: HTMLImageElement | null, cx: number, top: number, box: number) {
+  if (!img) return;
+  const s = Math.min((box * 1.9) / img.width, box / img.height); // logos larges (HOUG) : jusqu'à 1,9 × la hauteur
+  const w = img.width * s;
+  const h = img.height * s;
+  ctx.drawImage(img, cx - w / 2, top + (box - h) / 2, w, h);
 }
 
-function circleImage(ctx: CanvasRenderingContext2D, img: HTMLImageElement | null, cx: number, cy: number, r: number, ring = GOLD) {
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffffff';
-  ctx.fill();
-  if (img) {
-    ctx.clip();
-    const s = Math.max((2 * r) / img.width, (2 * r) / img.height);
-    ctx.drawImage(img, cx - (img.width * s) / 2, cy - (img.height * s) / 2, img.width * s, img.height * s);
-  }
-  ctx.restore();
-  ctx.beginPath();
-  ctx.arc(cx, cy, r, 0, Math.PI * 2);
-  ctx.lineWidth = Math.max(2, r / 12);
-  ctx.strokeStyle = ring;
-  ctx.stroke();
-}
+const hhmm = (t: string) => t.replace(':', 'H');
+const ddmm = (key: string) => `${key.slice(8, 10)}/${key.slice(5, 7)}`;
 
-export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers, weekStart, parasha }: any) {
-  await Promise.all(['600 64px Fraunces', '700 26px Inter', '600 20px Inter', '400 18px Inter'].map((f) => document.fonts.load(f).catch(() => null)));
+export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers, weekStart }: any) {
+  await Promise.all(['800 24px Inter', '700 14px Inter', '500 26px Inter'].map((f) => document.fonts.load(f).catch(() => null)));
   const teacherName = (id: string) => teachers.find((t: any) => t.id === id)?.name || '';
-  const days = Array.from({ length: 7 }, (_, i) => addDaysToKey(weekStart, i))
-    .map((d) => ({ d, list: courses.filter((c: any) => localDateKey(c.start) === d).sort((a: any, b: any) => a.start.localeCompare(b.start)) }))
-    .filter((x) => x.list.length);
-  const organizers = [...new Set<string>(courses.map((c: any) => c.organizer).filter(Boolean))];
-  const logos: Record<string, HTMLImageElement | null> = {};
-  for (const o of ['LILMOD', ...organizers]) logos[o] = await loadImage(ORG_LOGOS[o] || '');
-  const tmLogo = await loadImage('/images/torah-mitzion-logo.webp');
+  const [template, ...logoList] = await Promise.all([loadImage(TEMPLATE), ...Object.values(ORG_LOGOS).map(loadImage)]);
+  const logos = Object.fromEntries(Object.keys(ORG_LOGOS).map((k, i) => [k, logoList[i]]));
 
-  // Mise en page
+  canvas.width = TW * SCALE;
+  canvas.height = TH * SCALE;
   const ctx = canvas.getContext('2d')!;
-  const margin = 40;
-  const gap = 14;
-  const n = Math.max(days.length, 1);
-  const colW = (W - margin * 2 - gap * (n - 1)) / n;
-  const pad = 16;
-  ctx.font = '600 19px Inter';
-  const cardHeights = days.map((x) =>
-    x.list.map((c: any) => {
-      ctx.font = '700 17px Inter';
-      const tl = wrap(ctx, teacherName(c.teacherId).toUpperCase(), colW - pad * 2, 2).length;
-      ctx.font = '400 16px Inter';
-      const ll = wrap(ctx, c.title, colW - pad * 2, 5).length;
-      return 26 + 34 + 22 + tl * 21 + 8 + ll * 21 + (c.organizer ? 34 : 0) + 18;
-    }),
-  );
-  const colHeights = cardHeights.map((hs) => hs.reduce((a, b) => a + b + 12, 0));
-  const headerH = 300;
-  const orgH = organizers.length ? 96 : 0;
-  const gridTop = headerH + orgH + 34;
-  const gridH = Math.max(260, ...colHeights) + 70;
-  const footerH = 128;
-  const H = gridTop + gridH + 30 + footerH;
-  canvas.width = W;
-  canvas.height = H;
-
-  // Fond
-  ctx.fillStyle = SAND;
-  ctx.fillRect(0, 0, W, H);
-
-  // En-tête
-  const g = ctx.createLinearGradient(0, 0, W, headerH);
-  g.addColorStop(0, NAVY);
-  g.addColorStop(0.55, NAVY2);
-  g.addColorStop(1, '#0A1426');
-  ctx.fillStyle = g;
-  ctx.fillRect(0, 0, W, headerH);
-  const glow = ctx.createRadialGradient(160, 60, 10, 160, 60, 420);
-  glow.addColorStop(0, 'rgba(207,166,83,0.35)');
-  glow.addColorStop(1, 'rgba(207,166,83,0)');
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, W, headerH);
-  circleImage(ctx, logos.LILMOD, 112, 110, 62);
-  ctx.textAlign = 'left';
-  ctx.fillStyle = '#E8C76D';
-  ctx.font = '700 20px Inter';
-  ctx.fillText("LILMOD · LA TORAH EN DIRECT D'ISRAËL", 200, 78);
+  ctx.setTransform(SCALE, 0, 0, SCALE, 0, 0);
+  ctx.imageSmoothingQuality = 'high';
   ctx.fillStyle = '#ffffff';
-  ctx.font = '600 62px Fraunces';
-  ctx.fillText('Programme de la semaine', 198, 148);
-  const [, m1, d1] = weekStart.split('-').map(Number);
-  const last = days.length ? days[days.length - 1].d : addDaysToKey(weekStart, 6);
-  const [, m2, d2] = last.split('-').map(Number);
-  ctx.fillStyle = '#E8C76D';
-  ctx.font = '600 26px Inter';
-  ctx.fillText(`Du ${d1} ${m1 === m2 ? '' : `${MONTHS[m1 - 1]} `}au ${d2} ${MONTHS[m2 - 1]}${parasha ? `  ·  Paracha ${parasha}` : ''}`, 200, 196);
-  ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.font = '400 20px Inter';
-  ctx.fillText('Cours en direct sur Zoom · Horaires à l’heure de France (heure d’Israël entre parenthèses)', 200, 238);
-  const bar = ctx.createLinearGradient(0, 0, W, 0);
-  bar.addColorStop(0, GOLD_DARK);
-  bar.addColorStop(0.5, '#E8C76D');
-  bar.addColorStop(1, GOLD_DARK);
-  ctx.fillStyle = bar;
-  ctx.fillRect(0, headerH - 8, W, 8);
+  ctx.fillRect(0, 0, TW, TH);
+  if (template) ctx.drawImage(template, 0, 0, TW, TH);
 
-  // Organisateurs
-  if (organizers.length) {
-    ctx.font = '600 18px Inter';
-    const items = organizers.map((o) => ({ o, w: 56 + ctx.measureText(o).width + 28 }));
-    const total = 70 + items.reduce((a, b) => a + b.w + 14, 0);
-    let x = (W - total) / 2;
-    const y = headerH + 26;
-    ctx.fillStyle = '#5f6670';
-    ctx.font = '600 18px Inter';
-    ctx.fillText('Avec', x, y + 30);
-    x += 70;
-    for (const it of items) {
-      roundRect(ctx, x, y, it.w, 46, 23);
-      ctx.fillStyle = '#ffffff';
-      ctx.fill();
-      ctx.strokeStyle = '#E8E2D6';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      circleImage(ctx, logos[it.o], x + 25, y + 23, 17, '#E8E2D6');
-      ctx.fillStyle = NAVY;
-      ctx.font = '600 18px Inter';
-      ctx.fillText(it.o, x + 50, y + 30);
-      x += it.w + 14;
+  // Dates de la semaine, entre « Programme » et « organisé avec : »
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'alphabetic';
+  ctx.fillStyle = '#3A3A3A';
+  ctx.font = '600 24px Inter';
+  ctx.fillText(`${ddmm(weekStart)} AU ${ddmm(addDaysToKey(weekStart, 5))}`, 512, 51);
+
+  // Colonnes : dimanche → vendredi
+  COLUMNS.forEach(([x0, x1], i) => {
+    const day = addDaysToKey(weekStart, i);
+    const list = courses.filter((c: any) => localDateKey(c.start) === day).sort((a: any, b: any) => a.start.localeCompare(b.start));
+    if (!list.length) return;
+    const cx = (x0 + x1) / 2;
+    const maxW = x1 - x0 - 18;
+
+    // Mise en page : on réduit légèrement les tailles si la colonne est trop remplie.
+    const layout = (k: number) => {
+      const f = { logo: 46 * k, time: 24 * k, il: 12.5 * k, teacher: 17 * k, title: 13.5 * k, gap: 22 * k };
+      const blocks = list.map((c: any) => {
+        ctx.font = `800 ${f.teacher}px Inter`;
+        const tl = wrap(ctx, teacherName(c.teacherId).toUpperCase(), maxW, 3);
+        ctx.font = `700 ${f.title}px Inter`;
+        const ll = wrap(ctx, c.title, maxW, 6);
+        const h = f.logo + 6 * k + f.time + f.il + 8 * k + tl.length * f.teacher * 1.15 + 6 * k + ll.length * f.title * 1.3;
+        return { c, tl, ll, h };
+      });
+      const total = blocks.reduce((a: number, b: any) => a + b.h, 0) + f.gap * (blocks.length - 1);
+      return { f, blocks, total };
+    };
+    let k = 1;
+    let L = layout(k);
+    while (L.total > BODY_BOTTOM - BODY_TOP - 16 && k > 0.6) {
+      k -= 0.05;
+      L = layout(k);
     }
-  }
 
-  // Colonnes des jours
-  days.forEach(({ d, list }, i) => {
-    const x = margin + i * (colW + gap);
-    roundRect(ctx, x, gridTop, colW, gridH, 22);
-    ctx.fillStyle = '#ffffff';
-    ctx.fill();
-    ctx.strokeStyle = '#E8E2D6';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-    // pastille du jour
-    roundRect(ctx, x + 12, gridTop + 12, colW - 24, 46, 14);
-    const dg = ctx.createLinearGradient(x, 0, x + colW, 0);
-    dg.addColorStop(0, GOLD_DARK);
-    dg.addColorStop(1, GOLD);
-    ctx.fillStyle = dg;
-    ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.textAlign = 'center';
-    ctx.font = '700 20px Inter';
-    const wd = new Date(`${d}T12:00:00Z`).getUTCDay();
-    ctx.fillText(`${WEEKDAYS_FR[wd]} ${Number(d.slice(8))}`, x + colW / 2, gridTop + 42);
-    // cours
-    let y = gridTop + 74;
-    list.forEach((c: any, k: number) => {
-      const h = cardHeights[i][k];
-      roundRect(ctx, x + 10, y, colW - 20, h, 16);
-      ctx.fillStyle = '#FBF7EE';
-      ctx.fill();
-      const cx = x + colW / 2;
-      const { il, fr } = dualTimes(c.start);
-      let ty = y + 34;
-      ctx.fillStyle = NAVY;
-      ctx.font = '700 28px Inter';
-      ctx.fillText(fr.replace(':', 'h'), cx, ty);
-      ty += 24;
-      ctx.fillStyle = '#7a7f87';
-      ctx.font = '500 16px Inter';
-      ctx.fillText(`(${il.replace(':', 'h')} Israël)`, cx, ty);
-      ty += 30;
-      ctx.fillStyle = GOLD_DARK;
-      ctx.font = '700 17px Inter';
-      for (const l of wrap(ctx, teacherName(c.teacherId).toUpperCase(), colW - pad * 2, 2)) {
-        ctx.fillText(l, cx, ty);
-        ty += 21;
+    let y = BODY_TOP + 14;
+    for (const b of L.blocks) {
+      const { f } = L;
+      drawLogo(ctx, logos[b.c.organizer] || logos.LILMOD, cx, y, f.logo);
+      y += f.logo + 6 * k + f.time;
+      const { fr, il } = dualTimes(b.c.start);
+      ctx.fillStyle = ORANGE;
+      ctx.font = `800 ${f.time}px Inter`;
+      ctx.fillText(hhmm(fr), cx, y);
+      y += f.il + 2 * k;
+      ctx.fillStyle = GREY;
+      ctx.font = `600 ${f.il}px Inter`;
+      ctx.fillText(`(${hhmm(il)} Israël)`, cx, y);
+      y += 8 * k;
+      ctx.fillStyle = INK;
+      ctx.font = `800 ${f.teacher}px Inter`;
+      for (const l of b.tl) {
+        y += f.teacher * 1.15;
+        ctx.fillText(l, cx, y);
       }
-      ty += 6;
-      ctx.fillStyle = '#262626';
-      ctx.font = '400 16px Inter';
-      for (const l of wrap(ctx, c.title, colW - pad * 2, 5)) {
-        ctx.fillText(l, cx, ty);
-        ty += 21;
+      y += 6 * k;
+      ctx.font = `700 ${f.title}px Inter`;
+      for (const l of b.ll) {
+        y += f.title * 1.3;
+        ctx.fillText(l, cx, y);
       }
-      if (c.organizer) {
-        circleImage(ctx, logos[c.organizer], cx, ty + 12, 14, '#E8E2D6');
-      }
-      y += h + 12;
-    });
+      y += f.gap;
+    }
   });
   ctx.textAlign = 'left';
-
-  // Pied
-  const fy = H - footerH;
-  const fg = ctx.createLinearGradient(0, fy, W, H);
-  fg.addColorStop(0, NAVY);
-  fg.addColorStop(1, NAVY2);
-  ctx.fillStyle = fg;
-  ctx.fillRect(0, fy, W, footerH);
-  ctx.fillStyle = bar;
-  ctx.fillRect(0, fy, W, 6);
-  ctx.fillStyle = '#ffffff';
-  ctx.font = '600 38px Fraunces';
-  ctx.fillText('LILMOD', margin, fy + 62);
-  ctx.font = '700 22px Inter';
-  const live = 'La Torah en LIVE';
-  ctx.fillText(live, margin + 190, fy + 56);
-  const lw = ctx.measureText(live).width;
-  ctx.fillStyle = '#E53935';
-  ctx.beginPath();
-  ctx.arc(margin + 190 + lw + 18, fy + 49, 8, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.fillStyle = 'rgba(255,255,255,0.8)';
-  ctx.font = '400 19px Inter';
-  ctx.fillText('Programme, liens et replays sur lilmod.fr', margin + 190, fy + 90);
-  if (tmLogo) {
-    const h = 74;
-    const w = (tmLogo.width / tmLogo.height) * h;
-    ctx.drawImage(tmLogo, W - margin - w, fy + (footerH - h) / 2 + 3, w, h);
-  }
 }
 
 export default function PosterPanel({ data, weekStart, flash, onSaved }: any) {
   const ref = useRef<HTMLCanvasElement>(null);
   const [busy, setBusy] = useState('');
   const render = useCallback(async () => {
-    if (ref.current && data) await drawPoster(ref.current, { courses: data.courses || [], teachers: data.teachers || [], weekStart, parasha: data.parasha });
+    if (ref.current && data) await drawPoster(ref.current, { courses: data.courses || [], teachers: data.teachers || [], weekStart });
   }, [data, weekStart]);
   useEffect(() => {
     render();
