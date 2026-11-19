@@ -6,11 +6,7 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# Économie de crédits Netlify : seule la branche main est construite et publiée.
-# Les autres branches (ex. « plateforme ») ne déclenchent aucun déploiement.
-[context.branch-deploy]
-  ignore = "exit 0"
-
+# Économie de crédits Netlify : pas de prévisualisation automatique des pull requests.
 [context.deploy-preview]
   ignore = "exit 0"
 

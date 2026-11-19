@@ -8,17 +8,25 @@ import path from 'node:path';
 
 const memory = new Map();
 let blobStore = null;
+let getStoreFn = null;
 
+/**
+ * Le magasin Netlify Blobs est recréé à CHAQUE appel : le jeton d'accès fourni par Netlify
+ * est propre à la requête et expire. Le garder en mémoire d'une requête à l'autre
+ * provoquait « Failed to decode token: Token expired » sur les fonctions restées actives.
+ */
 async function netlifyStore() {
-  if (blobStore !== null) return blobStore;
+  if (blobStore === false) return false;
   if (process.env.LILMOD_STORE_DIR || process.env.LILMOD_STORE === 'memory') return (blobStore = false);
-  try {
-    const { getStore } = await import('@netlify/blobs');
-    blobStore = getStore({ name: 'lilmod', consistency: 'strong' });
-  } catch {
-    blobStore = false;
+  if (!getStoreFn) {
+    try {
+      getStoreFn = (await import('@netlify/blobs')).getStore;
+    } catch {
+      return (blobStore = false); // module absent (environnement local sans Netlify)
+    }
   }
-  return blobStore;
+  // Une erreur ici (contexte Netlify absent) remonte : on ne bascule jamais en silence vers la mémoire.
+  return getStoreFn({ name: 'lilmod', consistency: 'strong' });
 }
 
 function filePath(key) {
@@ -58,4 +66,5 @@ export async function writeJSON(key, value) {
 export function resetMemoryStore() {
   memory.clear();
   blobStore = null;
+  getStoreFn = null;
 }
