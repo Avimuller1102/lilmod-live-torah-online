@@ -22,13 +22,18 @@ const ORANGE = '#E8920F';
 const INK = '#2B2B2B';
 const GREY = '#7A7A7A';
 
-const ORG_LOGOS: Record<string, string> = {
-  LILMOD: '/images/partners/lilmod-fleur.webp',
-  'Midreshet Yehouda-Manitou': '/images/partners/manitou.webp',
-  'Le HOUG': '/images/partners/houg-affiche.webp',
-  'Emounah Chelema': '/images/partners/emouna-chelema.webp',
-  "Manitou l'hébreu": '/images/partners/manitou-hebreu.webp',
+/**
+ * Logos des organisateurs, dessinés dans un rond blanc cerclé d'orange (style de l'affiche LILMOD).
+ * fill : l'image remplit tout le rond (photo, emblème déjà rond) ; sinon elle est centrée avec une marge.
+ */
+const ORG_LOGOS: Record<string, { src: string; fill?: boolean; scale?: number }> = {
+  LILMOD: { src: '/images/partners/lilmod-fleur.webp', scale: 0.86 },
+  'Midreshet Yehouda-Manitou': { src: '/images/partners/manitou.webp', scale: 0.78 },
+  'Le HOUG': { src: '/images/partners/houg-rond.webp', fill: true },
+  'Emounah Chelema': { src: '/images/partners/emouna-rond.webp', fill: true },
+  "Manitou l'hébreu": { src: '/images/partners/manitou-hebreu.webp', fill: true },
 };
+const RING = '#EFA52F';
 
 const loadImage = (src: string) =>
   new Promise<HTMLImageElement | null>((resolve) => {
@@ -61,13 +66,29 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number, max
   return lines;
 }
 
-/** Logo centré dans une boîte, proportions conservées. */
-function drawLogo(ctx: CanvasRenderingContext2D, img: HTMLImageElement | null, cx: number, top: number, box: number) {
-  if (!img) return;
-  const s = Math.min((box * 1.9) / img.width, box / img.height); // logos larges (HOUG) : jusqu'à 1,9 × la hauteur
-  const w = img.width * s;
-  const h = img.height * s;
-  ctx.drawImage(img, cx - w / 2, top + (box - h) / 2, w, h);
+/** Logo dans un rond blanc cerclé d'orange. */
+function drawLogo(ctx: CanvasRenderingContext2D, img: HTMLImageElement | null, opts: { fill?: boolean; scale?: number }, cx: number, top: number, box: number) {
+  const r = box / 2;
+  const cy = top + r;
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = '#ffffff';
+  ctx.fill();
+  if (img) {
+    ctx.clip();
+    const target = opts.fill ? box : box * (opts.scale ?? 0.8);
+    const s = opts.fill ? Math.max(target / img.width, target / img.height) : Math.min(target / img.width, target / img.height);
+    const w = img.width * s;
+    const h = img.height * s;
+    ctx.drawImage(img, cx - w / 2, cy - h / 2, w, h);
+  }
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(cx, cy, r - 0.75, 0, Math.PI * 2);
+  ctx.lineWidth = 1.5;
+  ctx.strokeStyle = RING;
+  ctx.stroke();
 }
 
 const hhmm = (t: string) => t.replace(':', 'H');
@@ -76,7 +97,7 @@ const ddmm = (key: string) => `${key.slice(8, 10)}/${key.slice(5, 7)}`;
 export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers, weekStart }: any) {
   await Promise.all(['800 24px Inter', '700 14px Inter', '500 26px Inter'].map((f) => document.fonts.load(f).catch(() => null)));
   const teacherName = (id: string) => teachers.find((t: any) => t.id === id)?.name || '';
-  const [template, ...logoList] = await Promise.all([loadImage(TEMPLATE), ...Object.values(ORG_LOGOS).map(loadImage)]);
+  const [template, ...logoList] = await Promise.all([loadImage(TEMPLATE), ...Object.values(ORG_LOGOS).map((o) => loadImage(o.src))]);
   const logos = Object.fromEntries(Object.keys(ORG_LOGOS).map((k, i) => [k, logoList[i]]));
 
   canvas.width = TW * SCALE;
@@ -105,7 +126,7 @@ export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers,
 
     // Mise en page : on réduit légèrement les tailles si la colonne est trop remplie.
     const layout = (k: number) => {
-      const f = { logo: 46 * k, time: 24 * k, il: 12.5 * k, teacher: 17 * k, title: 13.5 * k, gap: 22 * k };
+      const f = { logo: 52 * k, time: 24 * k, il: 12.5 * k, teacher: 17 * k, title: 13.5 * k, gap: 22 * k };
       const blocks = list.map((c: any) => {
         ctx.font = `800 ${f.teacher}px Inter`;
         const tl = wrap(ctx, teacherName(c.teacherId).toUpperCase(), maxW, 3);
@@ -127,7 +148,8 @@ export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers,
     let y = BODY_TOP + 14;
     for (const b of L.blocks) {
       const { f } = L;
-      drawLogo(ctx, logos[b.c.organizer] || logos.LILMOD, cx, y, f.logo);
+      const org = ORG_LOGOS[b.c.organizer] ? b.c.organizer : 'LILMOD';
+      drawLogo(ctx, logos[org], ORG_LOGOS[org], cx, y, f.logo);
       y += f.logo + 6 * k + f.time;
       const { fr, il } = dualTimes(b.c.start);
       ctx.fillStyle = ORANGE;
