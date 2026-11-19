@@ -63,7 +63,7 @@ export const SEED_TEACHERS = [
   { id: 'ben-ichay', name: 'Rav Yehouda Ben Ichay', shortName: 'Rav Ben Ichay', photo: '/images/speakers/ben-ichay.webp', specialty: 'Paracha de la semaine', bio: '', aliases: ['ben ichay', 'ben ichai', 'ben ishai', 'benichay', 'ben-ichay'] },
   { id: 'ben-shoushan', name: 'Rav Yossef Ben Shoushan', shortName: 'Rav Ben Shoushan', photo: '/images/speakers/ben-shoushan.webp', specialty: 'Pensée du Rav Kook', bio: '', aliases: ['ben shoushan', 'benshoushan', 'ben-shoushan', 'ben chouchan'] },
   { id: 'botshko', name: 'Rav Botshko', shortName: 'Rav Botshko', photo: '/images/speakers/botshko.webp', specialty: 'Philosophie juive', bio: '', aliases: ['botshko', 'botschko'] },
-  { id: 'chouraqui', name: 'Rav Chouraqui', shortName: 'Rav Chouraqui', photo: '/images/speakers/chouraqui.webp', specialty: 'Talmud', bio: '', aliases: ['chouraqui'] },
+  { id: 'chouraqui', name: 'Rav Itshak Chouraqui', shortName: 'Rav Chouraqui', photo: '/images/speakers/chouraqui.webp', specialty: 'Talmud', bio: '', aliases: ['chouraqui'] },
   { id: 'fizson', name: 'Rav Eytan Fiszon', shortName: 'Rav Fiszon', photo: '/images/speakers/fizson.webp', specialty: 'Textes de la prière', bio: '', aliases: ['fizson', 'fiszon', 'eytan fiszon'] },
   { id: 'spira', name: 'Georges Spira', shortName: 'Georges Spira', photo: '/images/speakers/spira.webp', specialty: 'Philosophie et pensée juive', bio: '', aliases: ['georges spira', 'spira'] },
   { id: 'kling', name: 'Rav Elie Kling', shortName: 'Rav Kling', photo: '/images/speakers/kling.webp', specialty: 'Paracha et enseignement', bio: '', aliases: ['kling'] },
