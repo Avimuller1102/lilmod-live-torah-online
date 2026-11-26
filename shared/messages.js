@@ -94,6 +94,9 @@ const COLORS = { navy: '#10243D', gold: '#B88A24', sand: '#F8F5EF', text: '#2626
 const YOUTUBE_URL = 'https://www.youtube.com/@Lilmodfr';
 
 /** Gabarit e-mail inspiré de la newsletter LILMOD habituelle (colonne centrée, blocs par jour). */
+/** Lien « Le programme complet et les horaires sur lilmod.fr » en bas des e-mails : retiré à la demande de l'équipe (remettre à true pour le réafficher). */
+const SHOW_PROGRAMME_LINK = false;
+
 function emailShell({ siteUrl, preheader, title, subtitle, body, contactEmail, whatsappUrl, posterUrl }) {
   const btn = (href, label, bg) =>
     `<a class="btn" href="${escapeHtml(href)}" style="display:inline-block;background:${bg};color:#ffffff;text-decoration:none;font-weight:bold;font-size:15px;padding:13px 26px;border-radius:24px">${label}</a>`;
@@ -123,7 +126,7 @@ ${whatsappUrl ? btn(whatsappUrl, 'Rejoindre le groupe WhatsApp', '#25D366') : ''
 <p style="margin:0 0 4px;font-size:22px;font-weight:bold;color:#FF0000">YouTube</p>
 <p style="margin:0 0 14px;font-size:14px;line-height:1.6">Abonnez-vous à notre chaîne pour revoir tous les replays.</p>
 ${btn(YOUTUBE_URL, 'Voir les replays', '#E62117')}
-<p style="margin:16px 0 0;font-size:14px"><a href="${siteUrl}/programme/" style="color:${COLORS.navy};font-weight:bold">Le programme complet et les horaires sur lilmod.fr</a></p>
+${SHOW_PROGRAMME_LINK ? `<p style="margin:16px 0 0;font-size:14px"><a href="${siteUrl}/programme/" style="color:${COLORS.navy};font-weight:bold">Le programme complet et les horaires sur lilmod.fr</a></p>` : ''}
 </td></tr>
 <tr><td align="center" class="pad" style="padding:22px 24px;border-top:1px solid ${COLORS.line};font-size:12px;line-height:1.6;color:${COLORS.muted}">
 LILMOD by Torah MiTzion — cours de Torah en français, en direct d'Israël.<br>
