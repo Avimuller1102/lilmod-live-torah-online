@@ -129,9 +129,15 @@ export async function drawPoster(canvas: HTMLCanvasElement, { courses, teachers,
       const f = { logo: 52 * k, time: 24 * k, il: 12.5 * k, teacher: 17 * k, title: 13.5 * k, gap: 22 * k };
       const blocks = list.map((c: any) => {
         ctx.font = `800 ${f.teacher}px Inter`;
-        const tl = wrap(ctx, teacherName(c.teacherId).toUpperCase(), maxW, 3);
+        // Sans enseignant unique (ex. conférence à plusieurs voix) : « Titre – avec X, Y… »
+        // → le titre prend la place du nom, la liste des intervenants passe dessous.
+        const name = teacherName(c.teacherId);
+        const split = !name ? String(c.title).split(/\s+[–—-]\s+(?=avec\s)/i) : [];
+        const head = name || (split.length > 1 ? split[0] : '');
+        const body = name || split.length < 2 ? c.title : split.slice(1).join(' – ').replace(/^avec/i, 'Avec');
+        const tl = wrap(ctx, head.toUpperCase(), maxW, 4);
         ctx.font = `700 ${f.title}px Inter`;
-        const ll = wrap(ctx, c.title, maxW, 6);
+        const ll = wrap(ctx, body, maxW, 8);
         const h = f.logo + 6 * k + f.time + f.il + 8 * k + tl.length * f.teacher * 1.15 + 6 * k + ll.length * f.title * 1.3;
         return { c, tl, ll, h };
       });
