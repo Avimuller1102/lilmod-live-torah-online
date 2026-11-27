@@ -22,7 +22,7 @@ export async function fetchParasha(dayKey) {
     if (!res.ok) return '';
     const data = await res.json();
     const item = (data.items || []).find((i) => i.category === 'parashat');
-    return item ? String(item.title).replace(/^Parac?hah?t?\s+|^Parashah?t?\s+/i, '') : '';
+    return item ? String(item.title).replace(/^Parac?hah?t?\s+|^Parashah?t?\s+/i, '').replace(/\u0332/g, '').normalize('NFC') : '';
   } catch {
     return '';
   }
@@ -124,7 +124,10 @@ export async function emailAction({ kind, period, action, sendAt, confirm, testE
 
   try {
     const mcSettings = settings.mailchimp;
-    if (!record.campaignId) {
+    if (record.campaignId) {
+      // Le brouillon existe déjà : on y remet le contenu à jour (affiche, horaires, titres modifiés depuis).
+      await mailchimp.updateDraftCampaign(record.campaignId, { subject, previewText: built.email.previewText, html });
+    } else {
       const campaign = await mailchimp.createDraftCampaign({
         audienceId: mcSettings.audienceId,
         tag: kind === 'daily' ? mcSettings.dailyTag : mcSettings.weeklyTag,

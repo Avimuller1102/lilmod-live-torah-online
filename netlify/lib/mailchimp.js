@@ -81,6 +81,15 @@ export const sendNow = (campaignId) => mc(`/campaigns/${campaignId}/actions/send
 export const campaignStatus = (campaignId) => mc(`/campaigns/${campaignId}?fields=id,status,send_time,emails_sent`);
 
 /** Dernière campagne envoyée : objet, date et version texte (pour l'import du programme). */
+/** Met à jour l'objet et le contenu d'une campagne encore en brouillon (jamais une campagne programmée ou envoyée). */
+export async function updateDraftCampaign(id, { subject, previewText, html }) {
+  const current = await mc(`/campaigns/${id}?fields=status`);
+  if (current.status !== 'save' && current.status !== 'paused') return false;
+  await mc(`/campaigns/${id}`, { method: 'PATCH', body: { settings: { subject_line: subject, preview_text: previewText } } });
+  await mc(`/campaigns/${id}/content`, { method: 'PUT', body: { html } });
+  return true;
+}
+
 export async function lastSentCampaign() {
   const list = await mc('/campaigns?status=sent&sort_field=send_time&sort_dir=DESC&count=1&fields=campaigns.id,campaigns.send_time,campaigns.settings.subject_line');
   const campaign = list.campaigns?.[0];

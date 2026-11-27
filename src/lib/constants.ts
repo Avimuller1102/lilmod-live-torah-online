@@ -61,6 +61,7 @@ export const IMAGES = {
     manitou: "/images/partners/manitou.webp",
     houg: "/images/partners/houg.webp",
     emounaChelema: "/images/partners/emouna-chelema.webp",
+    kkl: "/images/partners/kkl.webp",
   },
 } as const;
 
@@ -200,6 +201,12 @@ export const PARTNERS = [
     id: 2,
     name: "HOUG",
     logo: IMAGES.partners.houg,
+    url: "#",
+  },
+  {
+    id: 3,
+    name: "KKL-JNF (Keren Kayemeth LeIsrael)",
+    logo: IMAGES.partners.kkl,
     url: "#",
   },
 ] as const;

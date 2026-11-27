@@ -26,6 +26,7 @@ globalThis.fetch = async (url, opts = {}) => {
     if (u.endsWith('/ping')) return new Response(JSON.stringify({ health_status: 'ok' }));
     if (u.includes('/segments')) return new Response(JSON.stringify({ segments: [{ id: 77, name: 'quotidien' }] }));
     if (u.endsWith('/campaigns') && opts.method === 'POST') return new Response(JSON.stringify({ id: 'camp1', web_id: 1 }));
+    if (u.includes('/campaigns/camp1?fields=status')) return new Response(JSON.stringify({ status: 'save' }));
     return new Response('{}');
   }
   return realFetch(url, opts);
@@ -134,6 +135,15 @@ test('communications : aperçu, WhatsApp, verrous Mailchimp', async () => {
   assert.equal(draft.data.record.status, 'test');
   assert.ok(mailchimpCalls.some((c) => c.url.includes('/actions/test')));
   assert.ok(!mailchimpCalls.some((c) => c.url.includes('/actions/send') || c.url.includes('/actions/schedule')), 'aucun envoi réel');
+
+  // Second test : le brouillon existant est remis à jour (objet + contenu), sans nouvelle campagne
+  mailchimpCalls.length = 0;
+  const again = await A('POST', '/comms/email', { kind: 'weekly', period: nextWeek, action: 'test' });
+  assert.equal(again.status, 200, JSON.stringify(again.data));
+  assert.ok(!mailchimpCalls.some((c) => c.url.endsWith('/campaigns') && c.method === 'POST'), 'pas de nouvelle campagne');
+  assert.ok(mailchimpCalls.some((c) => c.url.endsWith('/campaigns/camp1/content') && c.method === 'PUT'), 'contenu mis à jour');
+  const patch = mailchimpCalls.find((c) => c.url.endsWith('/campaigns/camp1') && c.method === 'PATCH');
+  assert.ok(patch && !JSON.parse(patch.body).settings.subject_line.includes('Paracha'), 'objet sans la paracha');
 
   const locked = await A('POST', '/comms/email', { kind: 'weekly', period: nextWeek, action: 'schedule', confirm: 'ENVOYER', sendAt: new Date(Date.now() + 3600e3).toISOString() });
   assert.equal(locked.status, 403, 'envois réels verrouillés par défaut');

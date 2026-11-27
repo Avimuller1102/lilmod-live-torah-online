@@ -172,7 +172,7 @@ export function emailWeekly(courses, { teachers = [], siteUrl, weekStart, parash
   if (!body) body = `<p style="font-size:15px;text-align:center">Le programme de la semaine sera bientôt publié sur <a href="${siteUrl}/programme/">lilmod.fr</a>.</p>`;
   const heading = title || 'Programme de la semaine LILMOD';
   return {
-    subject: `${heading}${parasha ? ` · Paracha ${parasha}` : ''}`,
+    subject: heading, // objet souhaité par l'équipe : le titre seul, sans la paracha
     previewText: `${list.length} cours cette semaine, en direct d'Israël`,
     html: emailShell({ siteUrl, preheader: `${list.length} cours cette semaine`, title: heading, subtitle: [`Semaine du ${formatDayKey(weekStart)}`, parasha && `Paracha ${parasha}`].filter(Boolean).join(' · '), body, contactEmail, whatsappUrl, posterUrl }),
     courseIds: list.map((c) => c.id),
